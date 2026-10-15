@@ -1,0 +1,116 @@
+<?php
+
+use App\Modules\Companies\Connectors\GleifLeiCountsConnector;
+use App\Modules\Companies\Connectors\GleifOmanConnector;
+use App\Modules\Gcc\Connectors\GccStatEconomyConnector;
+use App\Modules\Gcc\Connectors\GccStatEnergyTourismConnector;
+use App\Modules\Gcc\Connectors\GccStatSocietyConnector;
+use App\Modules\Macro\Connectors\ImfAiReadinessConnector;
+use App\Modules\Macro\Connectors\ImfDebtDatabaseConnector;
+use App\Modules\Macro\Connectors\ImfFiscalMonitorConnector;
+use App\Modules\Macro\Connectors\ImfReservesConnector;
+use App\Modules\Macro\Connectors\ImfWeoConnector;
+use App\Modules\Manafeth\Connectors\ManafethPartnersConnector;
+use App\Modules\Manafeth\Connectors\ManafethTotalsConnector;
+use App\Modules\Ncsi\Connectors\NcsiCommunicationConnector;
+use App\Modules\Ncsi\Connectors\NcsiNationalAccountsConnector;
+use App\Modules\Ncsi\Connectors\NcsiOilGasConnector;
+use App\Modules\Ncsi\Connectors\NcsiPricesConnector;
+use App\Modules\Undp\Connectors\UndpHdrConnector;
+use App\Modules\Wits\Connectors\WitsTradeConnector;
+use App\Modules\WorldBank\Connectors\WorldBankDigitalConnector;
+use App\Modules\WorldBank\Connectors\WorldBankEnvironmentConnector;
+use App\Modules\WorldBank\Connectors\WorldBankFinanceConnector;
+use App\Modules\WorldBank\Connectors\WorldBankGovernanceConnector;
+use App\Modules\WorldBank\Connectors\WorldBankHealthConnector;
+use App\Modules\WorldBank\Connectors\WorldBankLabourConnector;
+use App\Modules\WorldBank\Connectors\WorldBankMacroConnector;
+use App\Modules\WorldBank\Connectors\WorldBankSocietyConnector;
+use App\Modules\WorldBank\Connectors\WorldBankTourismConnector;
+use App\Modules\WorldBank\Connectors\WorldBankTradeConnector;
+
+return [
+    'display_timezone' => 'Asia/Muscat',
+
+    // كلمات مرور أدوار قاعدة البيانات (تُنشأ في الترحيل الأول).
+    'db_roles' => [
+        'app_reader' => env('DB_APP_READER_PASSWORD', 'reader_dev'),
+        'ingest_writer' => env('DB_INGEST_WRITER_PASSWORD', 'ingest_dev'),
+        'promoter' => env('DB_PROMOTER_PASSWORD', 'promoter_dev'),
+    ],
+
+    // الموصلات المسجّلة. إضافة مصدر جديد = كلاس ينفّذ Connector + سطر هنا.
+    'connectors' => [
+        ImfWeoConnector::class,
+        ImfFiscalMonitorConnector::class,
+        ImfDebtDatabaseConnector::class,
+        ImfReservesConnector::class,
+        ImfAiReadinessConnector::class,
+        GccStatEconomyConnector::class,
+        GccStatSocietyConnector::class,
+        GccStatEnergyTourismConnector::class,
+        WorldBankMacroConnector::class,
+        WorldBankTradeConnector::class,
+        WorldBankSocietyConnector::class,
+        WorldBankDigitalConnector::class,
+        WorldBankHealthConnector::class,
+        WorldBankEnvironmentConnector::class,
+        WorldBankTourismConnector::class,
+        WorldBankFinanceConnector::class,
+        WorldBankLabourConnector::class,
+        WorldBankGovernanceConnector::class,
+        NcsiPricesConnector::class,
+        NcsiNationalAccountsConnector::class,
+        NcsiOilGasConnector::class,
+        NcsiCommunicationConnector::class,
+        ManafethTotalsConnector::class,
+        WitsTradeConnector::class,
+        UndpHdrConnector::class,
+        GleifOmanConnector::class,
+        GleifLeiCountsConnector::class,
+        ManafethPartnersConnector::class,
+    ],
+
+    // رموز كيانات يستعملها مصدر ويستعمل غيره رمزًا آخر لنفس الكيان. المفتاح (الشاذ) => الرمز الموحَّد.
+    'entity_aliases' => [
+        'UVK' => 'XKX', // كوسوفو: IMF مقابل البنك الدولي
+        'WBG' => 'PSE', // الضفة الغربية وغزة: IMF مقابل البنك الدولي
+    ],
+
+    // رموز دول منافذ (تقترب من ISO numeric القديم) التي لا يترجمها مرجع الأمم المتحدة صحيحًا: مفقودة منه
+    // (أمريكا 840، فرنسا 250، النرويج 578، سويسرا 756…) أو تشير فيه إلى كيان منتهٍ (200 تشيكوسلوفاكيا، 720 اليمن الجنوبي).
+    // المفتاح: رمز منافذ الرقمي => ISO3 الصحيح. تحقّقتُ منها من أسماء منافذ نفسها (ENG_DESC).
+    'manafeth_country_overrides' => [
+        16 => 'ASM', 162 => 'CXR', 200 => 'CZE', 250 => 'FRA', 316 => 'GUM', 438 => 'LIE', 492 => 'MCO', 529 => 'ABW',
+        578 => 'NOR', 581 => 'UMI', 630 => 'PRI', 720 => 'YEM', 732 => 'ESH', 756 => 'CHE', 831 => 'GGY', 832 => 'JEY',
+        840 => 'USA', 856 => 'PLW', 901 => 'TWN', 999 => 'PSE',
+        512 => 'OFZ', // «عُمان – المناطق الحرة»: تدفقات مع مناطق حرة داخل عُمان؛ كيان مستقل لا يُدمج مع دولة عُمان
+        0 => 'ZZZ', // «غير محدد»: صادرات/واردات بلا دولة منشأ أو وجهة معلنة (نحو 8% من صادرات 2022)؛ تُحفظ ككيان مستقل كي تتطابق المجاميع
+    ],
+
+    'ingest' => [
+        // تأخير إعادة المحاولة بالدقائق بعد كل فشل متتالٍ (يُقصّ عند آخر عنصر).
+        'retry_backoff_minutes' => [5, 15, 60, 240],
+        // عدد الإخفاقات المتتالية قبل اعتبار المجموعة failing وإرسال تنبيه.
+        'failures_before_alert' => 3,
+        // المجموعة تُعد متأخرة (stale) إذا تجاوز عمر آخر نجاح دورتها × هذا المعامل.
+        'stale_factor' => 1.5,
+        'http_timeout_seconds' => 60,
+        // GLEIF: الحد المعلن 60 طلبًا/دقيقة.
+        'gleif_throttle_microseconds' => 1_100_000,
+        // بين طلبات pivot في بوابة data.gov.om: تخنق الطلبات المتتابعة السريعة.
+        'knoema_throttle_microseconds' => 1_200_000,
+        'user_agent' => 'OmaniLab/1.0 (+economic-data-monitor)',
+    ],
+
+    'alerts' => [
+        // لا يتكرر نفس التنبيه لنفس المجموعة قبل مرور هذه المدة.
+        'dedupe_hours' => 6,
+        'digest_time' => '07:00', // بتوقيت مسقط
+    ],
+
+    'telegram' => [
+        'token' => env('TELEGRAM_BOT_TOKEN'),
+        'chat_id' => env('TELEGRAM_CHAT_ID'),
+    ],
+];

@@ -1,0 +1,186 @@
+# المخبر العماني — بنية الحاويات (المرحلة 1)
+#
+# الشبكات:   data (قاعدة البيانات وredis، داخلية) | web (caddy<->app، داخلية) | ingest (حاويات الجلب، إنترنت صادر) | public (caddy فقط)
+# الأدوار:   كل حاوية تتصل بقاعدة البيانات بدور مختلف بأقل صلاحية (انظر migrations/..._create_roles_and_schemas)
+#   app             -> app_reader     قراءة فقط، بلا إنترنت صادر (شبكات داخلية فقط، خلف caddy)
+#   worker-ingest   -> ingest_writer  يكتب raw/staging وسجل التشغيل فقط
+#   worker-promote  -> promoter       الكاتب الوحيد في core
+#   scheduler       -> ingest_writer  يقرر ما يُفحص الآن فقط
+name: omanilab
+
+x-app: &app
+  image: omanilab/app:dev
+  build:
+    context: .
+    dockerfile: docker/app/Dockerfile
+  env_file: [.env]
+  volumes:
+    - ./app:/app/app
+    - ./config:/app/config
+    - ./routes:/app/routes
+    - ./database:/app/database
+    - ./resources:/app/resources
+  depends_on:
+    db: { condition: service_healthy }
+    redis: { condition: service_healthy }
+  restart: unless-stopped
+
+x-env: &env
+  LOG_CHANNEL: stderr          # السجلات تظهر في docker compose logs
+  DB_HOST: db
+  DB_PORT: 5432
+  REDIS_HOST: redis
+  REDIS_PORT: 6379
+  REDIS_CLIENT: predis
+
+services:
+  db:
+    image: ghcr.io/baosystems/postgis:17-3.5
+    environment:
+      POSTGRES_USER: ${DB_OWNER_USERNAME:-omani}
+      POSTGRES_PASSWORD: ${DB_OWNER_PASSWORD:-omani_dev}
+      POSTGRES_DB: ${DB_DATABASE:-omanilab}
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+      - ./docker/db/init-test-db.sql:/docker-entrypoint-initdb.d/10-test-db.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_OWNER_USERNAME:-omani} -d ${DB_DATABASE:-omanilab}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks: [data]
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes: [redisdata:/data]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    networks: [data]
+
+  migrate:
+    <<: *app
+    # لا تدخّل يدوي: ترحيل القاعدة ثم مزامنة تعريفات المصادر. بقية الحاويات تنتظر نجاحه.
+    command: ["sh", "-c", "php artisan migrate --database=admin --force && php artisan datasets:sync"]
+    restart: "no"
+    environment:
+      <<: *env
+    networks: [data]
+
+  app:
+    <<: *app
+    depends_on:
+      db: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      migrate: { condition: service_completed_successfully }
+    command: ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+    environment:
+      <<: *env
+      DB_USERNAME: app_reader
+      DB_PASSWORD: ${DB_APP_READER_PASSWORD:-reader_dev}
+      PHP_CLI_SERVER_WORKERS: 6   # الصفحة الواحدة تطلب عدة مخططات معًا؛ بدونها تتسلسل الطلبات
+    networks: [web, data]      # شبكتان داخليتان فقط: لا إنترنت صادر إطلاقًا
+
+  caddy:
+    image: caddy:2-alpine
+    ports: ["127.0.0.1:${APP_PORT:-8100}:80"]
+    volumes: [./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro]
+    depends_on: [app]
+    networks: [public, web]    # الوحيدة التي ترى الإنترنت، ولا ترى قاعدة البيانات
+    restart: unless-stopped
+
+  worker-ingest:
+    <<: *app
+    depends_on:
+      db: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      migrate: { condition: service_completed_successfully }
+    command: ["php", "-d", "memory_limit=1G", "artisan", "queue:work", "redis", "--queue=ingest", "--tries=1", "--timeout=1500", "--max-time=3600", "--memory=900"]
+    environment:
+      <<: *env
+      DB_USERNAME: ingest_writer
+      DB_PASSWORD: ${DB_INGEST_WRITER_PASSWORD:-ingest_dev}
+    networks: [ingest, data]
+
+
+  # عامل ثانٍ للمصادر الثقيلة (WITS، أعداد LEI، شركاء منافذ): دقائق طويلة، فلا تحجب الخفيفة.
+  worker-ingest-heavy:
+    <<: *app
+    depends_on:
+      db: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      migrate: { condition: service_completed_successfully }
+    command: ["php", "-d", "memory_limit=2G", "artisan", "queue:work", "redis", "--queue=ingest-heavy", "--tries=1", "--timeout=2400", "--max-time=3600", "--memory=1800"]
+    environment:
+      <<: *env
+      DB_USERNAME: ingest_writer
+      DB_PASSWORD: ${DB_INGEST_WRITER_PASSWORD:-ingest_dev}
+    networks: [ingest, data]
+
+  worker-promote:
+    <<: *app
+    depends_on:
+      db: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      migrate: { condition: service_completed_successfully }
+    command: ["php", "-d", "memory_limit=2G", "artisan", "queue:work", "redis", "--queue=promote", "--tries=1", "--timeout=1500", "--max-time=3600", "--memory=1800"]
+    environment:
+      <<: *env
+      DB_USERNAME: promoter
+      DB_PASSWORD: ${DB_PROMOTER_PASSWORD:-promoter_dev}
+    networks: [data, ingest]   # ingest فقط لإرسال تنبيهات تيليجرام
+
+  scheduler:
+    <<: *app
+    depends_on:
+      db: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      migrate: { condition: service_completed_successfully }
+    # يرسل المستحق فور الإقلاع (المجموعات الجديدة تُجلب دون انتظار)، ثم يتولى المُجدوِل.
+    command: ["sh", "-c", "php artisan datasets:dispatch; exec php artisan schedule:work"]
+    environment:
+      <<: *env
+      DB_USERNAME: ingest_writer
+      DB_PASSWORD: ${DB_INGEST_WRITER_PASSWORD:-ingest_dev}
+    networks: [ingest, data]
+
+  # نسخ احتياطي يومي (pg_dump -Fc) إلى حجم backups، يُحتفظ بآخر 14 نسخة. الاستعادة: انظر README.
+  backup:
+    image: postgres:17-alpine
+    entrypoint: ["sh", "/backup.sh"]
+    environment:
+      PGHOST: db
+      PGUSER: ${DB_OWNER_USERNAME:-omani}
+      PGPASSWORD: ${DB_OWNER_PASSWORD:-omani_dev}
+      PGDATABASE: ${DB_DATABASE:-omanilab}
+      BACKUP_KEEP: ${BACKUP_KEEP:-14}
+    volumes:
+      - ./docker/backup/backup.sh:/backup.sh:ro
+      - backups:/backups
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+    healthcheck:
+      # سليمة إن وُجدت نسخة ناجحة عمرها أقل من 26 ساعة
+      test: ["CMD-SHELL", "[ -f /backups/LAST_OK ] && [ $$(( $$(date +%s) - $$(cat /backups/LAST_OK) )) -lt 93600 ]"]
+      interval: 5m
+      timeout: 10s
+      retries: 3
+      start_period: 10m
+    networks: [data]
+    restart: unless-stopped
+
+networks:
+  public: {}                   # caddy فقط
+  web:
+    internal: true             # caddy <-> app
+  ingest: {}
+  data:
+    internal: true
+
+volumes:
+  backups: {}
+  dbdata: {}
+  redisdata: {}

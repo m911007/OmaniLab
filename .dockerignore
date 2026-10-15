@@ -1,0 +1,12 @@
+.git
+vendor
+node_modules
+storage/logs/*
+storage/framework/cache/*
+.env
+bootstrap/cache/*.php
+storage/framework/views/*
+frontend/node_modules
+frontend/dist
+public/assets
+public/spa.html
