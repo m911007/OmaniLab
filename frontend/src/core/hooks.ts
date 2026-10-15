@@ -4,6 +4,8 @@ import {
   api,
   type CompaniesResponse,
   type CompanyDetail,
+  type CrossCheckDetail,
+  type CrossCheckGroup,
   type CompanyStats,
   type Dataset,
   type EntityLite,
@@ -13,6 +15,8 @@ import {
   type Point,
   type RankingResponse,
   type RelationsResponse,
+  type Signal,
+  type Scorecard,
   type SeriesResponse,
 } from './api';
 import { assignColors } from './colors';
@@ -174,4 +178,21 @@ export function useRelations(p: { indicator: string; entity: string; period: str
     staleTime: FIVE_MIN,
     enabled: p.period !== '' && p.entity !== '',
   });
+}
+
+export function useScorecard() {
+  return useQuery({ queryKey: ['scorecard'], queryFn: ({ signal }) => api<Scorecard>('insights/scorecard', {}, signal), staleTime: 10 * 60_000 });
+}
+
+export function useSignals() {
+  return useQuery({ queryKey: ['signals'], queryFn: ({ signal }) => api<{ data: Signal[] }>('insights/signals', {}, signal).then((r) => r.data), staleTime: 5 * 60_000, refetchInterval: 15 * 60_000 });
+}
+
+/** القياسات المنشورة من عدة مصادر وحكم مطابقتها لكيان (الافتراضي عُمان). */
+export function useCrosschecks(entity = 'OMN') {
+  return useQuery({ queryKey: ['crosschecks', entity], queryFn: ({ signal }) => api<{ data: CrossCheckGroup[] }>('insights/crosschecks', { entity }, signal).then((r) => r.data), staleTime: 10 * 60_000 });
+}
+
+export function useCrosscheckDetail(indicator: string, entity: string, enabled: boolean) {
+  return useQuery({ queryKey: ['crosscheck-detail', indicator, entity], queryFn: ({ signal }) => api<CrossCheckDetail>('insights/crosschecks/detail', { indicator, entity }, signal), staleTime: 10 * 60_000, enabled });
 }

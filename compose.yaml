@@ -64,7 +64,7 @@ services:
   migrate:
     <<: *app
     # لا تدخّل يدوي: ترحيل القاعدة ثم مزامنة تعريفات المصادر. بقية الحاويات تنتظر نجاحه.
-    command: ["sh", "-c", "php artisan migrate --database=admin --force && php artisan datasets:sync"]
+    command: ["sh", "-c", "php artisan migrate --database=admin --force && php artisan datasets:sync && php artisan entities:merge-aliases"]
     restart: "no"
     environment:
       <<: *env

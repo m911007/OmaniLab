@@ -22,6 +22,10 @@ export default function FiscalPage() {
         <SeriesChart title="الرصيد المعدَّل دوريًا" lines={gccLines('imf.GGCB_G01_PGDP_PT')} from="2005" imfForecast />
         <SeriesChart title="دين القطاع الخاص (للدول المتوفرة)" lines={peerLines('imf.Privatedebt_all')} />
       </Section>
+      <Section title="دعم الوقود الأحفوري" lead="الدعم الصريح هو الفرق بين تكلفة الوقود وسعر بيعه؛ والضمني يضيف التكاليف البيئية والصحية والازدحام غير المُسعَّرة. تقديرات صندوق النقد حتى السنة الجارية.">
+        <SeriesChart title="الدعم الصريح للوقود الأحفوري" subtitle="% من الناتج" lines={gccLines('imf.ffs_explicit')} from="2010" />
+        <SeriesChart title="الدعم الضمني للوقود الأحفوري" subtitle="% من الناتج" lines={gccLines('imf.ffs_implicit')} from="2010" />
+      </Section>
       <Section title="عُمان في العالم" lead="ترتيب الدول بحسب آخر سنة فعلية.">
         <WorldRankCard title="الدين الحكومي الإجمالي" indicator="imf.GGXWDG_NGDP" maxPeriod={A} />
         <WorldRankCard title="الإيرادات الحكومية من الناتج" indicator="imf.GGR_G01_GDP_PT" maxPeriod={A} />

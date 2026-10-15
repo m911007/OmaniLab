@@ -2,32 +2,49 @@
 
 use App\Modules\Companies\Connectors\GleifLeiCountsConnector;
 use App\Modules\Companies\Connectors\GleifOmanConnector;
+use App\Modules\Comtrade\Connectors\ComtradeProductsConnector;
+use App\Modules\Fao\Connectors\FaoFoodSecurityConnector;
 use App\Modules\Gcc\Connectors\GccStatEconomyConnector;
 use App\Modules\Gcc\Connectors\GccStatEnergyTourismConnector;
 use App\Modules\Gcc\Connectors\GccStatSocietyConnector;
+use App\Modules\Ilo\Connectors\IloLabourConnector;
 use App\Modules\Macro\Connectors\ImfAiReadinessConnector;
 use App\Modules\Macro\Connectors\ImfDebtDatabaseConnector;
 use App\Modules\Macro\Connectors\ImfFiscalMonitorConnector;
+use App\Modules\Macro\Connectors\ImfFossilSubsidiesConnector;
+use App\Modules\Macro\Connectors\ImfIipConnector;
+use App\Modules\Macro\Connectors\ImfNdGainConnector;
 use App\Modules\Macro\Connectors\ImfReservesConnector;
 use App\Modules\Macro\Connectors\ImfWeoConnector;
 use App\Modules\Manafeth\Connectors\ManafethPartnersConnector;
 use App\Modules\Manafeth\Connectors\ManafethTotalsConnector;
+use App\Modules\Markets\Connectors\ImfCommodityPricesConnector;
+use App\Modules\Markets\Connectors\UsTreasuryYieldsConnector;
 use App\Modules\Ncsi\Connectors\NcsiCommunicationConnector;
 use App\Modules\Ncsi\Connectors\NcsiNationalAccountsConnector;
 use App\Modules\Ncsi\Connectors\NcsiOilGasConnector;
 use App\Modules\Ncsi\Connectors\NcsiPricesConnector;
+use App\Modules\Owid\Connectors\OwidEnergyConnector;
+use App\Modules\Owid\Connectors\OwidIndicesConnector;
 use App\Modules\Undp\Connectors\UndpHdrConnector;
+use App\Modules\Unesco\Connectors\UnescoUisConnector;
+use App\Modules\Who\Connectors\WhoHealthConnector;
 use App\Modules\Wits\Connectors\WitsTradeConnector;
+use App\Modules\WorldBank\Connectors\WorldBankBankingConnector;
 use App\Modules\WorldBank\Connectors\WorldBankDigitalConnector;
 use App\Modules\WorldBank\Connectors\WorldBankEnvironmentConnector;
 use App\Modules\WorldBank\Connectors\WorldBankFinanceConnector;
 use App\Modules\WorldBank\Connectors\WorldBankGovernanceConnector;
 use App\Modules\WorldBank\Connectors\WorldBankHealthConnector;
+use App\Modules\WorldBank\Connectors\WorldBankInnovationConnector;
 use App\Modules\WorldBank\Connectors\WorldBankLabourConnector;
 use App\Modules\WorldBank\Connectors\WorldBankMacroConnector;
+use App\Modules\WorldBank\Connectors\WorldBankProjectionsConnector;
 use App\Modules\WorldBank\Connectors\WorldBankSocietyConnector;
+use App\Modules\WorldBank\Connectors\WorldBankSustainabilityConnector;
 use App\Modules\WorldBank\Connectors\WorldBankTourismConnector;
 use App\Modules\WorldBank\Connectors\WorldBankTradeConnector;
+use App\Modules\WorldBank\Connectors\WorldBankWealthConnector;
 
 return [
     'display_timezone' => 'Asia/Muscat',
@@ -69,12 +86,30 @@ return [
         GleifOmanConnector::class,
         GleifLeiCountsConnector::class,
         ManafethPartnersConnector::class,
+        ImfCommodityPricesConnector::class,
+        UsTreasuryYieldsConnector::class,
+        IloLabourConnector::class,
+        WhoHealthConnector::class,
+        ImfFossilSubsidiesConnector::class,
+        ImfNdGainConnector::class,
+        ImfIipConnector::class,
+        WorldBankBankingConnector::class,
+        WorldBankSustainabilityConnector::class,
+        WorldBankInnovationConnector::class,
+        WorldBankWealthConnector::class,
+        WorldBankProjectionsConnector::class,
+        OwidEnergyConnector::class,
+        OwidIndicesConnector::class,
+        FaoFoodSecurityConnector::class,
+        UnescoUisConnector::class,
+        ComtradeProductsConnector::class,
     ],
 
     // رموز كيانات يستعملها مصدر ويستعمل غيره رمزًا آخر لنفس الكيان. المفتاح (الشاذ) => الرمز الموحَّد.
     'entity_aliases' => [
         'UVK' => 'XKX', // كوسوفو: IMF مقابل البنك الدولي
         'WBG' => 'PSE', // الضفة الغربية وغزة: IMF مقابل البنك الدولي
+        'KOS' => 'XKX', // كوسوفو: WHO وILO مقابل البنك الدولي
     ],
 
     // رموز دول منافذ (تقترب من ISO numeric القديم) التي لا يترجمها مرجع الأمم المتحدة صحيحًا: مفقودة منه

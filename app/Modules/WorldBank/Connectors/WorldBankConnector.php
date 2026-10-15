@@ -48,6 +48,18 @@ abstract class WorldBankConnector extends ApiConnector
         return 2;
     }
 
+    /** آخر سنة تُطلب (2030 افتراضيًا؛ التوقعات السكانية تمتد إلى 2050). */
+    protected function lastYear(): int
+    {
+        return 2030;
+    }
+
+    /** بادئة مفتاح المؤشر الداخلي؛ مجموعة بمصدر مختلف تحتاج بادئة خاصة كي لا يتصادم مؤشرها مع المؤشر نفسه في WDI. */
+    protected function keyPrefix(): string
+    {
+        return 'wb.';
+    }
+
     /** مصدر البنك الدولي (2 = WDI الافتراضي؛ 3 = WGI للحوكمة). null يترك الافتراضي. */
     protected function sourceId(): ?int
     {
@@ -76,7 +88,7 @@ abstract class WorldBankConnector extends ApiConnector
             section: $this->section(),
             intervalMinutes: $this->intervalMinutes(),
             indicators: array_map(fn (WbIndicator $i) => new IndicatorDefinition(
-                key: 'wb.'.$i->code, nameAr: $i->nameAr, nameEn: $i->nameEn, unit: $i->unit, frequency: 'A', rules: $i->rules,
+                key: $this->keyPrefix().$i->code, nameAr: $i->nameAr, nameEn: $i->nameEn, unit: $i->unit, frequency: 'A', rules: $i->rules,
             ), $this->indicators()),
         );
     }
@@ -117,7 +129,7 @@ abstract class WorldBankConnector extends ApiConnector
             $rows = [];
             $page = 1;
             do {
-                $url = self::BASE."/country/all/indicator/{$indicator->code}?format=json&per_page=".self::PER_PAGE."&date=1960:2030&page={$page}".$this->sourceQuery();
+                $url = self::BASE."/country/all/indicator/{$indicator->code}?format=json&per_page=".self::PER_PAGE."&date=1960:{$this->lastYear()}&page={$page}".$this->sourceQuery();
                 $res = $this->getJson($url);
                 if (! isset($res[1])) {
                     $msg = $res[0]['message'][0]['value'] ?? json_encode($res[0] ?? $res);
@@ -159,7 +171,7 @@ abstract class WorldBankConnector extends ApiConnector
         foreach ($data['values'] as $code => $rows) {
             foreach ($rows as [$entity, $year, $value]) {
                 if (is_numeric($value) && preg_match('/^\d{4}$/', (string) $year)) {
-                    yield new ParsedRecord("wb.{$code}", (string) $entity, (string) $year, (float) $value);
+                    yield new ParsedRecord($this->keyPrefix().$code, (string) $entity, (string) $year, (float) $value);
                 }
             }
         }

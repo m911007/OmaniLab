@@ -31,8 +31,8 @@ describe('SeriesChart', () => {
     expect(screen.getByText('1.6')).toBeInTheDocument();
   });
 
-  it('يطلب كل مؤشر مرة واحدة لكياناته معًا', async () => {
-    const fetchMock = vi.fn(async (_url: unknown) => ({ ok: true, status: 200, json: async () => payload }) as Response);
+  it('الرسم الذي فيه عُمان ودول أخرى يبدأ بعُمان وحدها ثم يقارن عند الطلب بطلب واحد لكل المؤشر', async () => {
+    const fetchMock = vi.fn(async (url: unknown) => ({ ok: true, status: 200, json: async () => (String(url).includes('crosschecks') ? { data: [] } : payload) }) as Response);
     vi.stubGlobal('fetch', fetchMock);
     renderChart(
       <SeriesChart
@@ -44,8 +44,27 @@ describe('SeriesChart', () => {
       />,
     );
     await screen.findByText(/صندوق النقد الدولي/);
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-    expect(String(fetchMock.mock.calls[0][0])).toContain('entities=OMN%2CSAU');
+    const obs = () => fetchMock.mock.calls.map((c) => String(c[0])).filter((u) => u.includes('/observations'));
+    expect(obs()).toHaveLength(1);
+    expect(obs()[0]).toContain('entities=OMN');
+    expect(obs()[0]).not.toContain('SAU');
+    expect(screen.getByRole('button', { name: 'عُمان' })).toHaveAttribute('aria-pressed', 'true');
+
+    fireEvent.click(screen.getByRole('button', { name: 'مقارنة مع دول أخرى' }));
+    await waitFor(() => expect(fetchMock.mock.calls.some((c) => String(c[0]).includes('entities=OMN%2CSAU'))).toBe(true));
+    expect(screen.getByLabelText('إضافة دولة إلى المقارنة')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'جدول' }));
+    await waitFor(() => expect(screen.getByRole('table')).toBeInTheDocument());
+  });
+
+  it('الرسم الذي فيه عُمان وحدها يبقى بمفتاح مخطط/جدول فقط', async () => {
+    vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, status: 200, json: async () => payload }) as Response));
+    renderChart(<SeriesChart title="س" lines={[{ indicator: 'imf.NGDP_RPCH', entity: 'OMN' }]} />);
+    await screen.findByText(/صندوق النقد الدولي/);
+
+    expect(screen.queryByRole('button', { name: 'مقارنة مع دول أخرى' })).toBeNull();
+    expect(screen.getByRole('button', { name: 'مخطط' })).toBeInTheDocument();
   });
 
   it('خطأ الخادم يظهر برسالة وزر إعادة', async () => {

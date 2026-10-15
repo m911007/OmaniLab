@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Area, CartesianGrid, ComposedChart, Line, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import type { SeriesItem } from '../hooks';
 import { axisNumber, formatPeriod, formatValue, shortPeriod, yearOf } from '../format';
 import { ChartTooltip } from './ChartTooltip';
@@ -32,6 +32,20 @@ export function LineChartView({ series, unit, height = 280, forecastFrom, zeroLi
     });
 
   const summary = `مخطط خطي: ${series.map((s) => s.label).join('، ')}`;
+  // تسمية مباشرة لآخر قيمة لكل خط حين تكون الخطوط قليلة (≤4): تغني عن التمرير لقراءة الرقم الحالي.
+  const labelEnds = visible.length <= 4;
+  const lastIndex = (id: string): number => {
+    for (let i = rows.length - 1; i >= 0; i--) if (rows[i][id] !== undefined && rows[i][id] !== null) return i;
+    return -1;
+  };
+  const endLabel = (id: string) => (props: { x?: number; y?: number; index?: number; value?: number }) => {
+    if (props.index !== lastIndex(id) || props.x === undefined || props.y === undefined || typeof props.value !== 'number') return <g />;
+    return (
+      <text x={props.x + 6} y={props.y} dy={4} fontSize={12} fontWeight={700} fill="var(--text-primary)" style={{ direction: 'ltr' }}>
+        {axisNumber(props.value)}
+      </text>
+    );
+  };
 
   return (
     <div>
@@ -47,20 +61,31 @@ export function LineChartView({ series, unit, height = 280, forecastFrom, zeroLi
       )}
       <div className="chart-wrap" style={{ height }} role="img" aria-label={summary}>
         <ResponsiveContainer>
-          <LineChart data={rows} margin={{ top: 8, right: 12, bottom: 0, left: 0 }}>
+          <ComposedChart data={rows} margin={{ top: 8, right: labelEnds ? 48 : 12, bottom: 0, left: 0 }}>
             <CartesianGrid vertical={false} stroke="var(--grid)" />
-            <XAxis dataKey="period" tickFormatter={shortPeriod} stroke="var(--text-muted)" tick={{ fontSize: 12 }} tickLine={false} axisLine={{ stroke: 'var(--border)' }} minTickGap={28} />
-            <YAxis tickFormatter={axisNumber} stroke="var(--text-muted)" tick={{ fontSize: 12 }} tickLine={false} axisLine={false} width={54} domain={['auto', 'auto']} />
+            <XAxis dataKey="period" tickFormatter={shortPeriod} stroke="var(--text-muted)" tick={{ fontSize: 13 }} tickLine={false} axisLine={{ stroke: 'var(--border)' }} minTickGap={28} />
+            <YAxis tickFormatter={axisNumber} stroke="var(--text-muted)" tick={{ fontSize: 13 }} tickLine={false} axisLine={false} width={54} domain={['auto', 'auto']} />
             <Tooltip content={<ChartTooltip unit={unit} />} cursor={{ stroke: 'var(--text-muted)', strokeDasharray: '3 3' }} />
             {zeroLine && crossesZero && <ReferenceLine y={0} stroke="var(--text-muted)" strokeWidth={1} />}
+            {visible.length === 1 && (
+              <>
+                <defs>
+                  <linearGradient id={`fill-${visible[0].id.replace(/\W/g, '_')}`} x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor={visible[0].color} stopOpacity={0.28} />
+                    <stop offset="100%" stopColor={visible[0].color} stopOpacity={0.02} />
+                  </linearGradient>
+                </defs>
+                <Area dataKey={visible[0].id} stroke="none" fill={`url(#fill-${visible[0].id.replace(/\W/g, '_')})`} connectNulls isAnimationActive={false} legendType="none" tooltipType="none" activeDot={false} />
+              </>
+            )}
             {visible.map((s) => (
-              <Line key={s.id} dataKey={s.id} name={s.label} stroke={s.color} strokeWidth={2} dot={false} activeDot={{ r: 4, stroke: 'var(--surface-1)', strokeWidth: 2 }} connectNulls isAnimationActive={false} />
+              <Line key={s.id} dataKey={s.id} name={s.label} stroke={s.color} strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" dot={false} activeDot={{ r: 5, stroke: 'var(--surface-1)', strokeWidth: 2 }} connectNulls isAnimationActive={false} label={labelEnds && !hasForecast ? endLabel(s.id) : undefined} />
             ))}
             {hasForecast &&
               visible.map((s) => (
                 <Line key={`${s.id}__f`} dataKey={`${s.id}__f`} name={s.label} stroke={s.color} strokeWidth={2} strokeDasharray="5 4" dot={false} activeDot={{ r: 4, stroke: 'var(--surface-1)', strokeWidth: 2 }} connectNulls isAnimationActive={false} />
               ))}
-          </LineChart>
+          </ComposedChart>
         </ResponsiveContainer>
       </div>
       {hasForecast && forecastFrom && <p className="muted" style={{ fontSize: 12 }}>الخط المتقطع: توقعات من عام {forecastFrom}.</p>}

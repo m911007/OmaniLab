@@ -15,6 +15,10 @@ export default function GovernancePage() {
         <SeriesChart title="الاستقرار السياسي" lines={peerLines('wb.GOV_WGI_PV.SC')} from="2005" />
         <SeriesChart title="الصوت والمساءلة" lines={peerLines('wb.GOV_WGI_VA.SC')} from="2005" />
       </Section>
+      <Section title="النزاهة والرفاه (مؤشرات دولية مركّبة)" lead="مدركات الفساد من منظمة الشفافية الدولية، والسعادة من تقرير السعادة العالمي (عبر Our World in Data).">
+        <SeriesChart title="مؤشر مدركات الفساد (الأعلى = أنظف)" lines={peerLines('owid.cpi_score')} from="2012" />
+        <SeriesChart title="مؤشر السعادة (سلّم كانتريل)" lines={peerLines('owid.happiness')} from="2011" />
+      </Section>
       <Section title="الجاهزية للذكاء الاصطناعي" lead="مؤشر مركّب (0–1) لعام 2023.">
         <WorldRankCard title="مؤشر الجاهزية للذكاء الاصطناعي" indicator="imf.AI_PI" />
         <WorldRankCard title="البنية التحتية الرقمية" indicator="imf.DI" />

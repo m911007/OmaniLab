@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { Compact } from '@/core/components/Compact';
+import { toCsv } from '@/core/components/DataTable';
 import { FreshnessBadge } from '@/core/components/FreshnessBadge';
 import { RankedBars } from '@/core/components/RankedBars';
 import { SourceNote } from '@/core/components/SourceNote';
@@ -29,7 +30,7 @@ describe('SourceNote', () => {
   it('يعرض المصدر والإصدار ويزيل تكرار المجموعة نفسها', () => {
     render(<SourceNote datasets={[dataset(), dataset()]} note="ملاحظة" />);
     expect(screen.getAllByText(/صندوق النقد الدولي/)).toHaveLength(1);
-    expect(screen.getByText(/October 2026/)).toBeInTheDocument();
+    expect(document.querySelector('.src-meta')?.getAttribute('title')).toContain('October 2026');
     expect(screen.getByText('ملاحظة')).toBeInTheDocument();
   });
 });
@@ -91,5 +92,17 @@ describe('إصدار منافذ', () => {
     expect(parseManafethVersion('منافذ — حتى 2025-12')).toEqual({ year: 2025, month: 12 });
     expect(parseManafethVersion(null)).toBeNull();
     expect(parseManafethVersion('بلا تاريخ')).toBeNull();
+  });
+});
+
+describe('toCsv', () => {
+  it('يُسقط فواصل الآلاف من الأرقام ويقتبس الخلايا الخاصة', () => {
+    const csv = toCsv({ columns: ['الفترة', 'القيمة', 'ملاحظة'], rows: [['2024', '1,234.5', 'نص, فيه فاصلة'], ['2025', 12, 'قال "نعم"']] });
+
+    expect(csv).toBe('الفترة,القيمة,ملاحظة\r\n2024,1234.5,"نص, فيه فاصلة"\r\n2025,12,"قال ""نعم"""');
+  });
+
+  it('لا يمسّ النصوص التي تشبه الأرقام لكنها ليست مفصولة بآلاف', () => {
+    expect(toCsv({ columns: ['a'], rows: [['1,5']] })).toBe('a\r\n1,5'.replace('1,5', '"1,5"'));
   });
 });

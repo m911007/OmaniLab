@@ -51,8 +51,8 @@ export function ColumnChartView({ series, unit, height = 280, stacked = false, l
         <ResponsiveContainer>
           <BarChart data={rows} margin={{ top: 8, right: 12, bottom: 0, left: 0 }} barCategoryGap="22%" barGap={2}>
             <CartesianGrid vertical={false} stroke="var(--grid)" />
-            <XAxis dataKey="period" tickFormatter={shortPeriod} stroke="var(--text-muted)" tick={{ fontSize: 12 }} tickLine={false} axisLine={{ stroke: 'var(--border)' }} />
-            <YAxis tickFormatter={axisNumber} stroke="var(--text-muted)" tick={{ fontSize: 12 }} tickLine={false} axisLine={false} width={54} />
+            <XAxis dataKey="period" tickFormatter={shortPeriod} stroke="var(--text-muted)" tick={{ fontSize: 13 }} tickLine={false} axisLine={{ stroke: 'var(--border)' }} />
+            <YAxis tickFormatter={axisNumber} stroke="var(--text-muted)" tick={{ fontSize: 13 }} tickLine={false} axisLine={false} width={54} />
             <Tooltip content={<ChartTooltip unit={unit} />} cursor={{ fill: 'var(--surface-2)', opacity: 0.6 }} />
             {visible.map((s) => (
               <Bar key={s.id} dataKey={s.id} name={s.label} fill={s.color} stackId={stacked ? 'a' : undefined} radius={stacked ? 0 : [4, 4, 0, 0]} stroke="var(--surface-1)" strokeWidth={stacked ? 2 : 0} isAnimationActive={false} />

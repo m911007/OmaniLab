@@ -5,6 +5,7 @@ import { SeriesChart } from '@/core/components/SeriesChart';
 import { formatDate } from '@/core/format';
 import { useDatasets } from '@/core/hooks';
 import { PartnersExplorer } from './PartnersExplorer';
+import { ProductMix } from './ProductMix';
 import { MONTHS, parseManafethVersion } from './manafeth';
 
 export default function TradePage() {
@@ -77,6 +78,12 @@ export default function TradePage() {
           last={14}
         />
       </Section>
+
+      <section className="section">
+        <h2>تركيبة التجارة حسب المنتج</h2>
+        <p className="lead">ماذا تبيع عُمان وماذا تشتري؟ وهل صادراتها متنوعة أم متركّزة؟ قارن بدول الخليج (الأمم المتحدة Comtrade).</p>
+        <ProductMix />
+      </section>
 
       <section className="section">
         <h2>الشركاء التجاريون</h2>

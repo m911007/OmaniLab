@@ -1,6 +1,8 @@
 import type { LatestItem } from '../api';
 import { changeBetween, formatNumber, formatPeriod, formatValue } from '../format';
 import { Compact } from './Compact';
+import { SourceBadge } from './SourceBadge';
+import { Sparkline } from './Sparkline';
 import { Loading } from './States';
 
 interface Props {
@@ -11,12 +13,14 @@ interface Props {
   compactValue?: boolean;
   /** اتجاه التحسّن لتلوين التغيّر؛ بلا تحديد يبقى محايدًا */
   goodWhen?: 'up' | 'down';
+  /** قيم تاريخية قصيرة لخط الاتجاه المصغّر */
+  spark?: readonly number[];
 }
 
 const ARROW = { up: '▲', down: '▼', flat: '■' } as const;
 
 /** رقم رئيسي بتغيّره عن الفترة السابقة، وترتيبه بين الدول، وفترته ومصدره. */
-export function StatCard({ label, item, loading, compactValue, goodWhen }: Props) {
+export function StatCard({ label, item, loading, compactValue, goodWhen, spark }: Props) {
   if (loading) return <div className="card"><Loading height={96} /></div>;
   if (!item) {
     return (
@@ -32,9 +36,12 @@ export function StatCard({ label, item, loading, compactValue, goodWhen }: Props
   return (
     <div className="card stat" aria-label={label}>
       <span className="stat-label">{label}</span>
-      <span>
-        <span className="stat-value">{compactValue ? <Compact v={item.value} /> : <span className="num">{formatValue(item.value, item.indicator.unit)}</span>}</span>
-        <span className="stat-unit">{item.indicator.unit}</span>
+      <span className="stat-line">
+        <span>
+          <span className="stat-value">{compactValue ? <Compact v={item.value} /> : <span className="num">{formatValue(item.value, item.indicator.unit)}</span>}</span>
+          <span className="stat-unit">{item.indicator.unit}</span>
+        </span>
+        {spark && spark.length > 1 && <Sparkline values={spark} color={tone === 'var(--text-secondary)' ? 'var(--accent)' : tone} />}
       </span>
       {change && item.previous && (
         <span className="stat-delta" style={{ color: tone }}>
@@ -50,8 +57,9 @@ export function StatCard({ label, item, loading, compactValue, goodWhen }: Props
         {formatPeriod(item.period)}
         {item.rank && <> · المرتبة <span className="num">{formatNumber(item.rank.position, 0)}</span> من <span className="num">{item.rank.total}</span> دولة</>}
       </span>
-      <span className="stat-meta" title={item.dataset.freshness.source_version ?? ''}>
-        {item.dataset.source.name_ar}
+      <span className="stat-meta source-item" title={item.dataset.freshness.source_version ?? ''}>
+        <SourceBadge sourceKey={item.dataset.source.key} name={item.dataset.source.name_ar} url={item.dataset.source.url} />
+        <span>{item.dataset.source.name_ar}</span>
       </span>
     </div>
   );

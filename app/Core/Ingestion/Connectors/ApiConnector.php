@@ -32,6 +32,12 @@ abstract class ApiConnector implements Connector
             ->retry(3, 1500, throw: false);
     }
 
+    /** طلب بصيغة استجابة غير JSON (CSV/SDMX…): يستبدل ترويسة Accept الافتراضية لا يضيف إليها. */
+    protected function httpAccepting(string $mime): PendingRequest
+    {
+        return $this->http()->replaceHeaders(['Accept' => $mime]);
+    }
+
     /** @return array<int|string, mixed> */
     protected function getJson(string $url): array
     {

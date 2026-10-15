@@ -5,19 +5,18 @@ const KEY = 'omanilab.theme';
 export function getStoredTheme(): ThemeMode {
   try {
     const v = window.localStorage.getItem(KEY);
-    return v === 'light' || v === 'dark' ? v : 'auto';
+    return v === 'light' ? 'light' : 'dark';
   } catch {
-    return 'auto';
+    return 'dark';
   }
 }
 
 export function applyTheme(mode: ThemeMode): void {
   const root = document.documentElement;
-  if (mode === 'auto') root.removeAttribute('data-theme');
-  else root.setAttribute('data-theme', mode);
+  if (mode === 'light') root.setAttribute('data-theme', 'light');
+  else root.removeAttribute('data-theme');
   try {
-    if (mode === 'auto') window.localStorage.removeItem(KEY);
-    else window.localStorage.setItem(KEY, mode);
+    window.localStorage.setItem(KEY, mode);
   } catch {
     /* التخزين محجوب (نافذة خاصة): يعمل بلا حفظ */
   }

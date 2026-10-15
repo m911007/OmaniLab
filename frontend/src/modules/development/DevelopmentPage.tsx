@@ -13,6 +13,29 @@ export default function DevelopmentPage() {
         <SeriesChart title="سنوات الدراسة المتوقعة" lines={peerLines('undp.eys')} from="1990" />
         <SeriesChart title="نصيب الفرد من الدخل القومي (تعادل القوة الشرائية)" lines={peerLines('undp.gnipc')} from="1990" />
       </Section>
+      <Section title="ثروة الأمة: ما وراء النفط" lead="حسابات الثروة للبنك الدولي تقيس رصيد الدولة من رأس المال بأنواعه للفرد: المنتَج (مصانع وبنية تحتية)، والبشري، والطبيعي المتجدد وغير المتجدد (نفط وغاز ومعادن)، والأصول الأجنبية. تنويع الثروة هو جوهر التنويع الاقتصادي.">
+        <SeriesChart
+          title="تركيبة ثروة الفرد في عُمان"
+          subtitle="دولار ثابت 2019 للفرد"
+          kind="stacked"
+          lines={[
+            { indicator: 'wb.NW.HCA.PC', entity: 'OMN', label: 'رأس المال البشري', color: 'var(--series-1)' },
+            { indicator: 'wb.NW.PCA.PC', entity: 'OMN', label: 'رأس المال المنتَج', color: 'var(--series-2)' },
+            { indicator: 'wb.NW.NCA.SSOI.PC', entity: 'OMN', label: 'النفط والغاز والمعادن', color: 'var(--series-4)' },
+            { indicator: 'wb.NW.NCA.TOTL.PC', entity: 'OMN', label: 'رأس المال الطبيعي المتجدد', color: 'var(--series-3)' },
+            { indicator: 'wb.NW.NFA.PC', entity: 'OMN', label: 'الأصول الأجنبية الصافية', color: 'var(--series-7)' },
+          ]}
+        />
+        <SeriesChart title="الثروة الشاملة للفرد" subtitle="دولار ثابت 2019" lines={peerLines('wb.NW.TOW.PC')} from="1995" />
+        <SeriesChart title="رأس المال البشري للفرد" subtitle="دولار ثابت 2019" lines={peerLines('wb.NW.HCA.PC')} from="1995" />
+        <SeriesChart title="رأس المال الطبيعي غير المتجدد للفرد" subtitle="دولار ثابت 2019" lines={peerLines('wb.NW.NCA.SSOI.PC')} from="1995" />
+      </Section>
+      <Section title="البحث والتعلم">
+        <SeriesChart title="الباحثون لكل مليون نسمة" lines={peerLines('wb.SP.POP.SCIE.RD.P6')} from="2000" />
+        <SeriesChart title="المقالات العلمية والتقنية" lines={peerLines('wb.IP.JRN.ARTC.SC')} from="2000" />
+        <SeriesChart title="سنوات الدراسة المعدَّلة بالتعلم" lines={peerLines('wb.HD.HCI.LAYS')} from="2010" />
+        <SeriesChart title="نتيجة TIMSS في الرياضيات (الصف الثامن)" lines={peerLines('wb.LO.TIMSS.MAT8')} from="1995" />
+      </Section>
       <Section title="عدم المساواة">
         <SeriesChart title="مؤشر التنمية البشرية المعدَّل بعدم المساواة" lines={peerLines('undp.ihdi')} from="2010" />
         <SeriesChart title="مؤشر عدم المساواة بين الجنسين (الأقل أفضل)" lines={peerLines('undp.gii')} from="1995" />

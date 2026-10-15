@@ -12,9 +12,15 @@ export function Shell() {
   const location = useLocation();
   const { data: overview } = useOverview();
 
-  useEffect(() => applyTheme(theme), [theme]);
-  useEffect(() => setOpen(false), [location.pathname]);
-  useEffect(() => window.scrollTo(0, 0), [location.pathname]);
+  useEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   const fresh = overview?.by_status.fresh ?? 0;
   const total = overview?.counts.datasets ?? 0;
@@ -26,7 +32,7 @@ export function Shell() {
       <aside className={`sidebar${open ? ' open' : ''}`} aria-label="التنقل الرئيسي">
         <div className="brand">
           <span className="brand-mark">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M4 17l5-6 4 4 7-9" />
             </svg>
           </span>
@@ -48,6 +54,15 @@ export function Shell() {
             </div>
           ))}
         </nav>
+        {overview && (
+          <div className="sidebar-status">
+            <span className="status-dot" style={{ background: allFresh ? 'var(--good)' : 'var(--warning)' }} />
+            <span>
+              <b>{allFresh ? 'المصادر محدّثة' : 'بعض المصادر تحتاج انتباهًا'}</b>
+              <small>آخر فحص {relativeTime(overview.last_checked_at)}</small>
+            </span>
+          </div>
+        )}
       </aside>
 
       <div className="main">
@@ -68,7 +83,6 @@ export function Shell() {
             value={theme}
             onChange={setTheme}
             options={[
-              { value: 'auto', label: 'تلقائي' },
               { value: 'light', label: 'فاتح' },
               { value: 'dark', label: 'داكن' },
             ]}

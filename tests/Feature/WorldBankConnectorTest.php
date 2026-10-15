@@ -4,7 +4,10 @@ namespace Tests\Feature;
 
 use App\Core\Ingestion\Data\ParsedEntity;
 use App\Core\Ingestion\Data\ParsedRecord;
+use App\Modules\WorldBank\Connectors\WorldBankConnector;
 use App\Modules\WorldBank\Connectors\WorldBankMacroConnector;
+use App\Modules\WorldBank\Connectors\WorldBankWealthConnector;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use RuntimeException;
 use Tests\TestCase;
@@ -104,5 +107,37 @@ class WorldBankConnectorTest extends TestCase
             $this->assertNotEmpty($i->rules);
         }
         $this->assertSame('worldbank.macro', $def->key);
+    }
+
+    public function test_every_registered_world_bank_connector_has_unique_prefixed_indicators_with_rules(): void
+    {
+        $seen = [];
+        foreach (config('omanilab.connectors') as $class) {
+            if (! is_subclass_of($class, WorldBankConnector::class)) {
+                continue;
+            }
+            foreach ((new $class)->definition()->indicators as $i) {
+                $this->assertMatchesRegularExpression('/^wbp?\./', $i->key);
+                $this->assertNotEmpty($i->rules, $i->key);
+                $this->assertArrayNotHasKey($i->key, $seen, "{$i->key} معرَّف في أكثر من مجموعة");
+                $seen[$i->key] = true;
+            }
+        }
+        $this->assertGreaterThan(100, count($seen));
+    }
+
+    public function test_the_wealth_accounts_connector_queries_its_own_world_bank_source(): void
+    {
+        $this->freshHttp();
+        $urls = [];
+        Http::fake(function (Request $r) use (&$urls) {
+            $urls[] = $r->url();
+
+            return Http::response([['page' => 1, 'pages' => 1, 'lastupdated' => '2026-09-01'], []]);
+        });
+
+        (new WorldBankWealthConnector)->probe();
+
+        $this->assertStringContainsString('source=59', $urls[0]);
     }
 }

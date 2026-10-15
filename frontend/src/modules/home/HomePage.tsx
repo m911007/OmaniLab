@@ -1,30 +1,54 @@
-import { PageHead, Section } from '@/core/components/PageHead';
-import { KeyStat } from '@/core/components/KeyStat';
-import { SeriesChart } from '@/core/components/SeriesChart';
-import { gcc, lastActualYear } from '@/core/lines';
 import { Link } from 'react-router-dom';
+import { KeyStat } from '@/core/components/KeyStat';
+import { PageHead, Section } from '@/core/components/PageHead';
+import { SeriesChart } from '@/core/components/SeriesChart';
 import { formatNumber, relativeTime } from '@/core/format';
-import { useOverview } from '@/core/hooks';
+import { useDatasets, useOverview } from '@/core/hooks';
+import { gcc, lastActualYear } from '@/core/lines';
+import { HeadlineBrief } from '@/modules/insights/HeadlineBrief';
+import { OilPulse } from './OilPulse';
+import { SignalsPanel } from './SignalsPanel';
 
 const IMF_ACTUAL = lastActualYear();
 
 export default function HomePage() {
   const { data: overview } = useOverview();
+  const { data: datasets } = useDatasets();
+  const sources = new Set(datasets?.map((d) => d.source.key)).size;
 
   return (
     <>
-      <PageHead title="لوحة القيادة" lead="أهم مؤشرات الاقتصاد العُماني الآن. كل رقم يحمل مصدره وتاريخ آخر فحص وآخر تغيير، وتتحدث البيانات آليًا من المصادر الرسمية." />
+      <PageHead title="لوحة القيادة" lead="أهم مؤشرات الاقتصاد العُماني الآن، وما يستحق انتباه صانع القرار. كل رقم يحمل مصدره وتاريخ آخر فحص وآخر تغيير، وتتحدث البيانات آليًا من المصادر الرسمية." />
 
       <div className="grid cols-4">
-        <KeyStat entity="OMN" indicator="imf.NGDPD" label="الناتج المحلي الإجمالي" maxPeriod={IMF_ACTUAL} />
-        <KeyStat entity="OMN" indicator="imf.NGDP_RPCH" label="نمو الناتج الحقيقي" maxPeriod={IMF_ACTUAL} goodWhen="up" />
-        <KeyStat entity="OMN" indicator="ncsi.CPI_INFLATION" label="التضخم السنوي (شهري)" />
-        <KeyStat entity="OMN" indicator="ncsi.OIL_PRICE" label="سعر النفط العُماني (شهري)" />
-        <KeyStat entity="OMN" indicator="imf.GGXWDG_NGDP" label="الدين الحكومي الإجمالي" maxPeriod={IMF_ACTUAL} goodWhen="down" />
-        <KeyStat entity="OMN" indicator="gccstat.UNEMPLOYMENT" label="معدل البطالة" goodWhen="down" />
-        <KeyStat entity="OMN" indicator="gccstat.POP" label="عدد السكان" compactValue />
-        <KeyStat entity="OMN" indicator="manafeth.EXPORTS" label="الصادرات السلعية السنوية" compactValue />
+        <KeyStat trend entity="OMN" indicator="imf.NGDPD" label="الناتج المحلي الإجمالي" maxPeriod={IMF_ACTUAL} goodWhen="up" />
+        <KeyStat trend entity="OMN" indicator="imf.NGDP_RPCH" label="نمو الناتج الحقيقي" maxPeriod={IMF_ACTUAL} goodWhen="up" />
+        <KeyStat trend entity="OMN" indicator="ncsi.CPI_INFLATION" label="التضخم السنوي (شهري)" />
+        <KeyStat trend entity="OMN" indicator="ncsi.OIL_PRICE" label="سعر النفط العُماني (شهري)" goodWhen="up" />
+        <KeyStat trend entity="OMN" indicator="imf.GGXCNL_NGDP" label="رصيد الميزانية (% من الناتج)" maxPeriod={IMF_ACTUAL} goodWhen="up" />
+        <KeyStat trend entity="OMN" indicator="imf.GGXWDG_NGDP" label="الدين الحكومي الإجمالي" maxPeriod={IMF_ACTUAL} goodWhen="down" />
+        <KeyStat trend entity="OMN" indicator="ilo.unemployment" label="معدل البطالة" goodWhen="down" />
+        <KeyStat trend entity="OMN" indicator="manafeth.EXPORTS" label="الصادرات السلعية السنوية" compactValue goodWhen="up" />
       </div>
+
+      <div style={{ marginTop: 20, display: 'grid', gap: 16 }}>
+        <SignalsPanel />
+        <HeadlineBrief />
+      </div>
+
+      <Section title="النفط والمالية العامة" lead="النفط ما زال المحرك الأول لإيرادات الدولة؛ هكذا تتحرك الأسعار، وهكذا تتحرك الميزانية والدين معها.">
+        <OilPulse />
+        <SeriesChart
+          title="الميزانية والدين الحكومي"
+          subtitle="% من الناتج المحلي"
+          lines={[
+            { indicator: 'imf.GGXCNL_NGDP', entity: 'OMN', label: 'رصيد الميزانية', color: 'var(--series-1)' },
+            { indicator: 'imf.GGXWDG_NGDP', entity: 'OMN', label: 'إجمالي الدين', color: 'var(--series-2)' },
+          ]}
+          from="2008"
+          imfForecast
+        />
+      </Section>
 
       <Section title="اتجاهات رئيسية">
         <SeriesChart title="نمو الناتج الحقيقي: عُمان مقابل دول الخليج" lines={gcc('imf.NGDP_RPCH')} from="2012" imfForecast />
@@ -47,7 +71,7 @@ export default function HomePage() {
           <h2>صحة البيانات</h2>
           <div className="card" style={{ marginTop: 12 }}>
             <p>
-              <strong className="num">{formatNumber(overview.counts.datasets, 0)}</strong> مجموعة بيانات من 5 مصادر رسمية،{' '}
+              <strong className="num">{formatNumber(overview.counts.datasets, 0)}</strong> مجموعة بيانات من <strong className="num">{formatNumber(sources, 0)}</strong> مصدرًا رسميًا،{' '}
               <strong className="num">{formatNumber(overview.counts.indicators, 0)}</strong> مؤشرًا، و<strong className="num">{formatNumber(overview.counts.observations, 0)}</strong> قيمة
               لـ <strong className="num">{formatNumber(overview.counts.entities, 0)}</strong> كيانًا. آخر فحص {relativeTime(overview.last_checked_at)}، وآخر تغيير في البيانات {relativeTime(overview.last_changed_at)}.
             </p>

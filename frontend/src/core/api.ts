@@ -181,3 +181,58 @@ export interface RelationsResponse {
   sum: number;
   items: { rank: number; entity: EntityLite; value: number; share: number | null }[];
 }
+
+export type StandingClass = 'strength' | 'eroding' | 'challenge' | 'recovering' | 'opportunity' | 'watch' | 'neutral';
+
+export interface ScorecardItem {
+  theme: string;
+  key: string;
+  name_ar: string;
+  unit: string | null;
+  polarity: string;
+  period: string;
+  value: number;
+  baseline: { period: string; value: number } | null;
+  trend: 'improving' | 'worsening' | 'stable' | null;
+  class: StandingClass;
+  world: { rank: number; of: number; percentile: number; median: number };
+  gcc: { rank: number; of: number; best: { code: string; value: number; percentile: number | null } | null; items: { code: string; value: number; percentile: number | null }[] } | null;
+  dataset: Dataset;
+}
+
+export interface Scorecard {
+  entity: string;
+  peers: string[];
+  thresholds: { strong_from: number; weak_until: number; baseline_years: number };
+  counts: Partial<Record<StandingClass, number>>;
+  themes: { key: string; label: string; count: number; percentile: number | null }[];
+  items: ScorecardItem[];
+}
+
+export interface Signal {
+  id: string;
+  title: string;
+  message: string;
+  tone: 'critical' | 'warning' | 'good';
+  indicator: string;
+  entity: string;
+  period: string;
+  value: number;
+  previous: number | null;
+  change: number | null;
+}
+
+export interface CrossCheckGroup {
+  key: string;
+  label: string;
+  verdict: 'agree' | 'differ' | 'single';
+  indicators: string[];
+  members: { indicator: string; has_data: boolean; source: { key: string; name_ar: string; url: string | null } | null }[];
+}
+
+export interface CrossCheckDetail {
+  group: { key: string; label: string; mode: 'relative' | 'absolute'; tolerance: number };
+  verdict: 'agree' | 'differ' | 'single';
+  periods: { period: string; values: Record<string, number>; spread: number; agree: boolean }[];
+  sources: { indicator: string; name_ar: string; unit: string | null; is_base: boolean; dataset: Dataset; points: Point[] }[];
+}

@@ -54,6 +54,22 @@ final class AlertDispatcher
         }
     }
 
+    /**
+     * إشارة سوق: تُرسل مرة واحدة لكل (قاعدة، فترة). يعيد true إن أُرسلت الآن.
+     *
+     * @param  array<string, mixed>  $signal
+     */
+    public function signal(array $signal): bool
+    {
+        if (! Cache::add("alert:signal:{$signal['id']}:{$signal['period']}", 1, now()->addDays(90))) {
+            return false;
+        }
+        $icon = ['critical' => '🔴', 'warning' => '🟡', 'good' => '🟢'][$signal['tone']] ?? '🔔';
+        $this->telegram->send("{$icon} <b>".e($signal['title'])."</b>\n".e($signal['message']));
+
+        return true;
+    }
+
     public function digest(string $html): void
     {
         $this->telegram->send($html);

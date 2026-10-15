@@ -1,86 +1,26 @@
 /*
- * رموز التصميم. الألوان من لوحة التصور المعتمدة (فئوية 8 خانات بترتيب ثابت، تحقّقتُ منها بسكربت التحقق):
- * اللوحة الفاتحة والداكنة خطوات منفصلة من النغمات نفسها، لا قلبًا آليًا. لون كل كيان ثابت (colors.ts) ولا يتبع ترتيبه.
+ * رموز التصميم بهوية MTCIT: خلفية كحلية داكنة، بطاقات #0d202b بحدود #29404c، وتمييز تركوازي. الداكن هو الأساس، والفاتح بديل.
+ * الألوان الفئوية الثمانية (series) هي اللوحة المعتمدة بترتيبها (تحقّقتُ منها على السطح الكحلي بسكربت التحقق)، ولون كل كيان ثابت (colors.ts).
  */
 :root {
-  color-scheme: light;
-  --page: #f4f3ef;
-  --surface-1: #fcfcfb;
-  --surface-2: #f0efec;
-  --border: #e1e0da;
-  --grid: #e8e7e2;
-  --text-primary: #0b0b0b;
-  --text-secondary: #52514e;
-  --text-muted: #6e6d68;
-  --accent: #2a78d6;
-  --accent-ink: #ffffff;
-
-  --series-1: #2a78d6;
-  --series-2: #eb6834;
-  --series-3: #1baf7a;
-  --series-4: #eda100;
-  --series-5: #e87ba4;
-  --series-6: #008300;
-  --series-7: #4a3aa7;
-  --series-8: #e34948;
-  --series-other: #8a8983;
-
-  --good: #0b7a3e;
-  --warning: #9a5b00;
-  --serious: #b3401a;
-  --critical: #b42318;
-  --good-bg: #e3f4ea;
-  --warning-bg: #fdf0d9;
-  --critical-bg: #fbe4e1;
-
-  --radius: 12px;
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.05);
-  --font: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:where(:not([data-theme='light'])) {
-    color-scheme: dark;
-    --page: #121211;
-    --surface-1: #1a1a19;
-    --surface-2: #242423;
-    --border: #33332f;
-    --grid: #2b2b28;
-    --text-primary: #ffffff;
-    --text-secondary: #c3c2b7;
-    --text-muted: #a3a298;
-    --accent: #3987e5;
-    --accent-ink: #0b0b0b;
-    --series-1: #3987e5;
-    --series-2: #d95926;
-    --series-3: #199e70;
-    --series-4: #c98500;
-    --series-5: #d55181;
-    --series-6: #008300;
-    --series-7: #9085e9;
-    --series-8: #e66767;
-    --good: #5fd08d;
-    --warning: #f0b45a;
-    --serious: #f08a64;
-    --critical: #f28b82;
-    --good-bg: #163122;
-    --warning-bg: #3a2c12;
-    --critical-bg: #3b1d1a;
-  }
-}
-
-:root[data-theme='dark'] {
   color-scheme: dark;
-  --page: #121211;
-  --surface-1: #1a1a19;
-  --surface-2: #242423;
-  --border: #33332f;
-  --grid: #2b2b28;
-  --text-primary: #ffffff;
-  --text-secondary: #c3c2b7;
-  --text-muted: #a3a298;
-  --accent: #3987e5;
-  --accent-ink: #0b0b0b;
+  --page: #06151e;
+  --surface-1: #0d202b;
+  --surface-2: #122632;
+  --border: #29404c;
+  --grid: #25404c;
+  --text-primary: #e4edf1;
+  --text-secondary: #a3b3bb;
+  --text-muted: #7d9099;
+  --accent: #1ed8ce;
+  --accent-ink: #04202a;
+  --side-bg: linear-gradient(180deg, #061821 0%, #041119 72%);
+  --side-active: linear-gradient(90deg, #06333b, #064a4c);
+  --side-active-border: #0d5c5c;
+  --hero-bg: linear-gradient(105deg, #053544 0%, #061b27 60%, #08313c 100%);
+  --hero-border: #125051;
+  --card-bg: #0d202b;
+  --kpi-bg: linear-gradient(145deg, #102632, #0b1c26);
   --series-1: #3987e5;
   --series-2: #d95926;
   --series-3: #199e70;
@@ -89,11 +29,55 @@
   --series-6: #008300;
   --series-7: #9085e9;
   --series-8: #e66767;
-  --good: #5fd08d;
-  --warning: #f0b45a;
+  --series-other: #8a9ca6;
+  --good: #43c68b;
+  --warning: #e5a823;
   --serious: #f08a64;
-  --critical: #f28b82;
-  --good-bg: #163122;
-  --warning-bg: #3a2c12;
-  --critical-bg: #3b1d1a;
+  --critical: #f25454;
+  --good-bg: #0e3f36;
+  --warning-bg: #3d3010;
+  --critical-bg: #442324;
+
+  --radius: 18px;
+  --shadow: 0 12px 35px rgb(0 0 0 / 0.11);
+  --font: 'Tajawal', 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Segoe UI', Tahoma, system-ui, sans-serif;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --page: #eef4f6;
+  --surface-1: #ffffff;
+  --surface-2: #e6eff2;
+  --border: #d3e0e5;
+  --grid: #dde8ec;
+  --text-primary: #0b1e27;
+  --text-secondary: #4a606b;
+  --text-muted: #64808c;
+  --accent: #0a9d96;
+  --accent-ink: #ffffff;
+  --side-bg: #ffffff;
+  --side-active: linear-gradient(90deg, #d9f3f1, #c4ebe8);
+  --side-active-border: #9fdcd8;
+  --hero-bg: linear-gradient(105deg, #dff3f4 0%, #f3f9fa 60%, #dff3ec 100%);
+  --hero-border: #b4dcdc;
+  --card-bg: #ffffff;
+  --kpi-bg: linear-gradient(145deg, #ffffff, #f1f7f9);
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
+  --series-6: #008300;
+  --series-7: #4a3aa7;
+  --series-8: #e34948;
+  --series-other: #8a9ca6;
+  --good: #0b7a3e;
+  --warning: #9a5b00;
+  --serious: #b3401a;
+  --critical: #b42318;
+  --good-bg: #e3f4ea;
+  --warning-bg: #fdf0d9;
+  --critical-bg: #fbe4e1;
+
+  --shadow: 0 1px 3px rgb(0 0 0 / 0.08);
 }
