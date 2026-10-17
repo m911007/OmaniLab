@@ -42,6 +42,16 @@ abstract class WorldBankConnector extends ApiConnector
         return 3 * 24 * 60;
     }
 
+    /**
+     * المؤشرات التي تُجلب فعلًا من المصدر (تستثني المشتقّة التي تحسبها المجموعة بنفسها).
+     *
+     * @return list<WbIndicator>
+     */
+    protected function fetchedIndicators(): array
+    {
+        return $this->indicators();
+    }
+
     /** 2: أُضيفت سمة iso2 للدول. */
     public function revision(): int
     {
@@ -125,7 +135,7 @@ abstract class WorldBankConnector extends ApiConnector
             $pages = (int) ($res[0]['pages'] ?? 1);
         } while ($page++ < $pages);
 
-        foreach ($this->indicators() as $indicator) {
+        foreach ($this->fetchedIndicators() as $indicator) {
             $rows = [];
             $page = 1;
             do {

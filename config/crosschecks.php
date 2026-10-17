@@ -14,6 +14,10 @@ return [
             ['indicator' => 'wb.NY.GDP.MKTP.CD', 'scale' => 1e-9],
             ['indicator' => 'ncsi.GDP_CURRENT', 'scale' => 0.0026008], // مليون ريال × 2.6008 (الربط الثابت) ÷ 1000 = مليار دولار
         ]],
+        ['key' => 'gdp_per_capita_ppp', 'label' => 'نصيب الفرد بتعادل القوة الشرائية', 'mode' => 'relative', 'tolerance' => 0.05, 'members' => [
+            ['indicator' => 'imf.PPPPC', 'scale' => 1],
+            ['indicator' => 'wb.NY.GDP.PCAP.PP.CD', 'scale' => 1],
+        ]],
         ['key' => 'gdp_per_capita', 'label' => 'نصيب الفرد من الناتج', 'mode' => 'relative', 'tolerance' => 0.03, 'members' => [
             ['indicator' => 'imf.NGDPDPC', 'scale' => 1],
             ['indicator' => 'wb.NY.GDP.PCAP.CD', 'scale' => 1],
@@ -99,6 +103,10 @@ return [
             ['indicator' => 'imf.GGR_G01_GDP_PT', 'scale' => 1],
             ['indicator' => 'imf.rev', 'scale' => 1],
             ['indicator' => 'wb.GC.TAX.TOTL.GD.ZS', 'scale' => 1],
+        ]],
+        ['key' => 'inflation_monthly', 'label' => 'التضخم السنوي (شهري)', 'frequency' => 'M', 'mode' => 'absolute', 'tolerance' => 0.3, 'members' => [
+            ['indicator' => 'imf.cpi_yoy', 'scale' => 1],
+            ['indicator' => 'ncsi.CPI_INFLATION', 'scale' => 1],
         ]],
         ['key' => 'brent_monthly', 'label' => 'سعر خام برنت (شهري)', 'frequency' => 'M', 'mode' => 'relative', 'tolerance' => 0.02, 'members' => [
             ['indicator' => 'imf.pcps.poilbre', 'scale' => 1],

@@ -25,6 +25,11 @@ return [
             ['key' => 'imf.ffs_explicit', 'polarity' => 'lower', 'forecast' => true],
             ['key' => 'imf.ffs_implicit', 'polarity' => 'lower', 'forecast' => true],
         ]],
+        'power' => ['label' => 'القوة الشرائية والمعيشة', 'indicators' => [
+            ['key' => 'wb.NY.GDP.PCAP.PP.CD', 'polarity' => 'higher'],
+            ['key' => 'wb.PRICE_LEVEL_PRIVATE', 'polarity' => 'lower'],
+            ['key' => 'wb.NE.CON.PRVT.PC.KD.ZG', 'polarity' => 'higher'],
+        ]],
         'external' => ['label' => 'القطاع الخارجي والتنويع', 'indicators' => [
             ['key' => 'imf.BCA_NGDPD', 'polarity' => 'higher', 'forecast' => true],
             ['key' => 'imf.Reserves_M', 'polarity' => 'higher'],

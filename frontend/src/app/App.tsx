@@ -21,6 +21,9 @@ const FinancePage = lazy(() => import('@/modules/finance/FinancePage'));
 const InsightsPage = lazy(() => import('@/modules/insights/InsightsPage'));
 const CommoditiesPage = lazy(() => import('@/modules/commodities/CommoditiesPage'));
 const LabourPage = lazy(() => import('@/modules/labour/LabourPage'));
+const IndicesPage = lazy(() => import('@/modules/indices/IndicesPage'));
+const IndexDetailPage = lazy(() => import('@/modules/indices/IndexDetailPage'));
+const PurchasingPowerPage = lazy(() => import('@/modules/purchasing/PurchasingPowerPage'));
 const GovernancePage = lazy(() => import('@/modules/governance/GovernancePage'));
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: false } } });
@@ -36,6 +39,9 @@ export function App() {
               <Route path="commodities" element={<CommoditiesPage />} />
               <Route path="labour" element={<LabourPage />} />
               <Route path="insights" element={<InsightsPage />} />
+              <Route path="indices" element={<IndicesPage />} />
+              <Route path="indices/:slug" element={<IndexDetailPage />} />
+              <Route path="purchasing-power" element={<PurchasingPowerPage />} />
               <Route path="oman" element={<OmanEconomyPage />} />
               <Route path="gcc" element={<GccPage />} />
               <Route path="peers" element={<PeersPage />} />

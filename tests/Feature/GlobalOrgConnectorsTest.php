@@ -8,6 +8,7 @@ use App\Core\Ingestion\Data\ParsedRelation;
 use App\Modules\Comtrade\Connectors\ComtradeProductsConnector;
 use App\Modules\Fao\Connectors\FaoFoodSecurityConnector;
 use App\Modules\Ilo\Connectors\IloLabourConnector;
+use App\Modules\Macro\Connectors\ImfCpiConnector;
 use App\Modules\Macro\Connectors\ImfFossilSubsidiesConnector;
 use App\Modules\Macro\Connectors\ImfIipConnector;
 use App\Modules\Macro\Connectors\ImfNdGainConnector;
@@ -86,6 +87,25 @@ class GlobalOrgConnectorsTest extends TestCase
         $records = array_unique($this->records($c->parse($c->fetch())));
 
         $this->assertEqualsCanonicalizing(['us.yield_3m|USA|2026-10-14|4.28', 'us.yield_2y|USA|2026-10-14|4.82', 'us.yield_10y|USA|2026-10-14|5.19'], array_values($records));
+    }
+
+    public function test_imf_cpi_reads_monthly_periods_for_the_chosen_categories_only(): void
+    {
+        $this->freshHttp();
+        Http::fake(fn () => Http::response(implode("\n", [
+            'DATAFLOW,COUNTRY,INDEX_TYPE,COICOP_1999,TYPE_OF_TRANSFORMATION,FREQUENCY,TIME_PERIOD,OBS_VALUE',
+            'x,OMN,CPI,_T,YOY_PCH_PA_PT,M,2026-M08,1.5',
+            'x,OMN,CPI,CP01,YOY_PCH_PA_PT,M,2026-M08,7.0',
+            'x,OMN,CPI,CP05,YOY_PCH_PA_PT,M,2026-M08,2.0',
+            'x,SAU,CPI,_T,IX,M,2026-M07,110.5',
+            'x,SAU,CPI,_T,IX,A,2026,110.5',
+            'x,OMN,CPI,_T,IX,M,2026-M08,',
+        ])."\n"));
+        $c = new ImfCpiConnector;
+
+        $records = $this->records($c->parse($c->fetch()));
+
+        $this->assertEqualsCanonicalizing(['imf.cpi_yoy|OMN|2026-08|1.5', 'imf.cpi_yoy_food|OMN|2026-08|7', 'imf.cpi_index|SAU|2026-07|110.5'], $records);
     }
 
     public function test_imf_sdmx_connectors_keep_countries_only_and_drop_far_forecasts(): void

@@ -312,3 +312,72 @@ a.src-badge:hover { filter: brightness(1.2); text-decoration: none; }
 .main { min-width: 0; width: 100%; }
 .section > .grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr)); }
 @media (min-width: 2000px) { .section > .grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 560px), 1fr)); } }
+
+/* ===== شرح الرسم لغير المتخصصين ===== */
+.explain-btn { min-width: 34px; min-height: 34px; padding: 0; border-radius: 50%; font-size: 17px; font-weight: 800; line-height: 1; color: var(--accent); border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); white-space: nowrap; }
+.explain-btn.on { background: var(--side-active); }
+.explain { display: grid; gap: 14px; padding: 4px 6px 4px 2px; line-height: 1.9; height: 330px; overflow-y: auto; align-content: start; scrollbar-width: thin; }
+.explain-back { position: sticky; top: 0; z-index: 1; width: 34px; height: 34px; padding: 0; border-radius: 50%; font-size: 17px; justify-self: start; }
+.explain-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.explain h4 { font-size: 15px; color: var(--accent); margin-bottom: 4px; }
+.explain p, .explain li { color: var(--text-secondary); font-size: 14.5px; }
+.explain ul { margin: 0; padding-inline-start: 20px; display: grid; gap: 6px; }
+.explain-terms { margin: 0; display: grid; gap: 8px; }
+.explain-terms > div { padding: 8px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); }
+.explain-terms dt { font-weight: 800; color: var(--text-primary); }
+.explain-terms dd { margin: 2px 0 0; color: var(--text-secondary); font-size: 14px; }
+
+/* المؤشرات العالمية */
+.gidx-grid { align-items: stretch; }
+.gidx { display: flex; flex-direction: column; gap: 6px; border-inline-start: 4px solid var(--border); }
+.gidx-top { border-inline-start-color: var(--good); }
+.gidx-mid { border-inline-start-color: var(--warning); }
+.gidx-low { border-inline-start-color: var(--critical); }
+.gidx header { display: flex; gap: 6px; flex-wrap: wrap; min-height: 24px; }
+.gidx h3 { margin: 4px 0 0; font-size: 17px; }
+.gidx-en { margin: 0; font-size: 12px; direction: ltr; text-align: start; }
+.gidx-rank { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.gidx-big { font-size: 36px; font-weight: 800; line-height: 1; color: var(--accent); }
+.gidx-score { margin-inline-start: auto; font-size: 13px; color: var(--text-secondary); }
+.gidx-bar { height: 8px; border-radius: 4px; background: var(--surface-2); overflow: hidden; direction: ltr; }
+.gidx-bar span { display: block; height: 100%; background: var(--accent); }
+.gidx-top .gidx-bar span { background: var(--good); }
+.gidx-mid .gidx-bar span { background: var(--warning); }
+.gidx-low .gidx-bar span { background: var(--critical); }
+.gidx-facts { list-style: none; padding: 0; margin: 0; display: flex; gap: 14px; flex-wrap: wrap; font-size: 13px; }
+.gidx-note { font-size: 13px; color: var(--text-secondary); margin: 0; flex: 1; }
+.gidx footer { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: 12px; border-top: 1px solid var(--border); padding-top: 8px; }
+.gidx-more { font-weight: 700; }
+.row-oman td { background: var(--warning-bg); font-weight: 800; }
+.row-gcc td { background: var(--surface-2); }
+.pager { display: flex; justify-content: center; align-items: center; gap: 14px; margin-top: 12px; }
+.gcc-rank { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
+.gcc-rank li { display: flex; gap: 10px; justify-content: space-between; padding: 8px 12px; border: 1px solid var(--border); border-radius: 10px; }
+.gcc-rank li.me { border-color: var(--accent); background: var(--surface-2); font-weight: 800; }
+
+/* التحديات والفرص */
+.narrative { font-size: 16px; line-height: 1.9; border-inline-start: 4px solid var(--accent); }
+.narrative p { margin: 0; }
+.matrix { display: grid; grid-template-columns: 110px repeat(3, minmax(0, 1fr)); gap: 8px; align-items: stretch; }
+.matrix-row { display: contents; }
+.matrix-corner { font-size: 11px; color: var(--text-muted); align-self: end; }
+.matrix-colhead { font-size: 13px; font-weight: 700; text-align: center; color: var(--text-secondary); }
+.matrix-rowhead { display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 14px; }
+.matrix-cell { display: flex; flex-direction: column; gap: 3px; text-align: start; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface-1); cursor: pointer; font-family: inherit; color: var(--text-primary); min-height: 96px; }
+.matrix-cell:disabled { opacity: 0.45; cursor: default; }
+.matrix-cell:not(:disabled):hover { outline: 2px solid var(--accent); }
+.matrix-count { font-size: 26px; font-weight: 800; line-height: 1; }
+.matrix-meaning { font-size: 12px; font-weight: 700; }
+.matrix-names { font-size: 12px; color: var(--text-secondary); }
+.tone-good { background: var(--good-bg); border-color: var(--good); }
+.tone-info { background: var(--surface-2); border-color: var(--series-1); }
+.tone-warn { background: var(--warning-bg); border-color: var(--warning); }
+.tone-bad { background: var(--critical-bg); border-color: var(--critical); }
+@media (max-width: 700px) { .matrix { grid-template-columns: 70px repeat(3, minmax(0, 1fr)); gap: 4px; } .matrix-names { display: none; } .matrix-meaning { font-size: 11px; } }
+.priorities { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 12px; }
+.priority { display: flex; gap: 14px; align-items: flex-start; border-inline-start: 4px solid var(--critical); }
+.priority-n { font-size: 30px; font-weight: 800; color: var(--critical); line-height: 1; }
+.priority p { margin: 4px 0 0; font-size: 14px; }
+.priority-gap { font-size: 13px !important; }
+.plain-list { margin: 8px 0 0; padding-inline-start: 18px; display: grid; gap: 6px; font-size: 14px; }
+div.tile { display: flex; flex-direction: column; gap: 2px; }

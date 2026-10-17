@@ -5,6 +5,15 @@ import { Empty, ErrorState, Loading } from '@/core/components/States';
 import { formatNumber } from '@/core/format';
 import { useLines, type LineSpec, type SeriesItem } from '@/core/hooks';
 
+const OMANISATION: import('@/core/explain').Explanation = {
+  meaning: 'التعمين هو نسبة العُمانيين من إجمالي العاملين. تُحسب هنا بقسمة عدد العُمانيين على مجموع العُمانيين والوافدين في الفئة المعروضة.',
+  shows: 'خط النسبة المئوية عبر السنوات المتاحة، مع جملة تلخّص آخر قيمة وجدول القيم الأصلية في زر «جدول».',
+  read: ['صعود الخط يعني أن حصة المواطنين تتزايد.', 'النسبة في القطاع الخاص أقل بكثير منها في القطاع الحكومي، وهي موضع سياسات التعمين.', 'قد يبدو الخط متذبذبًا لأن المحور مكبَّر على نطاق ضيق؛ انظر الأرقام لا الشكل وحده.'],
+  why: 'التعمين هدف وطني معلن، ومؤشره يبيّن مدى نجاح الاقتصاد في خلق وظائف للمواطنين خارج الحكومة.',
+  terms: [{ term: 'التعمين', definition: 'رفع نسبة العُمانيين في الوظائف، خصوصًا في القطاع الخاص.' }, { term: 'التأمينات الاجتماعية', definition: 'سجل العاملين المشتركين في صندوق التأمين، ومصدر أعداد العاملين الرسمية.' }],
+  caution: 'أرقام العُمانيين قبل 2020 في سجلات التأمينات غير قابلة للمقارنة بسبب توسّع التغطية.',
+};
+
 interface Props {
   title?: string;
   subtitle?: string;
@@ -41,7 +50,7 @@ export function OmanisationCard({ title = 'التعمين: حصة العُمان
   };
 
   return (
-    <ChartCard title={title} subtitle={subtitle} datasets={datasets} table={table ?? undefined} note={note}>
+    <ChartCard title={title} subtitle={subtitle} datasets={datasets} table={table ?? undefined} note={note} explain={OMANISATION}>
       {isLoading ? (
         <Loading height={260} />
       ) : error ? (

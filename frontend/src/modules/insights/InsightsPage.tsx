@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { PageHead } from '@/core/components/PageHead';
 import { Segmented } from '@/core/components/Segmented';
 import { Empty, ErrorState, Loading } from '@/core/components/States';
@@ -8,6 +9,9 @@ import { CLASS_META, GROUP_LABEL, type InsightGroup } from './classes';
 import { groupOf, headlines } from './headlines';
 import { IndicatorRow } from './IndicatorRow';
 import { ThemeProfile } from './ThemeProfile';
+import { GlobalIndicesSummary } from './GlobalIndicesSummary';
+import { inCell, PositionMatrix, type MatrixCell } from './PositionMatrix';
+import { Priorities } from './Priorities';
 
 type Filter = InsightGroup | 'all';
 
@@ -17,8 +21,9 @@ export default function InsightsPage() {
   const { data: card, isLoading, error } = useScorecard();
   const [filter, setFilter] = useState<Filter>('all');
   const [theme, setTheme] = useState<string>('all');
+  const [cell, setCell] = useState<MatrixCell | null>(null);
 
-  const items = useMemo(() => (card?.items ?? []).filter((i) => (theme === 'all' || i.theme === theme) && (filter === 'all' || groupOf(i) === filter)), [card, filter, theme]);
+  const items = useMemo(() => (card?.items ?? []).filter((i) => (theme === 'all' || i.theme === theme) && (filter === 'all' || groupOf(i) === filter) && (!cell || (card && inCell(card, i, cell)))), [card, filter, theme, cell]);
   const groups = useMemo(
     () => ORDER.map((g) => ({ g, rows: items.filter((i) => groupOf(i) === g).sort((a, b) => (g === 'strength' || g === 'neutral' || g === 'opportunity' ? b.world.percentile - a.world.percentile : a.world.percentile - b.world.percentile)) })).filter((x) => x.rows.length > 0),
     [items],
@@ -32,7 +37,7 @@ export default function InsightsPage() {
     <>
       <PageHead
         title="التحديات والفرص"
-        lead="أين تتقدم عُمان وأين تتأخر؟ بطاقة أداء تقارن كل مؤشر بدول العالم والخليج وبمستواه قبل خمس سنوات، وتصنّفه آليًا من البيانات المعتمدة: لا تقدير شخصي ولا رقم بلا مصدر."
+        lead="أين تتقدم عُمان وأين تتأخر، وماذا نفعل؟ كل مؤشر يُقارَن بدول العالم والخليج وبمستواه قبل خمس سنوات، ويُصنَّف آليًا من البيانات المعتمدة: لا تقدير شخصي ولا رقم بلا مصدر."
       />
 
       <div className="no-print" style={{ marginBottom: 12 }}>
@@ -56,6 +61,32 @@ export default function InsightsPage() {
             ))}
           </div>
 
+          <section className="card narrative" aria-label="الصورة في سطر">
+            <p>
+              من <strong className="num">{formatNumber(total, 0)}</strong> مؤشرًا قابلًا للمقارنة: <strong className="num">{formatNumber(count('strength'), 0)}</strong> نقطة قوة، <strong className="num">{formatNumber(count('challenge'), 0)}</strong> تحدٍّ قائم، <strong className="num">{formatNumber(count('opportunity'), 0)}</strong> فرصة أو مسار يتحسن، و<strong className="num">{formatNumber(count('watch'), 0)}</strong> تحت المراقبة. الأولوية الآن:{' '}
+              <strong>{h.challenges[0]?.name_ar ?? 'لا يوجد تحدٍّ حرج'}</strong>
+              {h.strengths[0] ? <>، والميزة الأبرز: <strong>{h.strengths[0].name_ar}</strong></> : null}.
+            </p>
+          </section>
+
+          <section className="section" aria-labelledby="matrix-h">
+            <h2 id="matrix-h">خريطة الموقع والاتجاه</h2>
+            <p className="lead">كل مؤشر في مربع واحد بحسب موقعه بين دول العالم (يمينًا الأفضل) واتجاهه خلال {formatNumber(card.thresholds.baseline_years, 0)} سنوات (الأعلى يتحسن). اضغط مربعًا لعرض مؤشراته في القائمة أدناه.</p>
+            <PositionMatrix card={card} onPick={(c) => { setCell(c); setFilter('all'); setTheme('all'); if (c) { document.getElementById('detail-h')?.scrollIntoView({ behavior: 'smooth' }); } }} />
+          </section>
+
+          <section className="section" aria-labelledby="prio-h">
+            <h2 id="prio-h">أولويات العمل</h2>
+            <p className="lead">أكثر المؤشرات إلحاحًا: الموقع العالمي الأضعف، والاتجاه إلى التراجع، والبعد عن أفضل جار خليجي ترفع الأولوية.</p>
+            <Priorities card={card} />
+          </section>
+
+          <section className="section" aria-labelledby="gi-h">
+            <h2 id="gi-h">ماذا تقول المؤشرات الدولية؟</h2>
+            <p className="lead">من 25 مؤشرًا تصدرها منظمات عالمية. <Link to="/indices">عرض الكل ←</Link></p>
+            <GlobalIndicesSummary />
+          </section>
+
           <section className="card brief" aria-label="الخلاصة">
             <h2>الخلاصة التنفيذية</h2>
             <div className="brief-grid">
@@ -77,6 +108,7 @@ export default function InsightsPage() {
           <section className="section" aria-labelledby="detail-h">
             <div className="card-head">
               <h2 id="detail-h">المؤشرات بالتفصيل</h2>
+              {cell && <button className="btn" onClick={() => setCell(null)}>إلغاء تصفية الخريطة ✕</button>}
               <Segmented
                 label="تصفية التصنيف"
                 value={filter}

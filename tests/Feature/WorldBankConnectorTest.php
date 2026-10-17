@@ -39,6 +39,28 @@ class WorldBankConnectorTest extends TestCase
         ]);
     }
 
+    public function test_purchasing_power_derives_the_price_level_and_leaves_the_exchange_rate_to_its_own_dataset(): void
+    {
+        $this->freshHttp();
+        $row = fn (string $v, string $y) => ['countryiso3code' => 'OMN', 'country' => ['id' => 'OM', 'value' => 'x'], 'date' => $y, 'value' => (float) $v];
+        Http::fake([
+            self::API.'/country?*' => Http::response([['page' => 1, 'pages' => 1], [['id' => 'OMN', 'name' => 'Oman', 'region' => ['value' => 'Middle East']]]]),
+            self::API.'/country/all/indicator/PA.NUS.PRVT.PP*' => Http::response([['page' => 1, 'pages' => 1], [$row('0.2', '2024')]]),
+            self::API.'/country/all/indicator/PA.NUS.FCRF*' => Http::response([['page' => 1, 'pages' => 1], [$row('0.4', '2024')]]),
+            self::API.'/country/all/indicator/*' => Http::response([['page' => 1, 'pages' => 1], []]),
+        ]);
+        $c = new \App\Modules\WorldBank\Connectors\WorldBankPurchasingPowerConnector;
+
+        $keys = [];
+        foreach ($c->parse($c->fetch()) as $item) {
+            if ($item instanceof \App\Core\Ingestion\Data\ParsedRecord) {
+                $keys[] = $item->indicatorKey.'|'.$item->period.'|'.$item->value;
+            }
+        }
+
+        $this->assertEqualsCanonicalizing(['wb.PA.NUS.PRVT.PP|2024|0.2', 'wb.PRICE_LEVEL_PRIVATE|2024|50'], $keys);
+    }
+
     public function test_probe_uses_the_source_lastupdated_date(): void
     {
         $this->fakeWb();

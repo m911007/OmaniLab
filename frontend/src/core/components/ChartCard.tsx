@@ -1,6 +1,8 @@
 import { useState, type ReactNode } from 'react';
 import type { Dataset } from '../api';
+import type { Explanation } from '../explain';
 import { DataTable, toCsv, type TableData } from './DataTable';
+import { ExplainPanel } from './ExplainPanel';
 import { Segmented } from './Segmented';
 import { SourceNote } from './SourceNote';
 
@@ -29,6 +31,8 @@ interface Props {
   /** تحذير بارز (مثل: السنة غير مكتملة) */
   callout?: string;
   actions?: ReactNode;
+  /** شرح الرسم لغير المتخصصين؛ يظهر زر «ما معنى هذا الرسم؟» ويحلّ الشرح محل الرسم بزر للعودة */
+  explain?: Explanation;
 }
 
 /** تنزيل جدول المخطط كملف CSV (بعلامة UTF-8 كي يفتحه Excel بالعربية سليمًا). */
@@ -42,7 +46,8 @@ function downloadCsv(title: string, table: TableData): void {
   URL.revokeObjectURL(url);
 }
 
-export function ChartCard({ title, subtitle, datasets, children, table, note, callout, actions, views, defaultView, extra, onViewChange }: Props) {
+export function ChartCard({ title, subtitle, datasets, children, table, note, callout, actions, views, defaultView, extra, onViewChange, explain }: Props) {
+  const [explaining, setExplaining] = useState(false);
   const options = views ?? [
     { value: 'chart', label: 'مخطط' },
     { value: 'table', label: 'جدول' },
@@ -57,6 +62,17 @@ export function ChartCard({ title, subtitle, datasets, children, table, note, ca
         </div>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
           {actions}
+          {explain && (
+            <button
+              className={`btn explain-btn${explaining ? ' on' : ''}`}
+              aria-pressed={explaining}
+              aria-label={explaining ? 'العودة إلى الرسم' : 'شرح الرسم'}
+              title={explaining ? 'العودة إلى الرسم' : 'شرح الرسم'}
+              onClick={() => setExplaining((v) => !v)}
+            >
+              {explaining ? '↩' : '؟'}
+            </button>
+          )}
           {table && (
             <Segmented
               label="طريقة العرض"
@@ -75,6 +91,8 @@ export function ChartCard({ title, subtitle, datasets, children, table, note, ca
           {callout}
         </div>
       )}
+      {explain && explaining ? <ExplainPanel explanation={explain} onBack={() => setExplaining(false)} /> : (
+        <>
       {view === 'table' && table ? (
         <>
           <DataTable {...table} />
@@ -86,6 +104,8 @@ export function ChartCard({ title, subtitle, datasets, children, table, note, ca
         <>
           {extra?.(view)}
           {typeof children === 'function' ? children(view) : children}
+        </>
+      )}
         </>
       )}
       {datasets.length > 0 && <SourceNote datasets={datasets} note={note} />}

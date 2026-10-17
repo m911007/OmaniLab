@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
 import { useCrosscheckDetail, useCrosschecks, useEntities, useLines, type LineSpec, type SeriesItem } from '../hooks';
 import { entityName, formatPeriod, formatValue, yearOf } from '../format';
+import type { Explanation } from '../explain';
+import { resolveExplanation } from '../resolveExplanation';
 import { ChartCard, type ViewOption } from './ChartCard';
 import { ColumnChartView } from './ColumnChartView';
 import { LineChartView } from './LineChartView';
@@ -23,10 +25,12 @@ interface Props {
   height?: number;
   /** آخر N فترة للأعمدة */
   last?: number;
+  /** شرح الرسم لغير المتخصصين (يظهر بزر بدل الرسم) */
+  explain?: Explanation;
 }
 
 /** مخطط معرَّف بالتكوين: يجلب خطوطه ويرسمها مع مصدرها وحداثتها وجدولها البديل. هكذا تُضاف الرسوم دون كود رسم جديد. */
-export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, imfForecast, forecastFromYear, note, callout, height, last }: Props) {
+export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, imfForecast, forecastFromYear, note, callout, height, last, explain }: Props) {
   const range = useMemo(() => ({ from, to }), [from, to]);
   const omanLines = useMemo(() => lines.filter((l) => l.entity === 'OMN'), [lines]);
   // الرسم الذي فيه عُمان ودول أخرى يبدأ بعُمان وحدها، ويتيح «مقارنة» بالدول (الجاهزة وما يضيفه القارئ) و«جدول».
@@ -78,6 +82,11 @@ export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, i
   }, [tableSeries, unit]);
 
   const fullSubtitle = [subtitle, unit].filter(Boolean).join(' — ');
+  // شرح مكتوب للرسم نفسه إن وُجد، وإلا يُولَّد من شرح مؤشراته (وعائلتها)، وإلا شرح عام من بيانات المؤشر.
+  const explanation = useMemo<Explanation | null>(
+    () => explain ?? resolveExplanation({ indicators, labels: series.map((x) => x.label), multi: comparable && view === 'compare', hasForecast: forecastFrom !== undefined }),
+    [explain, indicators, series, comparable, view, forecastFrom],
+  );
   const views: ViewOption[] | undefined = comparable
     ? [
         { value: 'oman', label: 'عُمان' },
@@ -94,6 +103,7 @@ export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, i
       table={table}
       note={note}
       callout={callout}
+      explain={explanation ?? undefined}
       views={views}
       defaultView={comparable ? 'oman' : 'chart'}
       onViewChange={setView}

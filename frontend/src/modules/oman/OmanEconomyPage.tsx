@@ -52,6 +52,30 @@ export default function OmanEconomyPage() {
 
       <Section id="prices" title="الأسعار">
         <SeriesChart title="التضخم السنوي (شهري)" lines={[{ indicator: 'ncsi.CPI_INFLATION', entity: 'OMN', label: 'التضخم السنوي' }]} />
+        <SeriesChart
+          title="التضخم السنوي: عُمان والخليج (شهري)"
+          subtitle="% سنويًا — صندوق النقد"
+          lines={[
+            { indicator: 'imf.cpi_yoy', entity: 'OMN', label: 'عُمان' },
+            { indicator: 'imf.cpi_yoy', entity: 'SAU', label: 'السعودية' },
+            { indicator: 'imf.cpi_yoy', entity: 'ARE', label: 'الإمارات' },
+            { indicator: 'imf.cpi_yoy', entity: 'QAT', label: 'قطر' },
+            { indicator: 'imf.cpi_yoy', entity: 'KWT', label: 'الكويت' },
+            { indicator: 'imf.cpi_yoy', entity: 'BHR', label: 'البحرين' },
+          ]}
+          from="2021"
+        />
+        <SeriesChart
+          title="أي بنود الإنفاق تقود الغلاء في عُمان؟"
+          subtitle="التضخم السنوي حسب البند، % — صندوق النقد"
+          lines={[
+            { indicator: 'imf.cpi_yoy', entity: 'OMN', label: 'العام' },
+            { indicator: 'imf.cpi_yoy_food', entity: 'OMN', label: 'الغذاء' },
+            { indicator: 'imf.cpi_yoy_housing', entity: 'OMN', label: 'السكن والمرافق' },
+            { indicator: 'imf.cpi_yoy_transport', entity: 'OMN', label: 'النقل' },
+          ]}
+          from="2021"
+        />
         <SeriesChart title="الرقم القياسي لأسعار المستهلك (2018=100)" lines={[{ indicator: 'ncsi.CPI_INDEX', entity: 'OMN', label: 'الرقم القياسي' }]} />
         <SeriesChart title="تضخم أسعار المنتج" subtitle="% سنويًا، فصلي" lines={[{ indicator: 'ncsi.PPI_INFLATION', entity: 'OMN', label: 'تضخم أسعار المنتج' }]} />
         <SeriesChart title="الرقم القياسي لأسعار المنتج (2018=100)" lines={[{ indicator: 'ncsi.PPI_INDEX', entity: 'OMN', label: 'أسعار المنتج' }]} />

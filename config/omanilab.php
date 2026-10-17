@@ -9,6 +9,7 @@ use App\Modules\Gcc\Connectors\GccStatEnergyTourismConnector;
 use App\Modules\Gcc\Connectors\GccStatSocietyConnector;
 use App\Modules\Ilo\Connectors\IloLabourConnector;
 use App\Modules\Macro\Connectors\ImfAiReadinessConnector;
+use App\Modules\Macro\Connectors\ImfCpiConnector;
 use App\Modules\Macro\Connectors\ImfCtotConnector;
 use App\Modules\Macro\Connectors\ImfDebtDatabaseConnector;
 use App\Modules\Macro\Connectors\ImfFiscalMonitorConnector;
@@ -50,6 +51,7 @@ use App\Modules\WorldBank\Connectors\WorldBankBankingConnector;
 use App\Modules\WorldBank\Connectors\WorldBankDigitalConnector;
 use App\Modules\WorldBank\Connectors\WorldBankEnvironmentConnector;
 use App\Modules\WorldBank\Connectors\WorldBankExtraConnector;
+use App\Modules\WorldBank\Connectors\WorldBankPurchasingPowerConnector;
 use App\Modules\WorldBank\Connectors\WorldBankFinanceConnector;
 use App\Modules\WorldBank\Connectors\WorldBankGovernanceConnector;
 use App\Modules\WorldBank\Connectors\WorldBankHealthConnector;
@@ -124,11 +126,13 @@ return [
         ImfNdGainConnector::class,
         ImfIipConnector::class,
         ImfCtotConnector::class,
+        ImfCpiConnector::class,
         WorldBankBankingConnector::class,
         WorldBankSustainabilityConnector::class,
         WorldBankInnovationConnector::class,
         WorldBankWealthConnector::class,
         WorldBankExtraConnector::class,
+        WorldBankPurchasingPowerConnector::class,
         WorldBankProjectionsConnector::class,
         OwidEnergyConnector::class,
         OwidIndicesConnector::class,

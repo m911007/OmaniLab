@@ -24,12 +24,14 @@ export const NAV: NavGroup[] = [
     items: [
       { to: '/', label: 'لوحة القيادة', icon: svg('M3 12l9-8 9 8M5 10v10h5v-6h4v6h5V10'), end: true },
       { to: '/insights', label: 'التحديات والفرص', icon: svg('M12 3v3m0 12v3M5 12H2m20 0h-3M6.3 6.3L4.2 4.2m15.6 15.6l-2.1-2.1M17.7 6.3l2.1-2.1M4.2 19.8l2.1-2.1M12 8a4 4 0 100 8 4 4 0 000-8z') },
+      { to: '/indices', label: 'المؤشرات العالمية', icon: svg('M12 15a6 6 0 100-12 6 6 0 000 12zM8.2 13.9L7 22l5-3 5 3-1.2-8.1') },
     ],
   },
   {
     title: 'الاقتصاد',
     items: [
       { to: '/oman', label: 'الاقتصاد العُماني', icon: svg('M4 20V10m6 10V4m6 16v-7m4 7H2') },
+      { to: '/purchasing-power', label: 'القوة الشرائية', icon: svg('M12 2v20M17 6H9.5a3 3 0 000 6h5a3 3 0 010 6H6') },
       { to: '/gcc', label: 'دول الخليج', icon: svg('M12 3l9 5v8l-9 5-9-5V8z') },
       { to: '/peers', label: 'دول المقارنة', icon: svg('M3 12h18M8 7l-5 5 5 5M16 7l5 5-5 5') },
     ],
