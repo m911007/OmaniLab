@@ -3,6 +3,7 @@ import { KeyStat } from '@/core/components/KeyStat';
 import { PageHead, Section } from '@/core/components/PageHead';
 import { SeriesChart } from '@/core/components/SeriesChart';
 import { formatDate } from '@/core/format';
+import { peerLines } from '@/core/groups';
 import { useDatasets } from '@/core/hooks';
 import { PartnersExplorer } from './PartnersExplorer';
 import { ProductMix } from './ProductMix';
@@ -34,6 +35,11 @@ export default function TradePage() {
           </div>
         </section>
       )}
+
+      <Section title="التعقيد الاقتصادي" lead="مؤشر ECI لا يقيس حجم الصادرات بل تنوعها وتعقيدها: الدول الأعلى أقدر على النمو والتنويع. (مرصد التعقيد الاقتصادي)">
+        <SeriesChart title="مؤشر التعقيد الاقتصادي (ECI)" lines={peerLines('oec.eci')} from="2012" />
+        <SeriesChart title="معدل التبادل التجاري للسلع" subtitle="ارتفاعه = تحسّن القوة الشرائية للصادرات مقابل الواردات" lines={peerLines('imf.ctot_net_exports')} from="2000" />
+      </Section>
 
       <Section title="الإجماليات السنوية" lead="السنوات الكاملة فقط (بالريال العُماني). الصادرات دون إعادة التصدير.">
         <SeriesChart

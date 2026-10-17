@@ -6,6 +6,39 @@ export default function FinancePage() {
   return (
     <>
       <PageHead title="القطاع المالي والاستثمار" lead="النقد والائتمان وأسعار الفائدة والأسواق والادخار والاستثمار والتحويلات واللوجستيات." />
+      <Section title="السياسة النقدية في عُمان (البنك المركزي عبر NCSI)" lead="الأرقام الشهرية الرسمية حتى آخر شهر منشور: أسعار الفائدة، وعرض النقد والائتمان للقطاع الخاص، والاحتياطيات الرسمية وسعر الصرف الفعلي.">
+        <SeriesChart
+          title="أسعار الفائدة"
+          subtitle="%"
+          lines={[
+            { indicator: 'ncsi.MON_RATE_LENDING_RO', entity: 'OMN', label: 'الإقراض بالريال', color: 'var(--series-2)' },
+            { indicator: 'ncsi.MON_RATE_DEPOSIT_TIME_RO', entity: 'OMN', label: 'الودائع الزمنية', color: 'var(--series-3)' },
+            { indicator: 'ncsi.MON_RATE_REPO', entity: 'OMN', label: 'الريبو', color: 'var(--series-1)' },
+            { indicator: 'ncsi.MON_RATE_OVERNIGHT', entity: 'OMN', label: 'بين البنوك لليلة', color: 'var(--series-7)' },
+          ]}
+          from="2015"
+        />
+        <SeriesChart
+          title="عرض النقد والائتمان للقطاع الخاص"
+          subtitle="مليون ريال عُماني"
+          lines={[
+            { indicator: 'ncsi.MON_M2', entity: 'OMN', label: 'عرض النقد الواسع M2', color: 'var(--series-1)' },
+            { indicator: 'ncsi.MON_CREDIT_PRIVATE', entity: 'OMN', label: 'الائتمان للقطاع الخاص', color: 'var(--series-2)' },
+          ]}
+          from="2010"
+        />
+        <SeriesChart
+          title="الاحتياطيات الرسمية"
+          subtitle="مليون دولار"
+          lines={[
+            { indicator: 'ncsi.MON_RESERVES_EX_GOLD', entity: 'OMN', label: 'الاحتياطيات دون الذهب', color: 'var(--series-1)' },
+            { indicator: 'ncsi.MON_GOLD_VALUE', entity: 'OMN', label: 'الذهب', color: 'var(--series-4)' },
+          ]}
+          from="2010"
+        />
+        <SeriesChart title="سعر الصرف الفعلي الاسمي" subtitle="1999 = 100" lines={[{ indicator: 'ncsi.MON_NEER', entity: 'OMN', label: 'سعر الصرف الفعلي' }]} from="2005" />
+        <SeriesChart title="صافي الأصول الأجنبية" subtitle="مليون ريال عُماني" lines={[{ indicator: 'ncsi.MON_NET_FOREIGN_ASSETS', entity: 'OMN', label: 'صافي الأصول الأجنبية' }]} />
+      </Section>
       <Section title="النقد والائتمان">
         <SeriesChart title="عرض النقد (M2) — شهري" lines={gccLines('gccstat.M2')} />
         <SeriesChart title="الائتمان المحلي — شهري" lines={gccLines('gccstat.DOMESTIC_CREDIT')} />

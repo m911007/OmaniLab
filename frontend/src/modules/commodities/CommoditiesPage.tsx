@@ -22,6 +22,26 @@ export default function CommoditiesPage() {
         <KeyStat entity="USA" indicator="us.yield_10y" label="عائد الخزانة الأمريكية 10 سنوات" />
       </div>
 
+      <Section title="أسعار النفط من مصادر متعددة" lead="سعر برنت يُنشر من ثلاثة مصادر مستقلة: صندوق النقد (شهري) والبنك الدولي (الورقة الوردية) وإدارة معلومات الطاقة الأمريكية (يومي، والمتوسط الشهري المحسوب منه). تحت كل رسم شارات المصادر وحكم المطابقة وزر التبديل بينها.">
+        <SeriesChart title="خام برنت (شهري)" subtitle="دولار/برميل" lines={[wld('poilbre', 'برنت', 'var(--series-1)')]} from="2015" />
+        <SeriesChart
+          title="برنت: المصادر الثلاثة معًا"
+          subtitle="دولار/برميل، شهري"
+          lines={[
+            { indicator: 'imf.pcps.poilbre', entity: 'WLD', label: 'صندوق النقد', color: 'var(--series-1)' },
+            { indicator: 'wbpink.crude_brent', entity: 'WLD', label: 'البنك الدولي', color: 'var(--series-2)' },
+            { indicator: 'eia.brent_m', entity: 'WLD', label: 'EIA', color: 'var(--series-3)' },
+          ]}
+          from="2023"
+        />
+        <SeriesChart title="برنت اليومي (EIA)" subtitle="دولار/برميل" lines={[{ indicator: 'eia.brent_d', entity: 'WLD', label: 'برنت', color: 'var(--series-1)' }]} />
+        <SeriesChart title="غرب تكساس اليومي (EIA)" subtitle="دولار/برميل" lines={[{ indicator: 'eia.wti_d', entity: 'WLD', label: 'غرب تكساس', color: 'var(--series-3)' }]} />
+        <SeriesChart title="خام غرب تكساس (شهري)" subtitle="دولار/برميل" lines={[wld('poilwti', 'غرب تكساس', 'var(--series-3)')]} from="2015" />
+        <SeriesChart title="خام دبي (شهري)" subtitle="دولار/برميل — مرجع تسعير النفط العُماني" lines={[wld('poildub', 'دبي', 'var(--series-1)')]} from="2015" />
+        <SeriesChart title="غاز هنري هب (شهري)" subtitle="دولار/مليون وحدة حرارية" lines={[wld('pngasus', 'هنري هب', 'var(--series-4)')]} from="2015" />
+        <SeriesChart title="الغاز المسال في آسيا (شهري)" subtitle="دولار/مليون وحدة حرارية" lines={[wld('pngasjp', 'الغاز المسال', 'var(--series-7)')]} from="2015" />
+      </Section>
+
       <Section title="أثر النفط على عُمان" lead="العلاقة التاريخية بين سعر النفط والميزانية والحساب الجاري: ما تكسبه عُمان أو تخسره مع كل حركة في السعر.">
         <OilFiscalSensitivity title="رصيد الميزانية وسعر النفط" indicator="imf.GGXCNL_NGDP" yLabel="رصيد الميزانية (% من الناتج)" />
         <OilFiscalSensitivity title="الحساب الجاري وسعر النفط" indicator="imf.BCA_NGDPD" yLabel="الحساب الجاري (% من الناتج)" />

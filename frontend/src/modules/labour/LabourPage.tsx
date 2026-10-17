@@ -31,6 +31,30 @@ export default function LabourPage() {
         />
       </Section>
 
+      <Section title="العاملون المسجَّلون حسب القطاع والجنسية" lead="سجلات التأمينات الاجتماعية ووزارة العمل عبر المركز الوطني للإحصاء، حتى 2025. سلاسل العُمانيين من 2020 فقط: قبلها تغطية أضيق فلا تُوصل بها.">
+        <OmanisationCard
+          title="التعمين في القطاع الخاص"
+          subtitle="% من العاملين في القطاع الخاص"
+          omani="ncsi.LAB_PRIVATE_OMANI"
+          expat="ncsi.LAB_PRIVATE_EXPAT"
+          of="من العاملين في القطاع الخاص؛ والباقي وافدون"
+          note="العاملون المسجَّلون في التأمينات الاجتماعية، القطاع الخاص."
+        />
+        <SeriesChart
+          title="العاملون حسب القطاع والجنسية"
+          kind="stacked"
+          lines={[
+            { indicator: 'ncsi.LAB_PRIVATE_OMANI', entity: 'OMN', label: 'عُمانيون — خاص', color: 'var(--series-3)' },
+            { indicator: 'ncsi.LAB_PRIVATE_EXPAT', entity: 'OMN', label: 'وافدون — خاص', color: 'var(--series-2)' },
+            { indicator: 'ncsi.LAB_PUBLIC_OMANI', entity: 'OMN', label: 'عُمانيون — حكومي', color: 'var(--series-1)' },
+            { indicator: 'ncsi.LAB_PUBLIC_EXPAT', entity: 'OMN', label: 'وافدون — حكومي', color: 'var(--series-4)' },
+          ]}
+          from="2020"
+        />
+        <SeriesChart title="العُمانيات العاملات" lines={[{ indicator: 'ncsi.LAB_FEMALE_OMANI', entity: 'OMN', label: 'عاملات عُمانيات' }]} />
+        <SeriesChart title="إجمالي العاملين المسجَّلين" lines={[{ indicator: 'ncsi.LAB_WORKERS_TOTAL', entity: 'OMN', label: 'إجمالي العاملين' }]} />
+      </Section>
+
       <Section title="العُمانيون وغير العُمانيين" lead="أحدث مقارنة منشورة بين الفئتين (قد تسبق السنة الجارية بسنوات).">
         <div className="grid cols-3" style={{ gridColumn: '1 / -1' }}>
           <KeyStat entity="OMN" indicator="ilo.lfp_citizen" label="مشاركة العُمانيين في القوى العاملة" />

@@ -33,11 +33,26 @@ export default function SocietyPage() {
         <SeriesChart title="الأطباء لكل 10 آلاف نسمة" lines={peerLines('who.doctors')} from="2000" />
         <SeriesChart title="التمريض والقبالة لكل 10 آلاف نسمة" lines={peerLines('who.nurses')} from="2000" />
       </Section>
+      <Section title="مؤشر الأمن الغذائي الوطني" lead="مؤشر مركّب (0–1) ومكوّناته الأربعة: التوافر والإتاحة وتحمّل الكلفة والاستخدام. التوافر وتحمّل الكلفة أضعف حلقتين. (المركز الوطني للإحصاء)">
+        <SeriesChart title="مؤشر الأمن الغذائي" lines={[{ indicator: 'ncsi.FOOD_SECURITY_INDEX', entity: 'OMN', label: 'المؤشر المركّب' }]} />
+        <SeriesChart
+          title="مكوّنات الأمن الغذائي"
+          lines={[
+            { indicator: 'ncsi.FOOD_AVAILABILITY', entity: 'OMN', label: 'التوافر', color: 'var(--series-1)' },
+            { indicator: 'ncsi.FOOD_ACCESSIBILITY', entity: 'OMN', label: 'الإتاحة', color: 'var(--series-3)' },
+            { indicator: 'ncsi.FOOD_AFFORDABILITY', entity: 'OMN', label: 'تحمّل الكلفة', color: 'var(--series-2)' },
+            { indicator: 'ncsi.FOOD_UTILIZATION', entity: 'OMN', label: 'الاستخدام', color: 'var(--series-7)' },
+          ]}
+        />
+      </Section>
       <Section title="الأمن الغذائي" lead="عُمان تستورد معظم حبوبها: نسبة الاعتماد على الاستيراد وكلفة واردات الغذاء مؤشران مباشران على المخاطر الغذائية (منظمة الأغذية والزراعة).">
         <SeriesChart title="نسبة اعتماد الحبوب على الاستيراد" lines={peerLines('fao.cereal_import_dependency')} from="2005" />
         <SeriesChart title="واردات الغذاء إلى الصادرات السلعية" lines={peerLines('fao.food_imports_to_exports')} from="2005" />
         <SeriesChart title="كفاية الإمداد بالطاقة الغذائية" lines={peerLines('fao.energy_supply_adequacy')} from="2005" />
         <SeriesChart title="تقزّم الأطفال دون الخامسة" lines={peerLines('fao.child_stunting')} from="2000" />
+      </Section>
+      <Section title="إنفاق وزارة الصحة" lead="مليون ريال عُماني، سنويًا (المركز الوطني للإحصاء).">
+        <SeriesChart title="إنفاق وزارة الصحة" lines={[{ indicator: 'ncsi.HEALTH_MOH_SPENDING', entity: 'OMN', label: 'إجمالي الإنفاق' }]} kind="columns" />
       </Section>
       <Section title="العمل والمساواة">
         <SeriesChart title="معدل البطالة" lines={gccLines('gccstat.UNEMPLOYMENT')} />

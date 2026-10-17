@@ -11,8 +11,12 @@ use App\Modules\Ilo\Connectors\IloLabourConnector;
 use App\Modules\Macro\Connectors\ImfFossilSubsidiesConnector;
 use App\Modules\Macro\Connectors\ImfIipConnector;
 use App\Modules\Macro\Connectors\ImfNdGainConnector;
+use App\Modules\Markets\Connectors\EiaSpotPricesConnector;
 use App\Modules\Markets\Connectors\ImfCommodityPricesConnector;
 use App\Modules\Markets\Connectors\UsTreasuryYieldsConnector;
+use App\Modules\Markets\Connectors\WorldBankPinkSheetConnector;
+use App\Modules\Oec\Connectors\OecComplexityConnector;
+use App\Modules\Oec\Connectors\OecProductsConnector;
 use App\Modules\Owid\Connectors\OwidEnergyConnector;
 use App\Modules\Owid\Connectors\OwidIndicesConnector;
 use App\Modules\Unesco\Connectors\UnescoUisConnector;
@@ -200,6 +204,93 @@ class GlobalOrgConnectorsTest extends TestCase
 
         $this->assertContains('unesco.ger_tertiary|OMN|2024|42.2', $records);
         $this->assertEmpty(array_filter($records, fn ($r) => str_contains($r, 'SDG') || str_contains($r, '2023')));
+    }
+
+    public function test_oec_eci_takes_the_iso3_from_the_continent_prefixed_id(): void
+    {
+        $this->freshHttp();
+        $rows = array_map(fn (int $i) => ['Country ID' => 'asxx'.chr(97 + $i % 26), 'Year' => 2020, 'ECI' => 0.1], range(1, 600));
+        $rows[] = ['Country ID' => 'asomn', 'Year' => 2024, 'ECI' => -0.325];
+        $rows[] = ['Country ID' => 'asomn', 'Year' => 2023, 'ECI' => null];
+        Http::fake(fn () => Http::response(['data' => $rows]));
+        $c = new OecComplexityConnector;
+
+        $records = $this->records($c->parse($c->fetch()));
+
+        $this->assertContains('oec.eci|OMN|2024|-0.325', $records);
+        $this->assertEmpty(array_filter($records, fn ($r) => str_contains($r, '|2023|')));
+    }
+
+    public function test_oec_products_become_country_to_hs4_relations_with_the_last_four_digits_as_code(): void
+    {
+        $this->freshHttp();
+        config(['omanilab.ingest.oec_throttle_microseconds' => 0]);
+        Http::fake(fn (Request $r) => Http::response(['data' => str_contains($r->url(), 'asomn') ? [
+            ['HS4 ID' => 52709, 'HS4' => 'Crude Petroleum', 'Year' => 2023, 'Trade Value' => 2.9e10],
+            ['HS4 ID' => 63102, 'HS4' => 'Nitrogenous Fertilizers', 'Year' => 2023, 'Trade Value' => 2.6e9],
+            ['HS4 ID' => 99999, 'HS4' => 'Zero', 'Year' => 2023, 'Trade Value' => 0],
+        ] : []]));
+        $c = new OecProductsConnector;
+
+        $parsed = iterator_to_array($c->parse($c->fetch()), false);
+
+        $rel = array_unique(array_map(fn ($i) => "{$i->indicatorKey}|{$i->sourceCode}>{$i->targetCode}|{$i->value}", array_filter($parsed, fn ($i) => $i instanceof ParsedRelation)));
+        $this->assertContains('oec.hs4_exports|OMN>HS2709|29000000000', $rel);
+        $this->assertContains('oec.hs4_exports|OMN>HS3102|2600000000', $rel);
+        $this->assertCount(2, $rel);
+    }
+
+    public function test_eia_weeks_become_daily_points_and_months_average_only_when_complete(): void
+    {
+        $this->freshHttp();
+        $week = fn (string $label, array $cells) => '<tr><td>&nbsp;&nbsp;'.$label.'</td>'.implode('', array_map(fn ($c) => "<td>{$c}</td>", $cells)).'</tr>';
+        $html = '<table>'.$week('2026 Jan- 5 to Jan- 9', ['10.0', '20.0', '30.0', '40.0', '50.0']).$week('2026 Jan-12 to Jan-16', ['60.0', '', '', '', '']).$week('2026 Jan-26 to Jan-30', ['5.0', '5.0', '5.0', '5.0', '5.0']).'</table>';
+        $pad = '';
+        for ($i = 0; $i < 220; $i++) {
+            $pad .= $week('1990 Jan- 1 to Jan- 5', ['1.0', '1.0', '1.0', '1.0', '1.0']);
+        }
+        Http::fake(fn () => Http::response($html.$pad));
+        $c = new EiaSpotPricesConnector;
+
+        $records = array_unique($this->records($c->parse($c->fetch())));
+
+        $this->assertContains('eia.brent_d|WLD|2026-01-05|10', $records);
+        $this->assertContains('eia.brent_d|WLD|2026-01-09|50', $records);
+        $this->assertContains('eia.brent_d|WLD|2026-01-12|60', $records);
+        $this->assertContains('eia.brent_m|WLD|1990-01|1', $records);
+    }
+
+    public function test_the_pink_sheet_link_is_discovered_on_the_page_and_its_monthly_sheet_is_read_from_the_xlsx(): void
+    {
+        $this->freshHttp();
+        $strings = ['Crude oil, Brent', 'Crude oil, Dubai', '($/bbl)', '1960M01', '2025M12', 'Other'];
+        $row = fn (int $r, array $cells) => "<row r=\"{$r}\">".implode('', array_map(fn ($c) => $c[0] === 's' ? "<c r=\"{$c[1]}{$r}\" t=\"s\"><v>{$c[2]}</v></c>" : "<c r=\"{$c[1]}{$r}\"><v>{$c[2]}</v></c>", $cells)).'</row>';
+        $sheet = '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData>'
+            .$row(5, [['s', 'B', 0], ['s', 'C', 1]])
+            .$row(7, [['s', 'A', 3], ['n', 'B', '1.63'], ['n', 'C', '…']])
+            .$row(8, [['s', 'A', 4], ['n', 'B', '62.72'], ['n', 'C', '61.98']])
+            .'</sheetData></worksheet>';
+        $zipPath = tempnam(sys_get_temp_dir(), 'x');
+        $zip = new \ZipArchive;
+        $zip->open($zipPath, \ZipArchive::OVERWRITE);
+        $zip->addFromString('xl/workbook.xml', '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="Monthly Prices" sheetId="2" r:id="rId2"/></sheets></workbook>');
+        $zip->addFromString('xl/_rels/workbook.xml.rels', '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId2" Target="worksheets/sheet2.xml"/></Relationships>');
+        $zip->addFromString('xl/sharedStrings.xml', '<sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'.implode('', array_map(fn ($s) => "<si><t>{$s}</t></si>", $strings)).'</sst>');
+        $zip->addFromString('xl/worksheets/sheet2.xml', $sheet);
+        $zip->close();
+        $file = (string) file_get_contents($zipPath);
+        @unlink($zipPath);
+        Http::fake(fn (Request $r) => str_contains($r->url(), 'commodity-markets')
+            ? Http::response('<a href="https://thedocs.worldbank.org/en/doc/abc-0050012026/related/CMO-Historical-Data-Monthly.xlsx">x</a>')
+            : Http::response($file, 200, ['Last-Modified' => 'Tue, 06 Oct 2026 10:00:00 GMT']));
+        $c = new WorldBankPinkSheetConnector;
+
+        $probe = $c->probe();
+        $records = $this->records($c->parse($c->fetch()));
+
+        $this->assertStringContainsString('abc-0050012026', (string) $probe->token);
+        $this->assertSame('2026-10-06', $probe->publishedAt?->toDateString());
+        $this->assertEqualsCanonicalizing(['wbpink.crude_brent|WLD|1960-01|1.63', 'wbpink.crude_brent|WLD|2025-12|62.72', 'wbpink.crude_dubai|WLD|2025-12|61.98'], array_values(array_unique($records)));
     }
 
     public function test_ilo_scales_thousands_and_keeps_only_three_letter_country_codes(): void

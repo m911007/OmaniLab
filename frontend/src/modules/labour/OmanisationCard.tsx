@@ -5,18 +5,30 @@ import { Empty, ErrorState, Loading } from '@/core/components/States';
 import { formatNumber } from '@/core/format';
 import { useLines, type LineSpec, type SeriesItem } from '@/core/hooks';
 
-const LINES: LineSpec[] = [
-  { indicator: 'ilo.emp_citizen', entity: 'OMN', label: 'العُمانيون' },
-  { indicator: 'ilo.emp_noncitizen', entity: 'OMN', label: 'غير العُمانيين' },
-];
+interface Props {
+  title?: string;
+  subtitle?: string;
+  omani?: string;
+  expat?: string;
+  /** وصف ما يُحسب (مثل: من العاملين في القطاع الخاص) */
+  of?: string;
+  note?: string;
+}
 
 /** حصة العُمانيين من إجمالي العاملين (التعمين الفعلي) كل سنة، محسوبة من سلسلتَي منظمة العمل الدولية. */
-export function OmanisationCard() {
-  const { isLoading, error, series, datasets } = useLines(LINES);
+export function OmanisationCard({ title = 'التعمين: حصة العُمانيين من العاملين', subtitle = '% من إجمالي العاملين', omani = 'ilo.emp_citizen', expat = 'ilo.emp_noncitizen', of = 'من العاملين؛ والباقي وافدون', note = 'العاملون بحسب الجنسية (15 سنة فأكثر)؛ تقديرات منظمة العمل الدولية من السجلات الإدارية والمسوح.' }: Props) {
+  const lines = useMemo<LineSpec[]>(
+    () => [
+      { indicator: omani, entity: 'OMN', label: 'العُمانيون' },
+      { indicator: expat, entity: 'OMN', label: 'غير العُمانيين' },
+    ],
+    [omani, expat],
+  );
+  const { isLoading, error, series, datasets } = useLines(lines);
 
   const { share, cit, non } = useMemo(() => {
-    const cit = new Map(series.find((s) => s.id.startsWith('ilo.emp_citizen'))?.points ?? []);
-    const non = new Map(series.find((s) => s.id.startsWith('ilo.emp_noncitizen'))?.points ?? []);
+    const cit = new Map(series.find((s) => s.id.startsWith(omani))?.points ?? []);
+    const non = new Map(series.find((s) => s.id.startsWith(expat))?.points ?? []);
     const points = [...cit].filter(([p]) => non.has(p)).map(([p, v]): [string, number] => [p, (v / (v + non.get(p)!)) * 100]);
     const share: SeriesItem[] = points.length > 0 ? [{ id: 'omanisation', label: 'حصة العُمانيين من العاملين', color: 'var(--series-1)', points }] : [];
     return { share, cit, non };
@@ -29,7 +41,7 @@ export function OmanisationCard() {
   };
 
   return (
-    <ChartCard title="التعمين: حصة العُمانيين من العاملين" subtitle="% من إجمالي العاملين" datasets={datasets} table={table ?? undefined} note="العاملون بحسب الجنسية (15 سنة فأكثر)؛ تقديرات منظمة العمل الدولية من السجلات الإدارية والمسوح.">
+    <ChartCard title={title} subtitle={subtitle} datasets={datasets} table={table ?? undefined} note={note}>
       {isLoading ? (
         <Loading height={260} />
       ) : error ? (
@@ -39,7 +51,7 @@ export function OmanisationCard() {
       ) : (
         <>
           <p style={{ marginBottom: 8 }}>
-            في <span className="num">{last[0]}</span> شكّل العُمانيون <strong className="num">{formatNumber(last[1], 1)}%</strong> من العاملين؛ والباقي وافدون.
+            في <span className="num">{last[0]}</span> شكّل العُمانيون <strong className="num">{formatNumber(last[1], 1)}%</strong> {of}.
           </p>
           <LineChartView series={share} unit="%" height={240} zeroLine={false} />
         </>

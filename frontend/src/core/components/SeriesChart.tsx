@@ -36,11 +36,13 @@ export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, i
   // مصادر بديلة للمؤشر نفسه (إن نشره أكثر من مصدر): تُقارَن وتُعرض، ويبدّل القارئ بينها.
   const baseIndicator = lines[0].indicator;
   const singleIndicator = lines.every((l) => l.indicator === baseIndicator);
-  const xcheck = useCrosschecks();
-  const group = singleIndicator && omanLines.length > 0 ? xcheck.data?.find((g) => g.indicators.includes(baseIndicator)) : undefined;
+  const soloEntity = singleIndicator && new Set(lines.map((l) => l.entity)).size === 1 ? lines[0].entity : null;
+  const xEntity = comparable ? 'OMN' : soloEntity;
+  const xcheck = useCrosschecks(xEntity ?? 'OMN');
+  const group = xEntity ? xcheck.data?.find((g) => g.indicators.includes(baseIndicator)) : undefined;
   const [panelOpen, setPanelOpen] = useState(false);
   const [alt, setAlt] = useState<string | null>(null);
-  const detailQuery = useCrosscheckDetail(baseIndicator, 'OMN', !!group && (panelOpen || alt !== null));
+  const detailQuery = useCrosscheckDetail(baseIndicator, xEntity ?? 'OMN', !!group && (panelOpen || alt !== null));
 
   const compareLines = useMemo<LineSpec[]>(() => [...lines, ...extra.filter((c) => !lines.some((l) => l.entity === c)).map((entity) => ({ indicator: lines[0].indicator, entity }))], [lines, extra]);
   const activeLines = !comparable ? lines : view === 'oman' ? omanLines : compareLines;

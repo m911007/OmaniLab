@@ -31,6 +31,7 @@ return [
             ['key' => 'wb.TX.VAL.FUEL.ZS.UN', 'polarity' => 'lower'],
             ['key' => 'wb.TX.VAL.MANF.ZS.UN', 'polarity' => 'higher'],
             ['key' => 'wb.TX.VAL.TECH.MF.ZS', 'polarity' => 'higher'],
+            ['key' => 'oec.eci', 'polarity' => 'higher'],
             ['key' => 'wb.BX.KLT.DINV.WD.GD.ZS', 'polarity' => 'higher'],
             ['key' => 'wb.NY.GDP.PETR.RT.ZS', 'polarity' => 'lower'],
         ]],

@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Core\Ingestion\Data\ParsedRecord;
+use App\Core\Ingestion\Data\RawPayload;
+use App\Modules\Ncsi\Connectors\NcsiLabourConnector;
 use App\Modules\Ncsi\Connectors\NcsiNationalAccountsConnector;
 use App\Modules\Ncsi\Connectors\NcsiPricesConnector;
 use Illuminate\Http\Client\Request;
@@ -116,5 +118,18 @@ class NcsiConnectorTest extends TestCase
         $records = collect(iterator_to_array($c->parse($c->fetch()), false))->filter(fn ($i) => $i instanceof ParsedRecord && $i->indicatorKey === 'ncsi.GDP_CURRENT');
 
         $this->assertSame('2024', $records->first()->period);
+    }
+
+    public function test_the_labour_connector_drops_omani_series_before_the_coverage_break_but_keeps_totals(): void
+    {
+        $payload = new RawPayload(json_encode(['series' => [
+            'LAB_PRIVATE_OMANI' => [['2019', 262333.0], ['2020', 403452.0]],
+            'LAB_WORKERS_TOTAL' => [['2019', 2157807.0], ['2020', 2164000.0]],
+        ]], JSON_THROW_ON_ERROR));
+
+        $records = array_values(array_filter(iterator_to_array((new NcsiLabourConnector)->parse($payload), false), fn ($i) => $i instanceof ParsedRecord));
+        $keys = array_map(fn (ParsedRecord $r) => "{$r->indicatorKey}|{$r->period}", $records);
+
+        $this->assertEqualsCanonicalizing(['ncsi.LAB_PRIVATE_OMANI|2020', 'ncsi.LAB_WORKERS_TOTAL|2019', 'ncsi.LAB_WORKERS_TOTAL|2020'], $keys);
     }
 }

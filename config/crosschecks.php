@@ -79,5 +79,53 @@ return [
             ['indicator' => 'undp.co2_prod', 'scale' => 1],
             ['indicator' => 'owid.co2_per_capita', 'scale' => 1],
         ]],
+        ['key' => 'current_account_usd', 'label' => 'رصيد الحساب الجاري (مليار دولار)', 'mode' => 'absolute', 'tolerance' => 2.0, 'members' => [
+            ['indicator' => 'imf.BCA', 'scale' => 1],
+            ['indicator' => 'ncsi.BOP_CURRENT_ACCOUNT', 'scale' => 0.0026008],
+        ]],
+        ['key' => 'omani_workers', 'label' => 'العاملون العُمانيون', 'mode' => 'relative', 'tolerance' => 0.1, 'members' => [
+            ['indicator' => 'ncsi.LAB_WORKERS_OMANI', 'scale' => 1],
+            ['indicator' => 'ilo.emp_citizen', 'scale' => 1],
+        ]],
+        ['key' => 'expat_workers', 'label' => 'العاملون الوافدون', 'mode' => 'relative', 'tolerance' => 0.1, 'members' => [
+            ['indicator' => 'ncsi.LAB_WORKERS_EXPAT', 'scale' => 1],
+            ['indicator' => 'ilo.emp_noncitizen', 'scale' => 1],
+        ]],
+        ['key' => 'female_lfp', 'label' => 'مشاركة المرأة في القوى العاملة', 'mode' => 'absolute', 'tolerance' => 3.0, 'members' => [
+            ['indicator' => 'ilo.lfp_female', 'scale' => 1],
+            ['indicator' => 'wb.SL.TLF.CACT.FE.ZS', 'scale' => 1],
+        ]],
+        ['key' => 'govt_revenue', 'label' => 'الإيرادات الحكومية (% من الناتج)', 'mode' => 'absolute', 'tolerance' => 1.5, 'members' => [
+            ['indicator' => 'imf.GGR_G01_GDP_PT', 'scale' => 1],
+            ['indicator' => 'imf.rev', 'scale' => 1],
+            ['indicator' => 'wb.GC.TAX.TOTL.GD.ZS', 'scale' => 1],
+        ]],
+        ['key' => 'brent_monthly', 'label' => 'سعر خام برنت (شهري)', 'frequency' => 'M', 'mode' => 'relative', 'tolerance' => 0.02, 'members' => [
+            ['indicator' => 'imf.pcps.poilbre', 'scale' => 1],
+            ['indicator' => 'wbpink.crude_brent', 'scale' => 1],
+            ['indicator' => 'eia.brent_m', 'scale' => 1],
+        ]],
+        ['key' => 'wti_monthly', 'label' => 'سعر خام غرب تكساس (شهري)', 'frequency' => 'M', 'mode' => 'relative', 'tolerance' => 0.02, 'members' => [
+            ['indicator' => 'imf.pcps.poilwti', 'scale' => 1],
+            ['indicator' => 'wbpink.crude_wti', 'scale' => 1],
+            ['indicator' => 'eia.wti_m', 'scale' => 1],
+        ]],
+        ['key' => 'dubai_monthly', 'label' => 'سعر خام دبي (شهري)', 'frequency' => 'M', 'mode' => 'relative', 'tolerance' => 0.02, 'members' => [
+            ['indicator' => 'imf.pcps.poildub', 'scale' => 1],
+            ['indicator' => 'wbpink.crude_dubai', 'scale' => 1],
+        ]],
+        ['key' => 'henry_hub_monthly', 'label' => 'غاز هنري هب (شهري)', 'frequency' => 'M', 'mode' => 'relative', 'tolerance' => 0.03, 'members' => [
+            ['indicator' => 'imf.pcps.pngasus', 'scale' => 1],
+            ['indicator' => 'wbpink.ng_us', 'scale' => 1],
+            ['indicator' => 'eia.henryhub_m', 'scale' => 1],
+        ]],
+        ['key' => 'lng_japan_monthly', 'label' => 'الغاز المسال في آسيا (شهري)', 'frequency' => 'M', 'mode' => 'relative', 'tolerance' => 0.03, 'members' => [
+            ['indicator' => 'imf.pcps.pngasjp', 'scale' => 1],
+            ['indicator' => 'wbpink.lng_japan', 'scale' => 1],
+        ]],
+        ['key' => 'gas_europe_monthly', 'label' => 'الغاز الأوروبي (شهري)', 'frequency' => 'M', 'mode' => 'relative', 'tolerance' => 0.03, 'members' => [
+            ['indicator' => 'imf.pcps.pngaseu', 'scale' => 1],
+            ['indicator' => 'wbpink.ng_europe', 'scale' => 1],
+        ]],
     ],
 ];

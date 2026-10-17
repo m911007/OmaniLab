@@ -15,6 +15,7 @@ export default function OmanEconomyPage() {
           ['growth', 'النمو والناتج'],
           ['prices', 'الأسعار'],
           ['fiscal', 'المالية العامة'],
+          ['bop', 'ميزان المدفوعات'],
           ['external', 'القطاع الخارجي'],
           ['energy', 'النفط والغاز'],
           ['people', 'السكان والعمل'],
@@ -52,6 +53,8 @@ export default function OmanEconomyPage() {
       <Section id="prices" title="الأسعار">
         <SeriesChart title="التضخم السنوي (شهري)" lines={[{ indicator: 'ncsi.CPI_INFLATION', entity: 'OMN', label: 'التضخم السنوي' }]} />
         <SeriesChart title="الرقم القياسي لأسعار المستهلك (2018=100)" lines={[{ indicator: 'ncsi.CPI_INDEX', entity: 'OMN', label: 'الرقم القياسي' }]} />
+        <SeriesChart title="تضخم أسعار المنتج" subtitle="% سنويًا، فصلي" lines={[{ indicator: 'ncsi.PPI_INFLATION', entity: 'OMN', label: 'تضخم أسعار المنتج' }]} />
+        <SeriesChart title="الرقم القياسي لأسعار المنتج (2018=100)" lines={[{ indicator: 'ncsi.PPI_INDEX', entity: 'OMN', label: 'أسعار المنتج' }]} />
         <SeriesChart title="التضخم السنوي (متوسط)" lines={oman('imf.PCPIPCH', 'عُمان')} from="2005" imfForecast />
       </Section>
 
@@ -59,6 +62,34 @@ export default function OmanEconomyPage() {
         <SeriesChart title="إجمالي الدين الحكومي" lines={oman('imf.GGXWDG_NGDP', 'عُمان')} from="2005" imfForecast />
         <SeriesChart title="رصيد الميزانية الحكومية" lines={oman('imf.GGXCNL_NGDP', 'عُمان')} from="2005" imfForecast />
         <SeriesChart title="إيرادات الضرائب" lines={oman('wb.GC.TAX.TOTL.GD.ZS', 'عُمان')} from="2000" />
+      </Section>
+
+      <Section id="bop" title="ميزان المدفوعات (البنك المركزي عبر NCSI)" lead="الأرقام الرسمية بالمليون ريال عُماني: من أين تأتي صادرات عُمان (الخام والمشتقات والغاز وغير النفطي)، وما بنود الحساب الجاري؟ المدفوعات بإشارة سالبة.">
+        <SeriesChart
+          title="الصادرات السلعية حسب النوع"
+          subtitle="مليون ريال عُماني"
+          kind="stacked"
+          lines={[
+            { indicator: 'ncsi.BOP_EXPORTS_CRUDE', entity: 'OMN', label: 'النفط الخام', color: 'var(--series-4)' },
+            { indicator: 'ncsi.BOP_EXPORTS_REFINED', entity: 'OMN', label: 'المشتقات النفطية', color: 'var(--series-2)' },
+            { indicator: 'ncsi.BOP_EXPORTS_GAS', entity: 'OMN', label: 'الغاز', color: 'var(--series-7)' },
+            { indicator: 'ncsi.BOP_EXPORTS_NON_OIL', entity: 'OMN', label: 'غير نفطية', color: 'var(--series-3)' },
+            { indicator: 'ncsi.BOP_REEXPORTS', entity: 'OMN', label: 'إعادة التصدير', color: 'var(--series-1)' },
+          ]}
+        />
+        <SeriesChart
+          title="أرصدة الحساب الجاري"
+          subtitle="مليون ريال عُماني"
+          kind="columns"
+          lines={[
+            { indicator: 'ncsi.BOP_GOODS', entity: 'OMN', label: 'السلع', color: 'var(--series-3)' },
+            { indicator: 'ncsi.BOP_SERVICES', entity: 'OMN', label: 'الخدمات', color: 'var(--series-4)' },
+            { indicator: 'ncsi.BOP_PRIMARY_INCOME', entity: 'OMN', label: 'الدخل الأولي', color: 'var(--series-7)' },
+            { indicator: 'ncsi.BOP_SECONDARY_INCOME', entity: 'OMN', label: 'الدخل الثانوي', color: 'var(--series-8)' },
+          ]}
+        />
+        <SeriesChart title="رصيد الحساب الجاري" subtitle="مليون ريال عُماني" kind="columns" lines={[{ indicator: 'ncsi.BOP_CURRENT_ACCOUNT', entity: 'OMN', label: 'الحساب الجاري' }]} />
+        <SeriesChart title="تحويلات العاملين الوافدين (سالب = خارج)" subtitle="مليون ريال عُماني" kind="columns" lines={[{ indicator: 'ncsi.BOP_WORKERS_REMITTANCES', entity: 'OMN', label: 'تحويلات العاملين' }]} />
       </Section>
 
       <Section id="external" title="القطاع الخارجي">
@@ -87,6 +118,17 @@ export default function OmanEconomyPage() {
       </Section>
 
       <Section id="people" title="السكان والعمل">
+        <SeriesChart
+          title="السكان حسب الجنسية (عدّاد المركز الوطني)"
+          subtitle="نسمة، شهري"
+          lines={[
+            { indicator: 'ncsi.POP_OMANI', entity: 'OMN', label: 'العُمانيون', color: 'var(--series-3)' },
+            { indicator: 'ncsi.POP_EXPAT', entity: 'OMN', label: 'الوافدون', color: 'var(--series-2)' },
+          ]}
+          from="2018"
+        />
+        <SeriesChart title="المواليد (شهري)" lines={[{ indicator: 'ncsi.BIRTHS', entity: 'OMN', label: 'المواليد' }]} from="2018" />
+        <SeriesChart title="الوفيات (شهري)" lines={[{ indicator: 'ncsi.DEATHS', entity: 'OMN', label: 'الوفيات' }]} from="2018" />
         <SeriesChart title="عدد السكان" lines={[
           { indicator: 'gccstat.POP', entity: 'OMN', label: 'إجمالي السكان', color: 'var(--series-1)' },
           { indicator: 'gccstat.POP_CITIZEN', entity: 'OMN', label: 'المواطنون', color: 'var(--series-2)' },

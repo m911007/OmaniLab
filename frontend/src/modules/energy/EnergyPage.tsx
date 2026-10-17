@@ -28,6 +28,32 @@ export default function EnergyPage() {
         <SeriesChart title="الكهرباء من الغاز الطبيعي" lines={peerLines('wb.EG.ELC.NGAS.ZS')} from="1990" />
         <SeriesChart title="كثافة استخدام الطاقة (لكل 1000 دولار من الناتج)" lines={peerLines('wb.EG.USE.COMM.GD.PP.KD')} from="1990" />
       </Section>
+      <Section title="الكهرباء في عُمان (هيئة تنظيم الخدمات العامة عبر NCSI)" lead="الإنتاج الشهري، والاستهلاك حسب القطاع، والقدرة المركّبة واشتراكات الكهرباء.">
+        <SeriesChart title="إنتاج الكهرباء" subtitle="جيجاواط ساعة، شهري" lines={[{ indicator: 'ncsi.ELEC_PRODUCTION', entity: 'OMN', label: 'الإنتاج' }]} />
+        <SeriesChart
+          title="الاستهلاك حسب القطاع"
+          subtitle="جيجاواط ساعة"
+          kind="stacked"
+          lines={[
+            { indicator: 'ncsi.ELEC_CONSUMPTION_RESIDENTIAL', entity: 'OMN', label: 'سكني', color: 'var(--series-1)' },
+            { indicator: 'ncsi.ELEC_CONSUMPTION_COMMERCIAL', entity: 'OMN', label: 'تجاري', color: 'var(--series-2)' },
+            { indicator: 'ncsi.ELEC_CONSUMPTION_INDUSTRIAL', entity: 'OMN', label: 'صناعي', color: 'var(--series-3)' },
+            { indicator: 'ncsi.ELEC_CONSUMPTION_GOVERNMENT', entity: 'OMN', label: 'حكومي', color: 'var(--series-4)' },
+          ]}
+        />
+        <SeriesChart
+          title="إنتاج الطاقة المتجددة (شهري)"
+          subtitle="جيجاواط ساعة"
+          kind="stacked"
+          lines={[
+            { indicator: 'ncsi.RE_SOLAR', entity: 'OMN', label: 'الشمس', color: 'var(--series-4)' },
+            { indicator: 'ncsi.RE_WIND', entity: 'OMN', label: 'الرياح', color: 'var(--series-1)' },
+          ]}
+          last={30}
+        />
+        <SeriesChart title="القدرة المركّبة" subtitle="ميجاواط" lines={[{ indicator: 'ncsi.ELEC_CAPACITY', entity: 'OMN', label: 'القدرة المركّبة' }]} />
+        <SeriesChart title="اشتراكات الكهرباء" lines={[{ indicator: 'ncsi.ELEC_CONNECTIONS', entity: 'OMN', label: 'الاشتراكات' }]} />
+      </Section>
       <Section title="التحول في الكهرباء حتى 2025" lead="بيانات Ember عبر Our World in Data: أحدث من مصادر البنك الدولي بسنوات.">
         <SeriesChart title="حصة المتجددة من الكهرباء" lines={peerLines('owid.renewable_electricity_share')} from="2005" />
         <SeriesChart title="حصة الشمس من الكهرباء" lines={peerLines('owid.solar_electricity_share')} from="2010" />

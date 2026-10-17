@@ -176,7 +176,10 @@ networks:
   public: {}                   # caddy فقط
   web:
     internal: true             # caddy <-> app
-  ingest: {}
+  ingest:
+    # MTU أقل من الافتراضي: رسالة TLS ClientHello الكبيرة تُسقَط بصمت عند بعض الحواف (CloudFront لـ UNESCO، وFRED سابقًا) فيتجمّد الاتصال.
+    driver_opts:
+      com.docker.network.driver.mtu: "1400"
   data:
     internal: true
 

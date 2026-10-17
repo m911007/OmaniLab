@@ -25,5 +25,9 @@ return [
             'title' => 'تراجع إنتاج النفط', 'message' => 'انخفض متوسط إنتاج النفط الخام اليومي {change}% في {period} (إلى {value} ألف برميل/يوم).'],
         ['id' => 'ust10_jump', 'indicator' => 'us.yield_10y', 'entity' => 'USA', 'type' => 'change_abs', 'direction' => 'any', 'threshold' => 0.15, 'tone' => 'warning', 'max_age_days' => 7,
             'title' => 'قفزة في عائد الخزانة الأمريكية', 'message' => 'تغيّر عائد سندات الخزانة 10 سنوات {change} نقطة في {period} (إلى {value}%): ينتقل إلى كلفة التمويل بالريال المربوط بالدولار.'],
+        ['id' => 'repo_move', 'indicator' => 'ncsi.MON_RATE_REPO', 'entity' => 'OMN', 'type' => 'change_abs', 'direction' => 'any', 'threshold' => 0.25, 'tone' => 'warning', 'max_age_days' => 75,
+            'title' => 'تغيّر في سعر الريبو', 'message' => 'تغيّر متوسط سعر الريبو مع البنك المركزي {change} نقطة في {period} (إلى {value}%): ينتقل إلى كلفة الإقراض والودائع.'],
+        ['id' => 'reserves_drop', 'indicator' => 'ncsi.MON_RESERVES_EX_GOLD', 'entity' => 'OMN', 'type' => 'change_pct', 'direction' => 'down', 'threshold' => 5.0, 'tone' => 'critical', 'max_age_days' => 75,
+            'title' => 'انخفاض الاحتياطيات الرسمية', 'message' => 'انخفضت الاحتياطيات الرسمية دون الذهب {change}% في {period} (إلى {value} مليون دولار).'],
     ],
 ];

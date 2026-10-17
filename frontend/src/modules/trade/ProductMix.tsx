@@ -9,6 +9,7 @@ import { COUNTRY_NAMES } from '@/core/groups';
 import { assignColors } from '@/core/colors';
 
 type Flow = 'exports' | 'imports';
+type Level = 'chapters' | 'products';
 
 const COUNTRIES = ['OMN', 'SAU', 'ARE', 'QAT', 'KWT', 'BHR'] as const;
 const THIS_YEAR = new Date().getFullYear();
@@ -27,7 +28,10 @@ export function ProductMix() {
   const [country, setCountry] = useState<string>('OMN');
   const [flow, setFlow] = useState<Flow>('exports');
   const [year, setYear] = useState<string | null>(null);
-  const indicator = flow === 'exports' ? 'comtrade.hs_exports' : 'comtrade.hs_imports';
+  const [level, setLevel] = useState<Level>('chapters');
+  // تفصيل المنتجات (HS4) متاح للصادرات فقط (OEC/BACI)؛ الواردات فصول HS2 من Comtrade.
+  const detailed = level === 'products' && flow === 'exports';
+  const indicator = detailed ? 'oec.hs4_exports' : flow === 'exports' ? 'comtrade.hs_exports' : 'comtrade.hs_imports';
 
   // أحدث سنة ذات بيانات: تُجرَّب السنوات تنازليًا وتُؤخذ أول سنة غير فارغة.
   const probes = YEARS.map((y) => useRelations({ indicator, entity: country, period: y, direction: 'out', limit: 100 })); // eslint-disable-line react-hooks/rules-of-hooks
@@ -44,14 +48,14 @@ export function ProductMix() {
   }, [data]);
 
   const colors = assignColors([country]);
-  const items = (data?.items ?? []).slice(0, 12).map((i) => ({ key: i.entity.code, rank: i.rank, label: i.entity.name_ar ?? i.entity.name_en, value: i.value, share: i.share, color: colors[country] }));
+  const items = (data?.items ?? []).slice(0, 12).map((i) => ({ key: i.entity.code, rank: i.rank, label: i.entity.name_ar ?? i.entity.name_en.replace(/^HS\s?/, ''), value: i.value, share: i.share, color: colors[country] }));
 
   return (
     <ChartCard
       title="التجارة حسب المنتج"
-      subtitle={`فصول النظام المنسّق (HS) — ${COUNTRY_NAMES[country]}${shownIndex >= 0 ? ` — ${YEARS[shownIndex]}` : ''}`}
+      subtitle={`${detailed ? 'منتجات بتفصيل 4 خانات (HS4)' : 'فصول النظام المنسّق (HS)'} — ${COUNTRY_NAMES[country]}${shownIndex >= 0 ? ` — ${YEARS[shownIndex]}` : ''}`}
       datasets={data ? [data.dataset] : []}
-      note="قيم بالدولار الأمريكي كما تبلّغ بها الدولة؛ قد تختلف عن الإحصاءات الوطنية في التغطية والتقييم."
+      note={detailed ? 'بيانات مرايا مصالَحة بين المصدّر والمستورد (BACI/CEPII عبر OEC)، فقد تختلف عن إحصاءات الدولة. أسماء المنتجات بالإنجليزية.' : 'قيم بالدولار الأمريكي كما تبلّغ بها الدولة؛ قد تختلف عن الإحصاءات الوطنية في التغطية والتقييم.'}
       actions={
         <Segmented
           label="التدفق"
@@ -76,6 +80,13 @@ export function ProductMix() {
                 {COUNTRY_NAMES[c]}
               </option>
             ))}
+          </select>
+        </label>
+        <label className="field">
+          التفصيل
+          <select value={flow === 'exports' ? level : 'chapters'} onChange={(e) => { setLevel(e.target.value as Level); setYear(null); }} aria-label="مستوى التفصيل" disabled={flow !== 'exports'}>
+            <option value="chapters">فصول (HS2)</option>
+            <option value="products">منتجات (HS4)</option>
           </select>
         </label>
         <label className="field">

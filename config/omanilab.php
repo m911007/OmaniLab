@@ -9,8 +9,10 @@ use App\Modules\Gcc\Connectors\GccStatEnergyTourismConnector;
 use App\Modules\Gcc\Connectors\GccStatSocietyConnector;
 use App\Modules\Ilo\Connectors\IloLabourConnector;
 use App\Modules\Macro\Connectors\ImfAiReadinessConnector;
+use App\Modules\Macro\Connectors\ImfCtotConnector;
 use App\Modules\Macro\Connectors\ImfDebtDatabaseConnector;
 use App\Modules\Macro\Connectors\ImfFiscalMonitorConnector;
+use App\Modules\Macro\Connectors\ImfFiscalPolicyConnector;
 use App\Modules\Macro\Connectors\ImfFossilSubsidiesConnector;
 use App\Modules\Macro\Connectors\ImfIipConnector;
 use App\Modules\Macro\Connectors\ImfNdGainConnector;
@@ -18,12 +20,26 @@ use App\Modules\Macro\Connectors\ImfReservesConnector;
 use App\Modules\Macro\Connectors\ImfWeoConnector;
 use App\Modules\Manafeth\Connectors\ManafethPartnersConnector;
 use App\Modules\Manafeth\Connectors\ManafethTotalsConnector;
+use App\Modules\Markets\Connectors\EiaSpotPricesConnector;
 use App\Modules\Markets\Connectors\ImfCommodityPricesConnector;
 use App\Modules\Markets\Connectors\UsTreasuryYieldsConnector;
+use App\Modules\Markets\Connectors\WorldBankPinkSheetConnector;
+use App\Modules\Ncsi\Connectors\NcsiBalanceOfPaymentsConnector;
 use App\Modules\Ncsi\Connectors\NcsiCommunicationConnector;
+use App\Modules\Ncsi\Connectors\NcsiElectricityConnector;
+use App\Modules\Ncsi\Connectors\NcsiFoodSecurityConnector;
+use App\Modules\Ncsi\Connectors\NcsiHealthSpendingConnector;
+use App\Modules\Ncsi\Connectors\NcsiLabourConnector;
+use App\Modules\Ncsi\Connectors\NcsiMonetaryConnector;
 use App\Modules\Ncsi\Connectors\NcsiNationalAccountsConnector;
 use App\Modules\Ncsi\Connectors\NcsiOilGasConnector;
+use App\Modules\Ncsi\Connectors\NcsiPopulationConnector;
 use App\Modules\Ncsi\Connectors\NcsiPricesConnector;
+use App\Modules\Ncsi\Connectors\NcsiProducerPricesConnector;
+use App\Modules\Ncsi\Connectors\NcsiRenewableEnergyConnector;
+use App\Modules\Ncsi\Connectors\NcsiTourismConnector;
+use App\Modules\Oec\Connectors\OecComplexityConnector;
+use App\Modules\Oec\Connectors\OecProductsConnector;
 use App\Modules\Owid\Connectors\OwidEnergyConnector;
 use App\Modules\Owid\Connectors\OwidIndicesConnector;
 use App\Modules\Undp\Connectors\UndpHdrConnector;
@@ -33,6 +49,7 @@ use App\Modules\Wits\Connectors\WitsTradeConnector;
 use App\Modules\WorldBank\Connectors\WorldBankBankingConnector;
 use App\Modules\WorldBank\Connectors\WorldBankDigitalConnector;
 use App\Modules\WorldBank\Connectors\WorldBankEnvironmentConnector;
+use App\Modules\WorldBank\Connectors\WorldBankExtraConnector;
 use App\Modules\WorldBank\Connectors\WorldBankFinanceConnector;
 use App\Modules\WorldBank\Connectors\WorldBankGovernanceConnector;
 use App\Modules\WorldBank\Connectors\WorldBankHealthConnector;
@@ -60,6 +77,7 @@ return [
     'connectors' => [
         ImfWeoConnector::class,
         ImfFiscalMonitorConnector::class,
+        ImfFiscalPolicyConnector::class,
         ImfDebtDatabaseConnector::class,
         ImfReservesConnector::class,
         ImfAiReadinessConnector::class,
@@ -80,6 +98,16 @@ return [
         NcsiNationalAccountsConnector::class,
         NcsiOilGasConnector::class,
         NcsiCommunicationConnector::class,
+        NcsiBalanceOfPaymentsConnector::class,
+        NcsiLabourConnector::class,
+        NcsiMonetaryConnector::class,
+        NcsiTourismConnector::class,
+        NcsiElectricityConnector::class,
+        NcsiRenewableEnergyConnector::class,
+        NcsiHealthSpendingConnector::class,
+        NcsiFoodSecurityConnector::class,
+        NcsiPopulationConnector::class,
+        NcsiProducerPricesConnector::class,
         ManafethTotalsConnector::class,
         WitsTradeConnector::class,
         UndpHdrConnector::class,
@@ -88,18 +116,24 @@ return [
         ManafethPartnersConnector::class,
         ImfCommodityPricesConnector::class,
         UsTreasuryYieldsConnector::class,
+        EiaSpotPricesConnector::class,
+        WorldBankPinkSheetConnector::class,
         IloLabourConnector::class,
         WhoHealthConnector::class,
         ImfFossilSubsidiesConnector::class,
         ImfNdGainConnector::class,
         ImfIipConnector::class,
+        ImfCtotConnector::class,
         WorldBankBankingConnector::class,
         WorldBankSustainabilityConnector::class,
         WorldBankInnovationConnector::class,
         WorldBankWealthConnector::class,
+        WorldBankExtraConnector::class,
         WorldBankProjectionsConnector::class,
         OwidEnergyConnector::class,
         OwidIndicesConnector::class,
+        OecComplexityConnector::class,
+        OecProductsConnector::class,
         FaoFoodSecurityConnector::class,
         UnescoUisConnector::class,
         ComtradeProductsConnector::class,

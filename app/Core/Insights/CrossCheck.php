@@ -89,7 +89,7 @@ final class CrossCheck
         $out = [];
         foreach ($group['members'] as $m) {
             $rows = DB::table('core.observations as o')->join('core.indicators as i', 'i.id', '=', 'o.indicator_id')->join('core.entities as e', 'e.id', '=', 'o.entity_id')
-                ->where('i.key', $m['indicator'])->where('e.code', $entity)->whereRaw("o.period ~ '^[0-9]{4}$'")
+                ->where('i.key', $m['indicator'])->where('e.code', $entity)->whereRaw('o.period ~ ?', [($group['frequency'] ?? 'A') === 'M' ? '^[0-9]{4}-[0-9]{2}$' : '^[0-9]{4}$'])
                 ->orderBy('o.period')->get(['o.period', 'o.value']);
             if ($rows->isNotEmpty()) {
                 $out[$m['indicator']] = $rows->map(fn ($r) => [(string) $r->period, (float) $r->value * (float) $m['scale']])->all();
@@ -109,11 +109,13 @@ final class CrossCheck
         if (count($series) < 2) {
             return ['verdict' => 'single', 'periods' => []];
         }
+        $monthly = ($group['frequency'] ?? 'A') === 'M';
         $lastActual = (int) date('Y') - 1;
         $byPeriod = [];
         foreach ($series as $indicator => $points) {
             foreach ($points as [$period, $value]) {
-                if ((int) $period <= $lastActual) {
+                // سنوي: حتى السنة الماضية؛ شهري: الأشهر الكاملة فقط (قبل الشهر الجاري).
+                if ($monthly ? $period < date('Y-m') : (int) $period <= $lastActual) {
                     $byPeriod[$period][$indicator] = $value;
                 }
             }
