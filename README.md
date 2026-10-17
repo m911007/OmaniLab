@@ -105,3 +105,11 @@ docker compose exec backup sh -c 'PGPASSWORD=$PGPASSWORD pg_restore -h db -U $PG
 ## تيليجرام
 
 ضع `TELEGRAM_BOT_TOKEN` و `TELEGRAM_CHAT_ID` في `.env`. بدونهما تُسجَّل التنبيهات في السجل فقط.
+
+## الحسابات وطلبات الرسوم ووكيل الذكاء الاصطناعي
+
+- لا تسجيل ذاتي: المشرف يُنشئ الحساب بـ `docker compose exec app php artisan users:create البريد --name=الاسم [--admin]` (تُولَّد كلمة مرور تظهر مرة واحدة، أو `--password=`).
+- جدول `app.users` فيه `is_admin`. المسجَّل يرى زر ✎ على كل رسم: **طلب تحديث** (يُسجَّل بحالة «بانتظار الوكيل»)، **ملاحظات** داخلية (تظهر للمسجَّلين فقط)، **تعديل الشرح** (يحل محل الشرح الافتراضي ويُحفظ في سجل النسخ). المشرف يرى كل الطلبات في `/requests` ويغيّر حالتها.
+- الجلسة بملف ارتباط مشفّر + CSRF (X-XSRF-TOKEN)، وتسجيل الدخول محدود بـ5 محاولات فاشلة/دقيقة لكل بريد وIP.
+- مخطط `app` هو الوحيد الذي يكتب فيه دور `app_reader`؛ بقية المخططات قراءة فقط له.
+- **واجهة الوكيل** (`AGENT_TOKEN` في `.env`، فارغ = معطّلة): `GET /api/agent/requests?status=pending` لقراءة الطلبات، و`PATCH /api/agent/requests/{id}` بـ`{"status":"in_progress|done|rejected","response":"…"}`، و`PUT /api/agent/explanations` بـ`chart_key` وحقول الشرح. كلها برأس `Authorization: Bearer <AGENT_TOKEN>`. `chart_key` = `مسار الصفحة::عنوان الرسم`.

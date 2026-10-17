@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { Segmented } from '@/core/components/Segmented';
+import { useAuth } from '@/core/auth';
 import { formatNumber, relativeTime } from '@/core/format';
 import { useOverview } from '@/core/hooks';
 import { applyTheme, getStoredTheme, type ThemeMode } from '@/core/theme';
@@ -11,6 +12,7 @@ export function Shell() {
   const [theme, setTheme] = useState<ThemeMode>(getStoredTheme);
   const location = useLocation();
   const { data: overview } = useOverview();
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     applyTheme(theme);
@@ -75,6 +77,22 @@ export function Shell() {
               <NavLink to="/status" className={`chip ${allFresh ? 'good' : 'warning'}`} title="حالة مصادر البيانات">
                 <span aria-hidden="true">{allFresh ? '✓' : '!'}</span>
                 {formatNumber(fresh, 0)} من {formatNumber(total, 0)} مجموعة محدّثة · آخر فحص {relativeTime(overview.last_checked_at)}
+              </NavLink>
+            )}
+          </div>
+          <div className="user-menu">
+            {user ? (
+              <>
+                <NavLink to="/requests" className="chip good" title="طلباتي">
+                  {user.name}{user.is_admin ? ' · مشرف' : ''}
+                </NavLink>
+                <button className="btn" onClick={() => void logout()}>
+                  خروج
+                </button>
+              </>
+            ) : (
+              <NavLink to="/login" className="btn">
+                دخول
               </NavLink>
             )}
           </div>

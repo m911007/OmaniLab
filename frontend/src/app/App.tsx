@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AuthProvider } from '@/core/auth';
 import { Loading } from '@/core/components/States';
 import { Shell } from './Shell';
 
@@ -25,6 +26,10 @@ const IndicesPage = lazy(() => import('@/modules/indices/IndicesPage'));
 const IndexDetailPage = lazy(() => import('@/modules/indices/IndexDetailPage'));
 const PurchasingPowerPage = lazy(() => import('@/modules/purchasing/PurchasingPowerPage'));
 const InvestmentPage = lazy(() => import('@/modules/investment/InvestmentPage'));
+const LoginPage = lazy(() => import('@/modules/account/LoginPage'));
+const RequestsPage = lazy(() => import('@/modules/account/RequestsPage'));
+const PlacesPage = lazy(() => import('@/modules/places/PlacesPage'));
+const CountriesPage = lazy(() => import('@/modules/countries/CountriesPage'));
 const GovernancePage = lazy(() => import('@/modules/governance/GovernancePage'));
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: false } } });
@@ -32,6 +37,7 @@ const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 1, ref
 export function App() {
   return (
     <QueryClientProvider client={queryClient}>
+      <AuthProvider>
       <BrowserRouter>
         <Suspense fallback={<div style={{ padding: 24 }}><Loading height={300} /></div>}>
           <Routes>
@@ -44,6 +50,10 @@ export function App() {
               <Route path="indices/:slug" element={<IndexDetailPage />} />
               <Route path="purchasing-power" element={<PurchasingPowerPage />} />
               <Route path="investment" element={<InvestmentPage />} />
+              <Route path="login" element={<LoginPage />} />
+              <Route path="requests" element={<RequestsPage />} />
+              <Route path="institutions" element={<PlacesPage />} />
+              <Route path="countries" element={<CountriesPage />} />
               <Route path="oman" element={<OmanEconomyPage />} />
               <Route path="gcc" element={<GccPage />} />
               <Route path="peers" element={<PeersPage />} />
@@ -63,6 +73,7 @@ export function App() {
           </Routes>
         </Suspense>
       </BrowserRouter>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }

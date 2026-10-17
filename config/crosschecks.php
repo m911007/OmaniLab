@@ -18,6 +18,10 @@ return [
             ['indicator' => 'imf.PPPPC', 'scale' => 1],
             ['indicator' => 'wb.NY.GDP.PCAP.PP.CD', 'scale' => 1],
         ]],
+        ['key' => 'road_deaths', 'label' => 'وفيات الطرق لكل 100 ألف', 'mode' => 'absolute', 'tolerance' => 1.5, 'members' => [
+            ['indicator' => 'who.road_deaths', 'scale' => 1],
+            ['indicator' => 'wb.SH.STA.TRAF.P5', 'scale' => 1],
+        ]],
         ['key' => 'gdp_per_capita', 'label' => 'نصيب الفرد من الناتج', 'mode' => 'relative', 'tolerance' => 0.03, 'members' => [
             ['indicator' => 'imf.NGDPDPC', 'scale' => 1],
             ['indicator' => 'wb.NY.GDP.PCAP.CD', 'scale' => 1],

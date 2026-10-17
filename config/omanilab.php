@@ -1,6 +1,7 @@
 <?php
 
 use App\Modules\Climate\Connectors\OpenMeteoClimateConnector;
+use App\Modules\Places\Connectors\OsmPlacesConnector;
 use App\Modules\Companies\Connectors\GleifLeiCountsConnector;
 use App\Modules\Companies\Connectors\GleifOmanConnector;
 use App\Modules\Comtrade\Connectors\ComtradeProductsConnector;
@@ -54,8 +55,10 @@ use App\Modules\WorldBank\Connectors\WorldBankBankingConnector;
 use App\Modules\WorldBank\Connectors\WorldBankDigitalConnector;
 use App\Modules\WorldBank\Connectors\WorldBankEnvironmentConnector;
 use App\Modules\WorldBank\Connectors\WorldBankExtraConnector;
+use App\Modules\WorldBank\Connectors\WorldBankFindexConnector;
 use App\Modules\WorldBank\Connectors\WorldBankInvestmentConnector;
 use App\Modules\WorldBank\Connectors\WorldBankPurchasingPowerConnector;
+use App\Modules\WorldBank\Connectors\WorldBankResourcesConnector;
 use App\Modules\WorldBank\Connectors\WorldBankFinanceConnector;
 use App\Modules\WorldBank\Connectors\WorldBankGovernanceConnector;
 use App\Modules\WorldBank\Connectors\WorldBankHealthConnector;
@@ -70,6 +73,9 @@ use App\Modules\WorldBank\Connectors\WorldBankTradeConnector;
 use App\Modules\WorldBank\Connectors\WorldBankWealthConnector;
 
 return [
+    // رمز وكيل الذكاء الاصطناعي لواجهة /api/agent (فارغ = معطّلة).
+    'agent_token' => env('AGENT_TOKEN', ''),
+
     'display_timezone' => 'Asia/Muscat',
 
     // كلمات مرور أدوار قاعدة البيانات (تُنشأ في الترحيل الأول).
@@ -117,6 +123,7 @@ return [
         ManafethTotalsConnector::class,
         WitsTradeConnector::class,
         UndpHdrConnector::class,
+        OsmPlacesConnector::class,
         GleifOmanConnector::class,
         GleifLeiCountsConnector::class,
         ManafethPartnersConnector::class,
@@ -141,6 +148,8 @@ return [
         WorldBankExtraConnector::class,
         WorldBankPurchasingPowerConnector::class,
         WorldBankInvestmentConnector::class,
+        WorldBankResourcesConnector::class,
+        WorldBankFindexConnector::class,
         WorldBankProjectionsConnector::class,
         OwidEnergyConnector::class,
         OwidIndicesConnector::class,

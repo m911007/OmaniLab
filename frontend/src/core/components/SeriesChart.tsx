@@ -27,21 +27,23 @@ interface Props {
   last?: number;
   /** شرح الرسم لغير المتخصصين (يظهر بزر بدل الرسم) */
   explain?: Explanation;
+  /** الكيان الأساسي الذي يبدأ به الرسم (الافتراضي عُمان)؛ ملف دولة أخرى يمرّر رمزها فيبدأ بها وتُضاف عُمان في المقارنة. */
+  primary?: string;
 }
 
 /** مخطط معرَّف بالتكوين: يجلب خطوطه ويرسمها مع مصدرها وحداثتها وجدولها البديل. هكذا تُضاف الرسوم دون كود رسم جديد. */
-export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, imfForecast, forecastFromYear, note, callout, height, last, explain }: Props) {
+export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, imfForecast, forecastFromYear, note, callout, height, last, explain, primary: primaryCode = 'OMN' }: Props) {
   const range = useMemo(() => ({ from, to }), [from, to]);
-  const omanLines = useMemo(() => lines.filter((l) => l.entity === 'OMN'), [lines]);
+  const omanLines = useMemo(() => lines.filter((l) => l.entity === primaryCode), [lines, primaryCode]);
   // الرسم الذي فيه عُمان ودول أخرى يبدأ بعُمان وحدها، ويتيح «مقارنة» بالدول (الجاهزة وما يضيفه القارئ) و«جدول».
-  const comparable = omanLines.length > 0 && lines.some((l) => l.entity !== 'OMN');
+  const comparable = omanLines.length > 0 && lines.some((l) => l.entity !== primaryCode);
   const [view, setView] = useState<string>(comparable ? 'oman' : 'chart');
   const [extra, setExtra] = useState<string[]>([]);
   // مصادر بديلة للمؤشر نفسه (إن نشره أكثر من مصدر): تُقارَن وتُعرض، ويبدّل القارئ بينها.
   const baseIndicator = lines[0].indicator;
   const singleIndicator = lines.every((l) => l.indicator === baseIndicator);
   const soloEntity = singleIndicator && new Set(lines.map((l) => l.entity)).size === 1 ? lines[0].entity : null;
-  const xEntity = comparable ? 'OMN' : soloEntity;
+  const xEntity = comparable ? primaryCode : soloEntity;
   const xcheck = useCrosschecks(xEntity ?? 'OMN');
   const group = xEntity ? xcheck.data?.find((g) => g.indicators.includes(baseIndicator)) : undefined;
   const [panelOpen, setPanelOpen] = useState(false);
@@ -87,9 +89,10 @@ export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, i
     () => explain ?? resolveExplanation({ indicators, labels: series.map((x) => x.label), multi: comparable && view === 'compare', hasForecast: forecastFrom !== undefined }),
     [explain, indicators, series, comparable, view, forecastFrom],
   );
+  const primaryLabel = omanLines[0]?.label ?? (primaryCode === 'OMN' ? 'عُمان' : primaryCode);
   const views: ViewOption[] | undefined = comparable
     ? [
-        { value: 'oman', label: 'عُمان' },
+        { value: 'oman', label: primaryLabel },
         { value: 'compare', label: 'مقارنة مع دول أخرى' },
         { value: 'table', label: 'جدول' },
       ]

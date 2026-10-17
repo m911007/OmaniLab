@@ -17,7 +17,7 @@ abstract class DatabaseTestCase extends TestCase
         parent::setUp();
 
         if (! self::$migrated) {
-            DB::unprepared('DROP SCHEMA IF EXISTS raw, staging, core, ops CASCADE; DROP TABLE IF EXISTS migrations');
+            DB::unprepared('DROP SCHEMA IF EXISTS raw, staging, core, ops, app CASCADE; DROP TABLE IF EXISTS migrations');
             $this->artisan('migrate', ['--database' => 'admin', '--force' => true])->assertSuccessful();
             self::$migrated = true;
         }

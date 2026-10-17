@@ -236,3 +236,111 @@ export interface CrossCheckDetail {
   periods: { period: string; values: Record<string, number>; spread: number; agree: boolean }[];
   sources: { indicator: string; name_ar: string; unit: string | null; is_base: boolean; dataset: Dataset; points: Point[] }[];
 }
+
+function xsrfToken(): string {
+  const m = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]+)/);
+  return m ? decodeURIComponent(m[1]!) : '';
+}
+
+/** طلب يكتب (POST/PUT/PATCH/DELETE) بجلسة المستخدم: يرسل رمز CSRF من ملف الارتباط ويُظهر رسالة الخطأ من الخادم. */
+export async function apiSend<T>(method: 'POST' | 'PUT' | 'PATCH' | 'DELETE', path: string, body?: unknown): Promise<T> {
+  const res = await fetch(`/api/v1/${path}`, {
+    method,
+    credentials: 'same-origin',
+    headers: { Accept: 'application/json', 'Content-Type': 'application/json', 'X-XSRF-TOKEN': xsrfToken() },
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
+  if (!res.ok) {
+    let message = `HTTP ${res.status}`;
+    try {
+      const j = (await res.json()) as { message?: string; errors?: Record<string, string[]> };
+      message = (j.errors ? Object.values(j.errors)[0]?.[0] : undefined) ?? j.message ?? message;
+    } catch {
+      /* الرد ليس JSON */
+    }
+    throw new ApiError(message, res.status);
+  }
+  return (await res.json()) as T;
+}
+
+export interface AuthUser {
+  id: number;
+  name: string;
+  email: string;
+  is_admin: boolean;
+}
+
+export interface ChartRequestRow {
+  id: number;
+  chart_key: string;
+  chart_title: string;
+  page_path: string;
+  message: string;
+  status: 'pending' | 'in_progress' | 'done' | 'rejected';
+  agent_response: string | null;
+  handled_at: string | null;
+  created_at: string | null;
+  user: { id: number; name: string } | null;
+}
+
+export interface ChartNoteRow {
+  id: number;
+  body: string;
+  created_at: string | null;
+  user: { id: number; name: string } | null;
+}
+
+export interface PlaceCategory {
+  key: string;
+  group: string;
+  ar: string;
+  en: string;
+  count: number;
+  by_governorate: Record<string, number>;
+}
+
+export interface PlaceStats {
+  categories: PlaceCategory[];
+  groups: Record<string, string>;
+  dataset: Dataset | null;
+}
+
+export interface PlaceRow {
+  code: string;
+  name_en: string;
+  name_ar: string | null;
+  category?: string;
+  group?: string;
+  lat?: number;
+  lon?: number;
+  governorate?: string;
+  operator?: string;
+  sector?: string;
+  website?: string;
+  osm_url?: string;
+  source_kind?: string;
+}
+
+export interface PlacesResponse {
+  total: number;
+  page: number;
+  per_page: number;
+  data: PlaceRow[];
+  dataset: Dataset | null;
+}
+
+export interface DirectoryValue {
+  value: number;
+  period: string;
+}
+
+export interface DirectoryRow {
+  code: string;
+  name_ar: string | null;
+  name_en: string;
+  region: string | null;
+  income_level: string | null;
+  capital: string | null;
+  iso2: string | null;
+  values: Partial<Record<string, DirectoryValue>>;
+}

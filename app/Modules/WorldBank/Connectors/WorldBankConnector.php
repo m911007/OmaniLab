@@ -52,10 +52,10 @@ abstract class WorldBankConnector extends ApiConnector
         return $this->indicators();
     }
 
-    /** 2: أُضيفت سمة iso2 للدول. */
+    /** 2: أُضيفت سمة iso2 للدول. 3: الإقليم ومستوى الدخل والعاصمة. */
     public function revision(): int
     {
-        return 2;
+        return 3;
     }
 
     /** آخر سنة تُطلب (2030 افتراضيًا؛ التوقعات السكانية تمتد إلى 2050). */
@@ -175,6 +175,14 @@ abstract class WorldBankConnector extends ApiConnector
             // ISO2 يربط مصادر ترمّز الدول بحرفين (GLEIF…) بكياناتنا المرمَّزة ISO3.
             if (! $aggregate && ! empty($c['iso2Code'])) {
                 yield new ParsedAttribute((string) $c['id'], 'iso2', (string) $c['iso2Code']);
+            }
+            // التصنيف الإقليمي والدخل والعاصمة: أساس دليل الدول وتجميعها.
+            if (! $aggregate) {
+                foreach (['region' => $c['region']['value'] ?? null, 'income_level' => $c['incomeLevel']['value'] ?? null, 'capital_city' => $c['capitalCity'] ?? null] as $key => $value) {
+                    if (is_string($value) && trim($value) !== '') {
+                        yield new ParsedAttribute((string) $c['id'], $key, trim($value));
+                    }
+                }
             }
         }
 

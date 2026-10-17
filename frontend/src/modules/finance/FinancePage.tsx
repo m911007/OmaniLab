@@ -98,6 +98,12 @@ export default function FinancePage() {
         <SeriesChart title="مؤشر الأداء اللوجستي" lines={peerLines('wb.LP.LPI.OVRL.XQ')} />
         <SeriesChart title="مؤشر الاتصال الملاحي" lines={peerLines('wb.IS.SHP.GCNW.XQ')} />
       </Section>
+      <Section title="الشمول المالي" lead="نسبة البالغين المتعاملين مع النظام المصرفي، وفجوة الجنسين فيه (مسح Global Findex للبنك الدولي: 2011 و2014 و2017 و2021 و2024).">
+        <SeriesChart title="من لديهم حساب مصرفي (15+)" lines={gccLines('wb.account.t.d')} kind="columns" from="2011" />
+        <SeriesChart title="حساب مصرفي: النساء والرجال في عُمان" subtitle="% من الفئة" lines={[{ indicator: 'wb.account.t.d.1', entity: 'OMN', label: 'النساء' }, { indicator: 'wb.account.t.d.2', entity: 'OMN', label: 'الرجال' }]} from="2011" />
+        <SeriesChart title="من اقترضوا خلال السنة" lines={gccLines('wb.borrow.any.t.d')} from="2011" />
+        <SeriesChart title="من يملكون بطاقة خصم" lines={gccLines('wb.fin2.t.d')} from="2011" />
+      </Section>
     </>
   );
 }

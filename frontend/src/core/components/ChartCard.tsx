@@ -1,6 +1,9 @@
 import { useState, type ReactNode } from 'react';
 import type { Dataset } from '../api';
 import type { Explanation } from '../explain';
+import { useAuth } from '../auth';
+import { chartKeyOf, useExplanationOverride } from '../explanationOverrides';
+import { ChartTools } from './ChartTools';
 import { DataTable, toCsv, type TableData } from './DataTable';
 import { ExplainPanel } from './ExplainPanel';
 import { Segmented } from './Segmented';
@@ -46,8 +49,13 @@ function downloadCsv(title: string, table: TableData): void {
   URL.revokeObjectURL(url);
 }
 
-export function ChartCard({ title, subtitle, datasets, children, table, note, callout, actions, views, defaultView, extra, onViewChange, explain }: Props) {
+export function ChartCard({ title, subtitle, datasets, children, table, note, callout, actions, views, defaultView, extra, onViewChange, explain: defaultExplain }: Props) {
   const [explaining, setExplaining] = useState(false);
+  const [tools, setTools] = useState(false);
+  const { user } = useAuth();
+  const chartKey = chartKeyOf(title);
+  const override = useExplanationOverride(chartKey);
+  const explain = override ?? defaultExplain;
   const options = views ?? [
     { value: 'chart', label: 'مخطط' },
     { value: 'table', label: 'جدول' },
@@ -68,9 +76,14 @@ export function ChartCard({ title, subtitle, datasets, children, table, note, ca
               aria-pressed={explaining}
               aria-label={explaining ? 'العودة إلى الرسم' : 'شرح الرسم'}
               title={explaining ? 'العودة إلى الرسم' : 'شرح الرسم'}
-              onClick={() => setExplaining((v) => !v)}
+              onClick={() => { setExplaining((v) => !v); setTools(false); }}
             >
               {explaining ? '↩' : '؟'}
+            </button>
+          )}
+          {user && (
+            <button className={`btn explain-btn tools-btn${tools ? ' on' : ''}`} aria-pressed={tools} aria-label="أدوات الرسم: طلب تحديث، ملاحظات، تعديل الشرح" title="أدوات الرسم" onClick={() => { setTools((v) => !v); setExplaining(false); }}>
+              ✎
             </button>
           )}
           {table && (
@@ -91,7 +104,7 @@ export function ChartCard({ title, subtitle, datasets, children, table, note, ca
           {callout}
         </div>
       )}
-      {explain && explaining ? <ExplainPanel explanation={explain} onBack={() => setExplaining(false)} /> : (
+      {user && tools ? <ChartTools chartKey={chartKey} title={title} explanation={explain} hasOverride={!!override} onClose={() => setTools(false)} /> : explain && explaining ? <ExplainPanel explanation={explain} onBack={() => setExplaining(false)} /> : (
         <>
       {view === 'table' && table ? (
         <>

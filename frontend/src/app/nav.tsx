@@ -51,8 +51,9 @@ export const NAV: NavGroup[] = [
       { to: '/governance', label: 'الحوكمة والرقمنة', icon: svg('M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z') },
     ],
   },
+  { title: 'المؤسسات', items: [{ to: '/institutions', label: 'المؤسسات والموارد', icon: svg('M3 21h18M5 21V10l7-6 7 6v11M9 21v-6h6v6') }] },
   { title: 'الشركات', items: [{ to: '/companies', label: 'الشركات العُمانية', icon: svg('M3 21h18M5 21V7l7-4 7 4v14M9 9h1m4 0h1M9 13h1m4 0h1M9 17h1m4 0h1') }] },
   { title: 'العالم', items: [
-      { to: '/commodities', label: 'النفط والسلع', icon: svg('M12 2s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z') },{ to: '/markets', label: 'الأسواق العالمية', icon: svg('M12 21a9 9 0 100-18 9 9 0 000 18zM3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18') }] },
+      { to: '/commodities', label: 'النفط والسلع', icon: svg('M12 2s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z') },{ to: '/countries', label: 'دول العالم', icon: svg('M12 21a9 9 0 100-18 9 9 0 000 18zM3.6 9h16.8M3.6 15h16.8M12 3a14 14 0 010 18M12 3a14 14 0 000 18') },{ to: '/markets', label: 'الأسواق العالمية', icon: svg('M12 21a9 9 0 100-18 9 9 0 000 18zM3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18') }] },
   { title: 'المنصة', items: [{ to: '/status', label: 'حالة البيانات', icon: svg('M5 12l4 4 10-10') }] },
 ];

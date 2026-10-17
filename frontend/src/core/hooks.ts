@@ -18,6 +18,9 @@ import {
   type Signal,
   type Scorecard,
   type SeriesResponse,
+  type PlaceStats,
+  type PlacesResponse,
+  type DirectoryRow,
 } from './api';
 import { assignColors } from './colors';
 import { entityName } from './format';
@@ -195,4 +198,29 @@ export function useCrosschecks(entity = 'OMN') {
 
 export function useCrosscheckDetail(indicator: string, entity: string, enabled: boolean) {
   return useQuery({ queryKey: ['crosscheck-detail', indicator, entity], queryFn: ({ signal }) => api<CrossCheckDetail>('insights/crosschecks/detail', { indicator, entity }, signal), staleTime: 10 * 60_000, enabled });
+}
+
+export function usePlaceStats() {
+  return useQuery({
+    queryKey: ['place-stats'],
+    queryFn: ({ signal }) => api<PlaceStats>('places/stats', {}, signal),
+    staleTime: FIVE_MIN,
+  });
+}
+
+export function usePlaces(p: { group?: string; category?: string; governorate?: string; q?: string; page: number; per_page?: number }) {
+  return useQuery({
+    queryKey: ['places', p],
+    queryFn: ({ signal }) => api<PlacesResponse>('places', { ...p }, signal),
+    staleTime: FIVE_MIN,
+    placeholderData: (prev) => prev,
+  });
+}
+
+export function useCountryDirectory() {
+  return useQuery({
+    queryKey: ['country-directory'],
+    queryFn: ({ signal }) => api<{ data: DirectoryRow[] }>('countries/directory', {}, signal),
+    staleTime: 30 * 60_000,
+  });
 }

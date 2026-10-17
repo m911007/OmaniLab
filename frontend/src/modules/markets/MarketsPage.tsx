@@ -6,7 +6,9 @@ import { PageHead, Section } from '@/core/components/PageHead';
 import { SeriesChart } from '@/core/components/SeriesChart';
 import { Loading } from '@/core/components/States';
 import { entityName } from '@/core/format';
-import { useEntities, useSeries } from '@/core/hooks';
+import { useCountryDirectory, useEntities, useSeries } from '@/core/hooks';
+import { Link } from 'react-router-dom';
+import { flagOf, incomeLabel, regionLabel } from '@/modules/countries/labels';
 import type { LineSpec } from '@/core/hooks';
 import { lastActualYear } from '@/core/lines';
 import { TradePartnersCard } from './TradePartnersCard';
@@ -21,6 +23,8 @@ export default function MarketsPage() {
   const { data: entities, isLoading } = useEntities('country', 'wb.NY.GDP.MKTP.CD');
   const entity = entities?.find((e) => e.code === code);
   const name = entity ? entityName(entity) : code;
+  const directory = useCountryDirectory();
+  const profile = directory.data?.data.find((r) => r.code === code);
 
   const versus = (indicator: string): LineSpec[] =>
     code === 'OMN'
@@ -32,7 +36,16 @@ export default function MarketsPage() {
 
   return (
     <>
-      <PageHead title={`الأسواق العالمية: ${name}`} lead="ملف اقتصادي لأي دولة مقارنةً بعُمان، مع ترتيبها بين دول العالم وتجارتها مع عُمان. المصادر: البنك الدولي وصندوق النقد ومنافذ." />
+      <PageHead title={`${flagOf(profile?.iso2 ?? null)} ${name}`} lead="ملف اقتصادي شامل مقارنةً بعُمان، مع ترتيب الدولة بين دول العالم وتجارتها مع عُمان. المصادر: البنك الدولي وصندوق النقد ومنافذ." />
+      <p className="no-print"><Link to="/countries">← كل دول العالم</Link></p>
+      {profile && (
+        <div className="country-meta" aria-label="بطاقة تعريف">
+          <span className="chip neutral">{regionLabel(profile.region)}</span>
+          <span className="chip neutral">{incomeLabel(profile.income_level)}</span>
+          {profile.capital && <span className="chip neutral">العاصمة: {profile.capital}</span>}
+          <span className="chip neutral" dir="ltr">{profile.code}{profile.iso2 ? ` · ${profile.iso2}` : ''}</span>
+        </div>
+      )}
 
       <div className="controls">
         {isLoading || !entities ? <Loading height={36} /> : <CountrySelect entities={entities} value={code} onChange={(c) => navigate(`/markets/${c}`)} label="الدولة" />}
@@ -49,13 +62,35 @@ export default function MarketsPage() {
         <KeyStat entity={code} indicator="wb.IT.NET.USER.ZS" label="مستخدمو الإنترنت" goodWhen="up" />
       </div>
 
+      <Section title="المالية العامة والقطاع الخارجي">
+        <div className="grid cols-4" style={{ gridColumn: '1 / -1' }}>
+          <KeyStat entity={code} indicator="imf.GGXCNL_NGDP" label="رصيد الميزانية" maxPeriod={A} goodWhen="up" />
+          <KeyStat entity={code} indicator="imf.BCA_NGDPD" label="الحساب الجاري" maxPeriod={A} goodWhen="up" />
+          <KeyStat entity={code} indicator="wb.NE.EXP.GNFS.ZS" label="صادرات السلع والخدمات (% من الناتج)" />
+          <KeyStat entity={code} indicator="wb.BX.KLT.DINV.WD.GD.ZS" label="الاستثمار الأجنبي الداخل (% من الناتج)" />
+        </div>
+      </Section>
+
+      <Section title="السكان والتنمية والرقمنة">
+        <div className="grid cols-4" style={{ gridColumn: '1 / -1' }}>
+          <KeyStat entity={code} indicator="wb.SP.DYN.LE00.IN" label="متوسط العمر المتوقع" goodWhen="up" />
+          <KeyStat entity={code} indicator="undp.hdi" label="مؤشر التنمية البشرية" goodWhen="up" />
+          <KeyStat entity={code} indicator="wb.SE.TER.ENRR" label="الالتحاق بالتعليم العالي" goodWhen="up" />
+          <KeyStat entity={code} indicator="wb.SP.URB.TOTL.IN.ZS" label="سكان الحضر" />
+        </div>
+      </Section>
+
       <Section title={code === 'OMN' ? 'عُمان' : `${name} مقابل عُمان`}>
-        <SeriesChart title="نمو الناتج المحلي الإجمالي الحقيقي" lines={versus('imf.NGDP_RPCH')} from="2005" imfForecast />
-        <SeriesChart title="نصيب الفرد من الناتج المحلي" lines={versus('wb.NY.GDP.PCAP.CD')} from="1990" />
-        <SeriesChart title="التضخم" lines={versus('wb.FP.CPI.TOTL.ZG')} from="1995" />
-        <SeriesChart title="الدين الحكومي" lines={versus('imf.GGXWDG_NGDP')} from="2000" imfForecast />
-        <SeriesChart title="معدل البطالة" lines={versus('wb.SL.UEM.TOTL.ZS')} from="1995" />
-        <SeriesChart title="صادرات السلع والخدمات" lines={versus('wb.NE.EXP.GNFS.ZS')} from="1990" />
+        <SeriesChart primary={code} title="نمو الناتج المحلي الإجمالي الحقيقي" lines={versus('imf.NGDP_RPCH')} from="2005" imfForecast />
+        <SeriesChart primary={code} title="نصيب الفرد من الناتج المحلي" lines={versus('wb.NY.GDP.PCAP.CD')} from="1990" />
+        <SeriesChart primary={code} title="التضخم" lines={versus('wb.FP.CPI.TOTL.ZG')} from="1995" />
+        <SeriesChart primary={code} title="الدين الحكومي" lines={versus('imf.GGXWDG_NGDP')} from="2000" imfForecast />
+        <SeriesChart primary={code} title="معدل البطالة" lines={versus('wb.SL.UEM.TOTL.ZS')} from="1995" />
+        <SeriesChart primary={code} title="صادرات السلع والخدمات" lines={versus('wb.NE.EXP.GNFS.ZS')} from="1990" />
+        <SeriesChart primary={code} title="رصيد الميزانية" lines={versus('imf.GGXCNL_NGDP')} from="2000" imfForecast />
+        <SeriesChart primary={code} title="الحساب الجاري" lines={versus('imf.BCA_NGDPD')} from="2000" imfForecast />
+        <SeriesChart primary={code} title="مستخدمو الإنترنت" lines={versus('wb.IT.NET.USER.ZS')} from="2000" />
+        <SeriesChart primary={code} title="متوسط العمر المتوقع" lines={versus('wb.SP.DYN.LE00.IN')} from="1990" />
       </Section>
 
       <Section title={`شركاء ${name} التجاريون`} lead="التجارة السلعية بين الدول (WITS / UN Comtrade). التفاصيل الجمركية الرسمية لعُمان في صفحة «التجارة الخارجية».">

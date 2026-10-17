@@ -12,9 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    ->withCommands([__DIR__.'/../app/Core/Ingestion/Console', __DIR__.'/../app/Core/Quality'])
+    ->withCommands([__DIR__.'/../app/Core/Ingestion/Console', __DIR__.'/../app/Core/Quality', __DIR__.'/../app/Console'])
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->alias(['agent' => \App\Http\Middleware\AgentToken::class]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
