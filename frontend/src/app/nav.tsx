@@ -43,6 +43,7 @@ export const NAV: NavGroup[] = [
       { to: '/trade', label: 'التجارة الخارجية', icon: svg('M3 7h13l-3-3m3 3l-3 3M21 17H8l3-3m-3 3l3 3') },
       { to: '/energy', label: 'الطاقة والبيئة', icon: svg('M13 2L4 14h7l-1 8 9-12h-7z') },
       { to: '/tourism', label: 'السياحة', icon: svg('M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11zM12 12a2 2 0 100-4 2 2 0 000 4z') },
+      { to: '/investment', label: 'الاستثمار', icon: svg('M3 17l6-6 4 4 8-8M15 7h6v6') },
       { to: '/finance', label: 'القطاع المالي', icon: svg('M12 3v18M17 7H9.5a2.5 2.5 0 000 5h5a2.5 2.5 0 010 5H7') },
       { to: '/labour', label: 'سوق العمل والتعمين', icon: svg('M3 7h18v13H3zM8 7V4h8v3M3 13h18') },
       { to: '/society', label: 'المجتمع والصحة والعمل', icon: svg('M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM22 21v-2a4 4 0 00-3-3.9M16 3.1a4 4 0 010 7.8') },

@@ -38,6 +38,8 @@ final class IloLabourConnector extends ApiConnector
         'ilo.unemployment_citizen' => ['بطالة العُمانيين', 'Unemployment rate, Omani citizens', '%', 'DF_UNE_DEAP_SEX_AGE_CCT_RT', 'OMN.A.UNE_DEAP_RT.SEX_T.AGE_AGGREGATE_YGE15.CCT_CIT_CITIZEN', '', 1, 100],
         'ilo.lfp_citizen' => ['مشاركة العُمانيين في القوى العاملة', 'Labour force participation, Omani citizens', '%', 'DF_EAP_DWAP_SEX_AGE_CCT_RT', 'OMN.A.EAP_DWAP_RT.SEX_T.AGE_AGGREGATE_YGE15.CCT_CIT_CITIZEN', '', 1, 100],
         'ilo.lfp_noncitizen' => ['مشاركة غير العُمانيين في القوى العاملة', 'Labour force participation, non-citizens', '%', 'DF_EAP_DWAP_SEX_AGE_CCT_RT', 'OMN.A.EAP_DWAP_RT.SEX_T.AGE_AGGREGATE_YGE15.CCT_CIT_NONCIT', '', 1, 100],
+        'ilo.labour_income_share' => ['حصة العمل من الناتج المحلي', 'Labour income share of GDP', '% من الناتج', 'DF_LAP_2GDP_NOC_RT', '.A.LAP_2GDP_RT', '', 1, 100],
+        'ilo.min_wage' => ['الحد الأدنى الشهري للأجور (بالعملة المحلية)', 'Monthly minimum wage (local currency)', 'عملة محلية', 'DF_EAR_INEE_NOC_NB', '.A.EAR_INEE_NB', '', 1, 1e9],
     ];
 
     public function definition(): DatasetDefinition

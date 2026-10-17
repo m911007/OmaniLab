@@ -1,5 +1,6 @@
 <?php
 
+use App\Modules\Climate\Connectors\OpenMeteoClimateConnector;
 use App\Modules\Companies\Connectors\GleifLeiCountsConnector;
 use App\Modules\Companies\Connectors\GleifOmanConnector;
 use App\Modules\Comtrade\Connectors\ComtradeProductsConnector;
@@ -11,6 +12,7 @@ use App\Modules\Ilo\Connectors\IloLabourConnector;
 use App\Modules\Macro\Connectors\ImfAiReadinessConnector;
 use App\Modules\Macro\Connectors\ImfCpiConnector;
 use App\Modules\Macro\Connectors\ImfCtotConnector;
+use App\Modules\Macro\Connectors\ImfMonthlyTradeConnector;
 use App\Modules\Macro\Connectors\ImfDebtDatabaseConnector;
 use App\Modules\Macro\Connectors\ImfFiscalMonitorConnector;
 use App\Modules\Macro\Connectors\ImfFiscalPolicyConnector;
@@ -22,6 +24,7 @@ use App\Modules\Macro\Connectors\ImfWeoConnector;
 use App\Modules\Manafeth\Connectors\ManafethPartnersConnector;
 use App\Modules\Manafeth\Connectors\ManafethTotalsConnector;
 use App\Modules\Markets\Connectors\EiaSpotPricesConnector;
+use App\Modules\Markets\Connectors\FrankfurterFxConnector;
 use App\Modules\Markets\Connectors\ImfCommodityPricesConnector;
 use App\Modules\Markets\Connectors\UsTreasuryYieldsConnector;
 use App\Modules\Markets\Connectors\WorldBankPinkSheetConnector;
@@ -51,6 +54,7 @@ use App\Modules\WorldBank\Connectors\WorldBankBankingConnector;
 use App\Modules\WorldBank\Connectors\WorldBankDigitalConnector;
 use App\Modules\WorldBank\Connectors\WorldBankEnvironmentConnector;
 use App\Modules\WorldBank\Connectors\WorldBankExtraConnector;
+use App\Modules\WorldBank\Connectors\WorldBankInvestmentConnector;
 use App\Modules\WorldBank\Connectors\WorldBankPurchasingPowerConnector;
 use App\Modules\WorldBank\Connectors\WorldBankFinanceConnector;
 use App\Modules\WorldBank\Connectors\WorldBankGovernanceConnector;
@@ -118,6 +122,7 @@ return [
         ManafethPartnersConnector::class,
         ImfCommodityPricesConnector::class,
         UsTreasuryYieldsConnector::class,
+        FrankfurterFxConnector::class,
         EiaSpotPricesConnector::class,
         WorldBankPinkSheetConnector::class,
         IloLabourConnector::class,
@@ -127,12 +132,15 @@ return [
         ImfIipConnector::class,
         ImfCtotConnector::class,
         ImfCpiConnector::class,
+        ImfMonthlyTradeConnector::class,
+        OpenMeteoClimateConnector::class,
         WorldBankBankingConnector::class,
         WorldBankSustainabilityConnector::class,
         WorldBankInnovationConnector::class,
         WorldBankWealthConnector::class,
         WorldBankExtraConnector::class,
         WorldBankPurchasingPowerConnector::class,
+        WorldBankInvestmentConnector::class,
         WorldBankProjectionsConnector::class,
         OwidEnergyConnector::class,
         OwidIndicesConnector::class,

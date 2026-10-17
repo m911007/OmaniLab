@@ -9,6 +9,7 @@ use App\Modules\Comtrade\Connectors\ComtradeProductsConnector;
 use App\Modules\Fao\Connectors\FaoFoodSecurityConnector;
 use App\Modules\Ilo\Connectors\IloLabourConnector;
 use App\Modules\Macro\Connectors\ImfCpiConnector;
+use App\Modules\Macro\Connectors\ImfMonthlyTradeConnector;
 use App\Modules\Macro\Connectors\ImfFossilSubsidiesConnector;
 use App\Modules\Macro\Connectors\ImfIipConnector;
 use App\Modules\Macro\Connectors\ImfNdGainConnector;
@@ -87,6 +88,67 @@ class GlobalOrgConnectorsTest extends TestCase
         $records = array_unique($this->records($c->parse($c->fetch())));
 
         $this->assertEqualsCanonicalizing(['us.yield_3m|USA|2026-10-14|4.28', 'us.yield_2y|USA|2026-10-14|4.82', 'us.yield_10y|USA|2026-10-14|5.19'], array_values($records));
+    }
+
+    public function test_open_meteo_publishes_complete_months_only_and_counts_hot_days(): void
+    {
+        $this->freshHttp();
+        $times = [];
+        $mean = [];
+        $max = [];
+        $rain = [];
+        foreach (range(1, 30) as $d) {
+            $times[] = sprintf('2026-06-%02d', $d);
+            $mean[] = 30.0;
+            $max[] = $d <= 10 ? 41.0 : 35.0;
+            $rain[] = 0.5;
+        }
+        foreach (range(1, 5) as $d) {
+            $times[] = sprintf('2026-07-%02d', $d);
+            $mean[] = 33.0;
+            $max[] = 38.0;
+            $rain[] = 0.0;
+        }
+        Http::fake(fn () => Http::response(['daily' => ['time' => $times, 'temperature_2m_mean' => $mean, 'temperature_2m_max' => $max, 'precipitation_sum' => $rain]]));
+        $c = new \App\Modules\Climate\Connectors\OpenMeteoClimateConnector;
+
+        $records = array_filter($this->records($c->parse($c->fetch())), fn (string $r) => str_contains($r, '_muscat|'));
+
+        $this->assertEqualsCanonicalizing([
+            'climate.temp_mean_muscat|OMN|2026-06|30', 'climate.temp_max_muscat|OMN|2026-06|37', 'climate.hot_days_muscat|OMN|2026-06|10', 'climate.precip_muscat|OMN|2026-06|15',
+        ], array_values($records));
+    }
+
+    public function test_imf_monthly_trade_keeps_world_totals_derives_balance_and_links_omani_partners(): void
+    {
+        $this->freshHttp();
+        Http::fake(fn () => Http::response(implode("\n", [
+            'DATAFLOW,COUNTRY,INDICATOR,COUNTERPART_COUNTRY,FREQUENCY,TIME_PERIOD,OBS_VALUE',
+            'x,OMN,XG_FOB_USD,G001,M,2026-M06,3000',
+            'x,OMN,MG_CIF_USD,G001,M,2026-M06,5000',
+            'x,OMN,XG_FOB_USD,CHN,M,2026-M06,120',
+            'x,SAU,XG_FOB_USD,CHN,M,2026-M06,900',
+            'x,OMN,XG_FOB_USD,G001,M,2026-M07,',
+        ])."\n"));
+        $c = new ImfMonthlyTradeConnector;
+
+        $items = iterator_to_array($c->parse($c->fetch()), false);
+        $records = array_map(fn ($i) => $i instanceof \App\Core\Ingestion\Data\ParsedRecord ? "{$i->indicatorKey}|{$i->entityCode}|{$i->period}|{$i->value}" : "{$i->indicatorKey}|{$i->sourceCode}>{$i->targetCode}|{$i->period}|{$i->value}", $items);
+
+        $this->assertEqualsCanonicalizing([
+            'imf.imts_exports|OMN|2026-06|3000', 'imf.imts_imports|OMN|2026-06|5000', 'imf.imts_exports_partner|OMN>CHN|2026-06|120', 'imf.imts_balance|OMN|2026-06|-2000',
+        ], $records);
+    }
+
+    public function test_frankfurter_reads_daily_rates_and_skips_unknown_currencies(): void
+    {
+        $this->freshHttp();
+        Http::fake(fn () => Http::response(['rates' => ['2026-10-16' => ['INR' => 94.96, 'XXX' => 1.0], 'bad' => ['INR' => 1]]]));
+        $c = new \App\Modules\Markets\Connectors\FrankfurterFxConnector;
+
+        $records = $this->records($c->parse($c->fetch()));
+
+        $this->assertSame(['fx.usd_inr|USA|2026-10-16|94.96'], $records);
     }
 
     public function test_imf_cpi_reads_monthly_periods_for_the_chosen_categories_only(): void

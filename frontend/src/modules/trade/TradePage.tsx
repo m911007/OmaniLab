@@ -5,6 +5,7 @@ import { SeriesChart } from '@/core/components/SeriesChart';
 import { formatDate } from '@/core/format';
 import { peerLines } from '@/core/groups';
 import { useDatasets } from '@/core/hooks';
+import { MonthlyPartners } from './MonthlyPartners';
 import { PartnersExplorer } from './PartnersExplorer';
 import { ProductMix } from './ProductMix';
 import { MONTHS, parseManafethVersion } from './manafeth';
@@ -21,6 +22,20 @@ export default function TradePage() {
       <PageHead title="التجارة الخارجية" lead="الإحصاءات الجمركية الرسمية لسلطنة عُمان من منافذ (المركز الوطني للإحصاء والمعلومات): الإجماليات، ووسائل النقل، والشركاء التجاريون." />
 
       {isLoading && <Loading height={200} />}
+
+      <Section title="التجارة السلعية الشهرية (صندوق النقد)" lead="أحدث أرقام التجارة بأشهر: تلتقط صدمات الأسعار والممرات قبل نشر الحسابات السنوية. الصادرات فوب والواردات سيف بالدولار.">
+        <SeriesChart
+          title="صادرات وواردات عُمان السلعية الشهرية"
+          lines={[
+            { indicator: 'imf.imts_exports', entity: 'OMN', label: 'الصادرات' },
+            { indicator: 'imf.imts_imports', entity: 'OMN', label: 'الواردات' },
+          ]}
+        />
+        <SeriesChart title="الرصيد التجاري السلعي الشهري لعُمان" kind="columns" lines={[{ indicator: 'imf.imts_balance', entity: 'OMN', label: 'الرصيد' }]} last={36} />
+        <MonthlyPartners />
+        <SeriesChart title="الصادرات السلعية الشهرية: الخليج" lines={['OMN', 'SAU', 'ARE', 'QAT', 'KWT', 'BHR'].map((entity) => ({ indicator: 'imf.imts_exports', entity }))} />
+        <SeriesChart title="الواردات السلعية الشهرية: الخليج" lines={['OMN', 'SAU', 'ARE', 'QAT', 'KWT', 'BHR'].map((entity) => ({ indicator: 'imf.imts_imports', entity }))} />
+      </Section>
 
       {ytdYear && v && totals && (
         <section className="section" style={{ marginTop: 0 }}>

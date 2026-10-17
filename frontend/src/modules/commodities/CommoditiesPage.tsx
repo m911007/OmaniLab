@@ -110,6 +110,12 @@ export default function CommoditiesPage() {
           lines={[us('3m', '3 أشهر', 'var(--series-1)'), us('2y', 'سنتان', 'var(--series-2)'), us('10y', '10 سنوات', 'var(--series-3)'), us('30y', '30 سنة', 'var(--series-4)')]}
         />
       </Section>
+      <Section title="عملات الشركاء التجاريين" lead="الريال مربوط بالدولار (0.3845)، فحين يقوى الدولار تصبح واردات عُمان من أوروبا والصين والهند أرخص بالريال، وتضعف عوائد صادراتها المسعّرة بتلك العملات. القيم: وحدات العملة لكل دولار.">
+        <SeriesChart title="اليوان الصيني والروبية الهندية" subtitle="لكل دولار" lines={[{ indicator: 'fx.usd_cny', entity: 'USA', label: 'اليوان' }, { indicator: 'fx.usd_inr', entity: 'USA', label: 'الروبية' }]} from="2020" />
+        <SeriesChart title="اليورو والجنيه والفرنك" subtitle="لكل دولار" lines={[{ indicator: 'fx.usd_eur', entity: 'USA', label: 'اليورو' }, { indicator: 'fx.usd_gbp', entity: 'USA', label: 'الجنيه' }, { indicator: 'fx.usd_chf', entity: 'USA', label: 'الفرنك' }]} from="2020" />
+        <SeriesChart title="الين الياباني والوون الكوري" subtitle="لكل دولار — الوون على مقياس مستقل في الجدول" lines={[{ indicator: 'fx.usd_jpy', entity: 'USA', label: 'الين' }, { indicator: 'fx.usd_krw', entity: 'USA', label: 'الوون' }]} from="2020" />
+        <SeriesChart title="عملات العمالة والتجارة الآسيوية" subtitle="لكل دولار" lines={[{ indicator: 'fx.usd_php', entity: 'USA', label: 'البيزو الفلبيني' }, { indicator: 'fx.usd_sgd', entity: 'USA', label: 'الدولار السنغافوري' }]} from="2020" />
+      </Section>
     </>
   );
 }

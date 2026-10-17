@@ -2,6 +2,7 @@ import { KeyStat } from '@/core/components/KeyStat';
 import { PageHead, Section } from '@/core/components/PageHead';
 import { SeriesChart } from '@/core/components/SeriesChart';
 import { gccLines } from '@/core/groups';
+import { MinWageCard } from './MinWageCard';
 import { OmanisationCard } from './OmanisationCard';
 
 export default function LabourPage() {
@@ -61,6 +62,14 @@ export default function LabourPage() {
           <KeyStat entity="OMN" indicator="ilo.lfp_noncitizen" label="مشاركة غير العُمانيين في القوى العاملة" />
           <KeyStat entity="OMN" indicator="ilo.unemployment_citizen" label="بطالة العُمانيين" goodWhen="down" />
         </div>
+      </Section>
+
+      <Section title="الأجور وحصة العمل" lead="الحد الأدنى الرسمي للأجور (منظمة العمل الدولية) وحصة العمل من الناتج: كم يذهب من الناتج إلى أجور العاملين؟">
+        <div style={{ gridColumn: '1 / -1' }}>
+          <MinWageCard />
+        </div>
+        <SeriesChart title="الحد الأدنى الشهري للأجور في عُمان" subtitle="ريال عُماني" lines={[{ indicator: 'ilo.min_wage', entity: 'OMN', label: 'الحد الأدنى' }]} />
+        <SeriesChart title="حصة العمل من الناتج المحلي" subtitle="% — تقديرات منظمة العمل" lines={gccLines('ilo.labour_income_share')} from="2004" />
       </Section>
 
       <Section title="مقارنة خليجية">

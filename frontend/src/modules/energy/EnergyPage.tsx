@@ -79,6 +79,22 @@ export default function EnergyPage() {
         <WorldRankCard title="انبعاثات CO₂ للفرد" indicator="wb.EN.GHG.CO2.PC.CE.AR5" />
         <WorldRankCard title="استهلاك الكهرباء للفرد" indicator="wb.EG.USE.ELEC.KH.PC" />
       </Section>
+      <Section title="المناخ وأثره على الكهرباء والسياحة" lead="الحرارة تدفع الطلب على التبريد وتقيّد العمل الميداني، وخريف صلالة يصنع موسمها السياحي. مناخ شهري منذ 1991 من إعادة تحليل ERA5 عبر Open-Meteo.">
+        <SeriesChart
+          title="متوسط درجة الحرارة الشهري"
+          subtitle="°م"
+          lines={[
+            { indicator: 'climate.temp_mean_muscat', entity: 'OMN', label: 'مسقط' },
+            { indicator: 'climate.temp_mean_nizwa', entity: 'OMN', label: 'نزوى' },
+            { indicator: 'climate.temp_mean_salalah', entity: 'OMN', label: 'صلالة' },
+            { indicator: 'climate.temp_mean_duqm', entity: 'OMN', label: 'الدقم' },
+          ]}
+          from="2015"
+        />
+        <SeriesChart title="أيام الحرارة 40°م فأكثر في مسقط" subtitle="أيام في الشهر" kind="columns" lines={[{ indicator: 'climate.hot_days_muscat', entity: 'OMN', label: 'أيام ≥ 40°م' }]} last={60} />
+        <SeriesChart title="أمطار صلالة (موسم الخريف)" subtitle="ملم في الشهر" kind="columns" lines={[{ indicator: 'climate.precip_salalah', entity: 'OMN', label: 'أمطار صلالة' }]} last={60} />
+        <SeriesChart title="أمطار مسقط" subtitle="ملم في الشهر" kind="columns" lines={[{ indicator: 'climate.precip_muscat', entity: 'OMN', label: 'أمطار مسقط' }]} last={60} />
+      </Section>
     </>
   );
 }
