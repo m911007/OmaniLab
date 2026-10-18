@@ -35,9 +35,9 @@ export default function OmanEconomyPage() {
       </div>
 
       <Section id="growth" title="النمو والناتج">
-        <SeriesChart title="نمو الناتج المحلي الإجمالي الحقيقي" lines={oman('imf.NGDP_RPCH', 'عُمان')} from="2005" imfForecast />
-        <SeriesChart title="الناتج المحلي الإجمالي بالأسعار الجارية" lines={oman('imf.NGDPD', 'صندوق النقد')} from="2005" imfForecast />
-        <SeriesChart title="نصيب الفرد من الناتج المحلي" lines={oman('imf.NGDPDPC', 'عُمان')} from="2005" imfForecast />
+        <SeriesChart oil title="نمو الناتج المحلي الإجمالي الحقيقي" lines={oman('imf.NGDP_RPCH', 'عُمان')} from="2005" imfForecast />
+        <SeriesChart oil title="الناتج المحلي الإجمالي بالأسعار الجارية" lines={oman('imf.NGDPD', 'صندوق النقد')} from="2005" imfForecast />
+        <SeriesChart oil title="نصيب الفرد من الناتج المحلي" lines={oman('imf.NGDPDPC', 'عُمان')} from="2005" imfForecast />
         <SeriesChart
           title="الناتج المحلي: الأسعار الجارية والثابتة"
           subtitle="الحسابات القومية الرسمية"
@@ -83,8 +83,8 @@ export default function OmanEconomyPage() {
       </Section>
 
       <Section id="fiscal" title="المالية العامة">
-        <SeriesChart title="إجمالي الدين الحكومي" lines={oman('imf.GGXWDG_NGDP', 'عُمان')} from="2005" imfForecast />
-        <SeriesChart title="رصيد الميزانية الحكومية" lines={oman('imf.GGXCNL_NGDP', 'عُمان')} from="2005" imfForecast />
+        <SeriesChart oil title="إجمالي الدين الحكومي" lines={oman('imf.GGXWDG_NGDP', 'عُمان')} from="2005" imfForecast />
+        <SeriesChart oil title="رصيد الميزانية الحكومية" lines={oman('imf.GGXCNL_NGDP', 'عُمان')} from="2005" imfForecast />
         <SeriesChart title="إيرادات الضرائب" lines={oman('wb.GC.TAX.TOTL.GD.ZS', 'عُمان')} from="2000" />
       </Section>
 
@@ -112,12 +112,12 @@ export default function OmanEconomyPage() {
             { indicator: 'ncsi.BOP_SECONDARY_INCOME', entity: 'OMN', label: 'الدخل الثانوي', color: 'var(--series-8)' },
           ]}
         />
-        <SeriesChart title="رصيد الحساب الجاري" subtitle="مليون ريال عُماني" kind="columns" lines={[{ indicator: 'ncsi.BOP_CURRENT_ACCOUNT', entity: 'OMN', label: 'الحساب الجاري' }]} />
+        <SeriesChart oil title="رصيد الحساب الجاري" subtitle="مليون ريال عُماني" kind="columns" lines={[{ indicator: 'ncsi.BOP_CURRENT_ACCOUNT', entity: 'OMN', label: 'الحساب الجاري' }]} />
         <SeriesChart title="تحويلات العاملين الوافدين (سالب = خارج)" subtitle="مليون ريال عُماني" kind="columns" lines={[{ indicator: 'ncsi.BOP_WORKERS_REMITTANCES', entity: 'OMN', label: 'تحويلات العاملين' }]} />
       </Section>
 
       <Section id="external" title="القطاع الخارجي">
-        <SeriesChart title="رصيد الحساب الجاري" lines={oman('imf.BCA_NGDPD', 'عُمان')} from="2005" imfForecast />
+        <SeriesChart oil title="رصيد الحساب الجاري" lines={oman('imf.BCA_NGDPD', 'عُمان')} from="2005" imfForecast />
         <SeriesChart title="الاستثمار الأجنبي المباشر الداخل" lines={oman('wb.BX.KLT.DINV.WD.GD.ZS', 'عُمان')} from="2000" />
         <SeriesChart
           title="الصادرات والواردات من السلع والخدمات"
@@ -128,11 +128,11 @@ export default function OmanEconomyPage() {
           ]}
           last={14}
         />
-        <SeriesChart title="الاحتياطيات الدولية" lines={oman('wb.FI.RES.TOTL.CD', 'عُمان')} from="2000" />
+        <SeriesChart oil title="الاحتياطيات الدولية" lines={oman('wb.FI.RES.TOTL.CD', 'عُمان')} from="2000" />
       </Section>
 
       <Section id="energy" title="النفط والغاز">
-        <SeriesChart title="سعر النفط العُماني" subtitle="متوسط شهري" lines={[{ indicator: 'ncsi.OIL_PRICE', entity: 'OMN', label: 'دولار/برميل' }]} from="2010" />
+        <SeriesChart title="سعر النفط: دبي وبرنت" subtitle="دولار/برميل، متوسط شهري — صندوق النقد (ويقابله البنك الدولي وEIA)" lines={[{ indicator: 'imf.pcps.poildub', entity: 'WLD', label: 'خام دبي (مرجع الخام العُماني)' }, { indicator: 'imf.pcps.poilbre', entity: 'WLD', label: 'خام برنت' }]} from="2010" />
         <SeriesChart title="إنتاج وصادرات النفط الخام" subtitle="متوسط يومي" lines={[
           { indicator: 'ncsi.OIL_PRODUCTION', entity: 'OMN', label: 'الإنتاج', color: 'var(--series-1)' },
           { indicator: 'ncsi.OIL_EXPORTS', entity: 'OMN', label: 'الصادرات', color: 'var(--series-2)' },

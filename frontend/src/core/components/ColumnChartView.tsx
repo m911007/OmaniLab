@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
-import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Bar, CartesianGrid, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { oilAt, type OilOverlay } from '../oilOverlay';
 import { axisNumber, shortPeriod } from '../format';
 import type { SeriesItem } from '../hooks';
 import { ChartTooltip } from './ChartTooltip';
@@ -11,10 +12,12 @@ interface Props {
   stacked?: boolean;
   /** آخر N فترة فقط */
   last?: number;
+  /** سعر النفط كخط متقطع على محور ثانوي */
+  oil?: OilOverlay | null;
 }
 
 /** أعمدة سنوية مجمّعة أو مكدّسة: زوايا 4px للطرف، فجوة 2px بين المقاطع، وخط أساس صفري. */
-export function ColumnChartView({ series, unit, height = 280, stacked = false, last = 14 }: Props) {
+export function ColumnChartView({ series, unit, height = 280, stacked = false, last = 14, oil = null }: Props) {
   const [hidden, setHidden] = useState<Set<string>>(new Set());
 
   const rows = useMemo(() => {
@@ -22,9 +25,10 @@ export function ColumnChartView({ series, unit, height = 280, stacked = false, l
     return periods.map((period) => {
       const row: Record<string, number | string | null> = { period };
       for (const s of series) row[s.id] = s.points.find((p) => p[0] === period)?.[1] ?? null;
+      if (oil) row.__oil = oilAt(oil, period);
       return row;
     });
-  }, [series, last]);
+  }, [series, last, oil]);
 
   const visible = series.filter((s) => !hidden.has(s.id));
   const toggle = (id: string) =>
@@ -49,17 +53,20 @@ export function ColumnChartView({ series, unit, height = 280, stacked = false, l
       )}
       <div className="chart-wrap" style={{ height }} role="img" aria-label={`مخطط أعمدة: ${series.map((s) => s.label).join('، ')}`}>
         <ResponsiveContainer>
-          <BarChart data={rows} margin={{ top: 8, right: 12, bottom: 0, left: 0 }} barCategoryGap="22%" barGap={2}>
+          <ComposedChart data={rows} margin={{ top: 8, right: oil ? 4 : 12, bottom: 0, left: 0 }} barCategoryGap="22%" barGap={2}>
             <CartesianGrid vertical={false} stroke="var(--grid)" />
             <XAxis dataKey="period" tickFormatter={shortPeriod} stroke="var(--text-muted)" tick={{ fontSize: 13 }} tickLine={false} axisLine={{ stroke: 'var(--border)' }} />
             <YAxis tickFormatter={axisNumber} stroke="var(--text-muted)" tick={{ fontSize: 13 }} tickLine={false} axisLine={false} width={54} />
+            {oil && <YAxis yAxisId="oil" orientation="right" tickFormatter={axisNumber} stroke="var(--text-secondary)" tick={{ fontSize: 12, fill: 'var(--text-secondary)' }} tickLine={false} axisLine={false} width={40} domain={[0, 'auto']} />}
             <Tooltip content={<ChartTooltip unit={unit} />} cursor={{ fill: 'var(--surface-2)', opacity: 0.6 }} />
             {visible.map((s) => (
               <Bar key={s.id} dataKey={s.id} name={s.label} fill={s.color} stackId={stacked ? 'a' : undefined} radius={stacked ? 0 : [4, 4, 0, 0]} stroke="var(--surface-1)" strokeWidth={stacked ? 2 : 0} isAnimationActive={false} />
             ))}
-          </BarChart>
+            {oil && <Line yAxisId="oil" dataKey="__oil" name={oil.label} stroke="var(--text-secondary)" strokeWidth={2} strokeDasharray="2 4" dot={false} connectNulls isAnimationActive={false} />}
+          </ComposedChart>
         </ResponsiveContainer>
       </div>
+      {oil && <p className="muted" style={{ fontSize: 12 }}>الخط المتقطع الرمادي (المحور الأيمن): سعر النفط (خام دبي، صندوق النقد) للمقارنة.</p>}
     </div>
   );
 }

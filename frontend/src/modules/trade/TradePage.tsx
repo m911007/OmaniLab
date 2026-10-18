@@ -6,6 +6,7 @@ import { formatDate } from '@/core/format';
 import { peerLines } from '@/core/groups';
 import { useDatasets } from '@/core/hooks';
 import { MonthlyPartners } from './MonthlyPartners';
+import { PartnerBalance } from './PartnerBalance';
 import { PartnersExplorer } from './PartnersExplorer';
 import { ProductMix } from './ProductMix';
 import { MONTHS, parseManafethVersion } from './manafeth';
@@ -24,16 +25,16 @@ export default function TradePage() {
       {isLoading && <Loading height={200} />}
 
       <Section title="التجارة السلعية الشهرية (صندوق النقد)" lead="أحدث أرقام التجارة بأشهر: تلتقط صدمات الأسعار والممرات قبل نشر الحسابات السنوية. الصادرات فوب والواردات سيف بالدولار.">
-        <SeriesChart
+        <SeriesChart oil
           title="صادرات وواردات عُمان السلعية الشهرية"
           lines={[
             { indicator: 'imf.imts_exports', entity: 'OMN', label: 'الصادرات' },
             { indicator: 'imf.imts_imports', entity: 'OMN', label: 'الواردات' },
           ]}
         />
-        <SeriesChart title="الرصيد التجاري السلعي الشهري لعُمان" kind="columns" lines={[{ indicator: 'imf.imts_balance', entity: 'OMN', label: 'الرصيد' }]} last={36} />
+        <SeriesChart oil title="الرصيد التجاري السلعي الشهري لعُمان" kind="columns" lines={[{ indicator: 'imf.imts_balance', entity: 'OMN', label: 'الرصيد' }]} last={36} />
         <MonthlyPartners />
-        <SeriesChart title="الصادرات السلعية الشهرية: الخليج" lines={['OMN', 'SAU', 'ARE', 'QAT', 'KWT', 'BHR'].map((entity) => ({ indicator: 'imf.imts_exports', entity }))} />
+        <SeriesChart oil title="الصادرات السلعية الشهرية: الخليج" lines={['OMN', 'SAU', 'ARE', 'QAT', 'KWT', 'BHR'].map((entity) => ({ indicator: 'imf.imts_exports', entity }))} />
         <SeriesChart title="الواردات السلعية الشهرية: الخليج" lines={['OMN', 'SAU', 'ARE', 'QAT', 'KWT', 'BHR'].map((entity) => ({ indicator: 'imf.imts_imports', entity }))} />
       </Section>
 
@@ -110,6 +111,7 @@ export default function TradePage() {
         <h2>الشركاء التجاريون</h2>
         <p className="lead">بحسب الدولة (ريال عُماني). مجموع الدول يطابق الإجمالي الرسمي بإضافة بند «غير محدد / غير موزّع» حين لا ينشر المصدر وجهة جزء من التدفق.</p>
         {partners ? <PartnersExplorer dataset={partners} /> : isLoading ? null : <Empty>بيانات الشركاء غير متاحة بعد.</Empty>}
+        {partners && <div style={{ gridColumn: '1 / -1' }}><PartnerBalance year={String(v ? (v.month >= 12 ? v.year : v.year - 1) : new Date().getFullYear() - 1)} /></div>}
       </section>
     </>
   );

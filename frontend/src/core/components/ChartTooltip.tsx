@@ -29,7 +29,7 @@ export function ChartTooltip({ active, payload, label, unit }: { active?: boolea
             <span className="dot" style={{ background: p.color ?? p.stroke ?? p.fill }} />
             {p.name}
           </span>
-          <strong className="num">{typeof p.value === 'number' ? formatValue(p.value, unit) : p.value}</strong>
+          <strong className="num">{typeof p.value === 'number' ? (p.dataKey === '__oil' ? `${formatValue(p.value, '$/برميل')} $` : formatValue(p.value, unit)) : p.value}</strong>
         </div>
       ))}
       {unit && <div className="muted" style={{ marginTop: 4, fontSize: 12 }}>{unit}</div>}

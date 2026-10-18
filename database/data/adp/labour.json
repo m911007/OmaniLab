@@ -1,0 +1,2440 @@
+{
+    "series": {
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-a-0a2162": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Agriculture",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-a-14bcdf": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Accommodation and Food Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-a-8db7b4": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Agriculture, Forestry, and Fishing",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-a-c179ec": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Activities of Extraterritorial Organizations and Bodies",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-a-e8b6ae": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Arts, Entertainment, and Recreation Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-a-ffad8a": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Administrative and Support Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-c-b70f4f": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Construction",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-e-0bb85c": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Education",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-e-9865f9": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Electricity, Gas, Steam, and Air Conditioning Supply",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-f-ba1d8e": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Financial and Insurance Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-h-2f29ce": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Human Health and Social Work Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-h-36babe": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Households as Employers; Undifferentiated Goods- and Services-Producing Activities of Households for Own Use",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-i-480b1a": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Information and Communication",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-i-5130db": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Industry",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-m-0bbae8": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Mining and Quarrying",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-m-6b85ad": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Manufacturing Industries",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-n-2cf8de": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Not Classified",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-o-55bcff": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Other Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-p-ebe7bf": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Public Administration and Defense; Compulsory Social Security",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-p-eddcc6": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Professional, Scientific, and Technical Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-r-c94e28": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Real Estate Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-s-aa81b3": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Services",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-t-ecd18c": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Transportation and Storage",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-w-181b85": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Water Supply, Sewerage, Waste Management, and Remediation Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationality-total-w-676b10": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationality Total — Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-accommoda-230f84": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Accommodation and Food Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-activitie-76819c": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Activities of Extraterritorial Organizations and Bodies",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-administr-d002f0": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Administrative and Support Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-agricultu-212f82": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Agriculture, Forestry, and Fishing",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-agricultu-b63658": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Agriculture",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-arts-ente-d9d1d4": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Arts, Entertainment, and Recreation Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-construct-7cd6e6": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Construction",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-education-adf1ab": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Education",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-electrici-1ea49a": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Electricity, Gas, Steam, and Air Conditioning Supply",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-financial-e5f411": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Financial and Insurance Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-household-ed0612": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Households as Employers; Undifferentiated Goods- and Services-Producing Activities of Households for Own Use",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-human-hea-e28a5e": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Human Health and Social Work Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-industry-95c95b": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Industry",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-informati-a9ad2a": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Information and Communication",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-manufactu-66f3a8": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Manufacturing Industries",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-mining-an-dbaf81": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Mining and Quarrying",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-not-class-2f6359": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Not Classified",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-other-ser-a88008": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Other Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-professio-4d6e0e": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Professional, Scientific, and Technical Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-public-ad-230b7a": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Public Administration and Defense; Compulsory Social Security",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-real-esta-e1bfc5": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Real Estate Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-services-8b54a1": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Services",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-transport-c7fe3e": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Transportation and Storage",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-water-sup-5c0930": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Water Supply, Sewerage, Waste Management, and Remediation Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-nationals-wholesale-247739": {
+            "name": "Employment by economic activity (percent) — Both sexes — Nationals — Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-accom-022680": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Accommodation and Food Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-activ-10c81b": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Activities of Extraterritorial Organizations and Bodies",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-admin-69c59c": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Administrative and Support Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-agric-4a773c": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Agriculture",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-agric-d10944": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Agriculture, Forestry, and Fishing",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-arts--7c87d7": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Arts, Entertainment, and Recreation Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-const-9928ef": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Construction",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-educa-4091df": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Education",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-elect-d2420f": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Electricity, Gas, Steam, and Air Conditioning Supply",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-finan-2fb1a2": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Financial and Insurance Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-house-20d3ba": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Households as Employers; Undifferentiated Goods- and Services-Producing Activities of Households for Own Use",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-human-ba9044": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Human Health and Social Work Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-indus-4282fd": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Industry",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-infor-b82aaa": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Information and Communication",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-manuf-3b4a76": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Manufacturing Industries",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-minin-1a3c8f": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Mining and Quarrying",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-not-c-857022": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Not Classified",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-other-0b55a9": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Other Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-profe-05c08f": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Professional, Scientific, and Technical Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-publi-127755": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Public Administration and Defense; Compulsory Social Security",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-real--d4f30e": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Real Estate Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-servi-37aea9": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Services",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-trans-b7eaf1": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Transportation and Storage",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-water-721803": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Water Supply, Sewerage, Waste Management, and Remediation Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-both-sexes-non-nationals-whole-5b0ce3": {
+            "name": "Employment by economic activity (percent) — Both sexes — Non-nationals — Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-accom-2128b8": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Accommodation and Food Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-activ-41f437": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Activities of Extraterritorial Organizations and Bodies",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-admin-86b2d9": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Administrative and Support Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-agric-82ef71": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Agriculture",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-agric-aaf7b3": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Agriculture, Forestry, and Fishing",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-arts--2c190d": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Arts, Entertainment, and Recreation Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-const-155969": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Construction",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-educa-84383f": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Education",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-elect-e4f0da": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Electricity, Gas, Steam, and Air Conditioning Supply",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-finan-e22373": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Financial and Insurance Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-house-a5bdf1": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Households as Employers; Undifferentiated Goods- and Services-Producing Activities of Households for Own Use",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-human-0429f4": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Human Health and Social Work Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-indus-3e641d": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Industry",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-infor-044570": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Information and Communication",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-manuf-3b1916": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Manufacturing Industries",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-minin-8a519f": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Mining and Quarrying",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-not-c-8b2299": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Not Classified",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-other-6f1012": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Other Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-profe-af24b4": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Professional, Scientific, and Technical Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-publi-0b7eb0": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Public Administration and Defense; Compulsory Social Security",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-real--e1e347": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Real Estate Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-servi-330475": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Services",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-trans-dd3cd7": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Transportation and Storage",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-water-351d2f": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Water Supply, Sewerage, Waste Management, and Remediation Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationality-total-whole-8db4ff": {
+            "name": "Employment by economic activity (percent) — Female — Nationality Total — Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-accommodation-13e5e0": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Accommodation and Food Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-activities-of-4b3ef2": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Activities of Extraterritorial Organizations and Bodies",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-administrativ-2eb572": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Administrative and Support Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-agriculture-f-c31526": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Agriculture, Forestry, and Fishing",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-agriculture-feba8d": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Agriculture",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-arts-entertai-225d36": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Arts, Entertainment, and Recreation Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-construction-6a8d85": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Construction",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-education-196f8f": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Education",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-electricity-g-f6cad4": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Electricity, Gas, Steam, and Air Conditioning Supply",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-financial-and-b877f6": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Financial and Insurance Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-households-as-913570": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Households as Employers; Undifferentiated Goods- and Services-Producing Activities of Households for Own Use",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-human-health--2650f4": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Human Health and Social Work Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-industry-9282ad": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Industry",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-information-a-97c15b": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Information and Communication",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-manufacturing-5a0827": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Manufacturing Industries",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-mining-and-qu-b18c76": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Mining and Quarrying",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-not-classifie-329684": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Not Classified",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-other-service-74883c": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Other Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-professional--07d2c5": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Professional, Scientific, and Technical Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-public-admini-f5a3c8": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Public Administration and Defense; Compulsory Social Security",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-real-estate-a-93abaa": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Real Estate Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-services-e4ebf2": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Services",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-transportatio-564982": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Transportation and Storage",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-water-supply--6b39d8": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Water Supply, Sewerage, Waste Management, and Remediation Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-nationals-wholesale-and-0ffb3d": {
+            "name": "Employment by economic activity (percent) — Female — Nationals — Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-accommoda-471cc8": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Accommodation and Food Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-activitie-28c3cb": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Activities of Extraterritorial Organizations and Bodies",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-administr-344cca": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Administrative and Support Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-agricultu-86a5b5": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Agriculture",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-agricultu-f669fa": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Agriculture, Forestry, and Fishing",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-arts-ente-8be442": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Arts, Entertainment, and Recreation Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-construct-431436": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Construction",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-education-468dea": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Education",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-electrici-649d09": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Electricity, Gas, Steam, and Air Conditioning Supply",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-household-19136e": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Households as Employers; Undifferentiated Goods- and Services-Producing Activities of Households for Own Use",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-human-hea-dae995": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Human Health and Social Work Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-industry-87a6c5": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Industry",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-informati-b3a2bb": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Information and Communication",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-not-class-c7a208": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Not Classified",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-other-ser-b31d4c": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Other Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-professio-bb809f": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Professional, Scientific, and Technical Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-public-ad-a69a3c": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Public Administration and Defense; Compulsory Social Security",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-real-esta-89b6fd": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Real Estate Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-services-7fd29d": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Services",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-transport-748b8a": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Transportation and Storage",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-water-sup-4f841b": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Water Supply, Sewerage, Waste Management, and Remediation Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-female-non-nationals-wholesale-b394fb": {
+            "name": "Employment by economic activity (percent) — Female — Non-nationals — Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-accommo-f4c0c3": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Accommodation and Food Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-activit-b164a2": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Activities of Extraterritorial Organizations and Bodies",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-adminis-71f0e9": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Administrative and Support Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-agricul-57db9f": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Agriculture",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-agricul-ead1f1": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Agriculture, Forestry, and Fishing",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-arts-en-07b94f": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Arts, Entertainment, and Recreation Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-constru-ae9063": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Construction",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-educati-323ebd": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Education",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-electri-e6d73a": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Electricity, Gas, Steam, and Air Conditioning Supply",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-financi-a6d542": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Financial and Insurance Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-househo-6f9fa9": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Households as Employers; Undifferentiated Goods- and Services-Producing Activities of Households for Own Use",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-human-h-744966": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Human Health and Social Work Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-industr-9fc0ea": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Industry",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-informa-1c824e": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Information and Communication",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-manufac-3bf398": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Manufacturing Industries",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-mining--521270": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Mining and Quarrying",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-not-cla-ae9f71": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Not Classified",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-other-s-a0449a": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Other Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-profess-a90047": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Professional, Scientific, and Technical Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-public--f1a364": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Public Administration and Defense; Compulsory Social Security",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-real-es-3820ee": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Real Estate Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-service-dab64a": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Services",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-transpo-8528b4": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Transportation and Storage",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-water-s-aacd86": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Water Supply, Sewerage, Waste Management, and Remediation Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationality-total-wholesa-ea2751": {
+            "name": "Employment by economic activity (percent) — Male — Nationality Total — Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-accommodation-a-df60ab": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Accommodation and Food Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-activities-of-e-35de64": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Activities of Extraterritorial Organizations and Bodies",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-administrative--100069": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Administrative and Support Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-agriculture-fc4c5a": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Agriculture",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-agriculture-for-b4a2a6": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Agriculture, Forestry, and Fishing",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-arts-entertainm-c181bc": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Arts, Entertainment, and Recreation Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-construction-068e4b": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Construction",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-education-1ad474": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Education",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-electricity-gas-59ebf5": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Electricity, Gas, Steam, and Air Conditioning Supply",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-financial-and-i-eb9e01": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Financial and Insurance Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-households-as-e-bd1c5a": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Households as Employers; Undifferentiated Goods- and Services-Producing Activities of Households for Own Use",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-human-health-an-cd4131": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Human Health and Social Work Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-industry-3e323c": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Industry",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-information-and-d12bfc": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Information and Communication",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-manufacturing-i-15e010": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Manufacturing Industries",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-mining-and-quar-cca858": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Mining and Quarrying",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-not-classified-cb3f76": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Not Classified",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-other-service-a-56c425": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Other Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-professional-sc-5bc4a5": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Professional, Scientific, and Technical Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-public-administ-875b3e": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Public Administration and Defense; Compulsory Social Security",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-real-estate-act-9087bc": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Real Estate Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-services-76fd8c": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Services",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-transportation--f9d920": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Transportation and Storage",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-water-supply-se-f6f898": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Water Supply, Sewerage, Waste Management, and Remediation Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-nationals-wholesale-and-r-0341ca": {
+            "name": "Employment by economic activity (percent) — Male — Nationals — Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-accommodati-dafb0f": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Accommodation and Food Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-activities--086c6d": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Activities of Extraterritorial Organizations and Bodies",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-administrat-d25b32": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Administrative and Support Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-agriculture-4f247c": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Agriculture",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-agriculture-cf388d": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Agriculture, Forestry, and Fishing",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-arts-entert-075acf": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Arts, Entertainment, and Recreation Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-constructio-3e6c4f": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Construction",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-education-b4e3a4": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Education",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-electricity-3bbe9b": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Electricity, Gas, Steam, and Air Conditioning Supply",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-financial-a-6525e1": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Financial and Insurance Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-households--a0d673": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Households as Employers; Undifferentiated Goods- and Services-Producing Activities of Households for Own Use",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-human-healt-002fd9": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Human Health and Social Work Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-industry-2c7b41": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Industry",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-information-6aef0d": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Information and Communication",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-manufacturi-15237d": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Manufacturing Industries",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-mining-and--44fd8e": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Mining and Quarrying",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-not-classif-42260d": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Not Classified",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-other-servi-22121c": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Other Service Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-professiona-21dca4": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Professional, Scientific, and Technical Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-public-admi-828ab9": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Public Administration and Defense; Compulsory Social Security",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-real-estate-456f5f": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Real Estate Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-services-cbbdb7": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Services",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-transportat-7f3d23": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Transportation and Storage",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-water-suppl-e9be76": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Water Supply, Sewerage, Waste Management, and Remediation Activities",
+            "unit": null
+        },
+        "adp.labour.employment-by-economic-activity-percent-male-non-nationals-wholesale-a-581ed3": {
+            "name": "Employment by economic activity (percent) — Male — Non-nationals — Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationality-total-armed-fo-66d766": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationality Total — Armed forces occupations",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationality-total-clerical-8add8c": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationality Total — Clerical support workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationality-total-craft-an-eb2f4e": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationality Total — Craft and related workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationality-total-elementa-26ad86": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationality Total — Elementary occupations",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationality-total-managers-c05e36": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationality Total — Managers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationality-total-not-spec-6336b4": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationality Total — Not specified",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationality-total-plant-an-004ec7": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationality Total — Plant and machine operators, and assemblers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationality-total-professi-171d1e": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationality Total — Professionals",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationality-total-service--5b7286": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationality Total — Service and sales workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationality-total-skilled--29a061": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationality Total — Skilled agricultural and fishery workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationality-total-technici-1171c9": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationality Total — Technicians and associate professionals",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationals-armed-forces-occ-3e9c20": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationals — Armed forces occupations",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationals-clerical-support-485959": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationals — Clerical support workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationals-craft-and-relate-92ebae": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationals — Craft and related workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationals-elementary-occup-e39d42": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationals — Elementary occupations",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationals-managers-8c3854": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationals — Managers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationals-not-specified-148162": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationals — Not specified",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationals-plant-and-machin-ecaf55": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationals — Plant and machine operators, and assemblers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationals-professionals-92fa88": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationals — Professionals",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationals-service-and-sale-5a97ce": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationals — Service and sales workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationals-skilled-agricult-fb4842": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationals — Skilled agricultural and fishery workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-nationals-technicians-and--22d9d0": {
+            "name": "Employment by occupation (percent) — Both sexes — Nationals — Technicians and associate professionals",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-non-nationals-armed-forces-727451": {
+            "name": "Employment by occupation (percent) — Both sexes — Non-nationals — Armed forces occupations",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-non-nationals-clerical-sup-3198f8": {
+            "name": "Employment by occupation (percent) — Both sexes — Non-nationals — Clerical support workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-non-nationals-craft-and-re-aae5cb": {
+            "name": "Employment by occupation (percent) — Both sexes — Non-nationals — Craft and related workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-non-nationals-elementary-o-69ff7a": {
+            "name": "Employment by occupation (percent) — Both sexes — Non-nationals — Elementary occupations",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-non-nationals-managers-bc1d0e": {
+            "name": "Employment by occupation (percent) — Both sexes — Non-nationals — Managers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-non-nationals-not-specifie-b7757c": {
+            "name": "Employment by occupation (percent) — Both sexes — Non-nationals — Not specified",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-non-nationals-plant-and-ma-bcc36a": {
+            "name": "Employment by occupation (percent) — Both sexes — Non-nationals — Plant and machine operators, and assemblers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-non-nationals-professional-92ba05": {
+            "name": "Employment by occupation (percent) — Both sexes — Non-nationals — Professionals",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-non-nationals-service-and--f88aba": {
+            "name": "Employment by occupation (percent) — Both sexes — Non-nationals — Service and sales workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-non-nationals-skilled-agri-bbae90": {
+            "name": "Employment by occupation (percent) — Both sexes — Non-nationals — Skilled agricultural and fishery workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-both-sexes-non-nationals-technicians--1cd60a": {
+            "name": "Employment by occupation (percent) — Both sexes — Non-nationals — Technicians and associate professionals",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationality-total-armed-forces-01d526": {
+            "name": "Employment by occupation (percent) — Female — Nationality Total — Armed forces occupations",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationality-total-clerical-sup-2025e9": {
+            "name": "Employment by occupation (percent) — Female — Nationality Total — Clerical support workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationality-total-craft-and-re-1751dd": {
+            "name": "Employment by occupation (percent) — Female — Nationality Total — Craft and related workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationality-total-elementary-o-421e75": {
+            "name": "Employment by occupation (percent) — Female — Nationality Total — Elementary occupations",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationality-total-managers-01672e": {
+            "name": "Employment by occupation (percent) — Female — Nationality Total — Managers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationality-total-not-specifie-a0e192": {
+            "name": "Employment by occupation (percent) — Female — Nationality Total — Not specified",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationality-total-plant-and-ma-69373f": {
+            "name": "Employment by occupation (percent) — Female — Nationality Total — Plant and machine operators, and assemblers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationality-total-professional-4d6778": {
+            "name": "Employment by occupation (percent) — Female — Nationality Total — Professionals",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationality-total-service-and--ac579c": {
+            "name": "Employment by occupation (percent) — Female — Nationality Total — Service and sales workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationality-total-skilled-agri-08e70e": {
+            "name": "Employment by occupation (percent) — Female — Nationality Total — Skilled agricultural and fishery workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationality-total-technicians--98f087": {
+            "name": "Employment by occupation (percent) — Female — Nationality Total — Technicians and associate professionals",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationals-armed-forces-occupat-d309cd": {
+            "name": "Employment by occupation (percent) — Female — Nationals — Armed forces occupations",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationals-clerical-support-wor-60cd85": {
+            "name": "Employment by occupation (percent) — Female — Nationals — Clerical support workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationals-craft-and-related-wo-85532f": {
+            "name": "Employment by occupation (percent) — Female — Nationals — Craft and related workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationals-elementary-occupatio-57a7a7": {
+            "name": "Employment by occupation (percent) — Female — Nationals — Elementary occupations",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationals-managers-960078": {
+            "name": "Employment by occupation (percent) — Female — Nationals — Managers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationals-not-specified-154a16": {
+            "name": "Employment by occupation (percent) — Female — Nationals — Not specified",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationals-plant-and-machine-op-18dd9e": {
+            "name": "Employment by occupation (percent) — Female — Nationals — Plant and machine operators, and assemblers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationals-professionals-cc9f40": {
+            "name": "Employment by occupation (percent) — Female — Nationals — Professionals",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationals-service-and-sales-wo-efc15b": {
+            "name": "Employment by occupation (percent) — Female — Nationals — Service and sales workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationals-skilled-agricultural-a59330": {
+            "name": "Employment by occupation (percent) — Female — Nationals — Skilled agricultural and fishery workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-nationals-technicians-and-asso-dbc048": {
+            "name": "Employment by occupation (percent) — Female — Nationals — Technicians and associate professionals",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-non-nationals-armed-forces-occ-df1096": {
+            "name": "Employment by occupation (percent) — Female — Non-nationals — Armed forces occupations",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-non-nationals-clerical-support-c26066": {
+            "name": "Employment by occupation (percent) — Female — Non-nationals — Clerical support workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-non-nationals-craft-and-relate-a72bb7": {
+            "name": "Employment by occupation (percent) — Female — Non-nationals — Craft and related workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-non-nationals-elementary-occup-efa43c": {
+            "name": "Employment by occupation (percent) — Female — Non-nationals — Elementary occupations",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-non-nationals-managers-938ea9": {
+            "name": "Employment by occupation (percent) — Female — Non-nationals — Managers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-non-nationals-not-specified-ddc3c4": {
+            "name": "Employment by occupation (percent) — Female — Non-nationals — Not specified",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-non-nationals-plant-and-machin-17f7e4": {
+            "name": "Employment by occupation (percent) — Female — Non-nationals — Plant and machine operators, and assemblers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-non-nationals-professionals-25f8d3": {
+            "name": "Employment by occupation (percent) — Female — Non-nationals — Professionals",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-non-nationals-service-and-sale-e2fff3": {
+            "name": "Employment by occupation (percent) — Female — Non-nationals — Service and sales workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-non-nationals-skilled-agricult-69a4c7": {
+            "name": "Employment by occupation (percent) — Female — Non-nationals — Skilled agricultural and fishery workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-female-non-nationals-technicians-and--0c3f1e": {
+            "name": "Employment by occupation (percent) — Female — Non-nationals — Technicians and associate professionals",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationality-total-armed-forces-o-2b3f89": {
+            "name": "Employment by occupation (percent) — Male — Nationality Total — Armed forces occupations",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationality-total-clerical-suppo-791a0d": {
+            "name": "Employment by occupation (percent) — Male — Nationality Total — Clerical support workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationality-total-craft-and-rela-ed3546": {
+            "name": "Employment by occupation (percent) — Male — Nationality Total — Craft and related workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationality-total-elementary-occ-5c5363": {
+            "name": "Employment by occupation (percent) — Male — Nationality Total — Elementary occupations",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationality-total-managers-82c1c4": {
+            "name": "Employment by occupation (percent) — Male — Nationality Total — Managers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationality-total-not-specified-c568e4": {
+            "name": "Employment by occupation (percent) — Male — Nationality Total — Not specified",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationality-total-plant-and-mach-99a4ed": {
+            "name": "Employment by occupation (percent) — Male — Nationality Total — Plant and machine operators, and assemblers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationality-total-professionals-20f870": {
+            "name": "Employment by occupation (percent) — Male — Nationality Total — Professionals",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationality-total-service-and-sa-d7b781": {
+            "name": "Employment by occupation (percent) — Male — Nationality Total — Service and sales workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationality-total-skilled-agricu-a51519": {
+            "name": "Employment by occupation (percent) — Male — Nationality Total — Skilled agricultural and fishery workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationality-total-technicians-an-97e5ee": {
+            "name": "Employment by occupation (percent) — Male — Nationality Total — Technicians and associate professionals",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationals-armed-forces-occupatio-3dd4f8": {
+            "name": "Employment by occupation (percent) — Male — Nationals — Armed forces occupations",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationals-clerical-support-worke-babcbc": {
+            "name": "Employment by occupation (percent) — Male — Nationals — Clerical support workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationals-craft-and-related-work-afeabc": {
+            "name": "Employment by occupation (percent) — Male — Nationals — Craft and related workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationals-elementary-occupations-078b9c": {
+            "name": "Employment by occupation (percent) — Male — Nationals — Elementary occupations",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationals-managers-b12255": {
+            "name": "Employment by occupation (percent) — Male — Nationals — Managers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationals-not-specified-d55d85": {
+            "name": "Employment by occupation (percent) — Male — Nationals — Not specified",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationals-plant-and-machine-oper-be3a8b": {
+            "name": "Employment by occupation (percent) — Male — Nationals — Plant and machine operators, and assemblers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationals-professionals-938530": {
+            "name": "Employment by occupation (percent) — Male — Nationals — Professionals",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationals-service-and-sales-work-57cc48": {
+            "name": "Employment by occupation (percent) — Male — Nationals — Service and sales workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationals-skilled-agricultural-a-a703fc": {
+            "name": "Employment by occupation (percent) — Male — Nationals — Skilled agricultural and fishery workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-nationals-technicians-and-associ-96616a": {
+            "name": "Employment by occupation (percent) — Male — Nationals — Technicians and associate professionals",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-non-nationals-armed-forces-occup-040361": {
+            "name": "Employment by occupation (percent) — Male — Non-nationals — Armed forces occupations",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-non-nationals-clerical-support-w-ccf755": {
+            "name": "Employment by occupation (percent) — Male — Non-nationals — Clerical support workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-non-nationals-craft-and-related--30bed5": {
+            "name": "Employment by occupation (percent) — Male — Non-nationals — Craft and related workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-non-nationals-elementary-occupat-3fe8c0": {
+            "name": "Employment by occupation (percent) — Male — Non-nationals — Elementary occupations",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-non-nationals-managers-d254bf": {
+            "name": "Employment by occupation (percent) — Male — Non-nationals — Managers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-non-nationals-not-specified-868f7b": {
+            "name": "Employment by occupation (percent) — Male — Non-nationals — Not specified",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-non-nationals-plant-and-machine--bbaa4a": {
+            "name": "Employment by occupation (percent) — Male — Non-nationals — Plant and machine operators, and assemblers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-non-nationals-professionals-13df78": {
+            "name": "Employment by occupation (percent) — Male — Non-nationals — Professionals",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-non-nationals-service-and-sales--0625bc": {
+            "name": "Employment by occupation (percent) — Male — Non-nationals — Service and sales workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-non-nationals-skilled-agricultur-29f087": {
+            "name": "Employment by occupation (percent) — Male — Non-nationals — Skilled agricultural and fishery workers",
+            "unit": null
+        },
+        "adp.labour.employment-by-occupation-percent-male-non-nationals-technicians-and-as-0117aa": {
+            "name": "Employment by occupation (percent) — Male — Non-nationals — Technicians and associate professionals",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-both-sexes-nationality-total-mixed-ae58d9": {
+            "name": "Employment by sector (percent) — Both sexes — Nationality Total — Mixed",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-both-sexes-nationality-total-other-42f7ba": {
+            "name": "Employment by sector (percent) — Both sexes — Nationality Total — Other",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-both-sexes-nationality-total-private-3ed73a": {
+            "name": "Employment by sector (percent) — Both sexes — Nationality Total — Private",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-both-sexes-nationality-total-public-da6eec": {
+            "name": "Employment by sector (percent) — Both sexes — Nationality Total — Public",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-both-sexes-nationals-mixed-1106a7": {
+            "name": "Employment by sector (percent) — Both sexes — Nationals — Mixed",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-both-sexes-nationals-other-6519af": {
+            "name": "Employment by sector (percent) — Both sexes — Nationals — Other",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-both-sexes-nationals-private-f5253d": {
+            "name": "Employment by sector (percent) — Both sexes — Nationals — Private",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-both-sexes-nationals-public-c3a264": {
+            "name": "Employment by sector (percent) — Both sexes — Nationals — Public",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-both-sexes-non-nationals-mixed-8a7f22": {
+            "name": "Employment by sector (percent) — Both sexes — Non-nationals — Mixed",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-both-sexes-non-nationals-other-a5c792": {
+            "name": "Employment by sector (percent) — Both sexes — Non-nationals — Other",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-both-sexes-non-nationals-private-d28234": {
+            "name": "Employment by sector (percent) — Both sexes — Non-nationals — Private",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-both-sexes-non-nationals-public-e66fcd": {
+            "name": "Employment by sector (percent) — Both sexes — Non-nationals — Public",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-female-nationality-total-mixed-81828b": {
+            "name": "Employment by sector (percent) — Female — Nationality Total — Mixed",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-female-nationality-total-other-d75622": {
+            "name": "Employment by sector (percent) — Female — Nationality Total — Other",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-female-nationality-total-private-c98f0e": {
+            "name": "Employment by sector (percent) — Female — Nationality Total — Private",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-female-nationality-total-public-cbb8c6": {
+            "name": "Employment by sector (percent) — Female — Nationality Total — Public",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-female-nationals-mixed-6f0e2d": {
+            "name": "Employment by sector (percent) — Female — Nationals — Mixed",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-female-nationals-other-f7d1f8": {
+            "name": "Employment by sector (percent) — Female — Nationals — Other",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-female-nationals-private-43bbf6": {
+            "name": "Employment by sector (percent) — Female — Nationals — Private",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-female-nationals-public-0db970": {
+            "name": "Employment by sector (percent) — Female — Nationals — Public",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-female-non-nationals-mixed-bdedce": {
+            "name": "Employment by sector (percent) — Female — Non-nationals — Mixed",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-female-non-nationals-other-c5d38f": {
+            "name": "Employment by sector (percent) — Female — Non-nationals — Other",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-female-non-nationals-private-6eb892": {
+            "name": "Employment by sector (percent) — Female — Non-nationals — Private",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-female-non-nationals-public-9e2ac8": {
+            "name": "Employment by sector (percent) — Female — Non-nationals — Public",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-male-nationality-total-mixed-01f675": {
+            "name": "Employment by sector (percent) — Male — Nationality Total — Mixed",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-male-nationality-total-other-b5b748": {
+            "name": "Employment by sector (percent) — Male — Nationality Total — Other",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-male-nationality-total-private-27e04e": {
+            "name": "Employment by sector (percent) — Male — Nationality Total — Private",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-male-nationality-total-public-f9a029": {
+            "name": "Employment by sector (percent) — Male — Nationality Total — Public",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-male-nationals-mixed-3d78d6": {
+            "name": "Employment by sector (percent) — Male — Nationals — Mixed",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-male-nationals-other-cf8321": {
+            "name": "Employment by sector (percent) — Male — Nationals — Other",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-male-nationals-private-bface6": {
+            "name": "Employment by sector (percent) — Male — Nationals — Private",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-male-nationals-public-b0ac9b": {
+            "name": "Employment by sector (percent) — Male — Nationals — Public",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-male-non-nationals-mixed-f911e8": {
+            "name": "Employment by sector (percent) — Male — Non-nationals — Mixed",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-male-non-nationals-other-511738": {
+            "name": "Employment by sector (percent) — Male — Non-nationals — Other",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-male-non-nationals-private-ae6acb": {
+            "name": "Employment by sector (percent) — Male — Non-nationals — Private",
+            "unit": null
+        },
+        "adp.labour.employment-by-sector-percent-male-non-nationals-public-695346": {
+            "name": "Employment by sector (percent) — Male — Non-nationals — Public",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-both-sexes-nationality-total-contributing-fa-ba5b4c": {
+            "name": "Employment status (percent) — Both sexes — Nationality Total — Contributing family workers",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-both-sexes-nationality-total-employees-25635d": {
+            "name": "Employment status (percent) — Both sexes — Nationality Total — Employees",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-both-sexes-nationality-total-employer-8f06d0": {
+            "name": "Employment status (percent) — Both sexes — Nationality Total — Employer",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-both-sexes-nationality-total-other-236dd8": {
+            "name": "Employment status (percent) — Both sexes — Nationality Total — Other",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-both-sexes-nationality-total-own-account-wor-59ee77": {
+            "name": "Employment status (percent) — Both sexes — Nationality Total — Own-account workers",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-both-sexes-nationality-total-paid-trainee-6df99e": {
+            "name": "Employment status (percent) — Both sexes — Nationality Total — Paid trainee",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-both-sexes-nationals-contributing-family-wor-624f83": {
+            "name": "Employment status (percent) — Both sexes — Nationals — Contributing family workers",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-both-sexes-nationals-employees-6f7c21": {
+            "name": "Employment status (percent) — Both sexes — Nationals — Employees",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-both-sexes-nationals-employer-b7c6fe": {
+            "name": "Employment status (percent) — Both sexes — Nationals — Employer",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-both-sexes-nationals-other-27e455": {
+            "name": "Employment status (percent) — Both sexes — Nationals — Other",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-both-sexes-nationals-own-account-workers-03eb60": {
+            "name": "Employment status (percent) — Both sexes — Nationals — Own-account workers",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-both-sexes-nationals-paid-trainee-ae463f": {
+            "name": "Employment status (percent) — Both sexes — Nationals — Paid trainee",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-both-sexes-non-nationals-contributing-family-0683d6": {
+            "name": "Employment status (percent) — Both sexes — Non-nationals — Contributing family workers",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-both-sexes-non-nationals-employees-ba0ec3": {
+            "name": "Employment status (percent) — Both sexes — Non-nationals — Employees",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-both-sexes-non-nationals-employer-8394e1": {
+            "name": "Employment status (percent) — Both sexes — Non-nationals — Employer",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-both-sexes-non-nationals-other-c49e46": {
+            "name": "Employment status (percent) — Both sexes — Non-nationals — Other",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-both-sexes-non-nationals-own-account-workers-1e0f23": {
+            "name": "Employment status (percent) — Both sexes — Non-nationals — Own-account workers",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-both-sexes-non-nationals-paid-trainee-3950e6": {
+            "name": "Employment status (percent) — Both sexes — Non-nationals — Paid trainee",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-female-nationality-total-contributing-family-e89bc3": {
+            "name": "Employment status (percent) — Female — Nationality Total — Contributing family workers",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-female-nationality-total-employees-c0567c": {
+            "name": "Employment status (percent) — Female — Nationality Total — Employees",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-female-nationality-total-employer-6c49ee": {
+            "name": "Employment status (percent) — Female — Nationality Total — Employer",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-female-nationality-total-other-f14ebb": {
+            "name": "Employment status (percent) — Female — Nationality Total — Other",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-female-nationality-total-own-account-workers-71e499": {
+            "name": "Employment status (percent) — Female — Nationality Total — Own-account workers",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-female-nationality-total-paid-trainee-007913": {
+            "name": "Employment status (percent) — Female — Nationality Total — Paid trainee",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-female-nationals-contributing-family-workers-1335e5": {
+            "name": "Employment status (percent) — Female — Nationals — Contributing family workers",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-female-nationals-employees-3dca7d": {
+            "name": "Employment status (percent) — Female — Nationals — Employees",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-female-nationals-employer-61661a": {
+            "name": "Employment status (percent) — Female — Nationals — Employer",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-female-nationals-other-59e6a9": {
+            "name": "Employment status (percent) — Female — Nationals — Other",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-female-nationals-own-account-workers-3d4425": {
+            "name": "Employment status (percent) — Female — Nationals — Own-account workers",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-female-nationals-paid-trainee-b6f2a7": {
+            "name": "Employment status (percent) — Female — Nationals — Paid trainee",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-female-non-nationals-contributing-family-wor-c499c2": {
+            "name": "Employment status (percent) — Female — Non-nationals — Contributing family workers",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-female-non-nationals-employees-f40d17": {
+            "name": "Employment status (percent) — Female — Non-nationals — Employees",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-female-non-nationals-employer-cae2bc": {
+            "name": "Employment status (percent) — Female — Non-nationals — Employer",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-female-non-nationals-other-7386c1": {
+            "name": "Employment status (percent) — Female — Non-nationals — Other",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-female-non-nationals-own-account-workers-acb5e1": {
+            "name": "Employment status (percent) — Female — Non-nationals — Own-account workers",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-female-non-nationals-paid-trainee-f10d9e": {
+            "name": "Employment status (percent) — Female — Non-nationals — Paid trainee",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-male-nationality-total-contributing-family-w-4bbc7c": {
+            "name": "Employment status (percent) — Male — Nationality Total — Contributing family workers",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-male-nationality-total-employees-ee13f5": {
+            "name": "Employment status (percent) — Male — Nationality Total — Employees",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-male-nationality-total-employer-198d6a": {
+            "name": "Employment status (percent) — Male — Nationality Total — Employer",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-male-nationality-total-other-fc5f1e": {
+            "name": "Employment status (percent) — Male — Nationality Total — Other",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-male-nationality-total-own-account-workers-fc5533": {
+            "name": "Employment status (percent) — Male — Nationality Total — Own-account workers",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-male-nationality-total-paid-trainee-8a7eb8": {
+            "name": "Employment status (percent) — Male — Nationality Total — Paid trainee",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-male-nationals-contributing-family-workers-0db4d2": {
+            "name": "Employment status (percent) — Male — Nationals — Contributing family workers",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-male-nationals-employees-2e7815": {
+            "name": "Employment status (percent) — Male — Nationals — Employees",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-male-nationals-employer-64c065": {
+            "name": "Employment status (percent) — Male — Nationals — Employer",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-male-nationals-other-e32a11": {
+            "name": "Employment status (percent) — Male — Nationals — Other",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-male-nationals-own-account-workers-6a3546": {
+            "name": "Employment status (percent) — Male — Nationals — Own-account workers",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-male-nationals-paid-trainee-b85b8d": {
+            "name": "Employment status (percent) — Male — Nationals — Paid trainee",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-male-non-nationals-contributing-family-worke-f6ed2e": {
+            "name": "Employment status (percent) — Male — Non-nationals — Contributing family workers",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-male-non-nationals-employees-88b5b2": {
+            "name": "Employment status (percent) — Male — Non-nationals — Employees",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-male-non-nationals-employer-2dfc29": {
+            "name": "Employment status (percent) — Male — Non-nationals — Employer",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-male-non-nationals-other-32fd1b": {
+            "name": "Employment status (percent) — Male — Non-nationals — Other",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-male-non-nationals-own-account-workers-e06da9": {
+            "name": "Employment status (percent) — Male — Non-nationals — Own-account workers",
+            "unit": null
+        },
+        "adp.labour.employment-status-percent-male-non-nationals-paid-trainee-8a1f37": {
+            "name": "Employment status (percent) — Male — Non-nationals — Paid trainee",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-both-sexes-15-24-years-nationality-tota-7213ac": {
+            "name": "Employment to population ratio — Both sexes — 15-24 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-both-sexes-15-24-years-nationals-9fa2e9": {
+            "name": "Employment to population ratio — Both sexes — 15-24 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-both-sexes-15-24-years-non-nationals-570e6d": {
+            "name": "Employment to population ratio — Both sexes — 15-24 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-both-sexes-15-64-years-nationality-tota-85e163": {
+            "name": "Employment to population ratio — Both sexes — 15-64 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-both-sexes-15-64-years-nationals-629b72": {
+            "name": "Employment to population ratio — Both sexes — 15-64 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-both-sexes-15-64-years-non-nationals-517663": {
+            "name": "Employment to population ratio — Both sexes — 15-64 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-both-sexes-15-years-nationality-total-46f3d8": {
+            "name": "Employment to population ratio — Both sexes — 15+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-both-sexes-15-years-nationals-368245": {
+            "name": "Employment to population ratio — Both sexes — 15+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-both-sexes-15-years-non-nationals-59fbce": {
+            "name": "Employment to population ratio — Both sexes — 15+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-both-sexes-25-years-nationality-total-cd07e6": {
+            "name": "Employment to population ratio — Both sexes — 25+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-both-sexes-25-years-nationals-eed9d8": {
+            "name": "Employment to population ratio — Both sexes — 25+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-both-sexes-25-years-non-nationals-26b8b2": {
+            "name": "Employment to population ratio — Both sexes — 25+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-female-15-24-years-nationality-total-029f48": {
+            "name": "Employment to population ratio — Female — 15-24 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-female-15-24-years-nationals-c3cc60": {
+            "name": "Employment to population ratio — Female — 15-24 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-female-15-24-years-non-nationals-21439a": {
+            "name": "Employment to population ratio — Female — 15-24 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-female-15-64-years-nationality-total-afefa3": {
+            "name": "Employment to population ratio — Female — 15-64 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-female-15-64-years-nationals-d17afb": {
+            "name": "Employment to population ratio — Female — 15-64 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-female-15-64-years-non-nationals-47e033": {
+            "name": "Employment to population ratio — Female — 15-64 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-female-15-years-nationality-total-f77f85": {
+            "name": "Employment to population ratio — Female — 15+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-female-15-years-nationals-904062": {
+            "name": "Employment to population ratio — Female — 15+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-female-15-years-non-nationals-c6e077": {
+            "name": "Employment to population ratio — Female — 15+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-female-25-years-nationality-total-a4471f": {
+            "name": "Employment to population ratio — Female — 25+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-female-25-years-nationals-5c23c4": {
+            "name": "Employment to population ratio — Female — 25+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-female-25-years-non-nationals-b5a1cc": {
+            "name": "Employment to population ratio — Female — 25+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-male-15-24-years-nationality-total-a6dcf3": {
+            "name": "Employment to population ratio — Male — 15-24 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-male-15-24-years-nationals-8eb067": {
+            "name": "Employment to population ratio — Male — 15-24 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-male-15-24-years-non-nationals-4f9ea3": {
+            "name": "Employment to population ratio — Male — 15-24 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-male-15-64-years-nationality-total-b5f673": {
+            "name": "Employment to population ratio — Male — 15-64 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-male-15-64-years-nationals-7ef4f0": {
+            "name": "Employment to population ratio — Male — 15-64 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-male-15-64-years-non-nationals-fb197e": {
+            "name": "Employment to population ratio — Male — 15-64 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-male-15-years-nationality-total-9925d4": {
+            "name": "Employment to population ratio — Male — 15+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-male-15-years-nationals-855d3e": {
+            "name": "Employment to population ratio — Male — 15+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-male-15-years-non-nationals-abbd00": {
+            "name": "Employment to population ratio — Male — 15+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-male-25-years-nationality-total-0e8b1a": {
+            "name": "Employment to population ratio — Male — 25+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-male-25-years-nationals-e464a0": {
+            "name": "Employment to population ratio — Male — 25+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.employment-to-population-ratio-male-25-years-non-nationals-6c3c9d": {
+            "name": "Employment to population ratio — Male — 25+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-both-sexes-15-24-years-nationality-tota-16b7fa": {
+            "name": "Labor force participation rate — Both sexes — 15-24 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-both-sexes-15-24-years-nationals-907029": {
+            "name": "Labor force participation rate — Both sexes — 15-24 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-both-sexes-15-24-years-non-nationals-22b3f4": {
+            "name": "Labor force participation rate — Both sexes — 15-24 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-both-sexes-15-64-years-nationality-tota-c4879b": {
+            "name": "Labor force participation rate — Both sexes — 15-64 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-both-sexes-15-64-years-nationals-917885": {
+            "name": "Labor force participation rate — Both sexes — 15-64 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-both-sexes-15-64-years-non-nationals-7cc8c0": {
+            "name": "Labor force participation rate — Both sexes — 15-64 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-both-sexes-15-years-nationality-total-a3c67f": {
+            "name": "Labor force participation rate — Both sexes — 15+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-both-sexes-15-years-nationals-09c1df": {
+            "name": "Labor force participation rate — Both sexes — 15+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-both-sexes-15-years-non-nationals-0350b5": {
+            "name": "Labor force participation rate — Both sexes — 15+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-both-sexes-25-years-nationality-total-4890b1": {
+            "name": "Labor force participation rate — Both sexes — 25+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-both-sexes-25-years-nationals-c7f0dc": {
+            "name": "Labor force participation rate — Both sexes — 25+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-both-sexes-25-years-non-nationals-3d3d17": {
+            "name": "Labor force participation rate — Both sexes — 25+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-female-15-24-years-nationality-total-750c47": {
+            "name": "Labor force participation rate — Female — 15-24 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-female-15-24-years-nationals-56865b": {
+            "name": "Labor force participation rate — Female — 15-24 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-female-15-24-years-non-nationals-78cb62": {
+            "name": "Labor force participation rate — Female — 15-24 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-female-15-64-years-nationality-total-a1b17a": {
+            "name": "Labor force participation rate — Female — 15-64 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-female-15-64-years-nationals-21ebc9": {
+            "name": "Labor force participation rate — Female — 15-64 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-female-15-64-years-non-nationals-f67c28": {
+            "name": "Labor force participation rate — Female — 15-64 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-female-15-years-nationality-total-c3efc3": {
+            "name": "Labor force participation rate — Female — 15+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-female-15-years-nationals-82a30d": {
+            "name": "Labor force participation rate — Female — 15+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-female-15-years-non-nationals-28ff2b": {
+            "name": "Labor force participation rate — Female — 15+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-female-25-years-nationality-total-3f7a66": {
+            "name": "Labor force participation rate — Female — 25+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-female-25-years-nationals-3af78f": {
+            "name": "Labor force participation rate — Female — 25+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-female-25-years-non-nationals-635c5b": {
+            "name": "Labor force participation rate — Female — 25+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-male-15-24-years-nationality-total-3bd9a8": {
+            "name": "Labor force participation rate — Male — 15-24 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-male-15-24-years-nationals-a92d62": {
+            "name": "Labor force participation rate — Male — 15-24 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-male-15-24-years-non-nationals-c1391a": {
+            "name": "Labor force participation rate — Male — 15-24 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-male-15-64-years-nationality-total-e5ee53": {
+            "name": "Labor force participation rate — Male — 15-64 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-male-15-64-years-nationals-1b491e": {
+            "name": "Labor force participation rate — Male — 15-64 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-male-15-64-years-non-nationals-5efc49": {
+            "name": "Labor force participation rate — Male — 15-64 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-male-15-years-nationality-total-95b914": {
+            "name": "Labor force participation rate — Male — 15+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-male-15-years-nationals-a6ecc5": {
+            "name": "Labor force participation rate — Male — 15+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-male-15-years-non-nationals-1146e3": {
+            "name": "Labor force participation rate — Male — 15+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-male-25-years-nationality-total-bc6ba3": {
+            "name": "Labor force participation rate — Male — 25+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-male-25-years-nationals-1aac95": {
+            "name": "Labor force participation rate — Male — 25+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.labor-force-participation-rate-male-25-years-non-nationals-907961": {
+            "name": "Labor force participation rate — Male — 25+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.percentage-of-children-aged-5-17-engaged-in-child-labor-percent-both-s-3d5f64": {
+            "name": "Percentage of children aged 5-17 engaged in child labor (percent) — Both sexes — 10-17 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.percentage-of-children-aged-5-17-engaged-in-child-labor-percent-both-s-b83cc6": {
+            "name": "Percentage of children aged 5-17 engaged in child labor (percent) — Both sexes — 5-17 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.percentage-of-children-aged-5-17-engaged-in-child-labor-percent-both-s-e0cec5": {
+            "name": "Percentage of children aged 5-17 engaged in child labor (percent) — Both sexes — 10-17 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.percentage-of-children-aged-5-17-engaged-in-child-labor-percent-female-0ec796": {
+            "name": "Percentage of children aged 5-17 engaged in child labor (percent) — Female — 5-17 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.percentage-of-children-aged-5-17-engaged-in-child-labor-percent-female-9b0afd": {
+            "name": "Percentage of children aged 5-17 engaged in child labor (percent) — Female — 10-17 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.percentage-of-children-aged-5-17-engaged-in-child-labor-percent-female-b94f75": {
+            "name": "Percentage of children aged 5-17 engaged in child labor (percent) — Female — 10-17 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.percentage-of-children-aged-5-17-engaged-in-child-labor-percent-male-1-7e5e80": {
+            "name": "Percentage of children aged 5-17 engaged in child labor (percent) — Male — 10-17 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.percentage-of-children-aged-5-17-engaged-in-child-labor-percent-male-1-da75ce": {
+            "name": "Percentage of children aged 5-17 engaged in child labor (percent) — Male — 10-17 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.percentage-of-children-aged-5-17-engaged-in-child-labor-percent-male-5-5de162": {
+            "name": "Percentage of children aged 5-17 engaged in child labor (percent) — Male — 5-17 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.percentage-of-young-people-aged-15-24-outside-education-training-and-w-3f159b": {
+            "name": "Percentage of young people (aged 15-24) outside education, training, and work — Both sexes — 15-24 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.percentage-of-young-people-aged-15-24-outside-education-training-and-w-4d8e9b": {
+            "name": "Percentage of young people (aged 15-24) outside education, training, and work — Male — 15-24 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.percentage-of-young-people-aged-15-24-outside-education-training-and-w-60a9ea": {
+            "name": "Percentage of young people (aged 15-24) outside education, training, and work — Male — 15-24 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.percentage-of-young-people-aged-15-24-outside-education-training-and-w-753f97": {
+            "name": "Percentage of young people (aged 15-24) outside education, training, and work — Female — 15-24 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.percentage-of-young-people-aged-15-24-outside-education-training-and-w-836ef5": {
+            "name": "Percentage of young people (aged 15-24) outside education, training, and work — Male — 15-24 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.percentage-of-young-people-aged-15-24-outside-education-training-and-w-921b81": {
+            "name": "Percentage of young people (aged 15-24) outside education, training, and work — Both sexes — 15-24 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.percentage-of-young-people-aged-15-24-outside-education-training-and-w-a87440": {
+            "name": "Percentage of young people (aged 15-24) outside education, training, and work — Female — 15-24 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.percentage-of-young-people-aged-15-24-outside-education-training-and-w-b4c7da": {
+            "name": "Percentage of young people (aged 15-24) outside education, training, and work — Female — 15-24 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.percentage-of-young-people-aged-15-24-outside-education-training-and-w-e7dcab": {
+            "name": "Percentage of young people (aged 15-24) outside education, training, and work — Both sexes — 15-24 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-both-sexes-15-24-years-na-080297": {
+            "name": "Persons outside the labor force by age group — Both sexes — 15-24 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-both-sexes-15-24-years-na-d9537e": {
+            "name": "Persons outside the labor force by age group — Both sexes — 15-24 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-both-sexes-15-24-years-no-ae35a7": {
+            "name": "Persons outside the labor force by age group — Both sexes — 15-24 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-both-sexes-15-64-years-na-a79b5d": {
+            "name": "Persons outside the labor force by age group — Both sexes — 15-64 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-both-sexes-15-64-years-na-f6f8e9": {
+            "name": "Persons outside the labor force by age group — Both sexes — 15-64 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-both-sexes-15-64-years-no-970252": {
+            "name": "Persons outside the labor force by age group — Both sexes — 15-64 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-both-sexes-15-years-natio-f15fcd": {
+            "name": "Persons outside the labor force by age group — Both sexes — 15+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-both-sexes-15-years-natio-fff089": {
+            "name": "Persons outside the labor force by age group — Both sexes — 15+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-both-sexes-15-years-non-n-0d28b8": {
+            "name": "Persons outside the labor force by age group — Both sexes — 15+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-both-sexes-25-years-natio-1a696e": {
+            "name": "Persons outside the labor force by age group — Both sexes — 25+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-both-sexes-25-years-natio-d4af1f": {
+            "name": "Persons outside the labor force by age group — Both sexes — 25+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-both-sexes-25-years-non-n-534caa": {
+            "name": "Persons outside the labor force by age group — Both sexes — 25+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-female-15-24-years-nation-286ca8": {
+            "name": "Persons outside the labor force by age group — Female — 15-24 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-female-15-24-years-nation-5058b5": {
+            "name": "Persons outside the labor force by age group — Female — 15-24 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-female-15-24-years-non-na-784cc7": {
+            "name": "Persons outside the labor force by age group — Female — 15-24 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-female-15-64-years-nation-9b1dc5": {
+            "name": "Persons outside the labor force by age group — Female — 15-64 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-female-15-64-years-nation-9fd847": {
+            "name": "Persons outside the labor force by age group — Female — 15-64 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-female-15-64-years-non-na-5a6ee3": {
+            "name": "Persons outside the labor force by age group — Female — 15-64 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-female-15-years-nationali-2a7045": {
+            "name": "Persons outside the labor force by age group — Female — 15+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-female-15-years-nationals-0ba803": {
+            "name": "Persons outside the labor force by age group — Female — 15+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-female-15-years-non-natio-e59ac2": {
+            "name": "Persons outside the labor force by age group — Female — 15+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-female-25-years-nationali-10ca91": {
+            "name": "Persons outside the labor force by age group — Female — 25+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-female-25-years-nationals-c809f7": {
+            "name": "Persons outside the labor force by age group — Female — 25+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-female-25-years-non-natio-94fd9d": {
+            "name": "Persons outside the labor force by age group — Female — 25+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-male-15-24-years-national-d63126": {
+            "name": "Persons outside the labor force by age group — Male — 15-24 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-male-15-24-years-national-ebb2e8": {
+            "name": "Persons outside the labor force by age group — Male — 15-24 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-male-15-24-years-non-nati-47d73b": {
+            "name": "Persons outside the labor force by age group — Male — 15-24 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-male-15-64-years-national-0e0f0d": {
+            "name": "Persons outside the labor force by age group — Male — 15-64 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-male-15-64-years-national-ead4ac": {
+            "name": "Persons outside the labor force by age group — Male — 15-64 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-male-15-64-years-non-nati-df2305": {
+            "name": "Persons outside the labor force by age group — Male — 15-64 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-male-15-years-nationality-3ab14a": {
+            "name": "Persons outside the labor force by age group — Male — 15+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-male-15-years-nationals-06bd6a": {
+            "name": "Persons outside the labor force by age group — Male — 15+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-male-15-years-non-nationa-6b4a7a": {
+            "name": "Persons outside the labor force by age group — Male — 15+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-male-25-years-nationality-431da7": {
+            "name": "Persons outside the labor force by age group — Male — 25+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-male-25-years-nationals-1d6470": {
+            "name": "Persons outside the labor force by age group — Male — 25+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-age-group-male-25-years-non-nationa-79057e": {
+            "name": "Persons outside the labor force by age group — Male — 25+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-both-sexes-nationality-total-15f479": {
+            "name": "Persons outside the labor force by reason — Both sexes — Nationality Total — Homemaker",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-both-sexes-nationality-total-1efa87": {
+            "name": "Persons outside the labor force by reason — Both sexes — Nationality Total — Other",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-both-sexes-nationality-total-41311c": {
+            "name": "Persons outside the labor force by reason — Both sexes — Nationality Total — Old age\/sickness",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-both-sexes-nationality-total-8fdb62": {
+            "name": "Persons outside the labor force by reason — Both sexes — Nationality Total — Education",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-both-sexes-nationals-educati-49d723": {
+            "name": "Persons outside the labor force by reason — Both sexes — Nationals — Education",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-both-sexes-nationals-homemak-219ce0": {
+            "name": "Persons outside the labor force by reason — Both sexes — Nationals — Homemaker",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-both-sexes-nationals-old-age-8cd02e": {
+            "name": "Persons outside the labor force by reason — Both sexes — Nationals — Old age\/sickness",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-both-sexes-nationals-other-8824e8": {
+            "name": "Persons outside the labor force by reason — Both sexes — Nationals — Other",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-both-sexes-non-nationals-edu-0dcac0": {
+            "name": "Persons outside the labor force by reason — Both sexes — Non-nationals — Education",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-both-sexes-non-nationals-hom-f25f61": {
+            "name": "Persons outside the labor force by reason — Both sexes — Non-nationals — Homemaker",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-both-sexes-non-nationals-old-3b33c7": {
+            "name": "Persons outside the labor force by reason — Both sexes — Non-nationals — Old age\/sickness",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-both-sexes-non-nationals-oth-415feb": {
+            "name": "Persons outside the labor force by reason — Both sexes — Non-nationals — Other",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-female-nationality-total-edu-2a5586": {
+            "name": "Persons outside the labor force by reason — Female — Nationality Total — Education",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-female-nationality-total-hom-d6f140": {
+            "name": "Persons outside the labor force by reason — Female — Nationality Total — Homemaker",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-female-nationality-total-old-4e1ca9": {
+            "name": "Persons outside the labor force by reason — Female — Nationality Total — Old age\/sickness",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-female-nationality-total-oth-f7bc3b": {
+            "name": "Persons outside the labor force by reason — Female — Nationality Total — Other",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-female-nationals-education-79fd02": {
+            "name": "Persons outside the labor force by reason — Female — Nationals — Education",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-female-nationals-homemaker-175e8c": {
+            "name": "Persons outside the labor force by reason — Female — Nationals — Homemaker",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-female-nationals-old-age-sic-6c7286": {
+            "name": "Persons outside the labor force by reason — Female — Nationals — Old age\/sickness",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-female-nationals-other-924755": {
+            "name": "Persons outside the labor force by reason — Female — Nationals — Other",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-female-non-nationals-educati-b186ed": {
+            "name": "Persons outside the labor force by reason — Female — Non-nationals — Education",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-female-non-nationals-homemak-4f6b53": {
+            "name": "Persons outside the labor force by reason — Female — Non-nationals — Homemaker",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-female-non-nationals-old-age-7ac8a4": {
+            "name": "Persons outside the labor force by reason — Female — Non-nationals — Old age\/sickness",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-female-non-nationals-other-de3199": {
+            "name": "Persons outside the labor force by reason — Female — Non-nationals — Other",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-male-nationality-total-educa-efd63f": {
+            "name": "Persons outside the labor force by reason — Male — Nationality Total — Education",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-male-nationality-total-homem-224afe": {
+            "name": "Persons outside the labor force by reason — Male — Nationality Total — Homemaker",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-male-nationality-total-old-a-0cb7f9": {
+            "name": "Persons outside the labor force by reason — Male — Nationality Total — Old age\/sickness",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-male-nationality-total-other-a8070a": {
+            "name": "Persons outside the labor force by reason — Male — Nationality Total — Other",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-male-nationals-education-22609d": {
+            "name": "Persons outside the labor force by reason — Male — Nationals — Education",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-male-nationals-homemaker-5156da": {
+            "name": "Persons outside the labor force by reason — Male — Nationals — Homemaker",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-male-nationals-old-age-sickn-385a43": {
+            "name": "Persons outside the labor force by reason — Male — Nationals — Old age\/sickness",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-male-nationals-other-c39867": {
+            "name": "Persons outside the labor force by reason — Male — Nationals — Other",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-male-non-nationals-education-8d265b": {
+            "name": "Persons outside the labor force by reason — Male — Non-nationals — Education",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-male-non-nationals-homemaker-4273a6": {
+            "name": "Persons outside the labor force by reason — Male — Non-nationals — Homemaker",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-male-non-nationals-old-age-s-22d2e2": {
+            "name": "Persons outside the labor force by reason — Male — Non-nationals — Old age\/sickness",
+            "unit": null
+        },
+        "adp.labour.persons-outside-the-labor-force-by-reason-male-non-nationals-other-e1a89e": {
+            "name": "Persons outside the labor force by reason — Male — Non-nationals — Other",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-both-sexes-15-24-years-nationality-total-77dc8f": {
+            "name": "Unemployment rate — Both sexes — 15-24 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-both-sexes-15-24-years-nationals-4dc7e1": {
+            "name": "Unemployment rate — Both sexes — 15-24 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-both-sexes-15-24-years-non-nationals-8ddff5": {
+            "name": "Unemployment rate — Both sexes — 15-24 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-both-sexes-15-64-years-nationality-total-664d5e": {
+            "name": "Unemployment rate — Both sexes — 15-64 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-both-sexes-15-64-years-nationals-581c6d": {
+            "name": "Unemployment rate — Both sexes — 15-64 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-both-sexes-15-64-years-non-nationals-531ca2": {
+            "name": "Unemployment rate — Both sexes — 15-64 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-both-sexes-15-years-nationality-total-8eb602": {
+            "name": "Unemployment rate — Both sexes — 15+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-both-sexes-15-years-nationals-d4f103": {
+            "name": "Unemployment rate — Both sexes — 15+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-both-sexes-15-years-non-nationals-852fec": {
+            "name": "Unemployment rate — Both sexes — 15+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-both-sexes-25-years-nationality-total-9d394c": {
+            "name": "Unemployment rate — Both sexes — 25+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-both-sexes-25-years-nationals-8e132e": {
+            "name": "Unemployment rate — Both sexes — 25+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-both-sexes-25-years-non-nationals-dbf82b": {
+            "name": "Unemployment rate — Both sexes — 25+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-female-15-24-years-nationality-total-266652": {
+            "name": "Unemployment rate — Female — 15-24 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-female-15-24-years-nationals-86328d": {
+            "name": "Unemployment rate — Female — 15-24 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-female-15-24-years-non-nationals-35a6bd": {
+            "name": "Unemployment rate — Female — 15-24 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-female-15-64-years-nationality-total-1f0fd2": {
+            "name": "Unemployment rate — Female — 15-64 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-female-15-64-years-nationals-1c0d41": {
+            "name": "Unemployment rate — Female — 15-64 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-female-15-64-years-non-nationals-be5783": {
+            "name": "Unemployment rate — Female — 15-64 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-female-15-years-nationality-total-0cf194": {
+            "name": "Unemployment rate — Female — 15+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-female-15-years-nationals-f7870e": {
+            "name": "Unemployment rate — Female — 15+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-female-15-years-non-nationals-b7db31": {
+            "name": "Unemployment rate — Female — 15+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-female-25-years-nationality-total-43ac1d": {
+            "name": "Unemployment rate — Female — 25+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-female-25-years-nationals-8f9392": {
+            "name": "Unemployment rate — Female — 25+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-female-25-years-non-nationals-6f48bb": {
+            "name": "Unemployment rate — Female — 25+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-male-15-24-years-nationality-total-d97157": {
+            "name": "Unemployment rate — Male — 15-24 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-male-15-24-years-nationals-2b680c": {
+            "name": "Unemployment rate — Male — 15-24 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-male-15-24-years-non-nationals-de4172": {
+            "name": "Unemployment rate — Male — 15-24 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-male-15-64-years-nationality-total-f24fd1": {
+            "name": "Unemployment rate — Male — 15-64 years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-male-15-64-years-nationals-a60386": {
+            "name": "Unemployment rate — Male — 15-64 years — Nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-male-15-64-years-non-nationals-dc71af": {
+            "name": "Unemployment rate — Male — 15-64 years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-male-15-years-nationality-total-b12e08": {
+            "name": "Unemployment rate — Male — 15+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-male-15-years-nationals-99686d": {
+            "name": "Unemployment rate — Male — 15+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-male-15-years-non-nationals-d107c7": {
+            "name": "Unemployment rate — Male — 15+ years — Non-nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-male-25-years-nationality-total-92ed23": {
+            "name": "Unemployment rate — Male — 25+ years — Nationality Total",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-male-25-years-nationals-c2e148": {
+            "name": "Unemployment rate — Male — 25+ years — Nationals",
+            "unit": null
+        },
+        "adp.labour.unemployment-rate-male-25-years-non-nationals-0e6970": {
+            "name": "Unemployment rate — Male — 25+ years — Non-nationals",
+            "unit": null
+        }
+    }
+}

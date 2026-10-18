@@ -1,0 +1,856 @@
+{
+    "series": {
+        "adp.environment.access-to-improved-drinking-water-sources-rural-percentage-9b668f": {
+            "name": "Access to Improved Drinking Water Sources (rural) (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.access-to-improved-drinking-water-sources-total-percentage-b7799d": {
+            "name": "Access to Improved Drinking Water Sources (total) (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.access-to-improved-drinking-water-sources-urban-percentage-75afae": {
+            "name": "Access to Improved Drinking Water Sources (urban) (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.access-to-improved-sanitation-rural-percentage-45b567": {
+            "name": "Access to Improved Sanitation (rural) (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.access-to-improved-sanitation-total-percentage-89e293": {
+            "name": "Access to Improved Sanitation (total) (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.access-to-improved-sanitation-urban-percentage-d7c3d0": {
+            "name": "Access to Improved Sanitation (urban) (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.actual-evapotranspiration-cubic-meters-per-year-5f54d9": {
+            "name": "Actual Evapotranspiration (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.agricultural-water-use-cubic-meters-per-year-047670": {
+            "name": "Agricultural Water Use (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.agriculture-of-gdp-percentage-c616ed": {
+            "name": "Agriculture of GDP (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.average-volume-of-precipitation-cubic-meters-per-year-7d103f": {
+            "name": "Average Volume of Precipitation (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.average-volume-of-precipitation-millimeters-per-year-4256ff": {
+            "name": "Average Volume of Precipitation (Millimeters per year)",
+            "unit": "Millimeters per year"
+        },
+        "adp.environment.brackish-water-cubic-meters-per-year-44ac72": {
+            "name": "Brackish water (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.cfc-consumption-odp-metric-tons-1c639c": {
+            "name": "CFC consumption (ODP metric tons)",
+            "unit": "ODP metric tons"
+        },
+        "adp.environment.cfc-consumption-of-escwa-total-0e537b": {
+            "name": "CFC consumption (% of ESCWA Total)",
+            "unit": "% of ESCWA Total"
+        },
+        "adp.environment.co2-emission-change-for-two-years-before-a3ec99": {
+            "name": "CO2 emission (% change for two years before)",
+            "unit": "% change for two years before"
+        },
+        "adp.environment.co2-emission-change-year-to-previous-year-12d4fa": {
+            "name": "CO2 emission (% change year to previous year)",
+            "unit": "% change year to previous year"
+        },
+        "adp.environment.co2-emission-from-combustion-of-natural-gas-change-year-to-previous-ye-bdfcc0": {
+            "name": "CO2 emission from combustion of natural gas (% change year to previous year)",
+            "unit": "% change year to previous year"
+        },
+        "adp.environment.co2-emission-from-combustion-of-natural-gas-metric-tons-of-co2-equival-adec31": {
+            "name": "CO2 emission from combustion of natural gas (Metric tons of CO2 equivalent)",
+            "unit": "Metric tons of CO2 equivalent"
+        },
+        "adp.environment.co2-emission-from-combustion-of-natural-gas-of-escwa-total-29721c": {
+            "name": "CO2 emission from combustion of natural gas (% of ESCWA Total)",
+            "unit": "% of ESCWA Total"
+        },
+        "adp.environment.co2-emission-from-combustion-of-natural-gas-of-world-total-4f0444": {
+            "name": "CO2 emission from combustion of natural gas (% of World Total)",
+            "unit": "% of World Total"
+        },
+        "adp.environment.co2-emission-from-combustion-of-oil-change-year-to-previous-year-a98705": {
+            "name": "CO2 emission from combustion of Oil (% change year to previous year)",
+            "unit": "% change year to previous year"
+        },
+        "adp.environment.co2-emission-from-combustion-of-oil-metric-tons-of-co2-equivalent-c01e7b": {
+            "name": "CO2 emission from combustion of Oil (Metric tons of CO2 equivalent)",
+            "unit": "Metric tons of CO2 equivalent"
+        },
+        "adp.environment.co2-emission-from-combustion-of-oil-of-escwa-total-602144": {
+            "name": "CO2 emission from combustion of Oil (% of ESCWA Total)",
+            "unit": "% of ESCWA Total"
+        },
+        "adp.environment.co2-emission-from-combustion-of-oil-of-world-total-e0eb02": {
+            "name": "CO2 emission from combustion of Oil (% of World Total)",
+            "unit": "% of World Total"
+        },
+        "adp.environment.co2-emission-from-electricity-and-heat-production-metric-tons-of-co2-28bf8f": {
+            "name": "CO2 emission from electricity and heat production (Metric tons of CO2)",
+            "unit": "Metric tons of CO2"
+        },
+        "adp.environment.co2-emission-from-electricity-and-heat-production-of-world-total-9071a5": {
+            "name": "CO2 emission from electricity and heat production (% of World Total)",
+            "unit": "% of World Total"
+        },
+        "adp.environment.co2-emission-from-electricity-and-heat-production-percentage-07e1d7": {
+            "name": "CO2 emission from electricity and heat production (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.co2-emission-from-manufacturing-industries-and-construction-metric-ton-c5a5dd": {
+            "name": "CO2 emission from manufacturing industries and construction (Metric tons of CO2)",
+            "unit": "Metric tons of CO2"
+        },
+        "adp.environment.co2-emission-from-manufacturing-industries-and-construction-of-world-t-5d8ce3": {
+            "name": "CO2 emission from manufacturing industries and construction (% of World Total)",
+            "unit": "% of World Total"
+        },
+        "adp.environment.co2-emission-from-manufacturing-industries-and-construction-percentage-13929b": {
+            "name": "CO2 emission from manufacturing industries and construction (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.co2-emission-from-other-energy-industry-own-use-metric-tons-of-co2-677b8b": {
+            "name": "CO2 emission from other energy industry own use (Metric tons of CO2)",
+            "unit": "Metric tons of CO2"
+        },
+        "adp.environment.co2-emission-from-other-energy-industry-own-use-of-world-total-add35e": {
+            "name": "CO2 emission from other energy industry own use (% of World Total)",
+            "unit": "% of World Total"
+        },
+        "adp.environment.co2-emission-from-other-energy-industry-own-use-percentage-d1322f": {
+            "name": "CO2 emission from other energy industry own use (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.co2-emission-from-other-sectors-metric-tons-of-co2-d814ed": {
+            "name": "CO2 emission from other sectors (Metric tons of CO2)",
+            "unit": "Metric tons of CO2"
+        },
+        "adp.environment.co2-emission-from-other-sectors-of-world-total-6846f6": {
+            "name": "CO2 emission from other sectors (% of World Total)",
+            "unit": "% of World Total"
+        },
+        "adp.environment.co2-emission-from-other-sectors-percentage-9dbb0e": {
+            "name": "CO2 emission from other sectors (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.co2-emission-from-residential-sector-metric-tons-of-co2-dca6f8": {
+            "name": "CO2 emission from residential sector (Metric tons of CO2)",
+            "unit": "Metric tons of CO2"
+        },
+        "adp.environment.co2-emission-from-residential-sector-of-world-total-683f83": {
+            "name": "CO2 emission from residential sector (% of World Total)",
+            "unit": "% of World Total"
+        },
+        "adp.environment.co2-emission-from-residential-sector-percentage-63a7da": {
+            "name": "CO2 emission from residential sector (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.co2-emission-from-road-transport-metric-tons-of-co2-d53ee6": {
+            "name": "CO2 emission from road transport (Metric tons of CO2)",
+            "unit": "Metric tons of CO2"
+        },
+        "adp.environment.co2-emission-from-road-transport-of-world-total-973fbc": {
+            "name": "CO2 emission from road transport (% of World Total)",
+            "unit": "% of World Total"
+        },
+        "adp.environment.co2-emission-from-road-transport-percentage-114b61": {
+            "name": "CO2 emission from road transport (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.co2-emission-from-transport-metric-tons-of-co2-80af2b": {
+            "name": "CO2 emission from transport (Metric tons of CO2)",
+            "unit": "Metric tons of CO2"
+        },
+        "adp.environment.co2-emission-from-transport-of-world-total-970ec8": {
+            "name": "CO2 emission from transport (% of World Total)",
+            "unit": "% of World Total"
+        },
+        "adp.environment.co2-emission-from-transport-percentage-5b0d59": {
+            "name": "CO2 emission from transport (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.co2-emission-metric-tons-per-year-b51f7c": {
+            "name": "CO2 emission (Metric tons per year)",
+            "unit": "Metric tons per year"
+        },
+        "adp.environment.co2-emission-of-escwa-total-db2b29": {
+            "name": "CO2 emission (% of ESCWA Total)",
+            "unit": "% of ESCWA Total"
+        },
+        "adp.environment.co2-emission-of-world-total-fdf7a4": {
+            "name": "CO2 emission (% of World Total)",
+            "unit": "% of World Total"
+        },
+        "adp.environment.current-gdp-national-currency-b9994a": {
+            "name": "Current GDP (National currency)",
+            "unit": "National currency"
+        },
+        "adp.environment.current-gdp-us-dollars-841dbc": {
+            "name": "Current GDP (US Dollars)",
+            "unit": "US Dollars"
+        },
+        "adp.environment.desalination-production-cubic-meters-ede4d0": {
+            "name": "Desalination Production (Cubic meters)",
+            "unit": "Cubic meters"
+        },
+        "adp.environment.desalination-production-cubic-meters-per-year-57f3bb": {
+            "name": "Desalination Production (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.domestic-water-use-cubic-meters-per-year-d7865f": {
+            "name": "Domestic Water Use (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.electricity-industry-cubic-meters-per-year-e4b259": {
+            "name": "Electricity Industry (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.electricity-industry-water-use-cubic-meters-per-year-84ba49": {
+            "name": "Electricity Industry Water Use (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.exports-of-water-cubic-meters-per-year-37c55d": {
+            "name": "Exports of Water (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.fish-exports-out-of-gdp-percentage-2e3ac3": {
+            "name": "Fish exports out of GDP (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.fish-exports-tons-1c0263": {
+            "name": "Fish exports (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.fish-exports-us-dollars-99f874": {
+            "name": "Fish exports (US Dollars)",
+            "unit": "US Dollars"
+        },
+        "adp.environment.fish-imports-out-of-gdp-percentage-6b14e7": {
+            "name": "Fish imports out of GDP (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.fish-imports-tons-7b09eb": {
+            "name": "Fish imports (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.fish-imports-us-dollars-90a38b": {
+            "name": "Fish imports (US Dollars)",
+            "unit": "US Dollars"
+        },
+        "adp.environment.fish-production-tons-cda6e1": {
+            "name": "Fish production (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.fish-re-export-tons-c12a8e": {
+            "name": "Fish re-export (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.fish-supply-tons-6758ac": {
+            "name": "Fish supply (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.fisheries-commodity-trade-us-dollars-dac47f": {
+            "name": "Fisheries, Commodity trade (US Dollars)",
+            "unit": "US Dollars"
+        },
+        "adp.environment.fisheries-output-us-dollars-8bf721": {
+            "name": "Fisheries, Output (US Dollars)",
+            "unit": "US Dollars"
+        },
+        "adp.environment.fisheries-production-tons-94e622": {
+            "name": "Fisheries, Production (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.fisheries-value-added-us-dollars-19b294": {
+            "name": "Fisheries, Value added (US Dollars)",
+            "unit": "US Dollars"
+        },
+        "adp.environment.fishing-out-of-agriculture-industry-percentage-c01d33": {
+            "name": "Fishing out of Agriculture Industry (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.fishing-out-of-gdp-percentage-18d398": {
+            "name": "Fishing out of GDP (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.gdp-by-agriculture-hunting-forestry-and-fishing-industry-national-curr-c577c5": {
+            "name": "GDP by Agriculture, hunting, forestry and fishing industry (National currency)",
+            "unit": "National currency"
+        },
+        "adp.environment.gdp-by-agriculture-hunting-forestry-and-fishing-industry-us-dollars-e6b424": {
+            "name": "GDP by Agriculture, hunting, forestry and fishing industry (US Dollars)",
+            "unit": "US Dollars"
+        },
+        "adp.environment.gdp-us-dollars-1d6244": {
+            "name": "GDP (US Dollars)",
+            "unit": "US Dollars"
+        },
+        "adp.environment.greenhouse-gas-emissions-change-for-twenty-two-years-before-9ba7ad": {
+            "name": "Greenhouse gas emissions (% change for twenty two years before)",
+            "unit": "% change for twenty two years before"
+        },
+        "adp.environment.greenhouse-gas-emissions-gigagrams-of-co2-equivalent-25ea26": {
+            "name": "Greenhouse gas emissions (Gigagrams of CO2 equivalent)",
+            "unit": "Gigagrams of CO2 equivalent"
+        },
+        "adp.environment.greenhouse-gas-emissions-of-escwa-total-603aeb": {
+            "name": "Greenhouse gas emissions (% of ESCWA Total)",
+            "unit": "% of ESCWA Total"
+        },
+        "adp.environment.greenhouse-gas-emissions-of-world-total-226045": {
+            "name": "Greenhouse gas emissions (% of World Total)",
+            "unit": "% of World Total"
+        },
+        "adp.environment.gross-value-added-fishing-national-currency-9797c6": {
+            "name": "Gross value added fishing (National currency)",
+            "unit": "National currency"
+        },
+        "adp.environment.groundwater-abstraction-cubic-meters-per-year-2d9e0c": {
+            "name": "Groundwater Abstraction (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.groundwater-recharge-cubic-meters-per-year-5e9319": {
+            "name": "Groundwater Recharge (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.hazardous-waste-exported-tons-61a91f": {
+            "name": "Hazardous Waste  Exported (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.hazardous-waste-generated-tons-457eb2": {
+            "name": "Hazardous waste generated (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.hazardous-waste-going-to-other-treatment-option-tons-c2b19a": {
+            "name": "Hazardous waste going to other treatment option (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.hazardous-waste-incinerated-tons-097624": {
+            "name": "Hazardous Waste Incinerated (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.hazardous-waste-landfilled-tons-7f831b": {
+            "name": "Hazardous Waste  Landfilled (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.hazardous-waste-managed-tons-fe07a0": {
+            "name": "Hazardous waste managed (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.hazardous-waste-recycled-tons-e12300": {
+            "name": "Hazardous Waste Recycled (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.hcfc-consumption-change-year-to-previous-year-3eb715": {
+            "name": "HCFC consumption (% change year to previous year)",
+            "unit": "% change year to previous year"
+        },
+        "adp.environment.hcfc-consumption-odp-metric-tons-568614": {
+            "name": "HCFC consumption (ODP metric tons)",
+            "unit": "ODP metric tons"
+        },
+        "adp.environment.hcfc-consumption-of-escwa-total-8aef75": {
+            "name": "HCFC consumption (% of ESCWA Total)",
+            "unit": "% of ESCWA Total"
+        },
+        "adp.environment.hcfc-consumption-of-world-total-0bfb58": {
+            "name": "HCFC consumption (% of World Total)",
+            "unit": "% of World Total"
+        },
+        "adp.environment.imports-of-water-cubic-meters-per-year-ae6ee7": {
+            "name": "Imports of Water (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.industrial-water-use-cubic-meters-per-year-4b6128": {
+            "name": "Industrial Water Use (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.inflow-of-surface-and-groundwaters-from-neighbouring-countries-cubic-m-20206a": {
+            "name": "Inflow of Surface and Groundwaters from Neighbouring Countries (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.manufacturing-water-use-cubic-meters-per-year-99c6f0": {
+            "name": "Manufacturing Water Use (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.marine-areas-protected-square-kilometers-322d5b": {
+            "name": "Marine areas protected (Square kilometers)",
+            "unit": "Square kilometers"
+        },
+        "adp.environment.marine-areas-protected-to-territorial-waters-percentage-2097d1": {
+            "name": "Marine areas protected to territorial waters (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.methane-emissions-in-energy-sector-change-for-twenty-years-before-5eafcb": {
+            "name": "Methane emissions in energy sector (% change for twenty years before)",
+            "unit": "% change for twenty years before"
+        },
+        "adp.environment.methane-emissions-in-energy-sector-metric-tons-of-co2-equivalent-c362d0": {
+            "name": "Methane emissions in energy sector (Metric tons of CO2 equivalent)",
+            "unit": "Metric tons of CO2 equivalent"
+        },
+        "adp.environment.methane-emissions-in-energy-sector-of-escwa-total-a3cd31": {
+            "name": "Methane emissions in energy sector (% of ESCWA Total)",
+            "unit": "% of ESCWA Total"
+        },
+        "adp.environment.methane-emissions-in-energy-sector-of-world-total-1ae0cf": {
+            "name": "Methane emissions in energy sector (% of World Total)",
+            "unit": "% of World Total"
+        },
+        "adp.environment.municipal-solid-waste-composted-tons-e73197": {
+            "name": "Municipal solid waste composted (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.municipal-solid-waste-disposed-in-other-methods-tons-46d0ce": {
+            "name": "Municipal solid waste disposed in other methods (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.municipal-solid-waste-incinerated-tons-467d0f": {
+            "name": "Municipal solid waste incinerated (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.municipal-solid-waste-landfilled-tons-814275": {
+            "name": "Municipal solid waste landfilled (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.municipal-solid-waste-recycled-tons-47aea9": {
+            "name": "Municipal solid waste recycled (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.municipal-waste-collected-tons-953b38": {
+            "name": "Municipal waste collected (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.municipal-waste-generated-tons-be00d9": {
+            "name": "Municipal waste generated (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.nitrous-oxide-emissions-in-energy-sector-change-for-twenty-years-befor-7dd73a": {
+            "name": "Nitrous oxide emissions in energy sector (% change for twenty years before)",
+            "unit": "% change for twenty years before"
+        },
+        "adp.environment.nitrous-oxide-emissions-in-energy-sector-metric-tons-of-co2-equivalent-0a35a0": {
+            "name": "Nitrous oxide emissions in energy sector (Metric tons of CO2 equivalent)",
+            "unit": "Metric tons of CO2 equivalent"
+        },
+        "adp.environment.nitrous-oxide-emissions-in-energy-sector-of-escwa-total-85b900": {
+            "name": "Nitrous oxide emissions in energy sector (% of ESCWA Total)",
+            "unit": "% of ESCWA Total"
+        },
+        "adp.environment.nitrous-oxide-emissions-in-energy-sector-of-world-total-1d6e98": {
+            "name": "Nitrous oxide emissions in energy sector (% of World Total)",
+            "unit": "% of World Total"
+        },
+        "adp.environment.non-treated-wastewater-cubic-meters-per-day-4981f8": {
+            "name": "Non-Treated Wastewater (Cubic meters per day)",
+            "unit": "Cubic meters per day"
+        },
+        "adp.environment.number-of-threatened-amphibian-species-units-b8ff4e": {
+            "name": "Number of threatened amphibian species (Units)",
+            "unit": "Units"
+        },
+        "adp.environment.number-of-threatened-bird-species-units-853607": {
+            "name": "Number of threatened bird species (Units)",
+            "unit": "Units"
+        },
+        "adp.environment.number-of-threatened-fish-species-units-524567": {
+            "name": "Number of threatened fish species (Units)",
+            "unit": "Units"
+        },
+        "adp.environment.number-of-threatened-mammal-species-units-02dba4": {
+            "name": "Number of threatened mammal species (Units)",
+            "unit": "Units"
+        },
+        "adp.environment.number-of-threatened-plant-species-units-f308db": {
+            "name": "Number of threatened plant species (Units)",
+            "unit": "Units"
+        },
+        "adp.environment.number-of-threatened-reptile-species-units-e743a5": {
+            "name": "Number of threatened reptile species (Units)",
+            "unit": "Units"
+        },
+        "adp.environment.other-sectors-use-cubic-meters-per-year-eb989c": {
+            "name": "Other Sectors Use (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.outflow-of-surface-and-groundwaters-to-neighbouring-countries-cubic-me-d8d398": {
+            "name": "Outflow of Surface and Groundwaters to Neighbouring Countries (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.outflow-of-surface-and-groundwaters-to-the-sea-cubic-meters-per-year-0c8ceb": {
+            "name": "Outflow of Surface and Groundwaters to the Sea (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.ozone-depleting-substance-consumption-change-year-to-previous-year-8617e1": {
+            "name": "Ozone depleting substance consumption (% change year to previous year)",
+            "unit": "% change year to previous year"
+        },
+        "adp.environment.ozone-depleting-substance-consumption-odp-metric-tons-c34eac": {
+            "name": "Ozone depleting substance consumption (ODP metric tons)",
+            "unit": "ODP metric tons"
+        },
+        "adp.environment.ozone-depleting-substance-consumption-of-escwa-total-a33b2b": {
+            "name": "Ozone depleting substance consumption (% of ESCWA Total)",
+            "unit": "% of ESCWA Total"
+        },
+        "adp.environment.per-capita-co2-emission-change-year-to-previous-year-0300d9": {
+            "name": "Per capita CO2 emission (% change year to previous year)",
+            "unit": "% change year to previous year"
+        },
+        "adp.environment.per-capita-co2-emission-metric-tons-per-year-3133f4": {
+            "name": "Per capita CO2 emission (Metric tons per year)",
+            "unit": "Metric tons per year"
+        },
+        "adp.environment.per-capita-total-water-abstracted-cubic-meters-per-year-2d972d": {
+            "name": "Per Capita Total Water Abstracted (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.per-capita-total-water-resources-change-change-for-two-years-before-8f129c": {
+            "name": "Per Capita Total Water Resources Change (% change for two years before)",
+            "unit": "% change for two years before"
+        },
+        "adp.environment.per-capita-water-resources-from-conventional-and-non-conventional-reso-d456ef": {
+            "name": "Per Capita Water Resources from Conventional and Non-Conventional Resources (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.per-capita-water-resources-from-conventional-resources-cubic-meters-pe-29c076": {
+            "name": "Per Capita Water Resources from Conventional  Resources (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.population-connected-to-wastewater-collecting-system-percentage-8fe6f4": {
+            "name": "Population Connected to Wastewater Collecting System (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.population-connected-to-wastewater-treatment-percentage-a12b41": {
+            "name": "Population Connected to Wastewater Treatment (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.population-using-an-improved-drinking-water-source-in-rural-areas-perc-fca922": {
+            "name": "Population using an improved drinking water source in rural areas (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.population-using-an-improved-drinking-water-source-in-urban-areas-perc-aa0ae4": {
+            "name": "Population using an improved drinking water source in urban areas (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.population-using-an-improved-sanitation-facilities-in-rural-areas-perc-89f18b": {
+            "name": "Population using an improved sanitation facilities in rural areas (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.population-using-an-improved-sanitation-facilities-in-urban-areas-perc-f6488a": {
+            "name": "Population using an improved sanitation facilities in urban areas (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.population-with-independent-wastewater-treatment-percentage-de8c2b": {
+            "name": "Population with Independent Wastewater Treatment (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.potable-water-cubic-meters-per-year-b47509": {
+            "name": "Potable water (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.production-in-inland-waters-crustaceans-change-for-twelve-years-before-e44123": {
+            "name": "Production in Inland waters, Crustaceans (% change for twelve years before)",
+            "unit": "% change for twelve years before"
+        },
+        "adp.environment.production-in-inland-waters-crustaceans-tons-264d4b": {
+            "name": "Production in Inland waters, Crustaceans (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.production-in-inland-waters-diadromous-fishes-change-for-twelve-years--518fad": {
+            "name": "Production in Inland waters, Diadromous fishes (% change for twelve years before)",
+            "unit": "% change for twelve years before"
+        },
+        "adp.environment.production-in-inland-waters-diadromous-fishes-tons-d5f4db": {
+            "name": "Production in Inland waters, Diadromous fishes (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.production-in-inland-waters-freshwater-fishes-change-for-twelve-years--91384c": {
+            "name": "Production in Inland waters, Freshwater fishes (% change for twelve years before)",
+            "unit": "% change for twelve years before"
+        },
+        "adp.environment.production-in-inland-waters-freshwater-fishes-tons-8a2bf2": {
+            "name": "Production in Inland waters, Freshwater fishes (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.production-in-inland-waters-marine-fishes-change-for-twelve-years-befo-4ae11d": {
+            "name": "Production in Inland waters, Marine fishes (% change for twelve years before)",
+            "unit": "% change for twelve years before"
+        },
+        "adp.environment.production-in-inland-waters-marine-fishes-tons-432cff": {
+            "name": "Production in Inland waters, Marine fishes (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.production-in-inland-waters-miscellaneous-aquatic-animals-units-d165fb": {
+            "name": "Production in Inland waters, Miscellaneous aquatic animals (Units)",
+            "unit": "Units"
+        },
+        "adp.environment.production-in-inland-waters-molluscs-change-for-twelve-years-before-d74bbb": {
+            "name": "Production in Inland waters, Molluscs (% change for twelve years before)",
+            "unit": "% change for twelve years before"
+        },
+        "adp.environment.production-in-inland-waters-molluscs-tons-29aaae": {
+            "name": "Production in Inland waters, Molluscs (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.production-in-marine-areas-aquatic-plants-change-for-twelve-years-befo-8b7474": {
+            "name": "Production in marine areas, Aquatic plants (% change for twelve years before)",
+            "unit": "% change for twelve years before"
+        },
+        "adp.environment.production-in-marine-areas-aquatic-plants-tons-1bf67e": {
+            "name": "Production in marine areas, Aquatic plants (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.production-in-marine-areas-crustaceans-change-for-twelve-years-before-c0b2a8": {
+            "name": "Production in marine areas, Crustaceans (% change for twelve years before)",
+            "unit": "% change for twelve years before"
+        },
+        "adp.environment.production-in-marine-areas-crustaceans-tons-d4b719": {
+            "name": "Production in marine areas, Crustaceans (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.production-in-marine-areas-diadromous-fishes-change-for-twelve-years-b-8ec224": {
+            "name": "Production in marine areas, Diadromous fishes (% change for twelve years before)",
+            "unit": "% change for twelve years before"
+        },
+        "adp.environment.production-in-marine-areas-diadromous-fishes-tons-d597f3": {
+            "name": "Production in marine areas, Diadromous fishes (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.production-in-marine-areas-freshwater-fishes-change-for-twelve-years-b-79814b": {
+            "name": "Production in marine areas, Freshwater fishes (% change for twelve years before)",
+            "unit": "% change for twelve years before"
+        },
+        "adp.environment.production-in-marine-areas-freshwater-fishes-tons-00d0e6": {
+            "name": "Production in marine areas, Freshwater fishes (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.production-in-marine-areas-marine-fishes-change-for-twelve-years-befor-02b2d1": {
+            "name": "Production in marine areas, Marine fishes (% change for twelve years before)",
+            "unit": "% change for twelve years before"
+        },
+        "adp.environment.production-in-marine-areas-marine-fishes-tons-c46184": {
+            "name": "Production in marine areas, Marine fishes (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.production-in-marine-areas-miscellaneous-aquatic-animal-products-chang-8c4c6c": {
+            "name": "Production in marine areas, Miscellaneous aquatic animal products (% change for twelve years before)",
+            "unit": "% change for twelve years before"
+        },
+        "adp.environment.production-in-marine-areas-miscellaneous-aquatic-animal-products-tons-f7762c": {
+            "name": "Production in marine areas, Miscellaneous aquatic animal products (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.production-in-marine-areas-miscellaneous-aquatic-animals-change-for-tw-833b8b": {
+            "name": "Production in marine areas, Miscellaneous aquatic animals (% change for twelve years before)",
+            "unit": "% change for twelve years before"
+        },
+        "adp.environment.production-in-marine-areas-miscellaneous-aquatic-animals-tons-ca35cc": {
+            "name": "Production in marine areas, Miscellaneous aquatic animals (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.production-in-marine-areas-molluscs-change-for-twelve-years-before-aff936": {
+            "name": "Production in marine areas, Molluscs (% change for twelve years before)",
+            "unit": "% change for twelve years before"
+        },
+        "adp.environment.production-in-marine-areas-molluscs-tons-ef4940": {
+            "name": "Production in marine areas, Molluscs (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.production-in-marine-areas-whales-seals-and-other-aquatic-mammals-chan-472c7f": {
+            "name": "Production in marine areas, Whales, seals and other aquatic mammals (% change for twelve years before)",
+            "unit": "% change for twelve years before"
+        },
+        "adp.environment.production-in-marine-areas-whales-seals-and-other-aquatic-mammals-tons-976dec": {
+            "name": "Production in marine areas, Whales, seals and other aquatic mammals (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.production-in-marine-areas-whales-seals-and-other-aquatic-mammals-unit-9dc15c": {
+            "name": "Production in marine areas, Whales, seals and other aquatic mammals (Units)",
+            "unit": "Units"
+        },
+        "adp.environment.proportion-of-land-area-covered-by-forest-percentage-8970e5": {
+            "name": "Proportion of land area covered by forest (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.ratio-of-glass-to-total-municipal-waste-percentage-119d35": {
+            "name": "Ratio of Glass to total municipal waste (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.ratio-of-metals-to-total-municipal-waste-percentage-71758a": {
+            "name": "Ratio of Metals to total municipal waste (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.ratio-of-organic-material-to-total-municipal-waste-percentage-5899d7": {
+            "name": "Ratio of Organic Material to total municipal waste (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.ratio-of-other-inorganic-material-to-total-municipal-waste-percentage-509beb": {
+            "name": "Ratio of Other Inorganic Material to total municipal waste (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.ratio-of-paper-paperboard-to-total-municipal-waste-percentage-6aa7b3": {
+            "name": "Ratio of Paper, Paperboard to total municipal waste (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.ratio-of-plastics-to-total-municipal-waste-percentage-878b2e": {
+            "name": "Ratio of Plastics to total municipal waste (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.ratio-of-textiles-to-total-municipal-waste-percentage-27c382": {
+            "name": "Ratio of Textiles to total municipal waste (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.ratio-of-underground-to-total-water-from-conventional-sources-percenta-872eb4": {
+            "name": "Ratio of Underground to Total Water from Conventional Sources (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.sewage-sludge-production-dry-matter-metric-tons-per-year-d75845": {
+            "name": "Sewage Sludge Production (Dry Matter) (Metric tons per year)",
+            "unit": "Metric tons per year"
+        },
+        "adp.environment.surface-water-abstraction-cubic-meters-per-year-42bbe7": {
+            "name": "Surface Water Abstraction (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.terrestrial-and-marine-areas-protected-square-kilometers-106cba": {
+            "name": "Terrestrial and marine areas protected (Square kilometers)",
+            "unit": "Square kilometers"
+        },
+        "adp.environment.terrestrial-and-marine-areas-protected-to-total-area-percentage-977219": {
+            "name": "Terrestrial and marine areas protected to total area (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.terrestrial-areas-protected-square-kilometers-7a6a9a": {
+            "name": "Terrestrial areas protected (Square kilometers)",
+            "unit": "Square kilometers"
+        },
+        "adp.environment.terrestrial-areas-protected-to-total-surface-area-percentage-d7fb0a": {
+            "name": "Terrestrial areas protected to total surface area (Percentage)",
+            "unit": "Percentage"
+        },
+        "adp.environment.total-co2-emissions-from-fuel-combustion-metric-tons-of-co2-cb41f6": {
+            "name": "Total CO2 emissions from fuel combustion (Metric tons of CO2)",
+            "unit": "Metric tons of CO2"
+        },
+        "adp.environment.total-co2-emissions-from-fuel-combustion-of-world-total-a5308e": {
+            "name": "Total CO2 emissions from fuel combustion (% of World Total)",
+            "unit": "% of World Total"
+        },
+        "adp.environment.total-conventional-and-non-conventional-water-resources-change-for-two-e366ae": {
+            "name": "Total Conventional and Non-Conventional Water Resources (% change for two years before)",
+            "unit": "% change for two years before"
+        },
+        "adp.environment.total-conventional-and-non-conventional-water-resources-cubic-meters-p-f6fcc8": {
+            "name": "Total Conventional and Non-Conventional Water Resources (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.total-fisheries-production-change-for-twelve-years-before-1b802c": {
+            "name": "Total Fisheries Production (% change for twelve years before)",
+            "unit": "% change for twelve years before"
+        },
+        "adp.environment.total-fisheries-production-inland-waters-change-for-twelve-years-befor-8bf1be": {
+            "name": "Total Fisheries Production, inland waters (% change for twelve years before)",
+            "unit": "% change for twelve years before"
+        },
+        "adp.environment.total-fisheries-production-inland-waters-tons-22907c": {
+            "name": "Total Fisheries Production, inland waters (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.total-fisheries-production-marine-areas-change-for-twelve-years-before-750cae": {
+            "name": "Total Fisheries Production, Marine areas (% change for twelve years before)",
+            "unit": "% change for twelve years before"
+        },
+        "adp.environment.total-fisheries-production-marine-areas-tons-96ecd6": {
+            "name": "Total Fisheries Production, Marine areas (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.total-fisheries-production-tons-11e10d": {
+            "name": "Total Fisheries Production (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.total-freshwater-abstraction-cubic-meters-4f6a54": {
+            "name": "Total Freshwater Abstraction (Cubic meters)",
+            "unit": "Cubic meters"
+        },
+        "adp.environment.total-freshwater-abstraction-cubic-meters-per-year-5234c3": {
+            "name": "Total Freshwater Abstraction (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.total-freshwater-from-conventional-sources-cubic-meters-per-year-11d0d6": {
+            "name": "Total Freshwater from Conventional Sources (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.total-freshwater-use-cubic-meters-7de6c3": {
+            "name": "Total Freshwater Use (Cubic meters)",
+            "unit": "Cubic meters"
+        },
+        "adp.environment.total-freshwater-use-cubic-meters-per-year-685b88": {
+            "name": "Total Freshwater Use (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.total-non-conventional-water-cubic-meters-per-year-4ce599": {
+            "name": "Total Non-Conventional Water (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.total-surface-water-cubic-meters-per-year-e28991": {
+            "name": "Total Surface Water (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.total-waste-generation-tons-e579fc": {
+            "name": "Total Waste Generation (Tons)",
+            "unit": "Tons"
+        },
+        "adp.environment.total-water-production-cubic-meters-per-year-3ef8aa": {
+            "name": "Total Water Production (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.treated-wastewater-reuse-cubic-meters-per-year-5efe0d": {
+            "name": "Treated Wastewater Reuse (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.wastewater-produced-cubic-meters-per-day-d90c85": {
+            "name": "Wastewater Produced (Cubic meters per day)",
+            "unit": "Cubic meters per day"
+        },
+        "adp.environment.wastewater-produced-cubic-meters-per-year-324f58": {
+            "name": "Wastewater Produced (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.wastewater-treated-cubic-meters-per-year-2d8aa3": {
+            "name": "Wastewater Treated (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.wastewater-treated-in-independent-treatment-facilities-cubic-meters-pe-abff48": {
+            "name": "Wastewater treated in independent treatment facilities (Cubic meters per day)",
+            "unit": "Cubic meters per day"
+        },
+        "adp.environment.wastewater-treated-in-other-treatment-plants-cubic-meters-per-day-863a3d": {
+            "name": "Wastewater treated in other treatment plants (Cubic meters per day)",
+            "unit": "Cubic meters per day"
+        },
+        "adp.environment.wastewater-treated-in-urban-wastewater-treatment-plants-cubic-meters-p-63594b": {
+            "name": "Wastewater treated in urban wastewater treatment plants (Cubic meters per day)",
+            "unit": "Cubic meters per day"
+        },
+        "adp.environment.water-deficit-cubic-meters-per-year-247386": {
+            "name": "Water Deficit (Cubic meters per year)",
+            "unit": "Cubic meters per year"
+        },
+        "adp.environment.water-use-intensity-percentage-ec0ce7": {
+            "name": "Water Use Intensity (Percentage)",
+            "unit": "Percentage"
+        }
+    }
+}

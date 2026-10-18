@@ -8,17 +8,17 @@ export default function PeersPage() {
       <PageHead title="دول المقارنة" lead="عُمان مقابل دول الخليج والنرويج ونيوزيلندا: اقتصادات صغيرة ومفتوحة أو غنية بالموارد، تُقاس بها مؤشرات التنمية والمالية العامة تاريخيًا." />
 
       <Section title="الدخل والتنمية">
-        <SeriesChart title="نصيب الفرد من الناتج المحلي" lines={peers('wb.NY.GDP.PCAP.CD')} from="1990" />
+        <SeriesChart oil title="نصيب الفرد من الناتج المحلي" lines={peers('wb.NY.GDP.PCAP.CD')} from="1990" />
         <SeriesChart title="مؤشر رأس المال البشري" lines={peers('wb.HD.HCI.OVRL')} />
         <SeriesChart title="متوسط العمر المتوقع" lines={peers('wb.SP.DYN.LE00.IN')} from="1990" />
         <SeriesChart title="الإنفاق على البحث والتطوير" lines={peers('wb.GB.XPD.RSDV.GD.ZS')} from="2000" />
       </Section>
 
       <Section title="المالية العامة">
-        <SeriesChart title="إجمالي الدين الحكومي" lines={peers('imf.GGXWDG_NGDP')} from="2000" imfForecast />
-        <SeriesChart title="رصيد الميزانية" lines={peers('imf.GGXCNL_NGDP')} from="2000" imfForecast />
+        <SeriesChart oil title="إجمالي الدين الحكومي" lines={peers('imf.GGXWDG_NGDP')} from="2000" imfForecast />
+        <SeriesChart oil title="رصيد الميزانية" lines={peers('imf.GGXCNL_NGDP')} from="2000" imfForecast />
         <SeriesChart title="التضخم" lines={peers('imf.PCPIPCH')} from="2000" imfForecast />
-        <SeriesChart title="نمو الناتج الحقيقي" lines={peers('imf.NGDP_RPCH')} from="2000" imfForecast />
+        <SeriesChart oil title="نمو الناتج الحقيقي" lines={peers('imf.NGDP_RPCH')} from="2000" imfForecast />
       </Section>
 
       <Section title="التعليم والعمل والرقمنة">

@@ -104,6 +104,13 @@ export default function FinancePage() {
         <SeriesChart title="من اقترضوا خلال السنة" lines={gccLines('wb.borrow.any.t.d')} from="2011" />
         <SeriesChart title="من يملكون بطاقة خصم" lines={gccLines('wb.fin2.t.d')} from="2011" />
       </Section>
+      <Section title="بنك التسويات الدولية (BIS): الفائدة والصرف والعقارات" lead="عُمان غير مشمولة في أغلب سلاسل البنك، فتُعرض لجيرانها وكبار الاقتصادات كمرجع للمقارنة.">
+        <SeriesChart title="أسعار الفائدة الرسمية للبنوك المركزية" subtitle="% — شهري" lines={[{ indicator: 'bis.policy_rate', entity: 'SAU', label: 'السعودية' }, { indicator: 'bis.policy_rate', entity: 'KWT', label: 'الكويت' }, { indicator: 'bis.policy_rate', entity: 'USA', label: 'أمريكا' }, { indicator: 'bis.policy_rate', entity: 'GBR', label: 'بريطانيا' }, { indicator: 'bis.policy_rate', entity: 'IND', label: 'الهند' }]} from="2015" />
+        <SeriesChart title="سعر الصرف الفعلي الحقيقي (سلة واسعة)" subtitle="مؤشر 2020=100 — ارتفاعه يعني فقدان قدرة تنافسية" lines={[{ indicator: 'bis.reer_broad', entity: 'SAU', label: 'السعودية' }, { indicator: 'bis.reer_broad', entity: 'ARE', label: 'الإمارات' }, { indicator: 'bis.reer_broad', entity: 'USA', label: 'أمريكا' }, { indicator: 'bis.reer_broad', entity: 'CHN', label: 'الصين' }]} from="2005" />
+        <SeriesChart title="سعر الصرف الفعلي الاسمي (سلة واسعة)" subtitle="مؤشر 2020=100" lines={[{ indicator: 'bis.neer_broad', entity: 'SAU', label: 'السعودية' }, { indicator: 'bis.neer_broad', entity: 'ARE', label: 'الإمارات' }, { indicator: 'bis.neer_broad', entity: 'USA', label: 'أمريكا' }, { indicator: 'bis.neer_broad', entity: 'CHN', label: 'الصين' }]} from="2005" />
+        <SeriesChart title="التضخم السنوي طويل الأمد في الخليج" subtitle="% — منذ الخمسينيات" lines={[{ indicator: 'bis.inflation_long', entity: 'SAU', label: 'السعودية' }, { indicator: 'bis.inflation_long', entity: 'ARE', label: 'الإمارات' }, { indicator: 'bis.inflation_long', entity: 'KWT', label: 'الكويت' }]} from="1960" />
+        <SeriesChart title="أسعار العقارات السكنية الحقيقية" subtitle="مؤشر 2010=100 — اقتصادات مرجعية (الخليج غير مغطى)" lines={[{ indicator: 'bis.house_price_real', entity: 'USA', label: 'أمريكا' }, { indicator: 'bis.house_price_real', entity: 'GBR', label: 'بريطانيا' }, { indicator: 'bis.house_price_real', entity: 'DEU', label: 'ألمانيا' }, { indicator: 'bis.house_price_real', entity: 'JPN', label: 'اليابان' }, { indicator: 'bis.house_price_real', entity: 'KOR', label: 'كوريا' }]} from="2005" />
+      </Section>
     </>
   );
 }

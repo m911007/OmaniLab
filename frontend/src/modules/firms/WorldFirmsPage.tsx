@@ -5,7 +5,6 @@ import { SourceNote } from '@/core/components/SourceNote';
 import { Empty, ErrorState, Loading } from '@/core/components/States';
 import { compact, formatNumber } from '@/core/format';
 import { useFirmStats, useFirms } from '@/core/hooks';
-import { flagOf } from '@/modules/countries/labels';
 import type { FirmRow, Money } from '@/core/api';
 
 export const moneyText = (m?: Money): string => (m ? `${compact(m.amount)} ${m.currency ?? ''}${m.year ? ` (${m.year})` : ''}` : '—');
@@ -30,7 +29,7 @@ export function FirmTable({ rows }: { rows: FirmRow[] }) {
                   <span>{f.name_ar ?? f.name_en}{f.name_ar && f.name_en !== f.name_ar && <span className="muted" dir="ltr"> {f.name_en}</span>}</span>
                 </Link>
               </td>
-              <td>{f.country ? <Link to={`/markets/${f.country}`}>{flagOf(null)} {f.country}</Link> : '—'}</td>
+              <td>{f.country ? <Link to={`/markets/${f.country}`}>{f.country}</Link> : '—'}</td>
               <td>{(f.industry_ar?.length ? f.industry_ar : f.industry)?.slice(0, 2).join('، ') ?? '—'}</td>
               <td className="num">{f.employees != null ? formatNumber(f.employees, 0) : '—'}</td>
               <td className="num">{moneyText(f.revenue)}</td>

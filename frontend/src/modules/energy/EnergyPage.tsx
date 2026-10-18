@@ -14,8 +14,25 @@ export default function EnergyPage() {
         <SeriesChart title="استهلاك الكهرباء للفرد" lines={peerLines('wb.EG.USE.ELEC.KH.PC')} from="1995" />
       </Section>
       <Section title="النفط والغاز في عُمان">
-        <SeriesChart title="سعر النفط العُماني" subtitle="متوسط شهري" lines={[{ indicator: 'ncsi.OIL_PRICE', entity: 'OMN', label: 'دولار/برميل' }]} from="2010" />
+        <SeriesChart title="سعر النفط: دبي وبرنت" subtitle="دولار/برميل، متوسط شهري — صندوق النقد (ويقابله البنك الدولي وEIA)" lines={[{ indicator: 'imf.pcps.poildub', entity: 'WLD', label: 'خام دبي (مرجع الخام العُماني)' }, { indicator: 'imf.pcps.poilbre', entity: 'WLD', label: 'خام برنت' }]} from="2010" />
         <SeriesChart title="ريع النفط" lines={peerLines('wb.NY.GDP.PETR.RT.ZS')} from="1995" />
+      </Section>
+      <Section title="النفط والغاز: المراجعة الإحصائية للطاقة (Energy Institute)" lead="مصدر دولي مستقل عن الإحصاءات الوطنية: إنتاج واستهلاك النفط والغاز والاحتياطيات المؤكدة لكل الدول، مع سعر النفط (الخط الرمادي المتقطع) للسياق.">
+        <SeriesChart oil title="إنتاج النفط (ألف برميل/يوم)" lines={gccLines('owid.oil_production_kbd')} from="1990" />
+        <SeriesChart title="إنتاج الغاز الطبيعي (تيراواط ساعة)" lines={gccLines('owid.gas_production_twh')} from="1990" />
+        <SeriesChart title="استهلاك النفط محليًا (تيراواط ساعة)" lines={gccLines('owid.oil_consumption_twh')} from="1990" />
+        <SeriesChart title="استهلاك الغاز محليًا (تيراواط ساعة)" lines={gccLines('owid.gas_consumption_twh')} from="1990" />
+        <SeriesChart title="احتياطي النفط المؤكد (مليار برميل)" lines={gccLines('owid.oil_reserves_bn_bbl')} from="1990" />
+        <SeriesChart title="احتياطي الغاز المؤكد (تريليون م³)" lines={gccLines('owid.gas_reserves_tcm')} from="1990" />
+        <SeriesChart title="حصة الوقود الأحفوري من الطاقة الأولية (%)" lines={gccLines('owid.fossil_share')} from="1990" />
+      </Section>
+      <Section title="الكهرباء حسب التقنية (IRENA)" lead="القدرة المركّبة والتوليد لكل تقنية، من الوكالة الدولية للطاقة المتجددة: أين تقف الطاقة الشمسية والرياح من الغاز؟">
+        <SeriesChart title="القدرة المركّبة في عُمان حسب التقنية (ميغاواط)" kind="stacked" lines={[{ indicator: 'irena.cap.gas', entity: 'OMN', label: 'غاز', color: 'var(--series-2)' }, { indicator: 'irena.cap.oil', entity: 'OMN', label: 'نفط', color: 'var(--series-4)' }, { indicator: 'irena.cap.solar_pv', entity: 'OMN', label: 'شمسية', color: 'var(--series-3)' }, { indicator: 'irena.cap.wind_onshore', entity: 'OMN', label: 'رياح', color: 'var(--series-1)' }]} from="2005" last={20} />
+        <SeriesChart title="توليد الكهرباء في عُمان حسب التقنية (غيغاواط ساعة)" kind="stacked" lines={[{ indicator: 'irena.gen.gas', entity: 'OMN', label: 'غاز', color: 'var(--series-2)' }, { indicator: 'irena.gen.oil', entity: 'OMN', label: 'نفط', color: 'var(--series-4)' }, { indicator: 'irena.gen.solar_pv', entity: 'OMN', label: 'شمسية', color: 'var(--series-3)' }, { indicator: 'irena.gen.wind_onshore', entity: 'OMN', label: 'رياح', color: 'var(--series-1)' }]} from="2005" last={20} />
+        <SeriesChart title="القدرة الشمسية الكهروضوئية (ميغاواط)" lines={gccLines('irena.cap.solar_pv')} from="2008" />
+        <SeriesChart title="القدرة المتجددة الإجمالية (ميغاواط)" lines={gccLines('irena.cap.renewable')} from="2008" />
+        <SeriesChart title="القدرة المركّبة من الغاز الطبيعي (ميغاواط)" lines={gccLines('irena.cap.gas')} from="2000" />
+        <SeriesChart title="التوليد المتجدد (غيغاواط ساعة)" lines={gccLines('irena.gen.renewable')} from="2008" />
       </Section>
       <Section title="البيئة والتحول">
         <SeriesChart title="انبعاثات CO₂ للفرد" lines={peerLines('wb.EN.GHG.CO2.PC.CE.AR5')} from="1990" />
@@ -93,6 +110,8 @@ export default function EnergyPage() {
         />
         <SeriesChart title="أيام الحرارة 40°م فأكثر في مسقط" subtitle="أيام في الشهر" kind="columns" lines={[{ indicator: 'climate.hot_days_muscat', entity: 'OMN', label: 'أيام ≥ 40°م' }]} last={60} />
         <SeriesChart title="أمطار صلالة (موسم الخريف)" subtitle="ملم في الشهر" kind="columns" lines={[{ indicator: 'climate.precip_salalah', entity: 'OMN', label: 'أمطار صلالة' }]} last={60} />
+        <SeriesChart title="الزلازل حول عُمان (قوة 3 فأكثر)" subtitle="عدد الهزات شهريًا — بحر عُمان وما حوله (USGS)" kind="columns" lines={[{ indicator: 'hazard.quakes_m3_count', entity: 'OMN', label: 'هزات' }]} last={60} />
+        <SeriesChart title="أشد هزة أرضية في الشهر" subtitle="بالمقياس — بحر عُمان وما حوله (USGS)" kind="columns" lines={[{ indicator: 'hazard.quakes_max_magnitude', entity: 'OMN', label: 'أشد هزة' }]} last={60} />
         <SeriesChart title="أمطار مسقط" subtitle="ملم في الشهر" kind="columns" lines={[{ indicator: 'climate.precip_muscat', entity: 'OMN', label: 'أمطار مسقط' }]} last={60} />
       </Section>
     </>

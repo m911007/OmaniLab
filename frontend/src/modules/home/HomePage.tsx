@@ -24,7 +24,7 @@ export default function HomePage() {
         <KeyStat trend entity="OMN" indicator="imf.NGDPD" label="الناتج المحلي الإجمالي" maxPeriod={IMF_ACTUAL} goodWhen="up" />
         <KeyStat trend entity="OMN" indicator="imf.NGDP_RPCH" label="نمو الناتج الحقيقي" maxPeriod={IMF_ACTUAL} goodWhen="up" />
         <KeyStat trend entity="OMN" indicator="ncsi.CPI_INFLATION" label="التضخم السنوي (شهري)" />
-        <KeyStat trend entity="OMN" indicator="ncsi.OIL_PRICE" label="سعر النفط العُماني (شهري)" goodWhen="up" />
+        <KeyStat trend entity="WLD" indicator="imf.pcps.poildub" label="سعر خام دبي (شهري)" goodWhen="up" />
         <KeyStat trend entity="OMN" indicator="imf.GGXCNL_NGDP" label="رصيد الميزانية (% من الناتج)" maxPeriod={IMF_ACTUAL} goodWhen="up" />
         <KeyStat trend entity="OMN" indicator="imf.GGXWDG_NGDP" label="الدين الحكومي الإجمالي" maxPeriod={IMF_ACTUAL} goodWhen="down" />
         <KeyStat trend entity="OMN" indicator="ilo.unemployment" label="معدل البطالة" goodWhen="down" />
@@ -38,7 +38,7 @@ export default function HomePage() {
 
       <Section title="النفط والمالية العامة" lead="النفط ما زال المحرك الأول لإيرادات الدولة؛ هكذا تتحرك الأسعار، وهكذا تتحرك الميزانية والدين معها.">
         <OilPulse />
-        <SeriesChart
+        <SeriesChart oil
           title="الميزانية والدين الحكومي"
           subtitle="% من الناتج المحلي"
           lines={[
@@ -51,9 +51,9 @@ export default function HomePage() {
       </Section>
 
       <Section title="اتجاهات رئيسية">
-        <SeriesChart title="نمو الناتج الحقيقي: عُمان مقابل دول الخليج" lines={gcc('imf.NGDP_RPCH')} from="2012" imfForecast />
+        <SeriesChart oil title="نمو الناتج الحقيقي: عُمان مقابل دول الخليج" lines={gcc('imf.NGDP_RPCH')} from="2012" imfForecast />
         <SeriesChart title="التضخم السنوي في عُمان" subtitle="شهريًا" lines={[{ indicator: 'ncsi.CPI_INFLATION', entity: 'OMN', label: 'التضخم السنوي' }]} from="2021" />
-        <SeriesChart title="سعر النفط العُماني" subtitle="متوسط شهري" lines={[{ indicator: 'ncsi.OIL_PRICE', entity: 'OMN', label: 'دولار/برميل' }]} from="2018" />
+        <SeriesChart title="سعر النفط: دبي وبرنت" subtitle="دولار/برميل، متوسط شهري — صندوق النقد (ويقابله البنك الدولي وEIA)" lines={[{ indicator: 'imf.pcps.poildub', entity: 'WLD', label: 'خام دبي (مرجع الخام العُماني)' }, { indicator: 'imf.pcps.poilbre', entity: 'WLD', label: 'خام برنت' }]} from="2018" />
         <SeriesChart
           title="التجارة الخارجية السلعية"
           kind="columns"

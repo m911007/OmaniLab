@@ -80,6 +80,12 @@ export default function LabourPage() {
         <SeriesChart title="معدل المشاركة في القوى العاملة" lines={gccLines('ilo.lfp_total')} from="2005" />
         <SeriesChart title="معدل البطالة (المركز الإحصائي الخليجي)" lines={gccLines('gccstat.UNEMPLOYMENT')} />
       </Section>
+      <Section title="مواطنون ووافدون: الأسكوا (بوابة التنمية العربية)" lead="مقارنة مؤشرات القوى العاملة بين المواطنين وغير المواطنين لعُمان والدول العربية، من إحصاءات الأسكوا.">
+        <SeriesChart title="معدل البطالة (15+): المواطنون وغير المواطنين" lines={[{ indicator: 'adp.labour.unemployment-rate-both-sexes-15-years-nationals-d4f103', entity: 'OMN', label: 'المواطنون' }, { indicator: 'adp.labour.unemployment-rate-both-sexes-15-years-non-nationals-852fec', entity: 'OMN', label: 'غير المواطنين' }]} />
+        <SeriesChart title="معدل المشاركة (15+): المواطنون وغير المواطنين" lines={[{ indicator: 'adp.labour.labor-force-participation-rate-both-sexes-15-years-nationals-09c1df', entity: 'OMN', label: 'المواطنون' }, { indicator: 'adp.labour.labor-force-participation-rate-both-sexes-15-years-non-nationals-0350b5', entity: 'OMN', label: 'غير المواطنين' }]} />
+        <SeriesChart title="نسبة التوظيف إلى السكان (15+)" lines={[{ indicator: 'adp.labour.employment-to-population-ratio-both-sexes-15-years-nationals-368245', entity: 'OMN', label: 'المواطنون' }, { indicator: 'adp.labour.employment-to-population-ratio-both-sexes-15-years-non-nationals-59fbce', entity: 'OMN', label: 'غير المواطنين' }]} />
+        <SeriesChart title="توزّع توظيف المواطنين حسب القطاع (%)" lines={[{ indicator: 'adp.labour.employment-by-sector-percent-both-sexes-nationals-public-c3a264', entity: 'OMN', label: 'حكومي' }, { indicator: 'adp.labour.employment-by-sector-percent-both-sexes-nationals-private-f5253d', entity: 'OMN', label: 'خاص' }, { indicator: 'adp.labour.employment-by-sector-percent-both-sexes-nationals-mixed-1106a7', entity: 'OMN', label: 'مختلط' }]} />
+      </Section>
     </>
   );
 }

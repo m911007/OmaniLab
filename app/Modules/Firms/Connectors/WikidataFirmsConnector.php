@@ -132,7 +132,7 @@ final class WikidataFirmsConnector extends ApiConnector
             $q = "SELECT DISTINCT ?c WHERE { VALUES ?cls { {$classes} } ?c wdt:P31 ?cls ; wdt:P17 wd:{$qid} . FILTER(EXISTS{?c wdt:P1128 []} || EXISTS{?c wdt:P2139 []} || EXISTS{?c wdt:P414 []} || EXISTS{?c wdt:P2226 []}) } LIMIT ".self::PER_COUNTRY;
             try {
                 $ids = array_values(array_unique(array_map(fn ($r) => basename($r['c']['value']), $this->sparql($q))));
-            } catch (RuntimeException) {
+            } catch (\Throwable) {
                 $failed++; // دولة تعذّر استعلامها تُترك لجولتها القادمة؛ الفشل الكامل وحده يُسقط الجولة.
 
                 continue;

@@ -5,6 +5,7 @@ import type { Explanation } from '../explain';
 import { resolveExplanation } from '../resolveExplanation';
 import { ChartCard, type ViewOption } from './ChartCard';
 import { ColumnChartView } from './ColumnChartView';
+import { useOilOverlay } from '../oilOverlay';
 import { LineChartView } from './LineChartView';
 import { Empty, ErrorState, Loading } from './States';
 import { SourcesPanel } from './SourcesPanel';
@@ -29,10 +30,13 @@ interface Props {
   explain?: Explanation;
   /** الكيان الأساسي الذي يبدأ به الرسم (الافتراضي عُمان)؛ ملف دولة أخرى يمرّر رمزها فيبدأ بها وتُضاف عُمان في المقارنة. */
   primary?: string;
+  /** يرسم سعر النفط خطًا متقطعًا على محور ثانوي (للمؤشرات الحسّاسة لأسعار النفط) */
+  oil?: boolean;
 }
 
 /** مخطط معرَّف بالتكوين: يجلب خطوطه ويرسمها مع مصدرها وحداثتها وجدولها البديل. هكذا تُضاف الرسوم دون كود رسم جديد. */
-export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, imfForecast, forecastFromYear, note, callout, height, last, explain, primary: primaryCode = 'OMN' }: Props) {
+export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, imfForecast, forecastFromYear, note, callout, height, last, explain, primary: primaryCode = 'OMN', oil: showOil = false }: Props) {
+  const oilOverlay = useOilOverlay(showOil);
   const range = useMemo(() => ({ from, to }), [from, to]);
   const omanLines = useMemo(() => lines.filter((l) => l.entity === primaryCode), [lines, primaryCode]);
   // الرسم الذي فيه عُمان ودول أخرى يبدأ بعُمان وحدها، ويتيح «مقارنة» بالدول (الجاهزة وما يضيفه القارئ) و«جدول».
@@ -121,9 +125,9 @@ export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, i
           ) : series.length === 0 ? (
             <Empty />
           ) : kind === 'line' ? (
-            <LineChartView series={series} unit={unit} forecastFrom={forecastFrom} height={height} />
+            <LineChartView series={series} unit={unit} forecastFrom={forecastFrom} height={height} oil={oilOverlay} />
           ) : (
-            <ColumnChartView series={series} unit={unit} stacked={kind === 'stacked'} height={height} last={last} />
+            <ColumnChartView series={series} unit={unit} stacked={kind === 'stacked'} height={height} last={last} oil={oilOverlay} />
           )}
           {group && (
             <SourcesPanel

@@ -159,6 +159,70 @@ class GlobalOrgConnectorsTest extends TestCase
         $this->assertSame(['fao.prod_dates|OMN|2024|394946', 'fao.stock_camels|OMN|2023|300000'], $this->records($c->parse($payload)));
     }
 
+    public function test_owid_fossil_fuels_derive_familiar_units(): void
+    {
+        $c = new \App\Modules\Owid\Connectors\OwidFossilFuelsConnector;
+        $payload = new \App\Core\Ingestion\Data\RawPayload(json_encode(['owid.oil_production_twh' => [['OMN', '2025', 559.6964]], 'owid.oil_reserves_m3' => [['OMN', '2021', 854238800]], 'owid.gas_reserves_m3' => [['OMN', '2021', 651287555694]]]));
+
+        $records = $this->records($c->parse($payload));
+
+        $this->assertContains('owid.oil_production_kbd|OMN|2025|902', $records);
+        $this->assertContains('owid.oil_reserves_bn_bbl|OMN|2021|5.37', $records);
+        $this->assertContains('owid.gas_reserves_tcm|OMN|2021|0.651', $records);
+    }
+
+    public function test_irena_maps_country_names_to_iso_and_technology_to_indicator_keys(): void
+    {
+        $this->freshHttp();
+        Http::fake(function ($request) {
+            if ($request->method() === 'GET') {
+                return Http::response(['variables' => [['code' => 'Country/area', 'values' => ['OMN', 'ARE'], 'valueTexts' => ['Oman', 'United Arab Emirates']]]]);
+            }
+
+            return Http::response("\"Country/area\",\"Technology\",\"Data Type\",\"Grid connection\",\"Year\",Electricity statistics\n\"Oman\",\"Solar photovoltaic\",\"Electrical Installed Capacity (MW)\",\"All\",\"2024\",600.5\n\"Oman\",\"Mystery\",\"Electrical Installed Capacity (MW)\",\"All\",\"2024\",1\n\"Narnia\",\"Oil\",\"Electricity Generation (GWh)\",\"All\",\"2024\",5\n");
+        });
+        $c = new \App\Modules\Irena\Connectors\IrenaElectricityConnector;
+
+        $this->assertSame(['irena.cap.solar_pv|OMN|2024|600.5'], $this->records($c->parse($c->fetch())));
+    }
+
+    public function test_bis_maps_iso2_areas_and_skips_unknown_periods(): void
+    {
+        $this->freshHttp();
+        $countries = [['page' => 1], array_map(fn ($i) => ['id' => 'C'.str_pad((string) $i, 2, '0', STR_PAD_LEFT), 'iso2Code' => 'X'.chr(65 + $i % 26), 'region' => ['value' => 'Europe']], range(0, 25))];
+        $countries[1][] = ['id' => 'SAU', 'iso2Code' => 'SA', 'region' => ['value' => 'Middle East']];
+        for ($i = 0; $i < 140; $i++) {
+            $countries[1][] = ['id' => 'D'.$i, 'iso2Code' => 'A'.$i, 'region' => ['value' => 'Asia']];
+        }
+        Http::fake(function ($request) use ($countries) {
+            if (str_contains($request->url(), 'worldbank')) {
+                return Http::response($countries);
+            }
+
+            return Http::response("STRUCTURE,REF_AREA,TIME_PERIOD,OBS_VALUE\ndataflow,SA,2026-09,4.5\ndataflow,ZZ,2026-09,9\ndataflow,SA,bad,1\n");
+        });
+        $c = new \App\Modules\Bis\Connectors\BisStatisticsConnector;
+
+        $records = $this->records($c->parse($c->fetch()));
+
+        $this->assertContains('bis.policy_rate|SAU|2026-09|4.5', $records);
+        $this->assertNotContains('bis.policy_rate|SAU|bad|1', $records);
+    }
+
+    public function test_usgs_fills_empty_months_with_zero_and_keeps_the_strongest_magnitude(): void
+    {
+        $this->freshHttp();
+        Http::fake(fn () => Http::response("time,latitude,longitude,depth,mag\n2000-01-05T00:00:00Z,20,55,10,3.2\n2000-01-20T00:00:00Z,21,56,10,4.1\n2000-03-02T00:00:00Z,22,57,10,3.0\n"));
+        $c = new \App\Modules\Climate\Connectors\UsgsEarthquakesConnector;
+
+        $records = $this->records($c->parse($c->fetch()));
+
+        $this->assertContains('hazard.quakes_m3_count|OMN|2000-01|2', $records);
+        $this->assertContains('hazard.quakes_m3_count|OMN|2000-02|0', $records);
+        $this->assertContains('hazard.quakes_max_magnitude|OMN|2000-01|4.1', $records);
+        $this->assertNotContains('hazard.quakes_max_magnitude|OMN|2000-02|0', $records);
+    }
+
     public function test_imf_cpi_reads_monthly_periods_for_the_chosen_categories_only(): void
     {
         $this->freshHttp();

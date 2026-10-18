@@ -1,8 +1,12 @@
 <?php
 
 use App\Modules\Climate\Connectors\OpenMeteoClimateConnector;
+use App\Modules\Climate\Connectors\UsgsEarthquakesConnector;
 use App\Modules\Places\Connectors\OsmPlacesConnector;
 use App\Modules\Firms\Connectors\WikidataFirmsConnector;
+use App\Modules\Adp\Connectors\AdpEnvironmentConnector;
+use App\Modules\Adp\Connectors\AdpLabourConnector;
+use App\Modules\Adp\Connectors\AdpPopulationConnector;
 use App\Modules\Companies\Connectors\GleifLeiCountsConnector;
 use App\Modules\Companies\Connectors\GleifOmanConnector;
 use App\Modules\Comtrade\Connectors\ComtradeProductsConnector;
@@ -10,6 +14,7 @@ use App\Modules\Fao\Connectors\FaoFoodSecurityConnector;
 use App\Modules\Fao\Connectors\FaoProductionConnector;
 use App\Modules\Gcc\Connectors\GccStatEconomyConnector;
 use App\Modules\Gcc\Connectors\GccStatEnergyTourismConnector;
+use App\Modules\Gcc\Connectors\GccStatMoreConnector;
 use App\Modules\Gcc\Connectors\GccStatSocietyConnector;
 use App\Modules\Ilo\Connectors\IloLabourConnector;
 use App\Modules\Macro\Connectors\ImfAiReadinessConnector;
@@ -48,6 +53,9 @@ use App\Modules\Ncsi\Connectors\NcsiTourismConnector;
 use App\Modules\Oec\Connectors\OecComplexityConnector;
 use App\Modules\Oec\Connectors\OecProductsConnector;
 use App\Modules\Owid\Connectors\OwidEnergyConnector;
+use App\Modules\Bis\Connectors\BisStatisticsConnector;
+use App\Modules\Irena\Connectors\IrenaElectricityConnector;
+use App\Modules\Owid\Connectors\OwidFossilFuelsConnector;
 use App\Modules\Owid\Connectors\OwidIndicesConnector;
 use App\Modules\Undp\Connectors\UndpHdrConnector;
 use App\Modules\Unesco\Connectors\UnescoUisConnector;
@@ -98,6 +106,7 @@ return [
         ImfAiReadinessConnector::class,
         GccStatEconomyConnector::class,
         GccStatSocietyConnector::class,
+        GccStatMoreConnector::class,
         GccStatEnergyTourismConnector::class,
         WorldBankMacroConnector::class,
         WorldBankTradeConnector::class,
@@ -128,6 +137,9 @@ return [
         UndpHdrConnector::class,
         OsmPlacesConnector::class,
         GleifOmanConnector::class,
+        AdpEnvironmentConnector::class,
+        AdpLabourConnector::class,
+        AdpPopulationConnector::class,
         WikidataFirmsConnector::class,
         GleifLeiCountsConnector::class,
         ManafethPartnersConnector::class,
@@ -145,6 +157,7 @@ return [
         ImfCpiConnector::class,
         ImfMonthlyTradeConnector::class,
         OpenMeteoClimateConnector::class,
+        UsgsEarthquakesConnector::class,
         WorldBankBankingConnector::class,
         WorldBankSustainabilityConnector::class,
         WorldBankInnovationConnector::class,
@@ -158,6 +171,9 @@ return [
         WorldBankProjectionsConnector::class,
         OwidEnergyConnector::class,
         OwidIndicesConnector::class,
+        OwidFossilFuelsConnector::class,
+        IrenaElectricityConnector::class,
+        BisStatisticsConnector::class,
         OecComplexityConnector::class,
         OecProductsConnector::class,
         FaoFoodSecurityConnector::class,

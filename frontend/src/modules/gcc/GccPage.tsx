@@ -25,17 +25,17 @@ export default function GccPage() {
       </div>
 
       <Section title="الناتج والنمو">
-        <SeriesChart title="نمو الناتج المحلي الإجمالي الحقيقي" lines={gcc('imf.NGDP_RPCH')} from="2008" imfForecast />
-        <SeriesChart title="نصيب الفرد من الناتج المحلي" lines={gcc('imf.NGDPDPC')} from="2008" imfForecast />
-        <SeriesChart title="الناتج المحلي الإجمالي بالأسعار الجارية" lines={gcc('gccstat.GDP_CUR')} />
+        <SeriesChart oil title="نمو الناتج المحلي الإجمالي الحقيقي" lines={gcc('imf.NGDP_RPCH')} from="2008" imfForecast />
+        <SeriesChart oil title="نصيب الفرد من الناتج المحلي" lines={gcc('imf.NGDPDPC')} from="2008" imfForecast />
+        <SeriesChart oil title="الناتج المحلي الإجمالي بالأسعار الجارية" lines={gcc('gccstat.GDP_CUR')} />
         <SeriesChart title="التضخم (متوسط سنوي)" lines={gcc('imf.PCPIPCH')} from="2008" imfForecast />
       </Section>
 
       <Section title="المالية العامة والقطاع الخارجي">
-        <SeriesChart title="إجمالي الدين الحكومي" lines={gcc('imf.GGXWDG_NGDP')} from="2008" imfForecast />
-        <SeriesChart title="رصيد الميزانية" lines={gcc('imf.GGXCNL_NGDP')} from="2008" imfForecast />
-        <SeriesChart title="رصيد الحساب الجاري" lines={gcc('imf.BCA_NGDPD')} from="2008" imfForecast />
-        <SeriesChart title="إجمالي صادرات السلع" lines={gcc('gccstat.GOODS_EXPORTS')} />
+        <SeriesChart oil title="إجمالي الدين الحكومي" lines={gcc('imf.GGXWDG_NGDP')} from="2008" imfForecast />
+        <SeriesChart oil title="رصيد الميزانية" lines={gcc('imf.GGXCNL_NGDP')} from="2008" imfForecast />
+        <SeriesChart oil title="رصيد الحساب الجاري" lines={gcc('imf.BCA_NGDPD')} from="2008" imfForecast />
+        <SeriesChart oil title="إجمالي صادرات السلع" lines={gcc('gccstat.GOODS_EXPORTS')} />
       </Section>
 
       <Section title="النقد والائتمان" lead="بيانات شهرية من المركز الإحصائي لدول مجلس التعاون.">

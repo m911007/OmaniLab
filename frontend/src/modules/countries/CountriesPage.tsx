@@ -5,6 +5,7 @@ import { Empty, ErrorState, Loading } from '@/core/components/States';
 import { compact, entityName, formatNumber } from '@/core/format';
 import { useCountryDirectory } from '@/core/hooks';
 import type { DirectoryRow } from '@/core/api';
+import { GrowthDrivers } from './GrowthDrivers';
 import { flagOf, INCOME_AR, incomeLabel, REGION_AR, regionLabel } from './labels';
 
 type Col = 'name' | 'gdp' | 'gdp_pc' | 'population' | 'growth' | 'inflation' | 'debt' | 'trade';
@@ -108,6 +109,8 @@ export default function CountriesPage() {
             <TopList title="الأعلى دخلًا للفرد" rows={rows} metric="gdp_pc" fmt={(v) => `$${compact(v)}`} />
             <TopList title="الأكثر سكانًا" rows={rows} metric="population" fmt={(v) => compact(v)} />
           </div>
+
+          <GrowthDrivers />
 
           <section className="section card">
             <div className="card-head" style={{ flexWrap: 'wrap', gap: 10 }}>

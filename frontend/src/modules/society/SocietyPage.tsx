@@ -64,6 +64,16 @@ export default function SocietyPage() {
         <WorldRankCard title="الإنفاق الصحي من الناتج" indicator="wb.SH.XPD.CHEX.GD.ZS" />
         <WorldRankCard title="متوسط العمر المتوقع" indicator="wb.SP.DYN.LE00.IN" />
       </Section>
+      <Section title="التركيبة السكانية حسب الجنسية والنوع (المركز الإحصائي الخليجي)" lead="كم يشكّل المواطنون وغير المواطنين، والذكور والإناث، وكيف تتطور المواليد والوفيات؟">
+        <SeriesChart title="سكان عُمان: مواطنون وغير مواطنين" kind="stacked" lines={[{ indicator: 'gccstat.POP_CITIZEN', entity: 'OMN', label: 'مواطنون', color: 'var(--series-3)' }, { indicator: 'gccstat.POP_NON_CITIZEN', entity: 'OMN', label: 'غير مواطنين', color: 'var(--series-2)' }]} />
+        <SeriesChart title="سكان عُمان حسب النوع والجنسية" kind="stacked" lines={[{ indicator: 'gccstat.POP_CITIZEN_MALE', entity: 'OMN', label: 'مواطنون ذكور', color: 'var(--series-1)' }, { indicator: 'gccstat.POP_CITIZEN_FEMALE', entity: 'OMN', label: 'مواطنات', color: 'var(--series-5)' }, { indicator: 'gccstat.POP_NON_CITIZEN_MALE', entity: 'OMN', label: 'غير مواطنين ذكور', color: 'var(--series-2)' }, { indicator: 'gccstat.POP_NON_CITIZEN_FEMALE', entity: 'OMN', label: 'غير مواطنات', color: 'var(--series-4)' }]} />
+        <SeriesChart title="المواليد والوفيات في عُمان" lines={[{ indicator: 'gccstat.BIRTHS', entity: 'OMN', label: 'مواليد' }, { indicator: 'gccstat.DEATHS', entity: 'OMN', label: 'وفيات' }]} />
+        <SeriesChart title="العاملون في عُمان حسب النوع" kind="stacked" lines={[{ indicator: 'gccstat.EMPLOYED_MALE', entity: 'OMN', label: 'ذكور', color: 'var(--series-1)' }, { indicator: 'gccstat.EMPLOYED_FEMALE', entity: 'OMN', label: 'إناث', color: 'var(--series-5)' }]} />
+        <SeriesChart title="معلمو المدارس (الخليج)" lines={gccLines('gccstat.TEACHERS_SCHOOL')} />
+        <SeriesChart title="أطباء الأسنان (الخليج)" lines={gccLines('gccstat.DENTISTS')} />
+        <SeriesChart title="الصيادلة (الخليج)" lines={gccLines('gccstat.PHARMACISTS')} />
+        <SeriesChart title="السكان المتصلون بالكهرباء (%)" lines={gccLines('gccstat.ACCESS_ELECTRICITY')} />
+      </Section>
     </>
   );
 }
