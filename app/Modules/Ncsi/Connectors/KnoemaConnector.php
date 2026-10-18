@@ -47,6 +47,12 @@ abstract class KnoemaConnector extends ApiConnector
         return 24 * 60;
     }
 
+    /** المجموعات الواسعة (زراعة، صناعة…) قد تخلو بعض تركيباتها من بيانات؛ تُتخطى بدل إفشال الجلب. */
+    protected function skipEmptySeries(): bool
+    {
+        return false;
+    }
+
     public function definition(): DatasetDefinition
     {
         return new DatasetDefinition(
@@ -91,7 +97,10 @@ abstract class KnoemaConnector extends ApiConnector
             if ($i > 0) {
                 usleep((int) config('omanilab.ingest.knoema_throttle_microseconds'));
             }
-            $body['series'][$series->code] = $this->fetchSeries($series);
+            $points = $this->fetchSeries($series);
+            if ($points !== []) {
+                $body['series'][$series->code] = $points;
+            }
         }
 
         return new RawPayload(json_encode($body, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR));
@@ -146,6 +155,11 @@ abstract class KnoemaConnector extends ApiConnector
             $points[$this->period((string) $row['Time'], $series->frequency)] = (float) $row['Value'];
         }
 
+        if ($points === [] && $this->skipEmptySeries()) {
+            logger()->warning("[ncsi] السلسلة {$series->code} بلا نقاط — تُتخطى.");
+
+            return [];
+        }
         if ($points === []) {
             throw new RuntimeException("السلسلة {$series->code} لم تُرجع نقاطًا (تغيّر الأبعاد أو الأعضاء؟).");
         }

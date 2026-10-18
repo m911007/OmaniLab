@@ -74,6 +74,12 @@ export default function SocietyPage() {
         <SeriesChart title="الصيادلة (الخليج)" lines={gccLines('gccstat.PHARMACISTS')} />
         <SeriesChart title="السكان المتصلون بالكهرباء (%)" lines={gccLines('gccstat.ACCESS_ELECTRICITY')} />
       </Section>
+      <Section title="صحة الأطفال والأمهات (اليونيسف والبنك الدولي)" lead="وفيات الأطفال حسب الفئة العمرية بتقديرات الأمم المتحدة المشتركة (IGME)، مقارنةً بدول الخليج.">
+        <SeriesChart title="وفيات الأطفال دون الخامسة (لكل 1000)" lines={peerLines('unicef.under5_mortality')} from="1990" />
+        <SeriesChart title="وفيات الرضّع (لكل 1000)" lines={peerLines('unicef.infant_mortality')} from="1990" />
+        <SeriesChart title="وفيات حديثي الولادة (لكل 1000)" lines={peerLines('unicef.neonatal_mortality')} from="1990" />
+        <SeriesChart title="وفيات الأطفال من سنة إلى أربع (لكل 1000)" lines={peerLines('unicef.child_mortality_1_4')} from="1990" />
+      </Section>
     </>
   );
 }

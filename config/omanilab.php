@@ -1,44 +1,53 @@
 <?php
 
-use App\Modules\Climate\Connectors\OpenMeteoClimateConnector;
-use App\Modules\Climate\Connectors\UsgsEarthquakesConnector;
-use App\Modules\Places\Connectors\OsmPlacesConnector;
-use App\Modules\Firms\Connectors\WikidataFirmsConnector;
 use App\Modules\Adp\Connectors\AdpEnvironmentConnector;
 use App\Modules\Adp\Connectors\AdpLabourConnector;
 use App\Modules\Adp\Connectors\AdpPopulationConnector;
+use App\Modules\Bis\Connectors\BisStatisticsConnector;
+use App\Modules\Climate\Connectors\OpenMeteoClimateConnector;
+use App\Modules\Climate\Connectors\UsgsEarthquakesConnector;
 use App\Modules\Companies\Connectors\GleifLeiCountsConnector;
 use App\Modules\Companies\Connectors\GleifOmanConnector;
 use App\Modules\Comtrade\Connectors\ComtradeProductsConnector;
 use App\Modules\Fao\Connectors\FaoFoodSecurityConnector;
 use App\Modules\Fao\Connectors\FaoProductionConnector;
+use App\Modules\Firms\Connectors\WikidataFirmsConnector;
 use App\Modules\Gcc\Connectors\GccStatEconomyConnector;
 use App\Modules\Gcc\Connectors\GccStatEnergyTourismConnector;
 use App\Modules\Gcc\Connectors\GccStatMoreConnector;
 use App\Modules\Gcc\Connectors\GccStatSocietyConnector;
 use App\Modules\Ilo\Connectors\IloLabourConnector;
+use App\Modules\Irena\Connectors\IrenaElectricityConnector;
 use App\Modules\Macro\Connectors\ImfAiReadinessConnector;
 use App\Modules\Macro\Connectors\ImfCpiConnector;
 use App\Modules\Macro\Connectors\ImfCtotConnector;
-use App\Modules\Macro\Connectors\ImfMonthlyTradeConnector;
 use App\Modules\Macro\Connectors\ImfDebtDatabaseConnector;
 use App\Modules\Macro\Connectors\ImfFiscalMonitorConnector;
 use App\Modules\Macro\Connectors\ImfFiscalPolicyConnector;
 use App\Modules\Macro\Connectors\ImfFossilSubsidiesConnector;
 use App\Modules\Macro\Connectors\ImfIipConnector;
+use App\Modules\Macro\Connectors\ImfMonthlyTradeConnector;
 use App\Modules\Macro\Connectors\ImfNdGainConnector;
 use App\Modules\Macro\Connectors\ImfReservesConnector;
 use App\Modules\Macro\Connectors\ImfWeoConnector;
 use App\Modules\Manafeth\Connectors\ManafethPartnersConnector;
 use App\Modules\Manafeth\Connectors\ManafethTotalsConnector;
+use App\Modules\Markets\Connectors\BlsUsEconomyConnector;
+use App\Modules\Markets\Connectors\CboeIndicesConnector;
 use App\Modules\Markets\Connectors\EiaSpotPricesConnector;
 use App\Modules\Markets\Connectors\FrankfurterFxConnector;
 use App\Modules\Markets\Connectors\ImfCommodityPricesConnector;
+use App\Modules\Markets\Connectors\NyFedRatesConnector;
+use App\Modules\Markets\Connectors\UsTreasuryFiscalConnector;
 use App\Modules\Markets\Connectors\UsTreasuryYieldsConnector;
 use App\Modules\Markets\Connectors\WorldBankPinkSheetConnector;
+use App\Modules\Ncsi\Connectors\NcsiAgricultureConnector;
 use App\Modules\Ncsi\Connectors\NcsiBalanceOfPaymentsConnector;
 use App\Modules\Ncsi\Connectors\NcsiCommunicationConnector;
+use App\Modules\Ncsi\Connectors\NcsiCpiGroupsConnector;
 use App\Modules\Ncsi\Connectors\NcsiElectricityConnector;
+use App\Modules\Ncsi\Connectors\NcsiEstablishmentsConnector;
+use App\Modules\Ncsi\Connectors\NcsiFisheriesConnector;
 use App\Modules\Ncsi\Connectors\NcsiFoodSecurityConnector;
 use App\Modules\Ncsi\Connectors\NcsiHealthSpendingConnector;
 use App\Modules\Ncsi\Connectors\NcsiLabourConnector;
@@ -48,35 +57,37 @@ use App\Modules\Ncsi\Connectors\NcsiOilGasConnector;
 use App\Modules\Ncsi\Connectors\NcsiPopulationConnector;
 use App\Modules\Ncsi\Connectors\NcsiPricesConnector;
 use App\Modules\Ncsi\Connectors\NcsiProducerPricesConnector;
+use App\Modules\Ncsi\Connectors\NcsiPublicFinanceConnector;
 use App\Modules\Ncsi\Connectors\NcsiRenewableEnergyConnector;
 use App\Modules\Ncsi\Connectors\NcsiTourismConnector;
 use App\Modules\Oec\Connectors\OecComplexityConnector;
 use App\Modules\Oec\Connectors\OecProductsConnector;
 use App\Modules\Owid\Connectors\OwidEnergyConnector;
-use App\Modules\Bis\Connectors\BisStatisticsConnector;
-use App\Modules\Irena\Connectors\IrenaElectricityConnector;
 use App\Modules\Owid\Connectors\OwidFossilFuelsConnector;
 use App\Modules\Owid\Connectors\OwidIndicesConnector;
+use App\Modules\Places\Connectors\OsmPlacesConnector;
 use App\Modules\Undp\Connectors\UndpHdrConnector;
 use App\Modules\Unesco\Connectors\UnescoUisConnector;
+use App\Modules\Unicef\Connectors\UnicefMortalityConnector;
 use App\Modules\Who\Connectors\WhoHealthConnector;
 use App\Modules\Wits\Connectors\WitsTradeConnector;
 use App\Modules\WorldBank\Connectors\WorldBankBankingConnector;
 use App\Modules\WorldBank\Connectors\WorldBankDigitalConnector;
 use App\Modules\WorldBank\Connectors\WorldBankEnvironmentConnector;
 use App\Modules\WorldBank\Connectors\WorldBankExtraConnector;
-use App\Modules\WorldBank\Connectors\WorldBankFindexConnector;
-use App\Modules\WorldBank\Connectors\WorldBankIctConnector;
-use App\Modules\WorldBank\Connectors\WorldBankInvestmentConnector;
-use App\Modules\WorldBank\Connectors\WorldBankPurchasingPowerConnector;
-use App\Modules\WorldBank\Connectors\WorldBankResourcesConnector;
 use App\Modules\WorldBank\Connectors\WorldBankFinanceConnector;
+use App\Modules\WorldBank\Connectors\WorldBankFindexConnector;
 use App\Modules\WorldBank\Connectors\WorldBankGovernanceConnector;
 use App\Modules\WorldBank\Connectors\WorldBankHealthConnector;
+use App\Modules\WorldBank\Connectors\WorldBankIctConnector;
 use App\Modules\WorldBank\Connectors\WorldBankInnovationConnector;
+use App\Modules\WorldBank\Connectors\WorldBankInvestmentConnector;
 use App\Modules\WorldBank\Connectors\WorldBankLabourConnector;
 use App\Modules\WorldBank\Connectors\WorldBankMacroConnector;
 use App\Modules\WorldBank\Connectors\WorldBankProjectionsConnector;
+use App\Modules\WorldBank\Connectors\WorldBankPurchasingPowerConnector;
+use App\Modules\WorldBank\Connectors\WorldBankResourcesConnector;
+use App\Modules\WorldBank\Connectors\WorldBankSocialConnector;
 use App\Modules\WorldBank\Connectors\WorldBankSocietyConnector;
 use App\Modules\WorldBank\Connectors\WorldBankSustainabilityConnector;
 use App\Modules\WorldBank\Connectors\WorldBankTourismConnector;
@@ -112,6 +123,7 @@ return [
         WorldBankTradeConnector::class,
         WorldBankSocietyConnector::class,
         WorldBankDigitalConnector::class,
+        WorldBankSocialConnector::class,
         WorldBankHealthConnector::class,
         WorldBankEnvironmentConnector::class,
         WorldBankTourismConnector::class,
@@ -119,8 +131,13 @@ return [
         WorldBankLabourConnector::class,
         WorldBankGovernanceConnector::class,
         NcsiPricesConnector::class,
+        NcsiCpiGroupsConnector::class,
+        NcsiEstablishmentsConnector::class,
+        NcsiFisheriesConnector::class,
+        NcsiAgricultureConnector::class,
         NcsiNationalAccountsConnector::class,
         NcsiOilGasConnector::class,
+        NcsiPublicFinanceConnector::class,
         NcsiCommunicationConnector::class,
         NcsiBalanceOfPaymentsConnector::class,
         NcsiLabourConnector::class,
@@ -145,11 +162,16 @@ return [
         ManafethPartnersConnector::class,
         ImfCommodityPricesConnector::class,
         UsTreasuryYieldsConnector::class,
+        CboeIndicesConnector::class,
+        NyFedRatesConnector::class,
+        UsTreasuryFiscalConnector::class,
+        BlsUsEconomyConnector::class,
         FrankfurterFxConnector::class,
         EiaSpotPricesConnector::class,
         WorldBankPinkSheetConnector::class,
         IloLabourConnector::class,
         WhoHealthConnector::class,
+        UnicefMortalityConnector::class,
         ImfFossilSubsidiesConnector::class,
         ImfNdGainConnector::class,
         ImfIipConnector::class,

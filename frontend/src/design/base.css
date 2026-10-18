@@ -432,3 +432,14 @@ div.tile { display: flex; flex-direction: column; gap: 2px; }
 .side-label { display: flex; align-items: center; justify-content: space-between; gap: 6px; font-size: 12px; line-height: 18px; color: var(--text-primary); }
 .side-label .sl-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
 .side-label .sl-val { font-weight: 800; direction: ltr; flex: none; }
+
+/* خريطة التصنيف الائتماني */
+.heat-scroll { overflow-x: auto; }
+.heat-table { border-collapse: separate; border-spacing: 4px; min-width: 760px; width: 100%; }
+.heat-table th { font-size: 13px; font-weight: 700; color: var(--text-secondary); text-align: center; padding: 4px 6px; white-space: nowrap; }
+.heat-table th[scope='row'] { text-align: start; min-width: 130px; color: var(--text-primary); }
+.heat-table td { text-align: center; border-radius: 10px; padding: 8px 4px; min-width: 74px; color: #f2fbfa; font-size: 14px; vertical-align: middle; }
+.heat-table td small { display: block; font-size: 11px; opacity: 0.85; margin-top: 2px; }
+.heat-table td.plain { background: var(--surface-2); color: var(--text-primary); }
+.prices-table td.up { color: var(--good); font-weight: 700; }
+.prices-table td.down { color: var(--critical); font-weight: 700; }

@@ -1,5 +1,6 @@
 import { KeyStat } from '@/core/components/KeyStat';
 import { PageHead, Section } from '@/core/components/PageHead';
+import { CreditRatings } from './CreditRatings';
 import { SeriesChart } from '@/core/components/SeriesChart';
 import { lastActualYear, oman } from '@/core/lines';
 
@@ -81,6 +82,8 @@ export default function OmanEconomyPage() {
         <SeriesChart title="الرقم القياسي لأسعار المنتج (2018=100)" lines={[{ indicator: 'ncsi.PPI_INDEX', entity: 'OMN', label: 'أسعار المنتج' }]} />
         <SeriesChart title="التضخم السنوي (متوسط)" lines={oman('imf.PCPIPCH', 'عُمان')} from="2005" imfForecast />
       </Section>
+
+      <CreditRatings />
 
       <Section id="fiscal" title="المالية العامة">
         <SeriesChart oil title="إجمالي الدين الحكومي" lines={oman('imf.GGXWDG_NGDP', 'عُمان')} from="2005" imfForecast />

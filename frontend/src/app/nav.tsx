@@ -39,7 +39,9 @@ export const NAV: NavGroup[] = [
   {
     title: 'القطاعات',
     items: [
-      { to: '/fiscal', label: 'الميزانية العامة والدين', icon: svg('M4 6h16M4 12h16M4 18h10') },
+      { to: '/oman-prices', label: 'أسعار السوق العُماني', icon: svg('M4 7h16l-1.5 11h-13zM9 7a3 3 0 0 1 6 0') },
+      { to: '/agriculture', label: 'الزراعة والثروة السمكية', icon: svg('M12 21V9M12 9c0-3 2-5 5-5 0 3-2 5-5 5zM12 13c0-3-2-5-5-5 0 3 2 5 5 5z') },
+      { to: '/income-sources', label: 'مصادر الدخل', icon: svg('M12 3v18M7 8l5-5 5 5M5 21h14') },{ to: '/fiscal', label: 'الميزانية العامة والدين', icon: svg('M4 6h16M4 12h16M4 18h10') },
       { to: '/trade', label: 'التجارة الخارجية', icon: svg('M3 7h13l-3-3m3 3l-3 3M21 17H8l3-3m-3 3l3 3') },
       { to: '/energy', label: 'الطاقة والبيئة', icon: svg('M13 2L4 14h7l-1 8 9-12h-7z') },
       { to: '/tourism', label: 'السياحة', icon: svg('M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11zM12 12a2 2 0 100-4 2 2 0 000 4z') },
@@ -56,6 +58,6 @@ export const NAV: NavGroup[] = [
   { title: 'الشركات', items: [{ to: '/companies', label: 'الشركات العُمانية', icon: svg('M3 21h18M5 21V7l7-4 7 4v14M9 9h1m4 0h1M9 13h1m4 0h1M9 17h1m4 0h1') },
     { to: '/world-companies', label: 'الشركات العالمية', icon: svg('M3 21h18M6 21V9h5v12M13 21V3h5v18M8 12h1M8 16h1M15 7h1M15 11h1M15 15h1') }] },
   { title: 'العالم', items: [
-      { to: '/commodities', label: 'النفط والسلع', icon: svg('M12 2s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z') },{ to: '/countries', label: 'دول العالم', icon: svg('M12 21a9 9 0 100-18 9 9 0 000 18zM3.6 9h16.8M3.6 15h16.8M12 3a14 14 0 010 18M12 3a14 14 0 000 18') },{ to: '/markets', label: 'الأسواق العالمية', icon: svg('M12 21a9 9 0 100-18 9 9 0 000 18zM3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18') }] },
+      { to: '/prices', label: 'الأسعار الآن', icon: svg('M12 6v6l4 2M12 21a9 9 0 100-18 9 9 0 000 18z') },{ to: '/commodities', label: 'النفط والسلع', icon: svg('M12 2s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z') },{ to: '/countries', label: 'دول العالم', icon: svg('M12 21a9 9 0 100-18 9 9 0 000 18zM3.6 9h16.8M3.6 15h16.8M12 3a14 14 0 010 18M12 3a14 14 0 000 18') },{ to: '/us-markets', label: 'السوق الأمريكية', icon: svg('M3 17l5-5 4 4 8-9M14 7h6v6') },{ to: '/markets', label: 'الأسواق العالمية', icon: svg('M12 21a9 9 0 100-18 9 9 0 000 18zM3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18') }] },
   { title: 'المنصة', items: [{ to: '/status', label: 'حالة البيانات', icon: svg('M5 12l4 4 10-10') }] },
 ];

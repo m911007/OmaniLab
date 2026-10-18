@@ -26,7 +26,7 @@ import {
   type FirmStats,
   type FirmRow,
 } from './api';
-import { assignColors } from './colors';
+import { assignLineColors } from './colors';
 import { entityName } from './format';
 
 const FIVE_MIN = 5 * 60_000;
@@ -117,20 +117,20 @@ export function useLines(lines: readonly LineSpec[], range: { from?: string; to?
     const series: SeriesItem[] = [];
     const datasets = new Map<string, Dataset>();
     const indicators = new Map<string, IndicatorMeta>();
-    const colors = assignColors(lines.map((l) => l.entity));
+    const lineColors = assignLineColors(lines);
     for (const r of results) {
       if (!r.data) continue;
       datasets.set(r.data.dataset.key, r.data.dataset);
       indicators.set(r.data.indicator.key, r.data.indicator);
     }
-    for (const l of lines) {
+    for (const [i, l] of lines.entries()) {
       const res = results.find((r) => r.data?.indicator.key === l.indicator)?.data;
       const s = res?.series.find((x) => x.entity.code === l.entity);
       if (!res || !s) continue;
       series.push({
         id: `${l.indicator}|${l.entity}`,
         label: l.label ?? entityName(s.entity),
-        color: l.color ?? colors[l.entity],
+        color: lineColors[i],
         points: s.points,
       });
     }

@@ -51,3 +51,26 @@ export function assignColors(codes: string[]): Record<string, string> {
 
 export const GCC_CODES = ['OMN', 'SAU', 'ARE', 'QAT', 'KWT', 'BHR'] as const;
 export const PEER_CODES = ['OMN', 'SAU', 'ARE', 'QAT', 'KWT', 'BHR', 'NOR', 'NZL'] as const;
+
+/**
+ * ألوان خطوط المخطط: إن كان لكل كيان خط واحد يتبع اللون الكيان (مقارنة الدول). أما إن تكرر الكيان بمؤشرات مختلفة
+ * (عُمان بعدة مؤشرات) فيأخذ كل خط بلا لون صريح أول خانة غير مشغولة بترتيب ظهوره، فلا يتشابه خطان أبدًا.
+ */
+export function assignLineColors(lines: ReadonlyArray<{ entity: string; color?: string }>): string[] {
+  const entities = lines.map((l) => l.entity);
+  const repeated = new Set(entities).size !== entities.length;
+  if (!repeated) {
+    const byEntity = assignColors(entities);
+    return lines.map((l) => l.color ?? byEntity[l.entity]);
+  }
+  const used = new Set<string>(lines.flatMap((l) => (l.color ? [l.color] : [])));
+  let slot = 0;
+  return lines.map((l) => {
+    if (l.color) return l.color;
+    while (slot < SERIES_VARS.length && used.has(cssVar(slot + 1))) slot++;
+    const color = slot < SERIES_VARS.length ? cssVar(slot + 1) : 'var(--series-other)';
+    used.add(color);
+    slot++;
+    return color;
+  });
+}

@@ -5,23 +5,36 @@ namespace Tests\Feature;
 use App\Core\Ingestion\Data\ParsedEntity;
 use App\Core\Ingestion\Data\ParsedRecord;
 use App\Core\Ingestion\Data\ParsedRelation;
+use App\Core\Ingestion\Data\RawPayload;
+use App\Modules\Bis\Connectors\BisStatisticsConnector;
+use App\Modules\Climate\Connectors\OpenMeteoClimateConnector;
+use App\Modules\Climate\Connectors\UsgsEarthquakesConnector;
 use App\Modules\Comtrade\Connectors\ComtradeProductsConnector;
 use App\Modules\Fao\Connectors\FaoFoodSecurityConnector;
+use App\Modules\Fao\Connectors\FaoProductionConnector;
 use App\Modules\Ilo\Connectors\IloLabourConnector;
+use App\Modules\Irena\Connectors\IrenaElectricityConnector;
 use App\Modules\Macro\Connectors\ImfCpiConnector;
-use App\Modules\Macro\Connectors\ImfMonthlyTradeConnector;
 use App\Modules\Macro\Connectors\ImfFossilSubsidiesConnector;
 use App\Modules\Macro\Connectors\ImfIipConnector;
+use App\Modules\Macro\Connectors\ImfMonthlyTradeConnector;
 use App\Modules\Macro\Connectors\ImfNdGainConnector;
+use App\Modules\Markets\Connectors\BlsUsEconomyConnector;
+use App\Modules\Markets\Connectors\CboeIndicesConnector;
 use App\Modules\Markets\Connectors\EiaSpotPricesConnector;
+use App\Modules\Markets\Connectors\FrankfurterFxConnector;
 use App\Modules\Markets\Connectors\ImfCommodityPricesConnector;
+use App\Modules\Markets\Connectors\NyFedRatesConnector;
+use App\Modules\Markets\Connectors\UsTreasuryFiscalConnector;
 use App\Modules\Markets\Connectors\UsTreasuryYieldsConnector;
 use App\Modules\Markets\Connectors\WorldBankPinkSheetConnector;
 use App\Modules\Oec\Connectors\OecComplexityConnector;
 use App\Modules\Oec\Connectors\OecProductsConnector;
 use App\Modules\Owid\Connectors\OwidEnergyConnector;
+use App\Modules\Owid\Connectors\OwidFossilFuelsConnector;
 use App\Modules\Owid\Connectors\OwidIndicesConnector;
 use App\Modules\Unesco\Connectors\UnescoUisConnector;
+use App\Modules\Unicef\Connectors\UnicefMortalityConnector;
 use App\Modules\Who\Connectors\WhoHealthConnector;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
@@ -87,7 +100,10 @@ class GlobalOrgConnectorsTest extends TestCase
 
         $records = array_unique($this->records($c->parse($c->fetch())));
 
-        $this->assertEqualsCanonicalizing(['us.yield_3m|USA|2026-10-14|4.28', 'us.yield_2y|USA|2026-10-14|4.82', 'us.yield_10y|USA|2026-10-14|5.19'], array_values($records));
+        $this->assertEqualsCanonicalizing([
+            'us.yield_3m|USA|2026-10-14|4.28', 'us.yield_2y|USA|2026-10-14|4.82', 'us.yield_10y|USA|2026-10-14|5.19',
+            'us.spread_10y_2y|USA|2026-10-14|0.37', 'us.spread_10y_3m|USA|2026-10-14|0.91',
+        ], array_values($records));
     }
 
     public function test_open_meteo_publishes_complete_months_only_and_counts_hot_days(): void
@@ -110,7 +126,7 @@ class GlobalOrgConnectorsTest extends TestCase
             $rain[] = 0.0;
         }
         Http::fake(fn () => Http::response(['daily' => ['time' => $times, 'temperature_2m_mean' => $mean, 'temperature_2m_max' => $max, 'precipitation_sum' => $rain]]));
-        $c = new \App\Modules\Climate\Connectors\OpenMeteoClimateConnector;
+        $c = new OpenMeteoClimateConnector;
 
         $records = array_filter($this->records($c->parse($c->fetch())), fn (string $r) => str_contains($r, '_muscat|'));
 
@@ -133,7 +149,7 @@ class GlobalOrgConnectorsTest extends TestCase
         $c = new ImfMonthlyTradeConnector;
 
         $items = iterator_to_array($c->parse($c->fetch()), false);
-        $records = array_map(fn ($i) => $i instanceof \App\Core\Ingestion\Data\ParsedRecord ? "{$i->indicatorKey}|{$i->entityCode}|{$i->period}|{$i->value}" : "{$i->indicatorKey}|{$i->sourceCode}>{$i->targetCode}|{$i->period}|{$i->value}", $items);
+        $records = array_map(fn ($i) => $i instanceof ParsedRecord ? "{$i->indicatorKey}|{$i->entityCode}|{$i->period}|{$i->value}" : "{$i->indicatorKey}|{$i->sourceCode}>{$i->targetCode}|{$i->period}|{$i->value}", $items);
 
         $this->assertEqualsCanonicalizing([
             'imf.imts_exports|OMN|2026-06|3000', 'imf.imts_imports|OMN|2026-06|5000', 'imf.imts_exports_partner|OMN>CHN|2026-06|120', 'imf.imts_balance|OMN|2026-06|-2000',
@@ -144,7 +160,7 @@ class GlobalOrgConnectorsTest extends TestCase
     {
         $this->freshHttp();
         Http::fake(fn () => Http::response(['rates' => ['2026-10-16' => ['INR' => 94.96, 'XXX' => 1.0], 'bad' => ['INR' => 1]]]));
-        $c = new \App\Modules\Markets\Connectors\FrankfurterFxConnector;
+        $c = new FrankfurterFxConnector;
 
         $records = $this->records($c->parse($c->fetch()));
 
@@ -153,16 +169,16 @@ class GlobalOrgConnectorsTest extends TestCase
 
     public function test_fao_production_parses_item_element_pairs_and_ignores_unknown_ones(): void
     {
-        $c = new \App\Modules\Fao\Connectors\FaoProductionConnector;
-        $payload = new \App\Core\Ingestion\Data\RawPayload(json_encode([['577|5510', 'OMN', '2024', '394946'], ['999|5510', 'OMN', '2024', '1'], ['1126|5111', 'OMN', '2023', '300000']]));
+        $c = new FaoProductionConnector;
+        $payload = new RawPayload(json_encode([['577|5510', 'OMN', '2024', '394946'], ['999|5510', 'OMN', '2024', '1'], ['1126|5111', 'OMN', '2023', '300000']]));
 
         $this->assertSame(['fao.prod_dates|OMN|2024|394946', 'fao.stock_camels|OMN|2023|300000'], $this->records($c->parse($payload)));
     }
 
     public function test_owid_fossil_fuels_derive_familiar_units(): void
     {
-        $c = new \App\Modules\Owid\Connectors\OwidFossilFuelsConnector;
-        $payload = new \App\Core\Ingestion\Data\RawPayload(json_encode(['owid.oil_production_twh' => [['OMN', '2025', 559.6964]], 'owid.oil_reserves_m3' => [['OMN', '2021', 854238800]], 'owid.gas_reserves_m3' => [['OMN', '2021', 651287555694]]]));
+        $c = new OwidFossilFuelsConnector;
+        $payload = new RawPayload(json_encode(['owid.oil_production_twh' => [['OMN', '2025', 559.6964]], 'owid.oil_reserves_m3' => [['OMN', '2021', 854238800]], 'owid.gas_reserves_m3' => [['OMN', '2021', 651287555694]]]));
 
         $records = $this->records($c->parse($payload));
 
@@ -181,7 +197,7 @@ class GlobalOrgConnectorsTest extends TestCase
 
             return Http::response("\"Country/area\",\"Technology\",\"Data Type\",\"Grid connection\",\"Year\",Electricity statistics\n\"Oman\",\"Solar photovoltaic\",\"Electrical Installed Capacity (MW)\",\"All\",\"2024\",600.5\n\"Oman\",\"Mystery\",\"Electrical Installed Capacity (MW)\",\"All\",\"2024\",1\n\"Narnia\",\"Oil\",\"Electricity Generation (GWh)\",\"All\",\"2024\",5\n");
         });
-        $c = new \App\Modules\Irena\Connectors\IrenaElectricityConnector;
+        $c = new IrenaElectricityConnector;
 
         $this->assertSame(['irena.cap.solar_pv|OMN|2024|600.5'], $this->records($c->parse($c->fetch())));
     }
@@ -201,7 +217,7 @@ class GlobalOrgConnectorsTest extends TestCase
 
             return Http::response("STRUCTURE,REF_AREA,TIME_PERIOD,OBS_VALUE\ndataflow,SA,2026-09,4.5\ndataflow,ZZ,2026-09,9\ndataflow,SA,bad,1\n");
         });
-        $c = new \App\Modules\Bis\Connectors\BisStatisticsConnector;
+        $c = new BisStatisticsConnector;
 
         $records = $this->records($c->parse($c->fetch()));
 
@@ -213,7 +229,7 @@ class GlobalOrgConnectorsTest extends TestCase
     {
         $this->freshHttp();
         Http::fake(fn () => Http::response("time,latitude,longitude,depth,mag\n2000-01-05T00:00:00Z,20,55,10,3.2\n2000-01-20T00:00:00Z,21,56,10,4.1\n2000-03-02T00:00:00Z,22,57,10,3.0\n"));
-        $c = new \App\Modules\Climate\Connectors\UsgsEarthquakesConnector;
+        $c = new UsgsEarthquakesConnector;
 
         $records = $this->records($c->parse($c->fetch()));
 
@@ -221,6 +237,52 @@ class GlobalOrgConnectorsTest extends TestCase
         $this->assertContains('hazard.quakes_m3_count|OMN|2000-02|0', $records);
         $this->assertContains('hazard.quakes_max_magnitude|OMN|2000-01|4.1', $records);
         $this->assertNotContains('hazard.quakes_max_magnitude|OMN|2000-02|0', $records);
+    }
+
+    public function test_unicef_keeps_country_rows_for_known_indicators(): void
+    {
+        $this->freshHttp();
+        Http::fake(fn () => Http::response("STRUCTURE,REF_AREA,INDICATOR,TIME_PERIOD,OBS_VALUE\nd,OMN,CME_MRY0T4,2023,10.39\nd,AUREC_EAC,CME_MRY0T4,2023,50\nd,OMN,OTHER,2023,1\nd,OMN,CME_MRM0,x,3\n"));
+        $c = new UnicefMortalityConnector;
+
+        $this->assertSame(['unicef.under5_mortality|OMN|2023|10.39'], $this->records($c->parse($c->fetch())));
+    }
+
+    public function test_us_market_connectors_parse_their_sources(): void
+    {
+        $this->freshHttp();
+        Http::fake(function ($request) {
+            $u = $request->url();
+            if (str_contains($u, 'cdn.cboe.com') && str_contains($u, 'DJX')) {
+                return Http::response("DATE,DJX\n10/16/2026,520.02\n");
+            }
+            if (str_contains($u, 'cdn.cboe.com') && str_contains($u, 'VIX')) {
+                return Http::response("DATE,OPEN,HIGH,LOW,CLOSE\n10/16/2026,16.02,22.31,15.72,19.99\n");
+            }
+            if (str_contains($u, 'cdn.cboe.com')) {
+                return Http::response("DATE,SPX\n10/16/2026,7659.44\n");
+            }
+            if (str_contains($u, 'newyorkfed')) {
+                return Http::response(['refRates' => [['effectiveDate' => '2026-10-15', 'type' => 'EFFR', 'percentRate' => 3.88, 'targetRateFrom' => 3.75, 'targetRateTo' => 4.0]]]);
+            }
+            if (str_contains($u, 'bls.gov')) {
+                return Http::response(['status' => 'REQUEST_SUCCEEDED', 'Results' => ['series' => [['seriesID' => 'CUUR0000SA0', 'data' => [['year' => '2026', 'period' => 'M09', 'value' => '336.94'], ['year' => '2025', 'period' => 'M09', 'value' => '321.0'], ['year' => '2026', 'period' => 'M13', 'value' => '1']]]]]]);
+            }
+
+            return Http::response(['data' => [['record_date' => '2026-10-15', 'tot_pub_debt_out_amt' => '40388317675071.91', 'security_desc' => 'Treasury Bills', 'avg_interest_rate_amt' => '3.870', 'classification_desc' => 'Customs Duties', 'current_month_gross_rcpt_amt' => '25271564478.23']], 'meta' => ['total-pages' => 1]]);
+        });
+
+        $cboe = $this->records((new CboeIndicesConnector)->parse((new CboeIndicesConnector)->fetch()));
+        $fed = $this->records((new NyFedRatesConnector)->parse((new NyFedRatesConnector)->fetch()));
+        $bls = $this->records((new BlsUsEconomyConnector)->parse((new BlsUsEconomyConnector)->fetch()));
+        $fiscal = $this->records((new UsTreasuryFiscalConnector)->parse((new UsTreasuryFiscalConnector)->fetch()));
+
+        $this->assertContains('us.djia|USA|2026-10-16|52002', $cboe);
+        $this->assertContains('us.vix_high|USA|2026-10-16|22.31', $cboe);
+        $this->assertContains('us.fed_target_upper|USA|2026-10-15|4', $fed);
+        $this->assertContains('us.cpi_yoy|USA|2026-09|4.97', $bls);
+        $this->assertContains('us.public_debt|USA|2026-10-15|40388317675072', $fiscal);
+        $this->assertContains('us.receipts_customs|USA|2026-10|25271564478.23', $fiscal);
     }
 
     public function test_imf_cpi_reads_monthly_periods_for_the_chosen_categories_only(): void

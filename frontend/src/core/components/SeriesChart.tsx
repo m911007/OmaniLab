@@ -8,6 +8,7 @@ import { ColumnChartView } from './ColumnChartView';
 import { useOilOverlay } from '../oilOverlay';
 import { LineChartView } from './LineChartView';
 import { Empty, ErrorState, Loading } from './States';
+import { Segmented } from './Segmented';
 import { SourcesPanel } from './SourcesPanel';
 
 interface Props {
@@ -32,12 +33,34 @@ interface Props {
   primary?: string;
   /** يرسم سعر النفط خطًا متقطعًا على محور ثانوي (للمؤشرات الحسّاسة لأسعار النفط) */
   oil?: boolean;
+  /** مفاتيح نطاق زمني (آخر شهر/سنة…) بدل from الثابت؛ تُحسب البداية من آخر تاريخ */
+  ranges?: readonly RangeOption[];
+  /** نطاق ابتدائي من ranges (القيمة) */
+  defaultRange?: string;
+  /** يمتد على عرض الشبكة كلها */
+  wide?: boolean;
+}
+
+export interface RangeOption {
+  value: string;
+  label: string;
+  /** عدد الأشهر الأخيرة، أو 0 للتاريخ كله */
+  months: number;
 }
 
 /** مخطط معرَّف بالتكوين: يجلب خطوطه ويرسمها مع مصدرها وحداثتها وجدولها البديل. هكذا تُضاف الرسوم دون كود رسم جديد. */
-export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, imfForecast, forecastFromYear, note, callout, height, last, explain, primary: primaryCode = 'OMN', oil: showOil = false }: Props) {
+export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, imfForecast, forecastFromYear, note, callout, height, last, explain, primary: primaryCode = 'OMN', oil: showOil = false, ranges, defaultRange, wide }: Props) {
   const oilOverlay = useOilOverlay(showOil);
-  const range = useMemo(() => ({ from, to }), [from, to]);
+  const [rangeKey, setRangeKey] = useState<string>(defaultRange ?? ranges?.[0]?.value ?? '');
+  const rangeFrom = useMemo(() => {
+    const r = ranges?.find((x) => x.value === rangeKey);
+    if (!r) return from;
+    if (r.months === 0) return undefined;
+    const d = new Date();
+    d.setMonth(d.getMonth() - r.months);
+    return d.toISOString().slice(0, 7);
+  }, [ranges, rangeKey, from]);
+  const range = useMemo(() => ({ from: rangeFrom, to }), [rangeFrom, to]);
   const omanLines = useMemo(() => lines.filter((l) => l.entity === primaryCode), [lines, primaryCode]);
   // الرسم الذي فيه عُمان ودول أخرى يبدأ بعُمان وحدها، ويتيح «مقارنة» بالدول (الجاهزة وما يضيفه القارئ) و«جدول».
   const comparable = omanLines.length > 0 && lines.some((l) => l.entity !== primaryCode);
@@ -61,9 +84,9 @@ export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, i
   const { indicators } = primary;
   const series = useMemo<SeriesItem[]>(() => {
     if (!altSource) return primary.series;
-    const from0 = from ?? '0000';
+    const from0 = rangeFrom ?? '0000';
     return [{ id: altSource.indicator, label: primary.series[0]?.label ?? 'عُمان', color: primary.series[0]?.color ?? 'var(--series-1)', points: altSource.points.filter((p) => p[0] >= from0 && (!to || p[0] <= to)) }];
-  }, [altSource, primary.series, from, to]);
+  }, [altSource, primary.series, rangeFrom, to]);
   const datasets = altSource ? [altSource.dataset] : primary.datasets;
   // الجدول يحمل كل الخطوط، لذا يُجلب ما يلزمه عند فتحه.
   const tableSource = useLines(comparable && view === 'table' ? compareLines : [], range);
@@ -111,6 +134,8 @@ export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, i
       note={note}
       callout={callout}
       explain={explanation ?? undefined}
+      wide={wide}
+      actions={ranges ? <Segmented label="النطاق الزمني" value={rangeKey} onChange={setRangeKey} options={ranges.map((r) => ({ value: r.value, label: r.label }))} /> : undefined}
       views={views}
       defaultView={comparable ? 'oman' : 'chart'}
       onViewChange={setView}

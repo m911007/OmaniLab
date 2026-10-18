@@ -29,14 +29,17 @@ final class WikidataFirmsConnector extends ApiConnector
 
     private const API = 'https://www.wikidata.org/w/api.php';
 
-    /** عدد الشرائح؛ والجولة كل ساعة، فتكتمل الدورة خلال 12 ساعة. */
-    public const SLICES = 12;
+    /** عدد الشرائح؛ والجولة كل ساعة، فتكتمل الدورة خلال يومين (شرائح صغيرة كي لا تتجاوز الجولة مهلة العامل). */
+    public const SLICES = 48;
 
     /** أنواع الكيان المقبولة (instance of). */
     private const CLASSES = ['Q4830453', 'Q783794', 'Q891723', 'Q6881511', 'Q167037', 'Q778575', 'Q161726', 'Q270791', 'Q22687', 'Q46970', 'Q786820', 'Q1058914', 'Q1616075', 'Q3895768', 'Q43229'];
 
     /** سقف الشركات لكل دولة في الجولة (الدول الكبرى فيها عشرات الآلاف). */
-    private const PER_COUNTRY = 2500;
+    private const PER_COUNTRY = 1500;
+
+    /** ميزانية زمنية للجولة بالثواني: بعدها تتوقف المعالجة وتُحفظ ما جُمع (مهلة العامل 40 دقيقة). */
+    private const BUDGET = 1500;
 
     public function queue(): string
     {
@@ -114,6 +117,7 @@ final class WikidataFirmsConnector extends ApiConnector
 
     public function fetch(): RawPayload
     {
+        $startedAt = time();
         $countries = $this->countries();
         $slice = intdiv(time(), 3600) % self::SLICES;
         $chosen = [];
@@ -129,6 +133,9 @@ final class WikidataFirmsConnector extends ApiConnector
         $failed = 0;
         $classes = implode(' ', array_map(fn (string $c) => "wd:{$c}", self::CLASSES));
         foreach ($chosen as $iso => $qid) {
+            if (time() - $startedAt > self::BUDGET) {
+                break;
+            }
             $q = "SELECT DISTINCT ?c WHERE { VALUES ?cls { {$classes} } ?c wdt:P31 ?cls ; wdt:P17 wd:{$qid} . FILTER(EXISTS{?c wdt:P1128 []} || EXISTS{?c wdt:P2139 []} || EXISTS{?c wdt:P414 []} || EXISTS{?c wdt:P2226 []}) } LIMIT ".self::PER_COUNTRY;
             try {
                 $ids = array_values(array_unique(array_map(fn ($r) => basename($r['c']['value']), $this->sparql($q))));
@@ -149,6 +156,9 @@ final class WikidataFirmsConnector extends ApiConnector
         $firms = [];
         $linked = [];
         foreach (array_chunk($all, 50) as $chunk) {
+            if (time() - $startedAt > self::BUDGET + 600) {
+                break;
+            }
             try {
                 $details = $this->entities($chunk, 'labels|claims|sitelinks');
             } catch (\Throwable) {

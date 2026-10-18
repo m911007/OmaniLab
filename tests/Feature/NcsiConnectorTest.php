@@ -7,6 +7,7 @@ use App\Core\Ingestion\Data\RawPayload;
 use App\Modules\Ncsi\Connectors\NcsiLabourConnector;
 use App\Modules\Ncsi\Connectors\NcsiNationalAccountsConnector;
 use App\Modules\Ncsi\Connectors\NcsiPricesConnector;
+use App\Modules\Ncsi\Connectors\NcsiPublicFinanceConnector;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use RuntimeException;
@@ -131,5 +132,15 @@ class NcsiConnectorTest extends TestCase
         $keys = array_map(fn (ParsedRecord $r) => "{$r->indicatorKey}|{$r->period}", $records);
 
         $this->assertEqualsCanonicalizing(['ncsi.LAB_PRIVATE_OMANI|2020', 'ncsi.LAB_WORKERS_TOTAL|2019', 'ncsi.LAB_WORKERS_TOTAL|2020'], $keys);
+    }
+
+    public function test_public_finance_normalises_mixed_units_to_million_omr(): void
+    {
+        $points = [['2003', 61_521_900.0], ['2021', 600_000_000.0], ['2022', 14_472_537_757.0], ['2023', 12_542.4], ['2024', 677_889.1], ['2025', 0.0]];
+
+        $out = NcsiPublicFinanceConnector::normalise($points);
+
+        $this->assertSame([61.522, 600.0, 14472.538, 12542.4], array_map(fn ($p) => $p[1], array_slice($out, 0, 4)));
+        $this->assertSame(0.0, $out[5][1]);
     }
 }

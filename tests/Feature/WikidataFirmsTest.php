@@ -31,7 +31,7 @@ class WikidataFirmsTest extends TestCase
                 'P159' => [$this->claim(['id' => 'Q2'])],
             ],
         ];
-        $countries = ['results' => ['bindings' => array_map(fn ($i) => ['c' => ['value' => "http://www.wikidata.org/entity/Q{$i}"], 'iso' => ['value' => 'C'.str_pad((string) $i, 2, '0', STR_PAD_LEFT)]], range(1, 12))]];
+        $countries = ['results' => ['bindings' => array_map(fn ($i) => ['c' => ['value' => "http://www.wikidata.org/entity/Q{$i}"], 'iso' => ['value' => 'C'.str_pad((string) $i, 2, '0', STR_PAD_LEFT)]], range(1, 48))]];
         Http::fake(function ($request) use ($countries, $firm) {
             $url = $request->url();
             if (str_contains($url, 'query.wikidata.org')) {

@@ -36,6 +36,8 @@ interface Props {
   actions?: ReactNode;
   /** شرح الرسم لغير المتخصصين؛ يظهر زر «ما معنى هذا الرسم؟» ويحلّ الشرح محل الرسم بزر للعودة */
   explain?: Explanation;
+  /** يمتد الرسم على عرض الشبكة كلها (للمخططات الطويلة الزمن) */
+  wide?: boolean;
 }
 
 /** تنزيل جدول المخطط كملف CSV (بعلامة UTF-8 كي يفتحه Excel بالعربية سليمًا). */
@@ -49,7 +51,7 @@ function downloadCsv(title: string, table: TableData): void {
   URL.revokeObjectURL(url);
 }
 
-export function ChartCard({ title, subtitle, datasets, children, table, note, callout, actions, views, defaultView, extra, onViewChange, explain: defaultExplain }: Props) {
+export function ChartCard({ title, subtitle, datasets, children, table, note, callout, actions, views, defaultView, extra, onViewChange, explain: defaultExplain, wide }: Props) {
   const [explaining, setExplaining] = useState(false);
   const [tools, setTools] = useState(false);
   const { user } = useAuth();
@@ -62,7 +64,7 @@ export function ChartCard({ title, subtitle, datasets, children, table, note, ca
   ];
   const [view, setView] = useState<string>(defaultView ?? options[0].value);
   return (
-    <section className="card" aria-label={title}>
+    <section className="card" aria-label={title} style={wide ? { gridColumn: '1 / -1' } : undefined}>
       <div className="card-head">
         <div>
           <h3 className="card-title">{title}</h3>

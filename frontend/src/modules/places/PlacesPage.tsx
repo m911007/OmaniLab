@@ -14,6 +14,7 @@ const GROUPS = [
   { id: 'education', label: 'المؤسسات التعليمية', lead: 'الجامعات والكليات والمدارس ورياض الأطفال والمكتبات ومراكز البحث، ومعها مؤشرات الالتحاق والإنفاق والمخرجات.' },
   { id: 'health', label: 'المؤسسات الصحية', lead: 'المستشفيات والمراكز الصحية، ومعها مؤشرات القدرة الصحية والإنفاق.' },
   { id: 'resources', label: 'الموارد والبنية التحتية', lead: 'مرافق النفط والغاز والمحاجر ومحطات الطاقة والتحلية والسدود والموانئ والمطارات والمحميات، ومعها ريوع الموارد والمياه والزراعة والأسماك.' },
+  { id: 'industry', label: 'المصانع والإنتاج', lead: 'المصانع والمناطق الصناعية والصناعات الثقيلة ومزارع الاستزراع السمكي والمزارع والماشية، كما هي مسجّلة في الخريطة المفتوحة (تغطية تطوعية، وقد تقل عن الإحصاءات الرسمية)، مع مؤشرات القيمة المضافة للصناعة والتصنيع.' },
 ] as const;
 
 type GroupId = (typeof GROUPS)[number]['id'];
@@ -185,6 +186,17 @@ function Indicators({ group }: { group: GroupId }) {
         <SeriesChart title="التحصين بالجرعة الثالثة من اللقاح الثلاثي (%)" lines={peerLines('who.dtp3')} from="2000" />
         <SeriesChart title="انتشار ارتفاع ضغط الدم (%)" lines={peerLines('who.hypertension')} from="1995" />
         <SeriesChart title="انتشار التدخين الحالي (%)" lines={peerLines('who.tobacco')} from="2000" />
+      </Section>
+    );
+  }
+  if (group === 'industry') {
+    return (
+      <Section title="مؤشرات الصناعة والتصنيع" lead="القيمة المضافة والصادرات الصناعية مقارنةً بدول الخليج؛ والمنشآت والعاملون من المركز الوطني للإحصاء.">
+        <SeriesChart title="القيمة المضافة للتصنيع (% من الناتج)" lines={gccLines('wb.NV.IND.MANF.ZS')} from="1995" />
+        <SeriesChart title="القيمة المضافة للصناعة (% من الناتج)" lines={gccLines('wb.NV.IND.TOTL.ZS')} from="1995" />
+        <SeriesChart title="صادرات السلع الصناعية (% من صادرات السلع)" lines={peerLines('wb.TX.VAL.MANF.ZS.UN')} from="1995" />
+        <SeriesChart title="منشآت الصناعة التحويلية والعاملون فيها (عُمان)" kind="columns" lines={[{ indicator: 'ncsi.EST_MANUFACTURING', entity: 'OMN', label: 'منشآت' }, { indicator: 'ncsi.EST_MANUF_WORKERS', entity: 'OMN', label: 'عاملون' }]} />
+        <SeriesChart title="الاستزراع السمكي (عُمان)" subtitle="طن" kind="columns" lines={[{ indicator: 'ncsi.FISH_AQUACULTURE', entity: 'OMN', label: 'استزراع' }]} />
       </Section>
     );
   }

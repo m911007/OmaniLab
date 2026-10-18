@@ -25,3 +25,19 @@ describe('ألوان الكيانات', () => {
     expect(new Set(Object.values(c)).size).toBe(3);
   });
 });
+
+import { assignLineColors } from '@/core/colors';
+
+describe('assignLineColors', () => {
+  it('يعطي خطوط الكيان الواحد ألوانًا مختلفة', () => {
+    const c = assignLineColors([{ entity: 'OMN' }, { entity: 'OMN' }, { entity: 'OMN' }, { entity: 'OMN' }]);
+    expect(new Set(c).size).toBe(4);
+  });
+  it('يتخطى الألوان الصريحة', () => {
+    const c = assignLineColors([{ entity: 'OMN', color: 'var(--series-1)' }, { entity: 'OMN' }, { entity: 'OMN' }]);
+    expect(c).toEqual(['var(--series-1)', 'var(--series-2)', 'var(--series-3)']);
+  });
+  it('يبقي لون الكيان عند اختلاف الكيانات', () => {
+    expect(assignLineColors([{ entity: 'SAU' }, { entity: 'OMN' }])).toEqual(['var(--series-3)', 'var(--series-1)']);
+  });
+});

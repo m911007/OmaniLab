@@ -33,6 +33,11 @@ const CountriesPage = lazy(() => import('@/modules/countries/CountriesPage'));
 const DigitalPage = lazy(() => import('@/modules/digital/DigitalPage'));
 const WorldFirmsPage = lazy(() => import('@/modules/firms/WorldFirmsPage'));
 const FirmDetailPage = lazy(() => import('@/modules/firms/FirmDetailPage'));
+const UsMarketsPage = lazy(() => import('@/modules/usmarkets/UsMarketsPage'));
+const PricesNowPage = lazy(() => import('@/modules/prices/PricesNowPage'));
+const AgriculturePage = lazy(() => import('@/modules/agriculture/AgriculturePage'));
+const OmanPricesPage = lazy(() => import('@/modules/omanprices/OmanPricesPage'));
+const IncomeSourcesPage = lazy(() => import('@/modules/income/IncomeSourcesPage'));
 const GovernancePage = lazy(() => import('@/modules/governance/GovernancePage'));
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: false } } });
@@ -60,6 +65,11 @@ export function App() {
               <Route path="digital" element={<DigitalPage />} />
               <Route path="world-companies" element={<WorldFirmsPage />} />
               <Route path="world-companies/:code" element={<FirmDetailPage />} />
+              <Route path="us-markets" element={<UsMarketsPage />} />
+              <Route path="prices" element={<PricesNowPage />} />
+              <Route path="agriculture" element={<AgriculturePage />} />
+              <Route path="oman-prices" element={<OmanPricesPage />} />
+              <Route path="income-sources" element={<IncomeSourcesPage />} />
               <Route path="oman" element={<OmanEconomyPage />} />
               <Route path="gcc" element={<GccPage />} />
               <Route path="peers" element={<PeersPage />} />

@@ -32,6 +32,10 @@ final class EiaSpotPricesConnector extends ApiConnector
         'RBRTE' => ['eia.brent', 'خام برنت', 'Brent crude', 'دولار/برميل', 'oil', 500],
         'RWTC' => ['eia.wti', 'خام غرب تكساس', 'WTI crude', 'دولار/برميل', 'oil', 500],
         'RNGWHHD' => ['eia.henryhub', 'غاز هنري هب', 'Henry Hub natural gas', 'دولار/مليون وحدة حرارية', 'gas', 100],
+        'EER_EPD2DXL0_PF4_Y35NY_DPG' => ['eia.diesel_ny', 'الديزل (نيويورك هاربر ULSD)', 'Diesel (NY Harbor ULSD)', 'دولار/جالون', 'oil', 20],
+        'EER_EPMRU_PF4_Y35NY_DPG' => ['eia.gasoline_ny', 'البنزين (نيويورك هاربر)', 'Gasoline (NY Harbor)', 'دولار/جالون', 'oil', 20],
+        'EER_EPJK_PF4_RGC_DPG' => ['eia.jet_fuel', 'وقود الطائرات (ساحل الخليج)', 'Jet fuel (US Gulf Coast)', 'دولار/جالون', 'oil', 20],
+        'EER_EPLLPA_PF4_Y44MB_DPG' => ['eia.propane', 'البروبان (مونت بيلفيو)', 'Propane (Mont Belvieu)', 'دولار/جالون', 'oil', 20],
     ];
 
     public function definition(): DatasetDefinition

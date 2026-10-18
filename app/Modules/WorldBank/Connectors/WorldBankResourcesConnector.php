@@ -44,6 +44,9 @@ final class WorldBankResourcesConnector extends WorldBankConnector
             WbIndicator::share('ER.H2O.FWIN.ZS', 'سحب المياه العذبة للصناعة', 'Freshwater withdrawals: industry', '% من إجمالي السحب'),
             WbIndicator::level('ER.FSH.CAPT.MT', 'صيد الأسماك البري', 'Capture fisheries production', 'طن'),
             WbIndicator::level('ER.FSH.PROD.MT', 'إجمالي إنتاج الأسماك', 'Total fisheries production', 'طن'),
+            WbIndicator::share('NE.CON.PRVT.ZS', 'الاستهلاك الأسري', 'Household final consumption', '% من الناتج'),
+            WbIndicator::share('ST.INT.RCPT.XP.ZS', 'إيرادات السياحة الدولية', 'International tourism receipts', '% من الصادرات'),
+            WbIndicator::ratio('BX.TRF.PWKR.DT.GD.ZS', 'تحويلات العاملين الواردة', 'Personal remittances received', '% من الناتج'),
             WbIndicator::level('AG.PRD.CREL.MT', 'إنتاج الحبوب', 'Cereal production', 'طن'),
         ];
     }

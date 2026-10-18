@@ -11,6 +11,7 @@ return [
         'education' => 'المؤسسات التعليمية',
         'health' => 'المؤسسات الصحية',
         'resources' => 'الموارد الطبيعية والبنية التحتية',
+        'industry' => 'المصانع والمناطق الصناعية والإنتاج',
     ],
     'categories' => [
         'gov_office' => ['group' => 'government', 'ar' => 'دوائر ومكاتب حكومية', 'en' => 'Government offices', 'filter' => ['["office"="government"]']],
@@ -38,5 +39,11 @@ return [
         'port' => ['group' => 'resources', 'ar' => 'الموانئ', 'en' => 'Ports', 'filter' => ['["landuse"="port"]', '["harbour"="yes"]', '["industrial"="port"]']],
         'airport' => ['group' => 'resources', 'ar' => 'المطارات', 'en' => 'Airports', 'filter' => ['["aeroway"="aerodrome"]']],
         'protected_area' => ['group' => 'resources', 'ar' => 'المحميات الطبيعية', 'en' => 'Protected areas', 'filter' => ['["boundary"="protected_area"]', '["boundary"="national_park"]', '["leisure"="nature_reserve"]']],
+        'factory' => ['group' => 'industry', 'ar' => 'المصانع والمنشآت الإنتاجية', 'en' => 'Factories and works', 'filter' => ['["man_made"="works"]', '["industrial"="factory"]', '["building"="industrial"]["name"]']],
+        'industrial_zone' => ['group' => 'industry', 'ar' => 'المناطق الصناعية', 'en' => 'Industrial zones', 'filter' => ['["landuse"="industrial"]["name"]', '["industrial"="industrial_park"]']],
+        'heavy_industry' => ['group' => 'industry', 'ar' => 'الصناعات الثقيلة (إسمنت، أسمدة، كيماويات، حديد، ألمنيوم)', 'en' => 'Heavy industry', 'filter' => ['["industrial"~"^(cement|chemical|fertilizer|steel|aluminium|metal)$"]'], 'allow_unnamed' => true],
+        'fish_farm' => ['group' => 'industry', 'ar' => 'مزارع الاستزراع السمكي', 'en' => 'Aquaculture farms', 'filter' => ['["landuse"="aquaculture"]', '["man_made"="fish_farm"]'], 'allow_unnamed' => true],
+        'farm' => ['group' => 'industry', 'ar' => 'المزارع ومشاريع الإنتاج الزراعي', 'en' => 'Farms', 'filter' => ['["landuse"="farmyard"]["name"]', '["place"="farm"]', '["industrial"="agricultural"]']],
+        'livestock' => ['group' => 'industry', 'ar' => 'مزارع الماشية والدواجن', 'en' => 'Livestock and poultry farms', 'filter' => ['["building"="barn"]["name"]', '["building"="stable"]["name"]', '["industrial"="livestock"]']],
     ],
 ];
