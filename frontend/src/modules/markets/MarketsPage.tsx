@@ -11,6 +11,9 @@ import { Link } from 'react-router-dom';
 import { flagOf, incomeLabel, regionLabel } from '@/modules/countries/labels';
 import type { LineSpec } from '@/core/hooks';
 import { lastActualYear } from '@/core/lines';
+import { FirmTable } from '@/modules/firms/WorldFirmsPage';
+import { useFirms } from '@/core/hooks';
+import { AllIndicators } from './AllIndicators';
 import { TradePartnersCard } from './TradePartnersCard';
 
 const A = lastActualYear();
@@ -98,6 +101,10 @@ export default function MarketsPage() {
       </Section>
 
       {code !== 'OMN' && <TradeWithOman code={code} name={name} />}
+
+      <TopFirms code={code} name={name} />
+
+      <AllIndicators code={code} name={name} />
     </>
   );
 }
@@ -125,5 +132,21 @@ function TradeWithOman({ code, name }: { code: string; name: string }) {
         last={4}
       />
     </Section>
+  );
+}
+
+/** أكبر شركات الدولة (بعدد العاملين) من الشركات العالمية؛ لا يظهر القسم إن لم تُجلب شركاتها بعد. */
+function TopFirms({ code, name }: { code: string; name: string }) {
+  const { data } = useFirms({ country: code, sort: 'employees', page: 1, per_page: 8 });
+  if (!data || data.total === 0) return null;
+  return (
+    <section className="section card">
+      <div className="card-head">
+        <h2>أكبر شركات {name}</h2>
+        <Link to="/world-companies">كل الشركات العالمية ←</Link>
+      </div>
+      <FirmTable rows={data.data} />
+      <p className="source-note">{data.total} شركة موثّقة في ويكيداتا لهذه الدولة، مرتبة بعدد العاملين.</p>
+    </section>
   );
 }

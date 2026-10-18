@@ -30,6 +30,9 @@ const LoginPage = lazy(() => import('@/modules/account/LoginPage'));
 const RequestsPage = lazy(() => import('@/modules/account/RequestsPage'));
 const PlacesPage = lazy(() => import('@/modules/places/PlacesPage'));
 const CountriesPage = lazy(() => import('@/modules/countries/CountriesPage'));
+const DigitalPage = lazy(() => import('@/modules/digital/DigitalPage'));
+const WorldFirmsPage = lazy(() => import('@/modules/firms/WorldFirmsPage'));
+const FirmDetailPage = lazy(() => import('@/modules/firms/FirmDetailPage'));
 const GovernancePage = lazy(() => import('@/modules/governance/GovernancePage'));
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: false } } });
@@ -54,6 +57,9 @@ export function App() {
               <Route path="requests" element={<RequestsPage />} />
               <Route path="institutions" element={<PlacesPage />} />
               <Route path="countries" element={<CountriesPage />} />
+              <Route path="digital" element={<DigitalPage />} />
+              <Route path="world-companies" element={<WorldFirmsPage />} />
+              <Route path="world-companies/:code" element={<FirmDetailPage />} />
               <Route path="oman" element={<OmanEconomyPage />} />
               <Route path="gcc" element={<GccPage />} />
               <Route path="peers" element={<PeersPage />} />

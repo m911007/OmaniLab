@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\V1\CrossCheckController;
 use App\Http\Controllers\Api\V1\DatasetController;
 use App\Http\Controllers\Api\V1\EntityController;
 use App\Http\Controllers\Api\V1\InsightController;
+use App\Http\Controllers\Api\V1\FirmController;
 use App\Http\Controllers\Api\V1\ObservationController;
 use App\Http\Controllers\Api\V1\OverviewController;
 use App\Http\Controllers\Api\V1\PlaceController;
@@ -26,6 +27,7 @@ Route::prefix('v1')->middleware('throttle:600,1')->group(function () {
     Route::get('observations', [ObservationController::class, 'index']);
     Route::get('entities', [EntityController::class, 'index']);
     Route::get('entities/{code}/latest', [EntityController::class, 'latest']);
+    Route::get('entities/{code}/indicators', [EntityController::class, 'indicators']);
     Route::get('rankings', [RankingController::class, 'index']);
     Route::get('relations', [RelationController::class, 'index']);
     Route::get('relations/series', [RelationController::class, 'series']);
@@ -37,6 +39,9 @@ Route::prefix('v1')->middleware('throttle:600,1')->group(function () {
     Route::get('countries/directory', [CountryDirectoryController::class, 'index']);
     Route::get('places/stats', [PlaceController::class, 'stats']);
     Route::get('places', [PlaceController::class, 'index']);
+    Route::get('firms/stats', [FirmController::class, 'stats']);
+    Route::get('firms', [FirmController::class, 'index']);
+    Route::get('firms/{code}', [FirmController::class, 'show'])->where('code', 'Q[0-9]+');
     Route::get('companies', [CompanyController::class, 'index']);
     Route::get('companies/stats', [CompanyController::class, 'stats']);
     Route::get('companies/{code}', [CompanyController::class, 'show']);

@@ -2,10 +2,12 @@
 
 use App\Modules\Climate\Connectors\OpenMeteoClimateConnector;
 use App\Modules\Places\Connectors\OsmPlacesConnector;
+use App\Modules\Firms\Connectors\WikidataFirmsConnector;
 use App\Modules\Companies\Connectors\GleifLeiCountsConnector;
 use App\Modules\Companies\Connectors\GleifOmanConnector;
 use App\Modules\Comtrade\Connectors\ComtradeProductsConnector;
 use App\Modules\Fao\Connectors\FaoFoodSecurityConnector;
+use App\Modules\Fao\Connectors\FaoProductionConnector;
 use App\Modules\Gcc\Connectors\GccStatEconomyConnector;
 use App\Modules\Gcc\Connectors\GccStatEnergyTourismConnector;
 use App\Modules\Gcc\Connectors\GccStatSocietyConnector;
@@ -56,6 +58,7 @@ use App\Modules\WorldBank\Connectors\WorldBankDigitalConnector;
 use App\Modules\WorldBank\Connectors\WorldBankEnvironmentConnector;
 use App\Modules\WorldBank\Connectors\WorldBankExtraConnector;
 use App\Modules\WorldBank\Connectors\WorldBankFindexConnector;
+use App\Modules\WorldBank\Connectors\WorldBankIctConnector;
 use App\Modules\WorldBank\Connectors\WorldBankInvestmentConnector;
 use App\Modules\WorldBank\Connectors\WorldBankPurchasingPowerConnector;
 use App\Modules\WorldBank\Connectors\WorldBankResourcesConnector;
@@ -125,6 +128,7 @@ return [
         UndpHdrConnector::class,
         OsmPlacesConnector::class,
         GleifOmanConnector::class,
+        WikidataFirmsConnector::class,
         GleifLeiCountsConnector::class,
         ManafethPartnersConnector::class,
         ImfCommodityPricesConnector::class,
@@ -150,12 +154,14 @@ return [
         WorldBankInvestmentConnector::class,
         WorldBankResourcesConnector::class,
         WorldBankFindexConnector::class,
+        WorldBankIctConnector::class,
         WorldBankProjectionsConnector::class,
         OwidEnergyConnector::class,
         OwidIndicesConnector::class,
         OecComplexityConnector::class,
         OecProductsConnector::class,
         FaoFoodSecurityConnector::class,
+        FaoProductionConnector::class,
         UnescoUisConnector::class,
         ComtradeProductsConnector::class,
     ],

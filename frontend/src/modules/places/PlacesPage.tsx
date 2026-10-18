@@ -211,6 +211,14 @@ function Indicators({ group }: { group: GroupId }) {
         <SeriesChart title="إنتاج الحبوب (طن)" lines={gccLines('wb.AG.PRD.CREL.MT')} from="1990" />
         <SeriesChart title="المناطق المحمية (% من المساحة)" lines={peerLines('wb.ER.PTD.TOTL.ZS')} from="1990" />
       </Section>
+      <Section title="الإنتاج الزراعي والحيواني في عُمان (FAO)" lead="النخيل والخضار والفاكهة والحليب واللحوم، وأعداد الثروة الحيوانية.">
+        <SeriesChart title="إنتاج التمور (طن)" lines={gccLines('fao.prod_dates')} from="1990" />
+        <SeriesChart title="إنتاج الخضروات والفاكهة في عُمان (طن)" lines={[{ indicator: 'fao.prod_vegetables', entity: 'OMN', label: 'خضروات' }, { indicator: 'fao.prod_fruit', entity: 'OMN', label: 'فاكهة' }]} from="1990" />
+        <SeriesChart title="الإنتاج الحيواني في عُمان (طن)" lines={[{ indicator: 'fao.prod_milk', entity: 'OMN', label: 'حليب' }, { indicator: 'fao.prod_meat', entity: 'OMN', label: 'لحوم' }, { indicator: 'fao.prod_eggs', entity: 'OMN', label: 'بيض' }]} from="1990" />
+        <SeriesChart title="الثروة الحيوانية في عُمان (رأس)" lines={[{ indicator: 'fao.stock_goats', entity: 'OMN', label: 'ماعز' }, { indicator: 'fao.stock_sheep', entity: 'OMN', label: 'أغنام' }, { indicator: 'fao.stock_cattle', entity: 'OMN', label: 'أبقار' }, { indicator: 'fao.stock_camels', entity: 'OMN', label: 'إبل' }]} from="1990" />
+        <SeriesChart title="غلة نخيل التمر (كغم/هكتار)" lines={gccLines('fao.yield_dates')} from="1990" />
+        <SeriesChart title="مساحة حصاد التمور (هكتار)" lines={gccLines('fao.area_dates')} from="1990" />
+      </Section>
     </>
   );
 }

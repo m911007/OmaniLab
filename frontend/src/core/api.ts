@@ -344,3 +344,62 @@ export interface DirectoryRow {
   iso2: string | null;
   values: Partial<Record<string, DirectoryValue>>;
 }
+
+export interface EntityIndicator {
+  key: string;
+  name_ar: string;
+  unit: string | null;
+  frequency: 'A' | 'Q' | 'M' | 'D';
+  dataset: { key: string; name_ar: string };
+  period: string;
+  value: number;
+}
+
+export interface Money {
+  amount: number;
+  currency: string | null;
+  year: string | null;
+}
+
+export interface FirmRow {
+  code: string;
+  name_en: string;
+  name_ar: string | null;
+  country?: string;
+  employees?: number;
+  revenue?: Money;
+  assets?: Money;
+  market_cap?: Money;
+  industry?: string[];
+  industry_ar?: string[];
+  hq?: string;
+  hq_ar?: string;
+  inception?: string;
+  ticker?: string;
+  exchange?: string[];
+  website?: string;
+  logo?: string;
+  ceo?: string;
+  parent?: string;
+  parent_ar?: string;
+  legal_form?: string;
+  lei?: string;
+  wikipedia_en?: string;
+  wikipedia_ar?: string;
+  wikidata_url?: string;
+}
+
+export interface FirmsResponse {
+  total: number;
+  page: number;
+  per_page: number;
+  data: FirmRow[];
+  dataset: Dataset | null;
+}
+
+export interface FirmStats {
+  total: number;
+  countries: { code: string; name_ar: string | null; name_en: string; count: number }[];
+  industries: { name: string; count: number }[];
+  dataset: Dataset | null;
+}

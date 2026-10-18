@@ -158,16 +158,38 @@ export default function IndicesPage() {
         </select>
         <input type="search" placeholder="ابحث باسم المؤشر أو الجهة…" value={q} onChange={(e) => setQ(e.target.value)} aria-label="بحث" />
       </div>
-      {group !== 'all' && <p className="lead">{INDEX_GROUPS.find((g) => g.id === group)?.sub}</p>}
 
       {items.length === 0 ? (
         <Empty />
       ) : (
-        <div className="grid cols-2 gidx-grid">
-          {items.map((i) => (
-            <IndexCard key={i.slug} i={i} />
-          ))}
-        </div>
+        INDEX_GROUPS.map((g) => {
+          const rows = items.filter((i) => i.group === g.id);
+          if (rows.length === 0) {
+            return null;
+          }
+          const ranked = rows.filter((i) => standingPct(i) != null);
+          const avgG = ranked.length ? Math.round(ranked.reduce((acc, i) => acc + (standingPct(i) ?? 0), 0) / ranked.length) : null;
+          return (
+            <section key={g.id} className="section" aria-labelledby={`gi-${g.id}`}>
+              <div className="card-head">
+                <div>
+                  <h2 id={`gi-${g.id}`}>{g.title}</h2>
+                  <p className="lead" style={{ margin: 0 }}>{g.sub}</p>
+                </div>
+                {avgG != null && (
+                  <span className="chip neutral" title="متوسط ما تتفوق عليه عُمان من الدول في مؤشرات هذا القطاع">
+                    متوسط الموقع <span className="num">{avgG}%</span> · <span className="num">{rows.length}</span> مؤشرًا
+                  </span>
+                )}
+              </div>
+              <div className="grid cols-2 gidx-grid">
+                {rows.map((i) => (
+                  <IndexCard key={i.slug} i={i} />
+                ))}
+              </div>
+            </section>
+          );
+        })
       )}
 
       <section className="section card method">

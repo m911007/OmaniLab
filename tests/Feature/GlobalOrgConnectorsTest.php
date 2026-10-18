@@ -151,6 +151,14 @@ class GlobalOrgConnectorsTest extends TestCase
         $this->assertSame(['fx.usd_inr|USA|2026-10-16|94.96'], $records);
     }
 
+    public function test_fao_production_parses_item_element_pairs_and_ignores_unknown_ones(): void
+    {
+        $c = new \App\Modules\Fao\Connectors\FaoProductionConnector;
+        $payload = new \App\Core\Ingestion\Data\RawPayload(json_encode([['577|5510', 'OMN', '2024', '394946'], ['999|5510', 'OMN', '2024', '1'], ['1126|5111', 'OMN', '2023', '300000']]));
+
+        $this->assertSame(['fao.prod_dates|OMN|2024|394946', 'fao.stock_camels|OMN|2023|300000'], $this->records($c->parse($payload)));
+    }
+
     public function test_imf_cpi_reads_monthly_periods_for_the_chosen_categories_only(): void
     {
         $this->freshHttp();

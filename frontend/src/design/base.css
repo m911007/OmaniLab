@@ -409,3 +409,15 @@ div.tile { display: flex; flex-direction: column; gap: 2px; }
 .th-sort:hover { color: var(--accent); }
 .countries-table td { vertical-align: middle; }
 .country-meta { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 14px; }
+.ind-group { border-top: 1px solid var(--border); padding: 8px 0; }
+.ind-group summary { cursor: pointer; font-weight: 700; padding: 4px 0; }
+
+/* الشركات العالمية */
+.firm-name { display: inline-flex; align-items: center; gap: 10px; }
+.firm-logo { width: 32px; height: 32px; object-fit: contain; border-radius: 8px; background: #fff; padding: 2px; flex: none; }
+.firm-logo-empty { display: inline-flex; align-items: center; justify-content: center; background: var(--surface-2); color: var(--accent); font-weight: 800; }
+.firm-logo-lg { width: 96px; height: 96px; object-fit: contain; border-radius: 12px; background: #fff; padding: 6px; margin-bottom: 12px; }
+.firm-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; margin: 0; }
+.firm-facts > div { padding: 8px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); }
+.firm-facts dt { color: var(--text-muted); font-size: 13px; }
+.firm-facts dd { margin: 2px 0 0; font-weight: 700; }

@@ -21,6 +21,10 @@ import {
   type PlaceStats,
   type PlacesResponse,
   type DirectoryRow,
+  type EntityIndicator,
+  type FirmsResponse,
+  type FirmStats,
+  type FirmRow,
 } from './api';
 import { assignColors } from './colors';
 import { entityName } from './format';
@@ -223,4 +227,30 @@ export function useCountryDirectory() {
     queryFn: ({ signal }) => api<{ data: DirectoryRow[] }>('countries/directory', {}, signal),
     staleTime: 30 * 60_000,
   });
+}
+
+export function useEntityIndicators(code: string) {
+  return useQuery({
+    queryKey: ['entity-indicators', code],
+    queryFn: ({ signal }) => api<{ data: EntityIndicator[] }>(`entities/${code}/indicators`, {}, signal),
+    staleTime: 30 * 60_000,
+    enabled: code !== '',
+  });
+}
+
+export function useFirms(p: { q?: string; country?: string; industry?: string; listed?: string; sort?: string; page: number; per_page?: number }) {
+  return useQuery({
+    queryKey: ['firms', p],
+    queryFn: ({ signal }) => api<FirmsResponse>('firms', { ...p }, signal),
+    staleTime: FIVE_MIN,
+    placeholderData: (prev) => prev,
+  });
+}
+
+export function useFirmStats() {
+  return useQuery({ queryKey: ['firm-stats'], queryFn: ({ signal }) => api<FirmStats>('firms/stats', {}, signal), staleTime: FIVE_MIN });
+}
+
+export function useFirm(code: string) {
+  return useQuery({ queryKey: ['firm', code], queryFn: ({ signal }) => api<{ data: FirmRow; dataset: Dataset | null }>(`firms/${code}`, {}, signal), staleTime: FIVE_MIN });
 }

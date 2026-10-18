@@ -95,4 +95,28 @@ class EntityController extends Controller
             'items' => $ordered,
         ]);
     }
+
+    /**
+     * كل مؤشرات كيان بآخر قيمة لكل منها وتصنيفها حسب المجموعة: GET /api/v1/entities/{code}/indicators
+     * لملف الدولة الشامل (مئات المؤشرات). المؤشرات اليومية تُستبعد (ضجيج)، والتوقعات المستقبلية لا تُعدّ آخر قيمة.
+     */
+    public function indicators(string $code): JsonResponse
+    {
+        $entity = Entity::where('code', strtoupper($code))->firstOrFail();
+        $payload = Cache::remember('entity-indicators:'.DataVersion::token().':'.$entity->id, 1800, function () use ($entity) {
+            $maxYear = (string) ((int) date('Y') - 1);
+            $rows = DB::select(<<<'SQL'
+                SELECT DISTINCT ON (o.indicator_id) i.key, i.name_ar, i.unit, i.frequency, d.key AS dataset_key, d.name_ar AS dataset_name, o.period, o.value
+                FROM core.observations o
+                JOIN core.indicators i ON i.id = o.indicator_id
+                JOIN ops.datasets d ON d.id = i.dataset_id
+                WHERE o.entity_id = ? AND i.frequency <> 'D' AND (i.key NOT LIKE 'imf.%' OR substr(o.period, 1, 4) <= ?)
+                ORDER BY o.indicator_id, o.period DESC
+                SQL, [$entity->id, $maxYear]);
+
+            return ['data' => array_map(fn ($r) => ['key' => $r->key, 'name_ar' => $r->name_ar, 'unit' => $r->unit, 'frequency' => $r->frequency, 'dataset' => ['key' => $r->dataset_key, 'name_ar' => $r->dataset_name], 'period' => $r->period, 'value' => (float) $r->value], $rows)];
+        });
+
+        return response()->json($payload);
+    }
 }
