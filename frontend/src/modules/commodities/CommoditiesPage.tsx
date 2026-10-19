@@ -8,9 +8,9 @@ const wld = (code: string, label: string, color: string): LineSpec => ({ indicat
 const us = (code: string, label: string, color: string): LineSpec => ({ indicator: `us.yield_${code}`, entity: 'USA', label, color });
 
 const WEEKLY: readonly RangeOption[] = [
-  { value: '1y', label: 'سنة', months: 12 },
-  { value: '5y', label: '5 سنوات', months: 60 },
-  { value: '10y', label: '10 سنوات', months: 120 },
+  { value: '1y', label: '1y', months: 12 },
+  { value: '5y', label: '5y', months: 60 },
+  { value: '10y', label: '10y', months: 120 },
   { value: 'all', label: 'الكل', months: 0 },
 ];
 

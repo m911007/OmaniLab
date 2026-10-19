@@ -6,7 +6,7 @@ import { chartKeyOf, useExplanationOverride } from '../explanationOverrides';
 import { ChartTools } from './ChartTools';
 import { DataTable, toCsv, type TableData } from './DataTable';
 import { ExplainPanel } from './ExplainPanel';
-import { Segmented } from './Segmented';
+import { CHART_ICON, Segmented, TABLE_ICON } from './Segmented';
 import { SourceNote } from './SourceNote';
 
 export interface ViewOption {
@@ -70,7 +70,7 @@ export function ChartCard({ title, subtitle, datasets, children, table, note, ca
           <h3 className="card-title">{title}</h3>
           {subtitle && <div className="card-sub">{subtitle}</div>}
         </div>
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+        <div className="card-tools">
           {actions}
           {explain && (
             <button
@@ -96,7 +96,7 @@ export function ChartCard({ title, subtitle, datasets, children, table, note, ca
                 setView(v);
                 onViewChange?.(v);
               }}
-              options={options}
+              options={options.map((o) => (o.value === 'table' ? { ...o, icon: TABLE_ICON } : o.value === 'chart' ? { ...o, icon: CHART_ICON } : o))}
             />
           )}
         </div>

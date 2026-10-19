@@ -91,6 +91,7 @@ use App\Modules\Wits\Connectors\WitsTradeConnector;
 use App\Modules\Wmd\Connectors\WorldMiningDataConnector;
 use App\Modules\WorldBank\Connectors\WorldBankBankingConnector;
 use App\Modules\WorldBank\Connectors\WorldBankDigitalConnector;
+use App\Modules\WorldBank\Connectors\WorldBankDoingBusinessConnector;
 use App\Modules\WorldBank\Connectors\WorldBankEnvironmentConnector;
 use App\Modules\WorldBank\Connectors\WorldBankExtraConnector;
 use App\Modules\WorldBank\Connectors\WorldBankFinanceConnector;
@@ -148,6 +149,7 @@ return [
         WorldBankFinanceConnector::class,
         WorldBankLabourConnector::class,
         WorldBankGovernanceConnector::class,
+        WorldBankDoingBusinessConnector::class,
         NcsiPricesConnector::class,
         NcsiCpiGroupsConnector::class,
         NcsiWaterConnector::class,

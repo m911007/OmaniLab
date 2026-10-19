@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import { useCrosscheckDetail, useCrosschecks, useEntities, useLines, type LineSpec, type SeriesItem } from '../hooks';
 import { entityName, formatPeriod, formatValue, yearOf } from '../format';
 import type { Explanation } from '../explain';
@@ -39,6 +39,8 @@ interface Props {
   defaultRange?: string;
   /** يمتد على عرض الشبكة كلها */
   wide?: boolean;
+  /** عناصر تحكم إضافية في رأس البطاقة (مثل مبدّل المؤشرات) */
+  extraActions?: ReactNode;
 }
 
 export interface RangeOption {
@@ -49,7 +51,7 @@ export interface RangeOption {
 }
 
 /** مخطط معرَّف بالتكوين: يجلب خطوطه ويرسمها مع مصدرها وحداثتها وجدولها البديل. هكذا تُضاف الرسوم دون كود رسم جديد. */
-export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, imfForecast, forecastFromYear, note, callout, height, last, explain, primary: primaryCode = 'OMN', oil: showOil = false, ranges, defaultRange, wide }: Props) {
+export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, imfForecast, forecastFromYear, note, callout, height, last, explain, primary: primaryCode = 'OMN', oil: showOil = false, ranges, defaultRange, wide, extraActions }: Props) {
   const oilOverlay = useOilOverlay(showOil);
   const [rangeKey, setRangeKey] = useState<string>(defaultRange ?? ranges?.[0]?.value ?? '');
   const rangeFrom = useMemo(() => {
@@ -135,7 +137,7 @@ export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, i
       callout={callout}
       explain={explanation ?? undefined}
       wide={wide}
-      actions={ranges ? <Segmented label="النطاق الزمني" value={rangeKey} onChange={setRangeKey} options={ranges.map((r) => ({ value: r.value, label: r.label }))} /> : undefined}
+      actions={ranges || extraActions ? (<>{extraActions}{ranges ? <Segmented label="النطاق الزمني" value={rangeKey} onChange={setRangeKey} options={ranges.map((r) => ({ value: r.value, label: r.label }))} /> : null}</>) : undefined}
       views={views}
       defaultView={comparable ? 'oman' : 'chart'}
       onViewChange={setView}

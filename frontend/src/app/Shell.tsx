@@ -7,8 +7,29 @@ import { useOverview } from '@/core/hooks';
 import { applyTheme, getStoredTheme, type ThemeMode } from '@/core/theme';
 import { NAV } from './nav';
 
+const COLLAPSED_KEY = 'omanilab.nav.collapsed';
+
+function loadCollapsed(): Record<string, boolean> {
+  try {
+    return JSON.parse(localStorage.getItem(COLLAPSED_KEY) ?? '{}') as Record<string, boolean>;
+  } catch {
+    return {};
+  }
+}
+
 export function Shell() {
   const [open, setOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState<Record<string, boolean>>(loadCollapsed);
+  const toggleGroup = (title: string) =>
+    setCollapsed((c) => {
+      const next = { ...c, [title]: !c[title] };
+      try {
+        localStorage.setItem(COLLAPSED_KEY, JSON.stringify(next));
+      } catch {
+        /* التخزين غير متاح: الطي يبقى لهذه الجلسة فقط */
+      }
+      return next;
+    });
   const [theme, setTheme] = useState<ThemeMode>(getStoredTheme);
   const location = useLocation();
   const { data: overview } = useOverview();
@@ -44,17 +65,25 @@ export function Shell() {
           </span>
         </div>
         <nav>
-          {NAV.map((g) => (
-            <div key={g.title}>
-              <div className="nav-group">{g.title}</div>
-              {g.items.map((i) => (
-                <NavLink key={i.to} to={i.to} end={i.end} className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
-                  {i.icon}
-                  {i.label}
-                </NavLink>
-              ))}
-            </div>
-          ))}
+          {NAV.map((g) => {
+            const holdsActive = g.items.some((i) => (i.end ? location.pathname === i.to : i.to === '/' ? location.pathname === '/' : location.pathname.startsWith(i.to)));
+            const isOpen = holdsActive || !collapsed[g.title];
+            return (
+              <div key={g.title} className="nav-section">
+                <button type="button" className="nav-group" aria-expanded={isOpen} onClick={() => toggleGroup(g.title)}>
+                  <span>{g.title}</span>
+                  <span className="nav-chev" aria-hidden="true">{isOpen ? '▾' : '◂'}</span>
+                </button>
+                {isOpen &&
+                  g.items.map((i) => (
+                    <NavLink key={i.to} to={i.to} end={i.end} className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>
+                      {i.icon}
+                      {i.label}
+                    </NavLink>
+                  ))}
+              </div>
+            );
+          })}
         </nav>
         {overview && (
           <div className="sidebar-status">

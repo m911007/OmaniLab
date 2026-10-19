@@ -48,7 +48,11 @@ td.num, th.num { display: table-cell; text-align: start; }
 
 /* ---- البطاقات والشبكات ---- */
 .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); min-width: 0; }
-.card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; min-width: 0; }
+.card-head > div { min-width: 0; }
+.card-head .toggle { max-width: 100%; overflow-x: auto; flex-wrap: nowrap; }
+.card-head .toggle button { white-space: nowrap; }
+.card-tools { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: flex-end; max-width: 100%; }
 .card-title { font-size: 15px; font-weight: 700; }
 .card-sub { font-size: 13px; color: var(--text-muted); }
 .grid { display: grid; gap: 16px; }
@@ -443,3 +447,13 @@ div.tile { display: flex; flex-direction: column; gap: 2px; }
 .heat-table td.plain { background: var(--surface-2); color: var(--text-primary); }
 .prices-table td.up { color: var(--good); font-weight: 700; }
 .prices-table td.down { color: var(--critical); font-weight: 700; }
+
+/* الشريط الجانبي: مجموعات قابلة للطي وروابط أكثر إحكامًا */
+.nav-group { display: flex; align-items: center; justify-content: space-between; width: 100%; background: transparent; border: 0; cursor: pointer; font-family: inherit; text-align: start; color: var(--text-muted); font-weight: 700; margin: 12px 0 4px; padding-block: 5px; }
+.nav-group:hover { color: var(--text-primary); }
+.nav-chev { font-size: 11px; opacity: .7; padding-inline-end: 8px; }
+.nav-section + .nav-section { border-top: 1px solid var(--border); margin-top: 8px; padding-top: 2px; }
+.nav-link { height: 38px; font-size: 13.5px; margin: 1px 0; }
+.nav-link.active::before { top: 8px; height: 20px; }
+
+html[dir='rtl'] .sidebar.open { transform: none; }

@@ -147,7 +147,7 @@ services:
       DB_PASSWORD: ${DB_INGEST_WRITER_PASSWORD:-ingest_dev}
     networks: [ingest, data]
 
-  # نسخ احتياطي يومي (pg_dump -Fc) إلى حجم backups، يُحتفظ بآخر 14 نسخة. الاستعادة: انظر README.
+  # نسخ احتياطي يومي (pg_dump -Fc) إلى حجم backups، يُحتفظ بآخر 5 نسخ. الاستعادة: انظر README.
   backup:
     image: postgres:17-alpine
     entrypoint: ["sh", "/backup.sh"]
@@ -156,7 +156,7 @@ services:
       PGUSER: ${DB_OWNER_USERNAME:-omani}
       PGPASSWORD: ${DB_OWNER_PASSWORD:-omani_dev}
       PGDATABASE: ${DB_DATABASE:-omanilab}
-      BACKUP_KEEP: ${BACKUP_KEEP:-14}
+      BACKUP_KEEP: ${BACKUP_KEEP:-5}
     volumes:
       - ./docker/backup/backup.sh:/backup.sh:ro
       - backups:/backups

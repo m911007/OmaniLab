@@ -1,11 +1,30 @@
-export function Segmented<T extends string>({ value, options, onChange, label }: { value: T; options: { value: T; label: string }[]; onChange: (v: T) => void; label: string }) {
+import type { ReactNode } from 'react';
+
+export interface SegmentedOption<T extends string> {
+  value: T;
+  label: string;
+  /** أيقونة تحلّ محل النص لتوفير المساحة؛ يبقى النص اسمًا وصفيًا للزر (aria-label وتلميح) */
+  icon?: ReactNode;
+}
+
+export function Segmented<T extends string>({ value, options, onChange, label }: { value: T; options: SegmentedOption<T>[]; onChange: (v: T) => void; label: string }) {
   return (
     <div className="toggle" role="group" aria-label={label}>
       {options.map((o) => (
-        <button key={o.value} aria-pressed={o.value === value} onClick={() => onChange(o.value)}>
-          {o.label}
+        <button key={o.value} aria-pressed={o.value === value} aria-label={o.icon ? o.label : undefined} title={o.icon ? o.label : undefined} onClick={() => onChange(o.value)}>
+          {o.icon ?? o.label}
         </button>
       ))}
     </div>
   );
 }
+
+const svg = (d: string) => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d={d} />
+  </svg>
+);
+
+/** أيقونتا المخطط والجدول (بدل كلمتين) */
+export const CHART_ICON = svg('M3 17l5-6 4 3 8-9M3 21h18');
+export const TABLE_ICON = svg('M3 5h18v14H3zM3 10h18M3 15h18M9 5v14');

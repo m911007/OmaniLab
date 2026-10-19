@@ -4,9 +4,9 @@ import { SeriesChart, type RangeOption } from '@/core/components/SeriesChart';
 const lines = (indicator: string, entities: string[]) => entities.map((entity) => ({ indicator, entity }));
 
 const RANGES: readonly RangeOption[] = [
-  { value: '3y', label: '3 سنوات', months: 36 },
-  { value: '10y', label: '10 سنوات', months: 120 },
-  { value: '25y', label: '25 سنة', months: 300 },
+  { value: '3y', label: '3y', months: 36 },
+  { value: '10y', label: '10y', months: 120 },
+  { value: '25y', label: '25y', months: 300 },
   { value: 'all', label: 'الكل', months: 0 },
 ];
 const H = 340;

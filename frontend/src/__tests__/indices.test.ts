@@ -3,8 +3,8 @@ import { gccPosition, standingPct, tierOf } from '@/modules/indices/types';
 
 describe('المؤشرات العالمية', () => {
   it('كل مؤشر له رابط مصدر وسنة وslug فريد', () => {
-    expect(INDICES.length).toBe(25);
-    expect(new Set(INDICES.map((i) => i.slug)).size).toBe(25);
+    expect(INDICES.length).toBe(27);
+    expect(new Set(INDICES.map((i) => i.slug)).size).toBe(27);
     INDICES.forEach((i) => {
       expect(i.url).toMatch(/^https?:\/\//);
       expect(i.year).toBeGreaterThan(2015);

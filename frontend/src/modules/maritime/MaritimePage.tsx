@@ -5,13 +5,13 @@ import { WorldRankCard } from '@/core/components/WorldRankCard';
 import { gccLines } from '@/core/groups';
 
 const DAILY: readonly RangeOption[] = [
-  { value: '3m', label: '3 أشهر', months: 3 },
-  { value: '1y', label: 'سنة', months: 12 },
-  { value: '3y', label: '3 سنوات', months: 36 },
+  { value: '3m', label: '3m', months: 3 },
+  { value: '1y', label: '1y', months: 12 },
+  { value: '3y', label: '3y', months: 36 },
   { value: 'all', label: 'الكل', months: 0 },
 ];
 const MONTHLY: readonly RangeOption[] = [
-  { value: '3y', label: '3 سنوات', months: 36 },
+  { value: '3y', label: '3y', months: 36 },
   { value: 'all', label: 'الكل', months: 0 },
 ];
 const H = 340;

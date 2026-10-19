@@ -7,14 +7,14 @@ const us = (indicator: string, label: string) => ({ indicator, entity: 'USA', la
 const uk = (indicator: string, label: string) => ({ indicator, entity: 'GBR', label });
 
 const DAILY: readonly RangeOption[] = [
-  { value: '1y', label: 'سنة', months: 12 },
-  { value: '5y', label: '5 سنوات', months: 60 },
-  { value: '10y', label: '10 سنوات', months: 120 },
+  { value: '1y', label: '1y', months: 12 },
+  { value: '5y', label: '5y', months: 60 },
+  { value: '10y', label: '10y', months: 120 },
   { value: 'all', label: 'الكل', months: 0 },
 ];
 const MONTHLY: readonly RangeOption[] = [
-  { value: '3y', label: '3 سنوات', months: 36 },
-  { value: '10y', label: '10 سنوات', months: 120 },
+  { value: '3y', label: '3y', months: 36 },
+  { value: '10y', label: '10y', months: 120 },
   { value: 'all', label: 'الكل', months: 0 },
 ];
 const H = 340;
