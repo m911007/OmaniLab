@@ -80,6 +80,28 @@ export default function SocietyPage() {
         <SeriesChart title="وفيات حديثي الولادة (لكل 1000)" lines={peerLines('unicef.neonatal_mortality')} from="1990" />
         <SeriesChart title="وفيات الأطفال من سنة إلى أربع (لكل 1000)" lines={peerLines('unicef.child_mortality_1_4')} from="1990" />
       </Section>
+
+      <Section title="السكان إلى 2100 (الأمم المتحدة)" lead="تقديرات وإسقاطات شعبة السكان في الأمم المتحدة (السيناريو المتوسط) عبر OWID: كم سيبلغ عدد سكان عُمان ودول الخليج، وكيف يشيخ المجتمع؟ الإسقاطات تقدير لا توقع قاطع.">
+        <SeriesChart wide height={340} title="عدد سكان عُمان: تقديرات وإسقاط حتى 2100" subtitle="نسمة" lines={[{ indicator: 'owid.population', entity: 'OMN', label: 'تقديرات' }, { indicator: 'owid.population_proj', entity: 'OMN', label: 'إسقاط الأمم المتحدة' }]} />
+        <SeriesChart title="إسقاط عدد السكان في دول الخليج" subtitle="نسمة — حتى 2100" lines={gccLines('owid.population_proj')} from="2020" />
+        <SeriesChart title="العمر الوسيط: عُمان تقديرات وإسقاط" subtitle="سنة" lines={[{ indicator: 'owid.median_age', entity: 'OMN', label: 'تقديرات' }, { indicator: 'owid.median_age_proj', entity: 'OMN', label: 'إسقاط' }]} />
+        <SeriesChart title="إسقاط العمر الوسيط في دول الخليج" subtitle="سنة" lines={gccLines('owid.median_age_proj')} from="2020" />
+        <SeriesChart title="العمر المتوقع عند الميلاد (سلسلة طويلة)" subtitle="سنة" lines={peerLines('owid.life_expectancy_long')} from="1950" />
+        <SeriesChart title="نسبة سكان الحضر" subtitle="%" lines={gccLines('owid.urban_share')} from="1950" />
+      </Section>
+
+      <Section title="نظرة طويلة المدى (Our World in Data)" lead="سلاسل تاريخية طويلة تجمعها OWID من مصادرها الأصلية: الناتج للفرد منذ 1820، والغذاء والطاقة والنظام السياسي والجريمة والبيئة.">
+        <SeriesChart wide height={340} title="الناتج المحلي للفرد منذ 1820" subtitle="دولار ثابت 2011 — Maddison" lines={peerLines('owid.gdp_pc_maddison')} from="1900" />
+        <SeriesChart title="السعرات اليومية المتاحة للفرد" lines={gccLines('owid.calories')} from="1961" />
+        <SeriesChart title="المتاح من اللحوم للفرد" subtitle="كغ/سنة" lines={gccLines('owid.meat_supply')} from="1961" />
+        <SeriesChart title="استهلاك الطاقة الأولية للفرد" subtitle="كيلوواط ساعة" lines={peerLines('owid.energy_per_capita')} from="1965" />
+        <SeriesChart title="حصة المتجددة من الطاقة الأولية" subtitle="%" lines={peerLines('owid.renewables_energy_share')} from="1990" />
+        <SeriesChart title="إنتاج النفط" subtitle="تيراواط ساعة" lines={gccLines('owid.oil_production')} from="1965" />
+        <SeriesChart title="معدل جرائم القتل لكل 100 ألف" subtitle="UNODC" lines={peerLines('owid.homicide_rate')} from="2000" />
+        <SeriesChart title="النظام السياسي (Regimes of the World)" subtitle="0 استبداد مغلق — 3 ديمقراطية كاملة" lines={gccLines('owid.political_regime')} from="1950" />
+        <SeriesChart title="النفايات البلاستيكية للفرد" subtitle="كغ/يوم" lines={gccLines('owid.plastic_waste')} />
+        <SeriesChart title="انبعاثات الميثان (مكافئ CO2)" subtitle="طن" lines={gccLines('owid.methane')} from="1990" />
+      </Section>
     </>
   );
 }

@@ -37,6 +37,10 @@ const UsMarketsPage = lazy(() => import('@/modules/usmarkets/UsMarketsPage'));
 const PricesNowPage = lazy(() => import('@/modules/prices/PricesNowPage'));
 const AgriculturePage = lazy(() => import('@/modules/agriculture/AgriculturePage'));
 const OmanPricesPage = lazy(() => import('@/modules/omanprices/OmanPricesPage'));
+const EuroAreaPage = lazy(() => import('@/modules/euro/EuroAreaPage'));
+const LeadingPage = lazy(() => import('@/modules/leading/LeadingPage'));
+const MineralsPage = lazy(() => import('@/modules/minerals/MineralsPage'));
+const MaritimePage = lazy(() => import('@/modules/maritime/MaritimePage'));
 const IncomeSourcesPage = lazy(() => import('@/modules/income/IncomeSourcesPage'));
 const GovernancePage = lazy(() => import('@/modules/governance/GovernancePage'));
 
@@ -69,6 +73,10 @@ export function App() {
               <Route path="prices" element={<PricesNowPage />} />
               <Route path="agriculture" element={<AgriculturePage />} />
               <Route path="oman-prices" element={<OmanPricesPage />} />
+              <Route path="euro-area" element={<EuroAreaPage />} />
+              <Route path="leading" element={<LeadingPage />} />
+              <Route path="minerals" element={<MineralsPage />} />
+              <Route path="maritime" element={<MaritimePage />} />
               <Route path="income-sources" element={<IncomeSourcesPage />} />
               <Route path="oman" element={<OmanEconomyPage />} />
               <Route path="gcc" element={<GccPage />} />

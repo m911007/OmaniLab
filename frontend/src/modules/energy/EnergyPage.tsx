@@ -114,6 +114,36 @@ export default function EnergyPage() {
         <SeriesChart title="أشد هزة أرضية في الشهر" subtitle="بالمقياس — بحر عُمان وما حوله (USGS)" kind="columns" lines={[{ indicator: 'hazard.quakes_max_magnitude', entity: 'OMN', label: 'أشد هزة' }]} last={60} />
         <SeriesChart title="أمطار مسقط" subtitle="ملم في الشهر" kind="columns" lines={[{ indicator: 'climate.precip_muscat', entity: 'OMN', label: 'أمطار مسقط' }]} last={60} />
       </Section>
+
+      <Section title="الكهرباء عالميًا ومقارنةً بالخليج (Ember)" lead="مصادر توليد الكهرباء وحصصها والقدرة المركّبة وكثافة الكربون، من أرشيف Ember المفتوح لكل دول العالم سنويًا منذ 2000.">
+        <SeriesChart title="مزيج توليد الكهرباء في عُمان" subtitle="تيراواط ساعة" kind="stacked" lines={[{ indicator: 'ember.gen_gas', entity: 'OMN', label: 'غاز', color: 'var(--series-2)' }, { indicator: 'ember.gen_solar', entity: 'OMN', label: 'شمس', color: 'var(--series-6)' }, { indicator: 'ember.gen_wind', entity: 'OMN', label: 'رياح', color: 'var(--series-1)' }, { indicator: 'ember.gen_other_fossil', entity: 'OMN', label: 'وقود أحفوري آخر', color: 'var(--series-4)' }]} />
+        <SeriesChart title="حصة الطاقة الشمسية والرياح من توليد الكهرباء" subtitle="%" lines={gccLines('ember.share_wind_solar')} from="2010" />
+        <SeriesChart title="حصة الغاز من توليد الكهرباء" subtitle="%" lines={gccLines('ember.share_gas')} from="2000" />
+        <SeriesChart title="حصة الطاقة النظيفة (متجددة + نووي)" subtitle="%" lines={peerLines('ember.share_clean')} from="2000" />
+        <SeriesChart title="استهلاك الفرد من الكهرباء" subtitle="ميغاواط ساعة للفرد" lines={peerLines('ember.demand_per_capita')} from="2000" />
+        <SeriesChart title="إجمالي توليد الكهرباء" subtitle="تيراواط ساعة" lines={gccLines('ember.total_generation')} from="2000" />
+        <SeriesChart title="كثافة الكربون في الكهرباء" subtitle="غرام CO2 لكل كيلوواط ساعة" lines={peerLines('ember.co2_intensity')} from="2000" />
+        <SeriesChart title="القدرة المركّبة للطاقة الشمسية" subtitle="جيجاواط" lines={gccLines('ember.capacity_solar')} from="2010" />
+        <SeriesChart title="انبعاثات قطاع الكهرباء" subtitle="مليون طن CO2" lines={gccLines('ember.power_emissions')} from="2000" />
+      </Section>
+
+      <Section title="الشمس والرياح والغبار في المدن العُمانية" lead="إمكانات الطاقة المتجددة وجودة الهواء: الإشعاع الشمسي وسرعة الرياح والرطوبة والغبار شهريًا (Open-Meteo: ERA5 وCAMS؛ جودة الهواء منذ منتصف 2022).">
+        <SeriesChart title="الإشعاع الشمسي اليومي" subtitle="كيلوواط ساعة/م²/يوم" lines={[{ indicator: 'climate.solar_muscat', entity: 'OMN', label: 'مسقط' }, { indicator: 'climate.solar_salalah', entity: 'OMN', label: 'صلالة' }, { indicator: 'climate.solar_nizwa', entity: 'OMN', label: 'نزوى' }, { indicator: 'climate.solar_duqm', entity: 'OMN', label: 'الدقم' }]} from="2015" />
+        <SeriesChart title="ساعات سطوع الشمس" subtitle="ساعة/يوم" lines={[{ indicator: 'climate.sunshine_muscat', entity: 'OMN', label: 'مسقط' }, { indicator: 'climate.sunshine_salalah', entity: 'OMN', label: 'صلالة' }, { indicator: 'climate.sunshine_nizwa', entity: 'OMN', label: 'نزوى' }, { indicator: 'climate.sunshine_duqm', entity: 'OMN', label: 'الدقم' }]} from="2015" />
+        <SeriesChart title="متوسط سرعة الرياح" subtitle="كم/س" lines={[{ indicator: 'climate.wind_muscat', entity: 'OMN', label: 'مسقط' }, { indicator: 'climate.wind_salalah', entity: 'OMN', label: 'صلالة' }, { indicator: 'climate.wind_nizwa', entity: 'OMN', label: 'نزوى' }, { indicator: 'climate.wind_duqm', entity: 'OMN', label: 'الدقم' }]} from="2015" />
+        <SeriesChart title="الرطوبة النسبية" subtitle="%" lines={[{ indicator: 'climate.humidity_muscat', entity: 'OMN', label: 'مسقط' }, { indicator: 'climate.humidity_salalah', entity: 'OMN', label: 'صلالة' }, { indicator: 'climate.humidity_nizwa', entity: 'OMN', label: 'نزوى' }, { indicator: 'climate.humidity_duqm', entity: 'OMN', label: 'الدقم' }]} from="2015" />
+        <SeriesChart title="التبخر-نتح المرجعي (حاجة الري)" subtitle="ملم/شهر" lines={[{ indicator: 'climate.et0_muscat', entity: 'OMN', label: 'مسقط' }, { indicator: 'climate.et0_salalah', entity: 'OMN', label: 'صلالة' }, { indicator: 'climate.et0_nizwa', entity: 'OMN', label: 'نزوى' }, { indicator: 'climate.et0_duqm', entity: 'OMN', label: 'الدقم' }]} from="2015" />
+        <SeriesChart title="الغبار في الهواء" subtitle="ميكروغرام/م³" lines={[{ indicator: 'climate.dust_muscat', entity: 'OMN', label: 'مسقط' }, { indicator: 'climate.dust_salalah', entity: 'OMN', label: 'صلالة' }, { indicator: 'climate.dust_nizwa', entity: 'OMN', label: 'نزوى' }, { indicator: 'climate.dust_duqm', entity: 'OMN', label: 'الدقم' }]} />
+        <SeriesChart title="الجسيمات العالقة PM10" subtitle="ميكروغرام/م³" lines={[{ indicator: 'climate.pm10_muscat', entity: 'OMN', label: 'مسقط' }, { indicator: 'climate.pm10_salalah', entity: 'OMN', label: 'صلالة' }, { indicator: 'climate.pm10_nizwa', entity: 'OMN', label: 'نزوى' }, { indicator: 'climate.pm10_duqm', entity: 'OMN', label: 'الدقم' }]} />
+        <SeriesChart title="الجسيمات الدقيقة PM2.5" subtitle="ميكروغرام/م³" lines={[{ indicator: 'climate.pm25_muscat', entity: 'OMN', label: 'مسقط' }, { indicator: 'climate.pm25_salalah', entity: 'OMN', label: 'صلالة' }, { indicator: 'climate.pm25_nizwa', entity: 'OMN', label: 'نزوى' }, { indicator: 'climate.pm25_duqm', entity: 'OMN', label: 'الدقم' }]} />
+      </Section>
+
+      <Section title="المناخ العالمي" lead="تركيز غازات الدفيئة وحرارة الكوكب والنينيو: مؤشرات رسمية من NOAA وناسا شهريًا، تفسّر الضغط الدولي لخفض الانبعاثات وأثره على مستقبل الطلب على النفط والغاز.">
+        <SeriesChart wide height={340} title="تركيز ثاني أكسيد الكربون في الغلاف الجوي" subtitle="جزء في المليون — ماونا لوا" lines={[{ indicator: 'climate.co2_ppm', entity: 'WLD', label: 'CO2' }]} />
+        <SeriesChart title="تركيز الميثان العالمي" subtitle="جزء في المليار" lines={[{ indicator: 'climate.ch4_ppb', entity: 'WLD', label: 'الميثان' }]} />
+        <SeriesChart title="شذوذ حرارة الأرض" subtitle="°م عن المتوسط — ناسا وNOAA" lines={[{ indicator: 'climate.temp_anomaly_giss', entity: 'WLD', label: 'ناسا GISTEMP' }, { indicator: 'climate.temp_anomaly_noaa', entity: 'WLD', label: 'NOAA' }]} from="1950" />
+        <SeriesChart title="مؤشر النينيو والنينيا (ONI)" subtitle="°م — فوق +0.5 نينيو، وتحت −0.5 نينيا" lines={[{ indicator: 'climate.oni', entity: 'WLD', label: 'ONI' }]} from="1990" />
+      </Section>
     </>
   );
 }

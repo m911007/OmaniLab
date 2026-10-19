@@ -106,6 +106,225 @@ class GlobalOrgConnectorsTest extends TestCase
         ], array_values($records));
     }
 
+    public function test_ecb_series_parse_daily_monthly_and_quarterly_periods(): void
+    {
+        $this->freshHttp();
+        Http::fake(fn () => Http::response("KEY,FREQ,TIME_PERIOD,OBS_VALUE,OBS_STATUS\nX,D,2026-10-14,2.5,A\nX,M,2026-09,2.1,A\nX,Q,2026-Q1,0.5,A\nX,D,2026-10-15,,A\n"));
+        $c = new \App\Modules\Ecb\Connectors\EcbEuroAreaConnector;
+
+        $records = array_unique($this->records($c->parse($c->fetch())));
+
+        $this->assertContains('ecb.deposit_rate|EMU|2026-10-14|2.5', $records);
+        $this->assertContains('ecb.hicp|EMU|2026-09|2.1', $records);
+        $this->assertContains('ecb.gdp_growth|EMU|2026-Q1|0.5', $records);
+        $this->assertNotContains('ecb.hicp|EMU|2026-10-15|', $records);
+    }
+
+    public function test_boe_series_convert_british_dates(): void
+    {
+        $this->freshHttp();
+        Http::fake(fn () => Http::response("DATE,IUDBEDR\n02 Oct 2026,3.75\n05 Oct 2026,3.5\n"));
+        $c = new \App\Modules\Boe\Connectors\BoeUkConnector;
+
+        $records = array_unique($this->records($c->parse($c->fetch())));
+
+        $this->assertContains('boe.bank_rate|GBR|2026-10-02|3.75', $records);
+        $this->assertContains('boe.gilt_10y|GBR|2026-10-05|3.5', $records);
+    }
+
+    public function test_fao_food_price_index_skips_preamble_and_blank_columns(): void
+    {
+        $this->freshHttp();
+        Http::fake(fn () => Http::response("FAO Food Price Index,,\n2014-2016=100,,\nDate,Food Price Index,Meat,Dairy,Cereals,Oils,Sugar,,\n,,,\n2026-09,136.0,127.9,119.1,122.8,198.6,,,\n"));
+        $c = new \App\Modules\Fao\Connectors\FaoFoodPriceIndexConnector;
+
+        $records = array_unique($this->records($c->parse($c->fetch())));
+
+        $this->assertContains('fao.ffpi|WLD|2026-09|136', $records);
+        $this->assertContains('fao.ffpi_oils|WLD|2026-09|198.6', $records);
+        $this->assertCount(5, $records);
+    }
+
+    public function test_ember_keeps_country_rows_of_wanted_variables_only(): void
+    {
+        $this->freshHttp();
+        $csv = "Area,ISO 3 code,Year,Area type,Category,Subcategory,Variable,Unit,Value\n"
+            ."Oman,OMN,2024,Country,Electricity generation,Fuel,Gas,TWh,45.5\n"
+            ."Oman,OMN,2024,Country,Electricity generation,Fuel,Gas,%,95\n"
+            ."World,,2024,World,Electricity generation,Fuel,Gas,TWh,9000\n"
+            ."Oman,OMN,2024,Country,Capacity,Fuel,Solar,GW,0.5\n"
+            ."Oman,OMN,2024,Country,Something else,Fuel,Gas,TWh,1\n";
+        Http::fake(fn () => Http::response($csv));
+        $c = new \App\Modules\Ember\Connectors\EmberElectricityConnector;
+
+        $records = array_unique($this->records($c->parse($c->fetch())));
+
+        $this->assertEqualsCanonicalizing(['ember.gen_gas|OMN|2024|45.5', 'ember.share_gas|OMN|2024|95', 'ember.capacity_solar|OMN|2024|0.5'], array_values($records));
+    }
+
+    public function test_oecd_keeps_amplitude_adjusted_monthly_index_rows(): void
+    {
+        $this->freshHttp();
+        $csv = "REF_AREA,Reference area,FREQ,MEASURE,ADJUSTMENT,TRANSFORMATION,TIME_PERIOD,OBS_VALUE\n"
+            ."USA,United States,M,LI,AA,IX,2026-09,99.5\n"
+            ."USA,United States,M,LI,NOR,IX,2026-09,100.2\n"
+            ."G7,G7,M,BCICP,AA,IX,2026-09,99.1\n"
+            ."USA,United States,Q,LI,AA,IX,2026-Q3,99.9\n";
+        Http::fake(fn () => Http::response($csv));
+        $c = new \App\Modules\Oecd\Connectors\OecdLeadingIndicatorsConnector;
+
+        $records = array_unique($this->records($c->parse($c->fetch())));
+
+        $this->assertEqualsCanonicalizing(['oecd.cli|USA|2026-09|99.5', 'oecd.business_confidence|G7|2026-09|99.1'], array_values($records));
+    }
+
+    public function test_open_meteo_extra_converts_units_and_publishes_complete_months_only(): void
+    {
+        $time = [];
+        $solar = [];
+        $sun = [];
+        foreach (range(1, 30) as $d) {
+            $time[] = sprintf('2026-06-%02d', $d);
+            $solar[] = 36.0;
+            $sun[] = 36000.0;
+        }
+        $payload = new \App\Core\Ingestion\Data\RawPayload(json_encode(['last' => '2026-07-10', 'cities' => ['muscat' => [
+            'daily' => ['time' => $time, 'shortwave_radiation_sum' => $solar, 'sunshine_duration' => $sun, 'wind_speed_10m_mean' => array_fill(0, 30, 10.0), 'relative_humidity_2m_mean' => array_fill(0, 30, 50), 'et0_fao_evapotranspiration' => array_fill(0, 30, 6.0)],
+            'air' => ['pm10' => ['2026-06-01' => 50.0]],
+        ]]]));
+
+        $records = array_unique($this->records((new \App\Modules\Climate\Connectors\OpenMeteoExtraConnector)->parse($payload)));
+
+        $this->assertContains('climate.solar_muscat|OMN|2026-06|10', $records);
+        $this->assertContains('climate.sunshine_muscat|OMN|2026-06|10', $records);
+        $this->assertContains('climate.et0_muscat|OMN|2026-06|180', $records);
+        $this->assertCount(5, $records);
+    }
+
+    public function test_global_climate_parses_noaa_nasa_and_oni_formats(): void
+    {
+        $this->freshHttp();
+        Http::fake([
+            '*co2_mm_mlo*' => Http::response("# comment\nyear,month,decimal date,average,deseasonalized\n2026,9,2026.708,426.5,428.1\n2026,8,2026.62,-99.99,-99.99\n"),
+            '*ch4_mm_gl*' => Http::response("# c\nyear,month,decimal,average\n2026,9,2026.7,1950.5\n"),
+            '*GLB.Ts*' => Http::response("Land-Ocean: Global Means\nYear,Jan,Feb\n2026,1.20,***\n"),
+            '*climate-at-a-glance*' => Http::response("# Title\nDate,Departure\n202609,1.35\n"),
+            '*oni.ascii*' => Http::response(" SEAS  YR   TOTAL   ANOM\n  DJF 2026  26.1  -0.4\n"),
+        ]);
+        $c = new \App\Modules\Climate\Connectors\GlobalClimateConnector;
+
+        $records = array_unique($this->records($c->parse($c->fetch())));
+
+        $this->assertEqualsCanonicalizing([
+            'climate.co2_ppm|WLD|2026-09|426.5', 'climate.ch4_ppb|WLD|2026-09|1950.5', 'climate.temp_anomaly_giss|WLD|2026-01|1.2',
+            'climate.temp_anomaly_noaa|WLD|2026-09|1.35', 'climate.oni|WLD|2026-01|-0.4',
+        ], array_values($records));
+    }
+
+    public function test_world_mining_data_reads_country_rows_and_skips_unknown_names(): void
+    {
+        $this->freshHttp();
+        $path = tempnam(sys_get_temp_dir(), 'w').'.xlsx';
+        $zip = new \ZipArchive;
+        $zip->open($path, \ZipArchive::CREATE);
+        $zip->addFromString('xl/workbook.xml', '<workbook><sheets><sheet name="Copper" sheetId="1" r:id="rId1"/></sheets></workbook>');
+        $zip->addFromString('xl/_rels/workbook.xml.rels', '<Relationships><Relationship Id="rId1" Type="x" Target="worksheets/sheet1.xml"/></Relationships>');
+        $zip->addFromString('xl/sharedStrings.xml', '<sst><si><t>Country</t></si><si><t>unit</t></si><si><t>Oman</t></si><si><t>metr. t</t></si><si><t>Atlantis</t></si></sst>');
+        $zip->addFromString('xl/worksheets/sheet1.xml', '<worksheet><sheetData>'
+            .'<row r="2"><c r="A2" t="s"><v>0</v></c><c r="B2" t="s"><v>1</v></c><c r="C2"><v>2023</v></c><c r="D2"><v>2024</v></c></row>'
+            .'<row r="3"><c r="A3" t="s"><v>2</v></c><c r="B3" t="s"><v>3</v></c><c r="C3"><v>0</v></c><c r="D3"><v>2790</v></c></row>'
+            .'<row r="4"><c r="A4" t="s"><v>4</v></c><c r="B4" t="s"><v>3</v></c><c r="C4"><v>1</v></c><c r="D4"><v>1</v></c></row>'
+            .'</sheetData></worksheet>');
+        $zip->close();
+        $bytes = file_get_contents($path);
+        unlink($path);
+        Http::fake([
+            '*wmd.html' => Http::response('<a href="https://www.bmf.gv.at/dam/jcr:1/6.4.%20Production.xlsx">x</a>'),
+            '*6.4.*' => Http::response($bytes),
+        ]);
+        $c = new \App\Modules\Wmd\Connectors\WorldMiningDataConnector;
+
+        $records = array_unique($this->records($c->parse($c->fetch())));
+
+        $this->assertEqualsCanonicalizing(['wmd.copper|OMN|2023|0', 'wmd.copper|OMN|2024|2790'], array_values($records));
+    }
+
+    public function test_eia_weekly_parses_year_month_rows_with_week_value_pairs(): void
+    {
+        $this->freshHttp();
+        $rows = '';
+        foreach (range(1990, 2026) as $y) {
+            foreach (['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'] as $mi => $mon) {
+                $rows .= sprintf('<tr><td>%d-%s</td><td>&nbsp;</td><td>%02d/05</td><td>&nbsp;</td><td>334,786</td><td>%02d/12</td><td>&nbsp;</td><td>335,260.5</td></tr>', $y, $mon, $mi + 1, $mi + 1);
+            }
+        }
+        Http::fake(fn () => Http::response("<table>{$rows}</table>"));
+        $c = new \App\Modules\Markets\Connectors\EiaWeeklyConnector;
+
+        $records = array_unique($this->records($c->parse($c->fetch())));
+
+        $this->assertContains('eia.us_crude_stocks|USA|2026-08-05|334786', $records);
+        $this->assertContains('eia.us_crude_stocks|USA|2026-08-12|335260.5', $records);
+    }
+
+    public function test_eurostat_maps_two_letter_geo_codes_and_aggregates(): void
+    {
+        $this->freshHttp();
+        Http::fake(fn () => Http::response("DATAFLOW,LAST UPDATE,freq,unit,geo,TIME_PERIOD,OBS_VALUE,OBS_FLAG\nX,d,M,RCH_A,EL,2026-09,3.1,\nX,d,M,RCH_A,EU27_2020,2026-09,2.2,\nX,d,M,RCH_A,ZZ,2026-09,9.9,\nX,d,Q,RCH_A,DE,2026-Q1,1.5,\nX,d,M,RCH_A,DE,2026-09,,\n"));
+        $c = new \App\Modules\Eurostat\Connectors\EurostatConnector;
+
+        $records = array_unique($this->records($c->parse($c->fetch())));
+
+        $this->assertContains('eurostat.hicp|GRC|2026-09|3.1', $records);
+        $this->assertContains('eurostat.hicp|EU27|2026-09|2.2', $records);
+        $this->assertContains('eurostat.hicp|DEU|2026-Q1|1.5', $records);
+        $this->assertNotContains('eurostat.hicp|ZZ|2026-09|9.9', $records);
+    }
+
+    public function test_portwatch_reads_chokepoints_ports_and_country_totals(): void
+    {
+        $this->freshHttp();
+        $f = fn (array $rows) => Http::response(['features' => array_map(fn ($a) => ['attributes' => $a], $rows)]);
+        Http::fake([
+            '*PortWatch_chokepoints_database*' => $f([['portid' => 'chokepoint6', 'portname' => 'Strait of Hormuz']]),
+            '*PortWatch_ports_database*' => $f([['ISO3' => 'OMN', 'country' => 'Oman']]),
+            '*Daily_Chokepoints_Data*' => $f([['date' => '2026-10-11', 'portid' => 'chokepoint6', 'n_total' => 100, 'n_tanker' => 40, 'capacity' => 5000000]]),
+            '*Daily_Ports_Data*' => function ($request) use ($f) {
+                return str_contains(urldecode($request->url()), "ISO3='OMN'")
+                    ? $f([['portid' => 'port746', 'portname' => 'Salalah', 'year' => 2026, 'month' => 10, 'calls' => 49, 'imp' => 672740, 'exp' => 1122008]])
+                    : $f([['ISO3' => 'OMN', 'year' => 2026, 'month' => 10, 'calls' => 120, 'imp' => 1, 'exp' => 2], ['ISO3' => '', 'year' => 2026, 'month' => 10, 'calls' => 1, 'imp' => 1, 'exp' => 1]]);
+            },
+        ]);
+        $c = new \App\Modules\PortWatch\Connectors\PortWatchConnector;
+
+        $records = array_unique($this->records($c->parse($c->fetch())));
+
+        $this->assertContains('portwatch.chokepoint_transits|PW_chokepoint6|2026-10-11|100', $records);
+        $this->assertContains('portwatch.chokepoint_tankers|PW_chokepoint6|2026-10-11|40', $records);
+        $this->assertContains('portwatch.port_calls|PW_port746|2026-10|49', $records);
+        $this->assertContains('portwatch.country_port_calls|OMN|2026-10|120', $records);
+        $this->assertCount(3 + 3 + 3, $records);
+    }
+
+    public function test_open_meteo_marine_aggregates_sst_and_wave_peaks_per_month(): void
+    {
+        $time = [];
+        foreach (range(1, 30) as $d) {
+            $time[] = sprintf('2026-06-%02d', $d);
+        }
+        $waves = array_fill(0, 30, 1.0);
+        $waves[5] = 4.5;
+        $payload = new \App\Core\Ingestion\Data\RawPayload(json_encode(['last' => '2026-07-10', 'points' => ['salalah' => [
+            'time' => $time, 'wave_height_max' => $waves, 'wave_period_max' => array_fill(0, 30, 8.0), 'sea_surface_temperature_mean' => array_fill(0, 30, 27.0),
+        ]]]));
+
+        $records = array_unique($this->records((new \App\Modules\Climate\Connectors\OpenMeteoMarineConnector)->parse($payload)));
+
+        $this->assertContains('marine.wave_peak_salalah|OMN|2026-06|4.5', $records);
+        $this->assertContains('marine.sst_salalah|OMN|2026-06|27', $records);
+        $this->assertContains('marine.wave_period_salalah|OMN|2026-06|8', $records);
+    }
+
     public function test_open_meteo_publishes_complete_months_only_and_counts_hot_days(): void
     {
         $this->freshHttp();

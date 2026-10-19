@@ -19,10 +19,11 @@ const U = (indicator: string, label?: string): Row => ({ indicator, entity: 'USA
 const GROUPS: Group[] = [
   { id: 'energy', title: 'النفط والغاز والوقود', rows: [W('eia.brent_d'), W('eia.wti_d'), W('imf.pcps.poildub', 'خام دبي (شهري)'), W('eia.henryhub_d'), W('imf.pcps.pngaseu'), W('imf.pcps.pngasjp'), W('eia.diesel_ny_d'), W('eia.gasoline_ny_d'), W('eia.jet_fuel_d'), W('eia.propane_d'), W('imf.pcps.pcoalau')] },
   { id: 'grains', title: 'الحبوب والزيوت النباتية', rows: [W('imf.pcps.pwheamt'), W('imf.pcps.pmaizmt'), W('imf.pcps.pricenpq'), W('imf.pcps.pbarl'), W('imf.pcps.psoyb'), W('imf.pcps.psoil'), W('imf.pcps.ppoil'), W('imf.pcps.psuno'), W('imf.pcps.proil'), W('imf.pcps.polvoil')] },
-  { id: 'food', title: 'الغذاء: السكر والبن واللحوم والفاكهة', rows: [W('imf.pcps.psugaisa'), W('imf.pcps.pcoffotm'), W('imf.pcps.pcoffrob'), W('imf.pcps.pcoco'), W('imf.pcps.ptea'), W('imf.pcps.pbeef'), W('imf.pcps.plamb'), W('imf.pcps.ppoult'), W('imf.pcps.ppork'), W('imf.pcps.pbansop'), W('imf.pcps.porang'), W('imf.pcps.pgnuts')] },
+  { id: 'food', title: 'الغذاء: السكر والبن واللحوم والفاكهة', rows: [W('fao.ffpi', 'مؤشر أسعار الغذاء العالمي (FAO)'), W('fao.ffpi_meat'), W('fao.ffpi_dairy'), W('fao.ffpi_cereals'), W('fao.ffpi_oils'), W('fao.ffpi_sugar'), W('imf.pcps.psugaisa'), W('imf.pcps.pcoffotm'), W('imf.pcps.pcoffrob'), W('imf.pcps.pcoco'), W('imf.pcps.ptea'), W('imf.pcps.pbeef'), W('imf.pcps.plamb'), W('imf.pcps.ppoult'), W('imf.pcps.ppork'), W('imf.pcps.pbansop'), W('imf.pcps.porang'), W('imf.pcps.pgnuts')] },
   { id: 'metals', title: 'المعادن', rows: [W('imf.pcps.pgold'), W('imf.pcps.psilver'), W('imf.pcps.pcopp'), W('imf.pcps.palum'), W('imf.pcps.pzinc'), W('imf.pcps.pnick'), W('imf.pcps.ptin'), W('imf.pcps.plead'), W('imf.pcps.piorecr'), W('imf.pcps.puran')] },
   { id: 'fert', title: 'الأسمدة والمواد الزراعية', rows: [W('imf.pcps.purea'), W('imf.pcps.pdap'), W('imf.pcps.ppotash'), W('imf.pcps.pcottind'), W('imf.pcps.prubb')] },
   { id: 'fx', title: 'العملات مقابل الدولار', rows: [U('fx.usd_eur'), U('fx.usd_gbp'), U('fx.usd_jpy'), U('fx.usd_cny'), U('fx.usd_inr'), U('fx.usd_chf'), U('fx.usd_krw')] },
+  { id: 'crypto', title: 'العملات المشفرة (إغلاق يومي)', rows: [W('crypto.btc_usd'), W('crypto.eth_usd'), W('crypto.bnb_usd'), W('crypto.sol_usd'), W('crypto.xrp_usd'), W('crypto.doge_usd'), W('crypto.ada_usd'), W('crypto.trx_usd')] },
   { id: 'us', title: 'السوق والفائدة الأمريكية', rows: [U('us.sp500'), U('us.djia'), U('us.vix'), U('us.yield_2y'), U('us.yield_10y'), U('us.yield_30y'), U('us.effr'), U('us.sofr')] },
 ];
 

@@ -14,12 +14,14 @@ interface Props {
   limit?: number;
   maxPeriod?: string;
   subtitle?: string;
+  /** فترة ثابتة للترتيب بدل آخر فترة لدى الكيان المُبرَز (للمؤشرات التي قد لا يملكها) */
+  period?: string;
 }
 
 /** ترتيب الدول في مؤشر لآخر سنة متاحة لدى الكيان المُبرَز: أعلى N، ثم موقع الكيان إن لم يكن بينها. */
-export function WorldRankCard({ title, indicator, highlight = 'OMN', limit = 10, maxPeriod, subtitle }: Props) {
+export function WorldRankCard({ title, indicator, highlight = 'OMN', limit = 10, maxPeriod, subtitle, period: fixedPeriod }: Props) {
   const latest = useLatest(highlight, [indicator], maxPeriod);
-  const period = latest.data?.items[0]?.period ?? '';
+  const period = fixedPeriod ?? latest.data?.items[0]?.period ?? '';
   const ranking = useRanking({ indicator, period, limit, type: 'country', highlight });
 
   const items: RankedItem[] = useMemo(() => {

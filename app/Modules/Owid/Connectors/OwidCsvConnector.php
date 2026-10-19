@@ -42,8 +42,8 @@ abstract class OwidCsvConnector extends ApiConnector
             key: $this->datasetKey(),
             source: new SourceDefinition(
                 key: 'owid',
-                nameAr: 'Our World in Data (بيانات Ember)',
-                nameEn: 'Our World in Data (Ember, Energy Institute)',
+                nameAr: 'Our World in Data (مجمِّع بيانات؛ الأصل في اسم المجموعة)',
+                nameEn: 'Our World in Data (aggregator; original source named in the dataset)',
                 publisher: 'Our World in Data / Ember',
                 url: 'https://ourworldindata.org/energy',
                 license: 'CC BY 4.0',
@@ -65,20 +65,25 @@ abstract class OwidCsvConnector extends ApiConnector
     public function fetch(): RawPayload
     {
         $body = [];
-        foreach ($this->series() as $slug => [$key]) {
-            $csv = $this->httpAccepting('text/csv')->timeout(90)->get(self::BASE.$slug.'.csv', ['csvType' => 'full', 'useColumnShortNames' => 'true'])->throw()->body();
-            if (! str_starts_with($csv, 'entity,code,year,')) {
-                throw new RuntimeException("OWID {$slug}: تغيّر شكل الملف.");
+        $files = [];
+        foreach ($this->series() as $slugKey => [$key]) {
+            // «slug#N»: العمود N (الافتراضي 3) من الملف نفسه؛ يتيح أخذ التقديرات والإسقاطات من مخطط واحد.
+            [$slug, $col] = array_pad(explode('#', $slugKey, 2), 2, '3');
+            if (! isset($files[$slug])) {
+                $csv = $this->httpAccepting('text/csv')->timeout(90)->get(self::BASE.$slug.'.csv', ['csvType' => 'full', 'useColumnShortNames' => 'true'])->throw()->body();
+                if (! str_starts_with($csv, 'entity,code,year,')) {
+                    throw new RuntimeException("OWID {$slug}: تغيّر شكل الملف.");
+                }
+                $files[$slug] = array_map(fn (string $line) => str_getcsv($line, ',', '"', ''), array_slice(explode("\n", trim($csv)), 1));
+                usleep(300_000);
             }
             $rows = [];
-            foreach (array_slice(explode("\n", trim($csv)), 1) as $line) {
-                $f = str_getcsv($line, ',', '"', '');
-                if (preg_match('/^[A-Z]{3}$/', $f[1] ?? '') && is_numeric($f[3] ?? null)) {
-                    $rows[] = [$f[1], $f[2], $f[3]];
+            foreach ($files[$slug] as $f) {
+                if (preg_match('/^[A-Z]{3}$/', $f[1] ?? '') && is_numeric($f[(int) $col] ?? null)) {
+                    $rows[] = [$f[1], $f[2], $f[(int) $col]];
                 }
             }
             $body[$key] = $rows;
-            usleep(300_000);
         }
 
         return new RawPayload(json_encode($body, JSON_THROW_ON_ERROR));

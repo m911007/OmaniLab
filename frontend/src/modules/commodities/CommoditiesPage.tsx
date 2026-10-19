@@ -1,11 +1,18 @@
 import { KeyStat } from '@/core/components/KeyStat';
 import { PageHead, Section } from '@/core/components/PageHead';
-import { SeriesChart } from '@/core/components/SeriesChart';
+import { SeriesChart, type RangeOption } from '@/core/components/SeriesChart';
 import type { LineSpec } from '@/core/hooks';
 import { OilFiscalSensitivity } from './OilFiscalSensitivity';
 
 const wld = (code: string, label: string, color: string): LineSpec => ({ indicator: `imf.pcps.${code}`, entity: 'WLD', label, color });
 const us = (code: string, label: string, color: string): LineSpec => ({ indicator: `us.yield_${code}`, entity: 'USA', label, color });
+
+const WEEKLY: readonly RangeOption[] = [
+  { value: '1y', label: 'سنة', months: 12 },
+  { value: '5y', label: '5 سنوات', months: 60 },
+  { value: '10y', label: '10 سنوات', months: 120 },
+  { value: 'all', label: 'الكل', months: 0 },
+];
 
 export default function CommoditiesPage() {
   return (
@@ -66,6 +73,16 @@ export default function CommoditiesPage() {
         />
       </Section>
 
+      <Section title="سوق النفط الأمريكي أسبوعيًا (EIA)" lead="التقرير الأسبوعي الأهم لاتجاه الأسعار على المدى القصير: ارتفاع المخزون يضغط على السعر وانخفاضه يدعمه؛ والإنتاج والصادرات الأمريكية منافس مباشر للنفط العُماني.">
+        <SeriesChart wide height={340} ranges={WEEKLY} defaultRange="5y" title="مخزون النفط الخام الأمريكي: التجاري والاستراتيجي" subtitle="ألف برميل — أسبوعي" lines={[{ indicator: 'eia.us_crude_stocks', entity: 'USA', label: 'تجاري' }, { indicator: 'eia.us_spr_stocks', entity: 'USA', label: 'احتياطي استراتيجي' }]} />
+        <SeriesChart height={340} ranges={WEEKLY} defaultRange="5y" title="مخزون البنزين والمقطّرات" subtitle="ألف برميل" lines={[{ indicator: 'eia.us_gasoline_stocks', entity: 'USA', label: 'بنزين' }, { indicator: 'eia.us_distillate_stocks', entity: 'USA', label: 'مقطّرات (ديزل)' }]} />
+        <SeriesChart height={340} ranges={WEEKLY} defaultRange="10y" title="إنتاج النفط الأمريكي" subtitle="ألف برميل/يوم" lines={[{ indicator: 'eia.us_crude_production', entity: 'USA', label: 'إنتاج' }]} />
+        <SeriesChart height={340} ranges={WEEKLY} defaultRange="10y" title="واردات وصادرات النفط الخام الأمريكية" subtitle="ألف برميل/يوم" lines={[{ indicator: 'eia.us_crude_imports', entity: 'USA', label: 'واردات' }, { indicator: 'eia.us_crude_exports', entity: 'USA', label: 'صادرات' }]} />
+        <SeriesChart height={340} ranges={WEEKLY} defaultRange="5y" title="معدل تشغيل المصافي الأمريكية" subtitle="%" lines={[{ indicator: 'eia.us_refinery_utilization', entity: 'USA', label: 'تشغيل المصافي' }]} />
+        <SeriesChart height={340} ranges={WEEKLY} defaultRange="10y" title="الطلب الأمريكي على المنتجات النفطية والبنزين" subtitle="ألف برميل/يوم" lines={[{ indicator: 'eia.us_product_supplied', entity: 'USA', label: 'كل المنتجات' }, { indicator: 'eia.us_gasoline_demand', entity: 'USA', label: 'البنزين' }]} />
+        <SeriesChart height={340} ranges={WEEKLY} defaultRange="10y" title="مخزون الغاز الطبيعي الأمريكي" subtitle="مليار قدم مكعب" lines={[{ indicator: 'eia.us_gas_storage', entity: 'USA', label: 'مخزون الغاز' }]} />
+      </Section>
+
       <Section title="الغاز والفحم">
         <SeriesChart
           title="أسعار الغاز الطبيعي"
@@ -88,6 +105,18 @@ export default function CommoditiesPage() {
       </Section>
 
       <Section title="الغذاء والأسمدة" lead="عُمان مستورد صافٍ للغذاء، فارتفاع هذه الأسعار تضخم مستورد.">
+        <SeriesChart
+          title="مؤشر أسعار الغذاء العالمي (FAO)"
+          subtitle="2014-2016 = 100 — شهري منذ 1990"
+          from="1990"
+          lines={[{ indicator: 'fao.ffpi', entity: 'WLD', label: 'المؤشر العام' }]}
+        />
+        <SeriesChart
+          title="مؤشرات الغذاء حسب المجموعة (FAO)"
+          subtitle="2014-2016 = 100"
+          from="2000"
+          lines={[{ indicator: 'fao.ffpi_cereals', entity: 'WLD', label: 'حبوب' }, { indicator: 'fao.ffpi_oils', entity: 'WLD', label: 'زيوت' }, { indicator: 'fao.ffpi_meat', entity: 'WLD', label: 'لحوم' }, { indicator: 'fao.ffpi_dairy', entity: 'WLD', label: 'ألبان' }, { indicator: 'fao.ffpi_sugar', entity: 'WLD', label: 'سكر' }]}
+        />
         <SeriesChart
           title="الحبوب والأرز"
           subtitle="متوسط شهري"

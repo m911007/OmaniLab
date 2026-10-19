@@ -55,3 +55,5 @@
 - المعادن حسب الدولة: لا مصدر آلي موثوق بعد (OWID مفقودة، USGS لم يُوصَل إليه)؛ ريوع المعادن من WB موجودة.
 - المعادن حسب الدولة: USGS MCS (sciencebase.gov) محمي بتحدّي Cloudflare — لم يُتجاوز احترامًا للشروط. البديل المقبول: تنزيل يدوي من المالك لـMCS20xx_World_Data.csv إلى database/data/usgs/ ثم موصل بلقطة، أو مناجم Wikidata.
 - فئات OSM الصناعية الجديدة (factory, industrial_zone, heavy_industry, fish_farm, farm, livestock) تُجلب ضمن osm.places (طابور heavy؛ لا تُعد البناء أثناء التشغيل).
+- مصادر جديدة (أكتوبر 2026): ecb.euro_area, boe.uk_markets, eurostat.economy, oecd.leading_indicators, ember.electricity, sipri.military_expenditure, wmd.mineral_production, eia.weekly, fao.food_price_index, crypto.coingecko, climate.global, climate.open_meteo_extra, owid.demography/longrun.
+- تخطّينا عمدًا: CFTC COT (robots: ai-train=no)، USGS (Cloudflare)، UNCTAD (ملفات 7z). بانتظار المالك: USGS يدويًا، CBO/MoF/MSX، مفتاح FRED.

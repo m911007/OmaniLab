@@ -170,6 +170,10 @@ function Indicators({ group }: { group: GroupId }) {
         <SeriesChart title="السيطرة على الفساد" lines={gccLines('wb.GOV_WGI_CC.SC')} from="2000" />
         <SeriesChart title="الاستهلاك الحكومي (% من الناتج)" lines={peerLines('wb.NE.CON.GOVT.ZS')} from="1990" />
         <SeriesChart title="إيرادات الحكومة العامة (% من الناتج)" lines={peerLines('imf.GGR_G01_GDP_PT')} from="2000" imfForecast />
+        <SeriesChart title="الإنفاق العسكري (% من الناتج)" subtitle="SIPRI" lines={peerLines('sipri.milex_gdp')} from="1990" />
+        <SeriesChart title="الإنفاق العسكري (% من الإنفاق الحكومي)" subtitle="SIPRI" lines={peerLines('sipri.milex_gov_share')} from="1990" />
+        <SeriesChart title="الإنفاق العسكري (مليون دولار ثابت 2024)" subtitle="SIPRI" lines={gccLines('sipri.milex_usd')} from="1990" />
+        <SeriesChart title="الإنفاق العسكري للفرد (دولار)" subtitle="SIPRI" lines={peerLines('sipri.milex_per_capita')} from="1990" />
       </Section>
     );
   }
