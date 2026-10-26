@@ -1,3 +1,4 @@
+import { ReadingGrid } from '@/core/components/ReadingGrid';
 import { useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CountrySelect } from '@/core/components/CountrySelect';
@@ -40,7 +41,7 @@ export default function MarketsPage() {
   return (
     <>
       <PageHead title={`${flagOf(profile?.iso2 ?? null)} ${name}`} lead="ملف اقتصادي شامل مقارنةً بعُمان، مع ترتيب الدولة بين دول العالم وتجارتها مع عُمان. المصادر: البنك الدولي وصندوق النقد ومنافذ." />
-      <p className="no-print"><Link to="/countries">← كل دول العالم</Link></p>
+      <p className="no-print"><Link to="/world">← كل دول العالم</Link></p>
       {profile && (
         <div className="country-meta" aria-label="بطاقة تعريف">
           <span className="chip neutral">{regionLabel(profile.region)}</span>
@@ -51,10 +52,10 @@ export default function MarketsPage() {
       )}
 
       <div className="controls">
-        {isLoading || !entities ? <Loading height={36} /> : <CountrySelect entities={entities} value={code} onChange={(c) => navigate(`/markets/${c}`)} label="الدولة" />}
+        {isLoading || !entities ? <Loading height={36} /> : <CountrySelect entities={entities} value={code} onChange={(c) => navigate(`/world/markets/${c}`)} label="الدولة" />}
       </div>
 
-      <div className="grid cols-4">
+      <ReadingGrid>
         <KeyStat entity={code} indicator="wb.NY.GDP.MKTP.CD" label="الناتج المحلي الإجمالي" compactValue />
         <KeyStat entity={code} indicator="wb.NY.GDP.PCAP.CD" label="نصيب الفرد من الناتج" />
         <KeyStat entity={code} indicator="wb.SP.POP.TOTL" label="عدد السكان" compactValue />
@@ -63,24 +64,24 @@ export default function MarketsPage() {
         <KeyStat entity={code} indicator="wb.SL.UEM.TOTL.ZS" label="معدل البطالة" goodWhen="down" />
         <KeyStat entity={code} indicator="imf.GGXWDG_NGDP" label="الدين الحكومي" maxPeriod={A} goodWhen="down" />
         <KeyStat entity={code} indicator="wb.IT.NET.USER.ZS" label="مستخدمو الإنترنت" goodWhen="up" />
-      </div>
+      </ReadingGrid>
 
       <Section title="المالية العامة والقطاع الخارجي">
-        <div className="grid cols-4" style={{ gridColumn: '1 / -1' }}>
+        <ReadingGrid>
           <KeyStat entity={code} indicator="imf.GGXCNL_NGDP" label="رصيد الميزانية" maxPeriod={A} goodWhen="up" />
           <KeyStat entity={code} indicator="imf.BCA_NGDPD" label="الحساب الجاري" maxPeriod={A} goodWhen="up" />
           <KeyStat entity={code} indicator="wb.NE.EXP.GNFS.ZS" label="صادرات السلع والخدمات (% من الناتج)" />
           <KeyStat entity={code} indicator="wb.BX.KLT.DINV.WD.GD.ZS" label="الاستثمار الأجنبي الداخل (% من الناتج)" />
-        </div>
+        </ReadingGrid>
       </Section>
 
       <Section title="السكان والتنمية والرقمنة">
-        <div className="grid cols-4" style={{ gridColumn: '1 / -1' }}>
+        <ReadingGrid>
           <KeyStat entity={code} indicator="wb.SP.DYN.LE00.IN" label="متوسط العمر المتوقع" goodWhen="up" />
           <KeyStat entity={code} indicator="undp.hdi" label="مؤشر التنمية البشرية" goodWhen="up" />
           <KeyStat entity={code} indicator="wb.SE.TER.ENRR" label="الالتحاق بالتعليم العالي" goodWhen="up" />
           <KeyStat entity={code} indicator="wb.SP.URB.TOTL.IN.ZS" label="سكان الحضر" />
-        </div>
+        </ReadingGrid>
       </Section>
 
       <Section title={code === 'OMN' ? 'عُمان' : `${name} مقابل عُمان`}>

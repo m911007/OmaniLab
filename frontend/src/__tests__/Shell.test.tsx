@@ -18,7 +18,7 @@ describe('الغلاف والتنقل', () => {
             <Routes>
               <Route element={<Shell />}>
                 <Route index element={<h1>الرئيسية</h1>} />
-                <Route path="oman" element={<h1>صفحة عُمان</h1>} />
+                <Route path="growth" element={<h1>صفحة النمو</h1>} />
               </Route>
             </Routes>
           </MemoryRouter>
@@ -27,8 +27,8 @@ describe('الغلاف والتنقل', () => {
     );
 
     expect(screen.getByText('الرئيسية')).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('link', { name: 'الاقتصاد العُماني' }));
+    fireEvent.click(screen.getByRole('link', { name: 'النمو والناتج' }));
 
-    expect(await screen.findByText('صفحة عُمان')).toBeInTheDocument();
+    expect(await screen.findByText('صفحة النمو')).toBeInTheDocument();
   });
 });

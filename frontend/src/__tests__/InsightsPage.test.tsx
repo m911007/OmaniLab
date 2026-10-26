@@ -121,12 +121,15 @@ describe('لوحة الإشارات', () => {
     );
   };
 
-  it('تعرض كل إشارة بعنوانها ونصها وفترتها وبأيقونة مع النص', async () => {
-    renderPanel([{ id: 'a', title: 'تحرّك حاد في سعر برنت', message: 'تغيّر 12% في سبتمبر', tone: 'warning', indicator: 'x', entity: 'WLD', period: '2026-09', value: 1, previous: 2, change: 12 }]);
+  it('تعرض كل إشارة بطاقةً بعنوانها ونصها وبأيقونة مع النص، و«؟» يقلبها', async () => {
+    renderPanel([{ id: 'a', title: 'تحرّك حاد في سعر برنت', message: 'تغيّر 12% في سبتمبر', tone: 'warning', indicator: 'x', entity: 'WLD', period: '2026-09', value: 1, previous: 2, change: 12, why: null, watch: null, link: null }]);
 
-    expect(await screen.findByText('تحرّك حاد في سعر برنت')).toBeInTheDocument();
+    expect(await screen.findByRole('article', { name: 'تحرّك حاد في سعر برنت' })).toBeInTheDocument();
     expect(screen.getByText(/تغيّر 12%/)).toBeInTheDocument();
     expect(screen.getByText('انتباه')).toBeInTheDocument();
+    // «؟» يقلب البطاقة إلى التفاصيل
+    fireEvent.click(screen.getByRole('button', { name: /تفاصيل إشارة/ }));
+    expect(document.querySelector('.signal-card')?.classList.contains('flipped')).toBe(true);
   });
 
   it('لا تعرض شيئًا حين لا توجد إشارات', async () => {

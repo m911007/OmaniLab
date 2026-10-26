@@ -155,10 +155,45 @@ abstract class WorldBankConnector extends ApiConnector
                 $pages = (int) ($res[0]['pages'] ?? 1);
             } while ($page++ < $pages);
 
-            $body['values'][$indicator->code] = $rows;
+            $body['values'][$indicator->code] = $this->resolveCityDuplicates($indicator->code, $rows);
         }
 
         return new RawPayload(json_encode($body, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR));
+    }
+
+    /**
+     * مصدر Doing Business يعيد لبعض الدول الكبرى صفًّا لكل مدينة مع الصف الوطني في استدعاء «كل الدول». حين يتكرر (دولة، سنة) بقيمتين
+     * مختلفتين نطلب الدولة وحدها فيعود الصف الوطني الموحَّد، بدل قيمة مدينة أو تعارض يعزل المجموعة.
+     *
+     * @param  list<array{0: string, 1: string, 2: mixed}>  $rows
+     * @return list<array{0: string, 1: string, 2: mixed}>
+     */
+    private function resolveCityDuplicates(string $code, array $rows): array
+    {
+        $seen = [];
+        $conflicted = [];
+        foreach ($rows as [$entity, $date, $value]) {
+            $k = "{$entity}|{$date}";
+            if (isset($seen[$k]) && (float) $seen[$k] !== (float) $value) {
+                $conflicted[$entity] = true;
+            }
+            $seen[$k] = $value;
+        }
+        if ($conflicted === []) {
+            return $rows;
+        }
+        $rows = array_values(array_filter($rows, fn ($r) => ! isset($conflicted[$r[0]])));
+        foreach (array_keys($conflicted) as $entity) {
+            $res = $this->getJson(self::BASE."/country/{$entity}/indicator/{$code}?format=json&per_page=200&date=1960:{$this->lastYear()}".$this->sourceQuery());
+            foreach ($res[1] ?? [] as $r) {
+                if ($r['value'] !== null) {
+                    $rows[] = [$entity, $r['date'], $r['value']];
+                }
+            }
+            usleep(200_000);
+        }
+
+        return $rows;
     }
 
     public function parse(RawPayload $payload): iterable

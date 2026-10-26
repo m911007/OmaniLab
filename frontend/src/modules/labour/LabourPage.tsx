@@ -1,3 +1,4 @@
+import { ReadingGrid } from '@/core/components/ReadingGrid';
 import { KeyStat } from '@/core/components/KeyStat';
 import { PageHead, Section } from '@/core/components/PageHead';
 import { SeriesChart } from '@/core/components/SeriesChart';
@@ -13,12 +14,12 @@ export default function LabourPage() {
         lead="من يعمل في الاقتصاد العُماني؟ تركيبة العاملين بين العُمانيين والوافدين، والبطالة والمشاركة والشباب والمرأة، ومقارنتها بدول الخليج. المصدر الأساسي منظمة العمل الدولية والمركز الإحصائي الخليجي."
       />
 
-      <div className="grid cols-4">
+      <ReadingGrid>
         <KeyStat entity="OMN" indicator="ilo.emp_citizen" label="العاملون العُمانيون" compactValue />
         <KeyStat entity="OMN" indicator="ilo.emp_noncitizen" label="العاملون غير العُمانيين" compactValue />
         <KeyStat entity="OMN" indicator="ilo.unemployment" label="معدل البطالة" goodWhen="down" />
         <KeyStat entity="OMN" indicator="ilo.unemployment_youth" label="بطالة الشباب (15–24)" goodWhen="down" />
-      </div>
+      </ReadingGrid>
 
       <Section title="تركيبة العاملين">
         <OmanisationCard />
@@ -57,11 +58,11 @@ export default function LabourPage() {
       </Section>
 
       <Section title="العُمانيون وغير العُمانيين" lead="أحدث مقارنة منشورة بين الفئتين (قد تسبق السنة الجارية بسنوات).">
-        <div className="grid cols-3" style={{ gridColumn: '1 / -1' }}>
+        <ReadingGrid>
           <KeyStat entity="OMN" indicator="ilo.lfp_citizen" label="مشاركة العُمانيين في القوى العاملة" />
           <KeyStat entity="OMN" indicator="ilo.lfp_noncitizen" label="مشاركة غير العُمانيين في القوى العاملة" />
           <KeyStat entity="OMN" indicator="ilo.unemployment_citizen" label="بطالة العُمانيين" goodWhen="down" />
-        </div>
+        </ReadingGrid>
       </Section>
 
       <Section title="الأجور وحصة العمل" lead="الحد الأدنى الرسمي للأجور (منظمة العمل الدولية) وحصة العمل من الناتج: كم يذهب من الناتج إلى أجور العاملين؟">

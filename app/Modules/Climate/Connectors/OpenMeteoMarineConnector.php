@@ -11,6 +11,7 @@ use App\Core\Ingestion\Data\RawPayload;
 use App\Core\Ingestion\Data\SourceDefinition;
 use App\Core\Validation\Rules\Range;
 use Carbon\CarbonImmutable;
+use Illuminate\Http\Client\RequestException;
 use RuntimeException;
 
 /**
@@ -71,7 +72,7 @@ final class OpenMeteoMarineConnector extends ApiConnector
         $end = CarbonImmutable::now('Asia/Muscat')->subDays(5)->toDateString();
         $out = ['last' => $end, 'points' => []];
         foreach (self::POINTS as $p => [, , $lat, $lon]) {
-            $res = $this->httpAccepting('application/json')->timeout(120)->retry(3, 3000)->get(self::URL, [
+            $res = $this->httpAccepting('application/json')->timeout(120)->retry(5, 65000, fn ($e) => $e instanceof RequestException && $e->response->status() === 429)->get(self::URL, [
                 'latitude' => $lat, 'longitude' => $lon, 'start_date' => self::FROM, 'end_date' => $end, 'timezone' => 'Asia/Muscat',
                 'daily' => 'wave_height_max,wave_period_max,sea_surface_temperature_mean',
             ])->throw()->json();
@@ -79,7 +80,7 @@ final class OpenMeteoMarineConnector extends ApiConnector
                 throw new RuntimeException("Open-Meteo Marine {$p}: تغيّر شكل الاستجابة.");
             }
             $out['points'][$p] = $res['daily'];
-            usleep(600_000);
+            sleep(20);
         }
 
         return new RawPayload(json_encode($out, JSON_THROW_ON_ERROR));

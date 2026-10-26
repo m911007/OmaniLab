@@ -15,6 +15,10 @@ import {
   type Point,
   type RankingResponse,
   type RelationsResponse,
+  type Reading,
+  type CatalogResponse,
+  type IndicatorDetail,
+  type SearchResults,
   type Signal,
   type Scorecard,
   type SeriesResponse,
@@ -27,7 +31,7 @@ import {
   type FirmRow,
 } from './api';
 import { assignLineColors } from './colors';
-import { entityName } from './format';
+import { OMR_PER_USD, entityName, toOmrUnit } from './format';
 
 const FIVE_MIN = 5 * 60_000;
 
@@ -38,6 +42,11 @@ export function useSeries(indicator: string, entities: readonly string[], range:
     staleTime: FIVE_MIN,
     enabled: entities.length > 0,
   });
+}
+
+/** مجموعة بيانات واحدة بمؤشراتها (GET /datasets/{key}). */
+export function useDataset(key: string) {
+  return useQuery({ queryKey: ['dataset', key], queryFn: ({ signal }) => api<{ data: Dataset }>(`datasets/${key}`, {}, signal).then((r) => r.data), staleTime: FIVE_MIN });
 }
 
 export function useLatest(entity: string, indicators: readonly string[], maxPeriod?: string) {
@@ -88,6 +97,8 @@ export interface LineSpec {
   entity: string;
   label?: string;
   color?: string;
+  /** يحوّل قيم الدولار إلى ريال عُماني بالربط الرسمي (0.3845) ويستبدل الوحدة */
+  omr?: boolean;
 }
 
 /**
@@ -118,10 +129,12 @@ export function useLines(lines: readonly LineSpec[], range: { from?: string; to?
     const datasets = new Map<string, Dataset>();
     const indicators = new Map<string, IndicatorMeta>();
     const lineColors = assignLineColors(lines);
+    const omrKeys = new Set(lines.filter((l) => l.omr).map((l) => l.indicator));
     for (const r of results) {
       if (!r.data) continue;
       datasets.set(r.data.dataset.key, r.data.dataset);
-      indicators.set(r.data.indicator.key, r.data.indicator);
+      const meta = r.data.indicator;
+      indicators.set(meta.key, omrKeys.has(meta.key) ? { ...meta, unit: toOmrUnit(meta.unit) } : meta);
     }
     for (const [i, l] of lines.entries()) {
       const res = results.find((r) => r.data?.indicator.key === l.indicator)?.data;
@@ -131,7 +144,7 @@ export function useLines(lines: readonly LineSpec[], range: { from?: string; to?
         id: `${l.indicator}|${l.entity}`,
         label: l.label ?? entityName(s.entity),
         color: lineColors[i],
-        points: s.points,
+        points: l.omr ? s.points.map(([p, v]) => [p, v * OMR_PER_USD] as typeof s.points[number]) : s.points,
       });
     }
     return { series, datasets: [...datasets.values()], indicators: [...indicators.values()] };
@@ -141,10 +154,10 @@ export function useLines(lines: readonly LineSpec[], range: { from?: string; to?
   return { isLoading, error, series, datasets, indicators };
 }
 
-export function usePageTitle(title: string): void {
+export function usePageTitle(title: string, enabled = true): void {
   useEffect(() => {
-    document.title = `${title} — المخبر العماني`;
-  }, [title]);
+    if (enabled) document.title = `${title} — المخبر العماني`;
+  }, [title, enabled]);
 }
 
 export interface CompanyQuery {
@@ -189,6 +202,42 @@ export function useRelations(p: { indicator: string; entity: string; period: str
 
 export function useScorecard() {
   return useQuery({ queryKey: ['scorecard'], queryFn: ({ signal }) => api<Scorecard>('insights/scorecard', {}, signal), staleTime: 10 * 60_000 });
+}
+
+/** قراءات المؤشرات: قائمة مفاتيح أو مجموعة مسمّاة (pulse). */
+export function useReadings(query: { indicators?: readonly string[]; set?: 'pulse'; entity?: string; maxPeriod?: string; polarity?: string; omr?: boolean }) {
+  const indicators = query.indicators?.join(',');
+  return useQuery({
+    queryKey: ['readings', query.set ?? indicators, query.entity, query.maxPeriod, query.polarity, query.omr],
+    queryFn: ({ signal }) => api<{ data: Reading[] }>('readings', { set: query.set, indicators, entity: query.entity, max_period: query.maxPeriod, polarity: query.polarity, omr: query.omr ? 1 : undefined }, signal).then((r) => r.data),
+    staleTime: 10 * 60_000,
+    enabled: Boolean(query.set || indicators),
+  });
+}
+
+export function useIndicator(key: string) {
+  return useQuery({ queryKey: ['indicator', key], queryFn: ({ signal }) => api<{ data: IndicatorDetail }>(`indicators/${encodeURIComponent(key)}`, {}, signal).then((r) => r.data), staleTime: 10 * 60_000 });
+}
+
+export function useIndicatorCatalog(params: { q?: string; section?: string; omn?: boolean; page?: number }) {
+  return useQuery({
+    queryKey: ['catalog', params],
+    queryFn: ({ signal }) => api<CatalogResponse>('indicators', { q: params.q || undefined, section: params.section || undefined, omn: params.omn ? 1 : undefined, page: params.page }, signal),
+    staleTime: 10 * 60_000,
+    placeholderData: (prev) => prev,
+  });
+}
+
+/** البحث الشامل (يبدأ من حرفين) */
+export function useSearch(q: string) {
+  const term = q.trim();
+  return useQuery({
+    queryKey: ['search', term],
+    queryFn: ({ signal }) => api<{ data: SearchResults }>('search', { q: term }, signal).then((r) => r.data),
+    enabled: term.length >= 2,
+    staleTime: 5 * 60_000,
+    placeholderData: (prev) => prev,
+  });
 }
 
 export function useSignals() {
@@ -253,4 +302,64 @@ export function useFirmStats() {
 
 export function useFirm(code: string) {
   return useQuery({ queryKey: ['firm', code], queryFn: ({ signal }) => api<{ data: FirmRow; dataset: Dataset | null }>(`firms/${code}`, {}, signal), staleTime: FIVE_MIN });
+}
+
+export interface StartupRow {
+  name: string;
+  code: string;
+  blurb?: string;
+  description?: string;
+  stage?: string;
+  employees?: string;
+  legal_type?: string;
+  activity_status?: string;
+  sector?: string[];
+  subsector?: string[];
+  seeking?: string[];
+  founded?: string;
+  founded_year?: number;
+  funding_sought?: string;
+  url?: string;
+}
+
+export interface StartupsResponse {
+  total: number;
+  page: number;
+  per_page: number;
+  data: StartupRow[];
+  dataset: Dataset | null;
+}
+
+export interface CountItem {
+  label: string;
+  count: number;
+}
+
+export interface StartupStats {
+  total: number;
+  platform_count: number | null;
+  platform_links: number | null;
+  by_stage: CountItem[];
+  by_sector: CountItem[];
+  by_subsector: CountItem[];
+  by_legal_type: CountItem[];
+  by_status: CountItem[];
+  by_employees: CountItem[];
+  by_founded_year: CountItem[];
+  seeking: CountItem[];
+  by_funding: CountItem[];
+  dataset: Dataset | null;
+}
+
+export function useStartups(p: { q?: string; sector?: string; stage?: string; page: number; per_page?: number }) {
+  return useQuery({
+    queryKey: ['startups', p],
+    queryFn: ({ signal }) => api<StartupsResponse>('startups', { ...p }, signal),
+    staleTime: FIVE_MIN,
+    placeholderData: (prev) => prev,
+  });
+}
+
+export function useStartupStats() {
+  return useQuery({ queryKey: ['startup-stats'], queryFn: ({ signal }) => api<StartupStats>('startups/stats', {}, signal), staleTime: FIVE_MIN });
 }

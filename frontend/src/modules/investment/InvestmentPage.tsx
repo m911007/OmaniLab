@@ -1,3 +1,4 @@
+import { ReadingGrid } from '@/core/components/ReadingGrid';
 import { KeyStat } from '@/core/components/KeyStat';
 import { PageHead, Section } from '@/core/components/PageHead';
 import { SeriesChart } from '@/core/components/SeriesChart';
@@ -11,12 +12,12 @@ export default function InvestmentPage() {
         lead="هل يتدفق المال إلى الاقتصاد العُماني؟ الاستثمار الأجنبي المباشر، وتكوين رأس المال، وسوق الأسهم، والتمويل، ومناخ الأعمال الذي يحدد جاذبية البلد، والأصول التي تملكها عُمان في الخارج."
       />
 
-      <div className="grid cols-4">
+      <ReadingGrid>
         <KeyStat entity="OMN" indicator="wb.BX.KLT.DINV.WD.GD.ZS" label="الاستثمار الأجنبي الداخل (% من الناتج)" />
         <KeyStat entity="OMN" indicator="wb.NE.GDI.FTOT.ZS" label="تكوين رأس المال الثابت (% من الناتج)" />
         <KeyStat entity="OMN" indicator="wb.CM.MKT.LCAP.GD.ZS" label="القيمة السوقية للأسهم (% من الناتج)" />
         <KeyStat entity="OMN" indicator="imf.iip_net" label="صافي مركز الاستثمار الدولي" compactValue />
-      </div>
+      </ReadingGrid>
 
       <Section title="الاستثمار الأجنبي المباشر" lead="الداخل يعكس ثقة المستثمرين الأجانب، والصادر يعكس توظيف الفوائض في الخارج. الأرقام السالبة في صافي التدفق تعني خروجًا يفوق الدخول.">
         <SeriesChart title="الاستثمار الأجنبي المباشر الداخل (% من الناتج)" lines={gccLines('wb.BX.KLT.DINV.WD.GD.ZS')} from="2000" />

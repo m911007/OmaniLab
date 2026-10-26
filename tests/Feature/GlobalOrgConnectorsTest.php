@@ -2,18 +2,32 @@
 
 namespace Tests\Feature;
 
+use App\Core\Ingestion\Data\ParsedAttribute;
 use App\Core\Ingestion\Data\ParsedEntity;
 use App\Core\Ingestion\Data\ParsedRecord;
 use App\Core\Ingestion\Data\ParsedRelation;
 use App\Core\Ingestion\Data\RawPayload;
 use App\Modules\Bis\Connectors\BisStatisticsConnector;
+use App\Modules\Boe\Connectors\BoeUkConnector;
+use App\Modules\Climate\Connectors\GlobalClimateConnector;
 use App\Modules\Climate\Connectors\OpenMeteoClimateConnector;
+use App\Modules\Climate\Connectors\OpenMeteoExtraConnector;
+use App\Modules\Climate\Connectors\OpenMeteoMarineConnector;
 use App\Modules\Climate\Connectors\UsgsEarthquakesConnector;
+use App\Modules\Climate\Connectors\WorldBankClimateConnector;
 use App\Modules\Comtrade\Connectors\ComtradeProductsConnector;
+use App\Modules\Ecb\Connectors\EcbEuroAreaConnector;
+use App\Modules\Ember\Connectors\EmberElectricityConnector;
+use App\Modules\Eurostat\Connectors\EurostatConnector;
+use App\Modules\Fao\Connectors\FaoFoodBalanceConnector;
+use App\Modules\Fao\Connectors\FaoFoodPriceIndexConnector;
 use App\Modules\Fao\Connectors\FaoFoodSecurityConnector;
 use App\Modules\Fao\Connectors\FaoProductionConnector;
+use App\Modules\GlobalRates\Connectors\BankOfCanadaConnector;
+use App\Modules\GlobalRates\Connectors\MofJapanJgbConnector;
 use App\Modules\Ilo\Connectors\IloLabourConnector;
 use App\Modules\Irena\Connectors\IrenaElectricityConnector;
+use App\Modules\Macro\Connectors\ImfCoferConnector;
 use App\Modules\Macro\Connectors\ImfCpiConnector;
 use App\Modules\Macro\Connectors\ImfFossilSubsidiesConnector;
 use App\Modules\Macro\Connectors\ImfIipConnector;
@@ -22,6 +36,7 @@ use App\Modules\Macro\Connectors\ImfNdGainConnector;
 use App\Modules\Markets\Connectors\BlsUsEconomyConnector;
 use App\Modules\Markets\Connectors\CboeIndicesConnector;
 use App\Modules\Markets\Connectors\EiaSpotPricesConnector;
+use App\Modules\Markets\Connectors\EiaWeeklyConnector;
 use App\Modules\Markets\Connectors\FrankfurterFxConnector;
 use App\Modules\Markets\Connectors\ImfCommodityPricesConnector;
 use App\Modules\Markets\Connectors\NyFedRatesConnector;
@@ -30,12 +45,17 @@ use App\Modules\Markets\Connectors\UsTreasuryYieldsConnector;
 use App\Modules\Markets\Connectors\WorldBankPinkSheetConnector;
 use App\Modules\Oec\Connectors\OecComplexityConnector;
 use App\Modules\Oec\Connectors\OecProductsConnector;
+use App\Modules\Oecd\Connectors\OecdLeadingIndicatorsConnector;
+use App\Modules\Ons\Connectors\OnsUkConnector;
 use App\Modules\Owid\Connectors\OwidEnergyConnector;
 use App\Modules\Owid\Connectors\OwidFossilFuelsConnector;
 use App\Modules\Owid\Connectors\OwidIndicesConnector;
+use App\Modules\PortWatch\Connectors\PortWatchConnector;
+use App\Modules\Startups\Connectors\OmanStartupHubConnector;
 use App\Modules\Unesco\Connectors\UnescoUisConnector;
 use App\Modules\Unicef\Connectors\UnicefMortalityConnector;
 use App\Modules\Who\Connectors\WhoHealthConnector;
+use App\Modules\Wmd\Connectors\WorldMiningDataConnector;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use RuntimeException;
@@ -110,7 +130,7 @@ class GlobalOrgConnectorsTest extends TestCase
     {
         $this->freshHttp();
         Http::fake(fn () => Http::response("KEY,FREQ,TIME_PERIOD,OBS_VALUE,OBS_STATUS\nX,D,2026-10-14,2.5,A\nX,M,2026-09,2.1,A\nX,Q,2026-Q1,0.5,A\nX,D,2026-10-15,,A\n"));
-        $c = new \App\Modules\Ecb\Connectors\EcbEuroAreaConnector;
+        $c = new EcbEuroAreaConnector;
 
         $records = array_unique($this->records($c->parse($c->fetch())));
 
@@ -124,7 +144,7 @@ class GlobalOrgConnectorsTest extends TestCase
     {
         $this->freshHttp();
         Http::fake(fn () => Http::response("DATE,IUDBEDR\n02 Oct 2026,3.75\n05 Oct 2026,3.5\n"));
-        $c = new \App\Modules\Boe\Connectors\BoeUkConnector;
+        $c = new BoeUkConnector;
 
         $records = array_unique($this->records($c->parse($c->fetch())));
 
@@ -136,7 +156,7 @@ class GlobalOrgConnectorsTest extends TestCase
     {
         $this->freshHttp();
         Http::fake(fn () => Http::response("FAO Food Price Index,,\n2014-2016=100,,\nDate,Food Price Index,Meat,Dairy,Cereals,Oils,Sugar,,\n,,,\n2026-09,136.0,127.9,119.1,122.8,198.6,,,\n"));
-        $c = new \App\Modules\Fao\Connectors\FaoFoodPriceIndexConnector;
+        $c = new FaoFoodPriceIndexConnector;
 
         $records = array_unique($this->records($c->parse($c->fetch())));
 
@@ -155,7 +175,7 @@ class GlobalOrgConnectorsTest extends TestCase
             ."Oman,OMN,2024,Country,Capacity,Fuel,Solar,GW,0.5\n"
             ."Oman,OMN,2024,Country,Something else,Fuel,Gas,TWh,1\n";
         Http::fake(fn () => Http::response($csv));
-        $c = new \App\Modules\Ember\Connectors\EmberElectricityConnector;
+        $c = new EmberElectricityConnector;
 
         $records = array_unique($this->records($c->parse($c->fetch())));
 
@@ -171,7 +191,7 @@ class GlobalOrgConnectorsTest extends TestCase
             ."G7,G7,M,BCICP,AA,IX,2026-09,99.1\n"
             ."USA,United States,Q,LI,AA,IX,2026-Q3,99.9\n";
         Http::fake(fn () => Http::response($csv));
-        $c = new \App\Modules\Oecd\Connectors\OecdLeadingIndicatorsConnector;
+        $c = new OecdLeadingIndicatorsConnector;
 
         $records = array_unique($this->records($c->parse($c->fetch())));
 
@@ -188,12 +208,12 @@ class GlobalOrgConnectorsTest extends TestCase
             $solar[] = 36.0;
             $sun[] = 36000.0;
         }
-        $payload = new \App\Core\Ingestion\Data\RawPayload(json_encode(['last' => '2026-07-10', 'cities' => ['muscat' => [
+        $payload = new RawPayload(json_encode(['last' => '2026-07-10', 'cities' => ['muscat' => [
             'daily' => ['time' => $time, 'shortwave_radiation_sum' => $solar, 'sunshine_duration' => $sun, 'wind_speed_10m_mean' => array_fill(0, 30, 10.0), 'relative_humidity_2m_mean' => array_fill(0, 30, 50), 'et0_fao_evapotranspiration' => array_fill(0, 30, 6.0)],
             'air' => ['pm10' => ['2026-06-01' => 50.0]],
         ]]]));
 
-        $records = array_unique($this->records((new \App\Modules\Climate\Connectors\OpenMeteoExtraConnector)->parse($payload)));
+        $records = array_unique($this->records((new OpenMeteoExtraConnector)->parse($payload)));
 
         $this->assertContains('climate.solar_muscat|OMN|2026-06|10', $records);
         $this->assertContains('climate.sunshine_muscat|OMN|2026-06|10', $records);
@@ -211,7 +231,7 @@ class GlobalOrgConnectorsTest extends TestCase
             '*climate-at-a-glance*' => Http::response("# Title\nDate,Departure\n202609,1.35\n"),
             '*oni.ascii*' => Http::response(" SEAS  YR   TOTAL   ANOM\n  DJF 2026  26.1  -0.4\n"),
         ]);
-        $c = new \App\Modules\Climate\Connectors\GlobalClimateConnector;
+        $c = new GlobalClimateConnector;
 
         $records = array_unique($this->records($c->parse($c->fetch())));
 
@@ -242,7 +262,7 @@ class GlobalOrgConnectorsTest extends TestCase
             '*wmd.html' => Http::response('<a href="https://www.bmf.gv.at/dam/jcr:1/6.4.%20Production.xlsx">x</a>'),
             '*6.4.*' => Http::response($bytes),
         ]);
-        $c = new \App\Modules\Wmd\Connectors\WorldMiningDataConnector;
+        $c = new WorldMiningDataConnector;
 
         $records = array_unique($this->records($c->parse($c->fetch())));
 
@@ -259,7 +279,7 @@ class GlobalOrgConnectorsTest extends TestCase
             }
         }
         Http::fake(fn () => Http::response("<table>{$rows}</table>"));
-        $c = new \App\Modules\Markets\Connectors\EiaWeeklyConnector;
+        $c = new EiaWeeklyConnector;
 
         $records = array_unique($this->records($c->parse($c->fetch())));
 
@@ -271,7 +291,7 @@ class GlobalOrgConnectorsTest extends TestCase
     {
         $this->freshHttp();
         Http::fake(fn () => Http::response("DATAFLOW,LAST UPDATE,freq,unit,geo,TIME_PERIOD,OBS_VALUE,OBS_FLAG\nX,d,M,RCH_A,EL,2026-09,3.1,\nX,d,M,RCH_A,EU27_2020,2026-09,2.2,\nX,d,M,RCH_A,ZZ,2026-09,9.9,\nX,d,Q,RCH_A,DE,2026-Q1,1.5,\nX,d,M,RCH_A,DE,2026-09,,\n"));
-        $c = new \App\Modules\Eurostat\Connectors\EurostatConnector;
+        $c = new EurostatConnector;
 
         $records = array_unique($this->records($c->parse($c->fetch())));
 
@@ -295,7 +315,7 @@ class GlobalOrgConnectorsTest extends TestCase
                     : $f([['ISO3' => 'OMN', 'year' => 2026, 'month' => 10, 'calls' => 120, 'imp' => 1, 'exp' => 2], ['ISO3' => '', 'year' => 2026, 'month' => 10, 'calls' => 1, 'imp' => 1, 'exp' => 1]]);
             },
         ]);
-        $c = new \App\Modules\PortWatch\Connectors\PortWatchConnector;
+        $c = new PortWatchConnector;
 
         $records = array_unique($this->records($c->parse($c->fetch())));
 
@@ -314,15 +334,103 @@ class GlobalOrgConnectorsTest extends TestCase
         }
         $waves = array_fill(0, 30, 1.0);
         $waves[5] = 4.5;
-        $payload = new \App\Core\Ingestion\Data\RawPayload(json_encode(['last' => '2026-07-10', 'points' => ['salalah' => [
+        $payload = new RawPayload(json_encode(['last' => '2026-07-10', 'points' => ['salalah' => [
             'time' => $time, 'wave_height_max' => $waves, 'wave_period_max' => array_fill(0, 30, 8.0), 'sea_surface_temperature_mean' => array_fill(0, 30, 27.0),
         ]]]));
 
-        $records = array_unique($this->records((new \App\Modules\Climate\Connectors\OpenMeteoMarineConnector)->parse($payload)));
+        $records = array_unique($this->records((new OpenMeteoMarineConnector)->parse($payload)));
 
         $this->assertContains('marine.wave_peak_salalah|OMN|2026-06|4.5', $records);
         $this->assertContains('marine.sst_salalah|OMN|2026-06|27', $records);
         $this->assertContains('marine.wave_period_salalah|OMN|2026-06|8', $records);
+    }
+
+    public function test_ons_parses_month_and_quarter_labels(): void
+    {
+        $this->freshHttp();
+        Http::fake(fn () => Http::response(['months' => [['date' => '2026 AUG', 'value' => '3.1'], ['date' => '2026 JUL', 'value' => '']], 'quarters' => [['date' => '2026 Q2', 'value' => '0.5']]]));
+        $c = new OnsUkConnector;
+
+        $records = array_unique($this->records($c->parse($c->fetch())));
+
+        $this->assertContains('ons.cpi_yoy|GBR|2026-08|3.1', $records);
+        $this->assertContains('ons.gdp_qoq|GBR|2026-Q2|0.5', $records);
+        $this->assertNotContains('ons.cpi_yoy|GBR|2026-07|0', $records);
+    }
+
+    public function test_jgb_converts_slash_dates_and_boc_monthly_periods(): void
+    {
+        $this->freshHttp();
+        Http::fake([
+            '*jgbcme*' => Http::response("Interest Rate,,,(Unit : %)\nDate,1Y,2Y,5Y,10Y,20Y,30Y\n2026/10/2,0.9,1.0,1.3,1.9,2.6,3.1\n2026/10/3,-,1.0,1.3,1.9,2.6,3.1\n"),
+            '*valet*' => Http::response(['observations' => [['d' => '2026-08-01', 'V39079' => ['v' => '2.25'], 'STATIC_ATABLE_V41690973' => ['v' => '3.0'], 'CPI_TRIM' => ['v' => '1.9'], 'FXUSDCAD' => ['v' => '1.41'], 'BD.CDN.2YR.DQ.YLD' => ['v' => '2.5'], 'BD.CDN.5YR.DQ.YLD' => ['v' => '2.7'], 'BD.CDN.10YR.DQ.YLD' => ['v' => '3.1']]]]),
+        ]);
+
+        $jp = array_unique($this->records((new MofJapanJgbConnector)->parse((new MofJapanJgbConnector)->fetch())));
+        $c = new BankOfCanadaConnector;
+        $ca = array_unique($this->records($c->parse($c->fetch())));
+
+        $this->assertContains('jp.jgb_10y|JPN|2026-10-02|1.9', $jp);
+        $this->assertNotContains('jp.jgb_1y|JPN|2026-10-03|0', $jp);
+        $this->assertContains('ca.cpi_yoy|CAN|2026-08|3', $ca);
+        $this->assertContains('ca.policy_rate|CAN|2026-08-01|2.25', $ca);
+    }
+
+    public function test_imf_cofer_parses_shares_and_values_for_world(): void
+    {
+        $this->freshHttp();
+        $head = 'DATAFLOW,COUNTRY,INDICATOR,FXR_CURRENCY,TYPE_OF_TRANSFORMATION,FREQUENCY,TIME_PERIOD,OBS_VALUE';
+        Http::fake(['*COFER*' => Http::response($head."\nIMF.STA:COFER(7.0.1),G001,AFXRA,CI_USD,SHRO_PT,Q,2026-Q2,56.7\nIMF.STA:COFER(7.0.1),G001,AFXRA,CI_USD,NV_USD,Q,2026-Q2,7494549610004\nIMF.STA:COFER(7.0.1),G001,AFXRA,CI_T,SHRO_PT,Q,2026-Q2,100\nIMF.STA:COFER(7.0.1),G001,AFXRA,CI_DEM,SHRO_PT,Q,2026-Q2,1\n")]);
+        $c = new ImfCoferConnector;
+        $r = array_unique($this->records($c->parse($c->fetch())));
+
+        $this->assertContains('imf.cofer_share_usd|WLD|2026-Q2|56.7', $r);
+        $this->assertContains('imf.cofer_value_usd|WLD|2026-Q2|7494.549610004', $r);
+        $this->assertCount(2, array_filter($r, fn ($x) => str_starts_with($x, 'imf.cofer')));
+    }
+
+    public function test_world_bank_climate_parses_history_and_projections(): void
+    {
+        $this->freshHttp();
+        Http::fake(['*cckpapi*' => fn ($req) => Http::response(['data' => [basename(parse_url($req->url(), PHP_URL_PATH)) => ['2024-07' => 28.65, '2100-07' => 31.2]]])]);
+        $c = new WorldBankClimateConnector;
+        $r = $this->records($c->parse($c->fetch()));
+
+        $this->assertContains('climate.hist_tas|OMN|2024|28.65', $r);
+        $this->assertContains('climate.proj_pr_ssp585|OMN|2100|31.2', $r);
+    }
+
+    public function test_startup_hub_parses_cards_and_company_pages(): void
+    {
+        $this->freshHttp();
+        config(['omanilab.startups_snapshot' => '/nonexistent/snapshot.json']);
+        $card = '<div class="card-startup"><div class="company-detail"><h5 class="mb-3"><a href="https://omanstartuphub.om/ar/startup_companies/raaz">Raaz</a></h5><p>Fintech app...</p><span class="badge">التمويل</span><span class="badge">مواهب</span></div></div>';
+        $detail = '<div class="details-card-tag"> النمو الأولي</div><p class="text-white">Raaz is a personal finance platform for everyone.</p>'
+            .'<h6>1-5</h6><div>عدد الموظفين</div><h6> فبراير, 2025 </h6><div>سنة التأسيس</div><h6>ش.م.م</h6><div>نوع الشركة</div>'
+            .'<div class="gray-block w-100"><h5>القطاع</h5><span class="tag"> التقنية </span></div><div class="gray-block w-100"><h5>الخدمات</h5><span class="tag"> تطبيقات </span></div>';
+        Http::fake([
+            '*ar/startup_companies' => Http::response('<div class="counter fz-60" >224 </div><p class="text">شركة ناشئة وفي إزدياد</p>'),
+            '*startups/content?page=1*' => Http::response($card),
+            '*startups/content*' => Http::response(''),
+            '*startup_companies/raaz*' => Http::response($detail),
+        ]);
+        $c = new OmanStartupHubConnector;
+
+        $items = iterator_to_array($c->parse($c->fetch()), false);
+        $attrs = [];
+        foreach ($items as $i) {
+            if ($i instanceof ParsedAttribute) {
+                $attrs[$i->key] = $i->value;
+            }
+        }
+
+        $this->assertSame('النمو الأولي', $attrs['stage']);
+        $this->assertSame('1-5', $attrs['employees']);
+        $this->assertSame(2025, $attrs['founded_year']);
+        $this->assertSame(['التقنية'], $attrs['sector']);
+        $this->assertSame(['التمويل', 'مواهب'], $attrs['seeking']);
+        $records = array_values(array_filter($items, fn ($i) => $i instanceof ParsedRecord));
+        $this->assertSame(['startups.platform_count', 224.0], [$records[0]->indicatorKey, $records[0]->value]);
     }
 
     public function test_open_meteo_publishes_complete_months_only_and_counts_hot_days(): void
@@ -392,6 +500,31 @@ class GlobalOrgConnectorsTest extends TestCase
         $payload = new RawPayload(json_encode([['577|5510', 'OMN', '2024', '394946'], ['999|5510', 'OMN', '2024', '1'], ['1126|5111', 'OMN', '2023', '300000']]));
 
         $this->assertSame(['fao.prod_dates|OMN|2024|394946', 'fao.stock_camels|OMN|2023|300000'], $this->records($c->parse($payload)));
+    }
+
+    public function test_fao_food_balance_derives_self_sufficiency_from_production_and_supply(): void
+    {
+        $c = new FaoFoodBalanceConnector;
+        $payload = new RawPayload(json_encode([
+            ['2511', '5511', 'OMN', '2023', '8'], ['2511', '5301', 'OMN', '2023', '1463'], ['2511', '645', 'OMN', '2023', '55.19'],
+            ['2960', '5511', 'OMN', '2023', '580'], ['2960', '5301', 'OMN', '2023', '285'],
+            ['2901', '664', 'OMN', '2023', '3337'], ['9999', '5511', 'OMN', '2023', '1'],
+            // إنتاج مُسنَد (I) من المنظمة: لا يُنشر ولا تُحسب منه نسبة اكتفاء
+            ['2734', '5511', 'OMN', '2023', '7', 'I'], ['2734', '5301', 'OMN', '2023', '76', 'E'], ['2734', '5611', 'OMN', '2023', '101', 'A'],
+        ]));
+
+        $records = $this->records($c->parse($payload));
+
+        $this->assertContains('fao.fbs.wheat.prod|OMN|2023|8', $records);
+        $this->assertContains('fao.fbs.wheat.kgcap|OMN|2023|55.19', $records);
+        $this->assertContains('fao.fbs.wheat.ssr|OMN|2023|0.55', $records);
+        $this->assertContains('fao.fbs.fish.ssr|OMN|2023|203.51', $records);
+        $this->assertContains('fao.fbs.kcal|OMN|2023|3337', $records);
+        // إنتاج الدواجن مُسنَد: يُستبعد هو والمتاح المبني عليه، وتبقى الواردات
+        $this->assertContains('fao.fbs.poultry.imp|OMN|2023|101', $records);
+        $this->assertNotContains('fao.fbs.poultry.prod|OMN|2023|7', $records);
+        $this->assertNotContains('fao.fbs.poultry.supply|OMN|2023|76', $records);
+        $this->assertCount(9, $records);
     }
 
     public function test_owid_fossil_fuels_derive_familiar_units(): void

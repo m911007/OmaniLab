@@ -16,6 +16,18 @@ final class NcsiNationalAccountsConnector extends KnoemaConnector
 
     private const CONSTANT = 1000020;
 
+    /** أنشطة القطاع في تصنيف النشاط الاقتصادي غير النفطي: الزراعة والغابات والصيد، والزراعة والغابات، والصيد */
+    private const AGRI_FISH = 1000050;
+
+    private const AGRI = 1000060;
+
+    private const FISH = 1000070;
+
+    /** مؤشرا «القيمة المضافة الإجمالية» و«الحصة النسبية %» (من الناتج) في بُعد المؤشرات */
+    private const VALUE_ADDED = 1000250;
+
+    private const SHARE = 1000270;
+
     protected function knoemaDatasetId(): string
     {
         return 'zoangf';
@@ -57,6 +69,35 @@ final class NcsiNationalAccountsConnector extends KnoemaConnector
             new KnoemaSeries('GDP_PER_CAPITA_USD', 'نصيب الفرد من الناتج المحلي', 'GDP per capita', 'دولار', 'A', 1000060, $rules(), $total + ['price-type' => self::CURRENT]),
             new KnoemaSeries('EXPORTS_GS', 'صادرات السلع والخدمات', 'Exports of goods and services', 'مليون ريال عُماني', 'A', 1000120, $rules(), $total + ['price-type' => self::CURRENT]),
             new KnoemaSeries('IMPORTS_GS', 'واردات السلع والخدمات', 'Imports of goods and services', 'مليون ريال عُماني', 'A', 1000130, $rules(), $total + ['price-type' => self::CURRENT]),
+            ...$this->sectorSeries(),
         ];
+    }
+
+    /**
+     * مساهمة الزراعة والصيد في الناتج المحلي: الحصة % بالأسعار الجارية والثابتة (2010 فصاعدًا)، والقيمة المضافة بمليون ريال (منشورة من 2018).
+     * مجموع «الزراعة والغابات» و«الصيد» يساوي نشاط «الزراعة والغابات والصيد».
+     *
+     * @return list<KnoemaSeries>
+     */
+    private function sectorSeries(): array
+    {
+        $rules = fn (float $max) => [new Range(0, $max), new Completeness(0.1)];
+        $activities = [
+            'AGRI_FISH' => [self::AGRI_FISH, 'الزراعة والغابات والصيد', 'Agriculture, forestry and fishing'],
+            'AGRI' => [self::AGRI, 'الزراعة والغابات', 'Agriculture and forestry'],
+            'FISH' => [self::FISH, 'الصيد', 'Fishing'],
+        ];
+        $series = [];
+        foreach ($activities as $code => [$member, $ar, $en]) {
+            foreach ([['', self::CURRENT, 'بالأسعار الجارية', 'current'], ['_CONST', self::CONSTANT, 'بالأسعار الثابتة', 'constant']] as [$suffix, $price, $arPrice, $enPrice]) {
+                $filters = ['economic-activity-of-non-petrol' => $member, 'institutional-sector' => self::TOTAL, 'price-type' => $price];
+                $series[] = new KnoemaSeries("GDP_SHARE_{$code}{$suffix}", "مساهمة {$ar} في الناتج المحلي {$arPrice}", "{$en}: share of GDP, {$enPrice}", '% من الناتج', 'A', self::SHARE, $rules(100), $filters);
+                if ($code !== 'AGRI_FISH') {
+                    $series[] = new KnoemaSeries("VA_{$code}{$suffix}", "القيمة المضافة: {$ar} {$arPrice}", "{$en}: gross value added, {$enPrice}", 'مليون ريال عُماني', 'A', self::VALUE_ADDED, $rules(1e9), $filters);
+                }
+            }
+        }
+
+        return $series;
     }
 }

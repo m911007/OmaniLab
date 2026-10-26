@@ -19,11 +19,15 @@ export interface ChartVariant {
   note?: string;
 }
 
-type Props = Omit<React.ComponentProps<typeof SeriesChart>, 'lines' | 'subtitle'> & { variants: readonly ChartVariant[]; subtitle?: string; defaultVariant?: string };
+type Props = Omit<React.ComponentProps<typeof SeriesChart>, 'lines' | 'subtitle'> & { variants: readonly ChartVariant[]; subtitle?: string; defaultVariant?: string; onVariantChange?: (value: string) => void };
 
 /** رسم واحد بمبدّل: عدة مؤشرات متقاربة المعنى في بطاقة واحدة يختار القارئ بينها، فيوفّر المساحة ويتيح المقارنة السريعة. */
-export function SwitchChart({ variants, defaultVariant, subtitle, ...rest }: Props) {
+export function SwitchChart({ variants, defaultVariant, subtitle, onVariantChange, ...rest }: Props) {
   const [value, setValue] = useState(defaultVariant ?? variants[0].value);
+  const choose = (v: string) => {
+    setValue(v);
+    onVariantChange?.(v);
+  };
   const current = variants.find((v) => v.value === value) ?? variants[0];
   return (
     <SeriesChart
@@ -38,7 +42,7 @@ export function SwitchChart({ variants, defaultVariant, subtitle, ...rest }: Pro
       oil={current.oil ?? rest.oil}
       imfForecast={current.imfForecast ?? rest.imfForecast}
       note={current.note ?? rest.note}
-      extraActions={<Segmented label="المؤشر" value={current.value} onChange={setValue} options={variants.map((v) => ({ value: v.value, label: v.label }))} />}
+      extraActions={<>{rest.extraActions}<Segmented label="المؤشر" value={current.value} onChange={choose} options={variants.map((v) => ({ value: v.value, label: v.label }))} /></>}
     />
   );
 }

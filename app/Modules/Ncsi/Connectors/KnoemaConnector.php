@@ -10,6 +10,7 @@ use App\Core\Ingestion\Data\ParsedRecord;
 use App\Core\Ingestion\Data\ProbeResult;
 use App\Core\Ingestion\Data\RawPayload;
 use App\Core\Ingestion\Data\SourceDefinition;
+use App\Core\Quality\UnitShift;
 use Carbon\CarbonImmutable;
 use RuntimeException;
 
@@ -112,9 +113,17 @@ abstract class KnoemaConnector extends ApiConnector
 
         yield new ParsedEntity('OMN', 'Oman', 'country', 'سلطنة عُمان');
 
+        $shifted = array_map(fn (KnoemaSeries $s) => $s->code, array_filter($this->series(), fn (KnoemaSeries $s) => $s->fixUnitShift));
         foreach ($data['series'] as $code => $points) {
+            $values = [];
             foreach ($points as [$period, $value]) {
-                yield new ParsedRecord("ncsi.{$code}", 'OMN', $period, (float) $value);
+                $values[(string) $period] = (float) $value;
+            }
+            if (in_array($code, $shifted, true)) {
+                $values = UnitShift::fix($values, "ncsi.{$code}", 'OMN');
+            }
+            foreach ($values as $period => $value) {
+                yield new ParsedRecord("ncsi.{$code}", 'OMN', (string) $period, $value);
             }
         }
     }
@@ -142,14 +151,15 @@ abstract class KnoemaConnector extends ApiConnector
             'Stub' => [['DimensionId' => $indicatorDim, 'Members' => [$series->indicatorMember], 'DatasetId' => $ds]],
             'Filter' => array_map(fn ($dimId, $member) => ['DimensionId' => $dimId, 'Members' => [$member], 'DatasetId' => $ds], array_keys($filters), array_values($filters)),
             'RegionIdsRequired' => false, 'RegionDimensionId' => null, 'Dataset' => $ds,
-            'Frequencies' => [$series->frequency], 'TimeNormalization' => 'none', 'TimeseriesAttributes' => [],
+            'Frequencies' => [$series->sourceFrequency ?? $series->frequency], 'TimeNormalization' => 'none', 'TimeseriesAttributes' => [],
         ];
 
         $rows = $this->http()->post($this->url('data/pivot'), $body)->throw()->json('data') ?? [];
 
+        usort($rows, fn ($a, $b) => strcmp((string) ($a['Time'] ?? ''), (string) ($b['Time'] ?? '')));
         $points = [];
         foreach ($rows as $row) {
-            if (($row['Frequency'] ?? null) !== $series->frequency || ! isset($row['Value']) || ! is_numeric($row['Value'])) {
+            if (($row['Frequency'] ?? null) !== ($series->sourceFrequency ?? $series->frequency) || ! isset($row['Value']) || ! is_numeric($row['Value'])) {
                 continue;
             }
             $points[$this->period((string) $row['Time'], $series->frequency)] = (float) $row['Value'];

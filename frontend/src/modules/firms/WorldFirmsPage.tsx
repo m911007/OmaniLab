@@ -29,7 +29,7 @@ export function FirmTable({ rows }: { rows: FirmRow[] }) {
                   <span>{f.name_ar ?? f.name_en}{f.name_ar && f.name_en !== f.name_ar && <span className="muted" dir="ltr"> {f.name_en}</span>}</span>
                 </Link>
               </td>
-              <td>{f.country ? <Link to={`/markets/${f.country}`}>{f.country}</Link> : '—'}</td>
+              <td>{f.country ? <Link to={`/world/markets/${f.country}`}>{f.country}</Link> : '—'}</td>
               <td>{(f.industry_ar?.length ? f.industry_ar : f.industry)?.slice(0, 2).join('، ') ?? '—'}</td>
               <td className="num">{f.employees != null ? formatNumber(f.employees, 0) : '—'}</td>
               <td className="num">{moneyText(f.revenue)}</td>

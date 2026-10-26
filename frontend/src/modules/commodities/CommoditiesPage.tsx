@@ -1,3 +1,4 @@
+import { ReadingGrid } from '@/core/components/ReadingGrid';
 import { KeyStat } from '@/core/components/KeyStat';
 import { PageHead, Section } from '@/core/components/PageHead';
 import { SeriesChart, type RangeOption } from '@/core/components/SeriesChart';
@@ -22,12 +23,12 @@ export default function CommoditiesPage() {
         lead="أسعار النفط والغاز والمعادن والغذاء عالميًا وأثرها على الاقتصاد العُماني، مع أسعار الفائدة الأمريكية التي يرتبط بها الريال. أسعار صندوق النقد شهرية ومعدّلة بالدولار، وعوائد الخزانة الأمريكية يومية."
       />
 
-      <div className="grid cols-4">
-        <KeyStat entity="WLD" indicator="imf.pcps.poildub" label="خام دبي (مرجع النفط العُماني)" />
+      <ReadingGrid>
+        <KeyStat entity="OMN" indicator="ncsi.OIL_PRICE" label="نفط عُمان" />
         <KeyStat entity="WLD" indicator="imf.pcps.poilbre" label="خام برنت" />
         <KeyStat entity="WLD" indicator="imf.pcps.pngasjp" label="الغاز المسال في آسيا" />
         <KeyStat entity="USA" indicator="us.yield_10y" label="عائد الخزانة الأمريكية 10 سنوات" />
-      </div>
+      </ReadingGrid>
 
       <Section title="أسعار النفط من مصادر متعددة" lead="سعر برنت يُنشر من ثلاثة مصادر مستقلة: صندوق النقد (شهري) والبنك الدولي (الورقة الوردية) وإدارة معلومات الطاقة الأمريكية (يومي، والمتوسط الشهري المحسوب منه). تحت كل رسم شارات المصادر وحكم المطابقة وزر التبديل بينها.">
         <SeriesChart title="خام برنت (شهري)" subtitle="دولار/برميل" lines={[wld('poilbre', 'برنت', 'var(--series-1)')]} from="2015" />
@@ -44,7 +45,7 @@ export default function CommoditiesPage() {
         <SeriesChart title="برنت اليومي (EIA)" subtitle="دولار/برميل" lines={[{ indicator: 'eia.brent_d', entity: 'WLD', label: 'برنت', color: 'var(--series-1)' }]} />
         <SeriesChart title="غرب تكساس اليومي (EIA)" subtitle="دولار/برميل" lines={[{ indicator: 'eia.wti_d', entity: 'WLD', label: 'غرب تكساس', color: 'var(--series-3)' }]} />
         <SeriesChart title="خام غرب تكساس (شهري)" subtitle="دولار/برميل" lines={[wld('poilwti', 'غرب تكساس', 'var(--series-3)')]} from="2015" />
-        <SeriesChart title="خام دبي (شهري)" subtitle="دولار/برميل — مرجع تسعير النفط العُماني" lines={[wld('poildub', 'دبي', 'var(--series-1)')]} from="2015" />
+        <SeriesChart title="نفط عُمان (شهري)" subtitle="دولار/برميل — المركز الوطني للإحصاء" lines={[{ indicator: 'ncsi.OIL_PRICE', entity: 'OMN', label: 'نفط عُمان', color: 'var(--series-1)' }]} from="2015" />
         <SeriesChart title="غاز هنري هب (شهري)" subtitle="دولار/مليون وحدة حرارية" lines={[wld('pngasus', 'هنري هب', 'var(--series-4)')]} from="2015" />
         <SeriesChart title="الغاز المسال في آسيا (شهري)" subtitle="دولار/مليون وحدة حرارية" lines={[wld('pngasjp', 'الغاز المسال', 'var(--series-7)')]} from="2015" />
       </Section>
@@ -58,18 +59,8 @@ export default function CommoditiesPage() {
         <SeriesChart
           title="أسعار النفط الخام"
           subtitle="متوسط شهري"
-          lines={[wld('poildub', 'دبي', 'var(--series-1)'), wld('poilbre', 'برنت', 'var(--series-2)'), wld('poilwti', 'غرب تكساس', 'var(--series-3)')]}
+          lines={[{ indicator: 'ncsi.OIL_PRICE', entity: 'OMN', label: 'نفط عُمان', color: 'var(--series-1)' }, wld('poilbre', 'برنت', 'var(--series-2)'), wld('poilwti', 'غرب تكساس', 'var(--series-3)')]}
           from="2014"
-        />
-        <SeriesChart
-          title="النفط العُماني مقابل دبي"
-          subtitle="متوسط شهري"
-          lines={[
-            { indicator: 'ncsi.OIL_PRICE', entity: 'OMN', label: 'النفط العُماني (وزارة الطاقة)', color: 'var(--series-1)' },
-            wld('poildub', 'دبي (صندوق النقد)', 'var(--series-2)'),
-          ]}
-          from="2018"
-          note="يُسعَّر الخام العُماني بالرجوع إلى دبي؛ الفرق بين الخطين علاوة الجودة والتوقيت."
         />
       </Section>
 

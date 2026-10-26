@@ -58,6 +58,14 @@ final class NcsiEstablishmentsConnector extends KnoemaConnector
             new KnoemaSeries('EST_MANUF_WORKERS', 'العاملون في الصناعة التحويلية', 'Manufacturing employees', 'عامل', 'A', 1000010, $r(), ['economic-activity' => 1000030, 'nationality' => 1000000, 'type-of-establishment' => 1000000]),
             new KnoemaSeries('EST_MINING_WORKERS', 'العاملون في التعدين والمحاجر', 'Mining employees', 'عامل', 'A', 1000010, $r(), ['economic-activity' => 1000020, 'nationality' => 1000000, 'type-of-establishment' => 1000000]),
             new KnoemaSeries('EST_AGRI_WORKERS', 'العاملون في الزراعة وصيد الأسماك', 'Agriculture & fishing employees', 'عامل', 'A', 1000010, $r(), ['economic-activity' => 1000010, 'nationality' => 1000000, 'type-of-establishment' => 1000000]),
+            new KnoemaSeries('EST_SIZE_LARGE', 'المنشآت الكبيرة', 'Large establishments', 'منشأة', 'A', 1000000, $r(), ['economic-activity' => 1000000, 'nationality' => 1000000, 'type-of-establishment' => 1000010]),
+            new KnoemaSeries('EST_SIZE_LARGE_WORKERS', 'العاملون في المنشآت الكبيرة', 'Workers in large establishments', 'عامل', 'A', 1000010, $r(), ['economic-activity' => 1000000, 'nationality' => 1000000, 'type-of-establishment' => 1000010]),
+            new KnoemaSeries('EST_SIZE_MEDIUM', 'المنشآت المتوسطة', 'Medium establishments', 'منشأة', 'A', 1000000, $r(), ['economic-activity' => 1000000, 'nationality' => 1000000, 'type-of-establishment' => 1000020]),
+            new KnoemaSeries('EST_SIZE_MEDIUM_WORKERS', 'العاملون في المنشآت المتوسطة', 'Workers in medium establishments', 'عامل', 'A', 1000010, $r(), ['economic-activity' => 1000000, 'nationality' => 1000000, 'type-of-establishment' => 1000020]),
+            new KnoemaSeries('EST_SIZE_SMALL', 'المنشآت الصغيرة', 'Small establishments', 'منشأة', 'A', 1000000, $r(), ['economic-activity' => 1000000, 'nationality' => 1000000, 'type-of-establishment' => 1000030]),
+            new KnoemaSeries('EST_SIZE_SMALL_WORKERS', 'العاملون في المنشآت الصغيرة', 'Workers in small establishments', 'عامل', 'A', 1000010, $r(), ['economic-activity' => 1000000, 'nationality' => 1000000, 'type-of-establishment' => 1000030]),
+            new KnoemaSeries('EST_SIZE_MICRO', 'المنشآت الصغرى', 'Micro establishments', 'منشأة', 'A', 1000000, $r(), ['economic-activity' => 1000000, 'nationality' => 1000000, 'type-of-establishment' => 1000040]),
+            new KnoemaSeries('EST_SIZE_MICRO_WORKERS', 'العاملون في المنشآت الصغرى', 'Workers in micro establishments', 'عامل', 'A', 1000010, $r(), ['economic-activity' => 1000000, 'nationality' => 1000000, 'type-of-establishment' => 1000040]),
         ];
     }
 }

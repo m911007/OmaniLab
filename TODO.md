@@ -57,3 +57,5 @@
 - فئات OSM الصناعية الجديدة (factory, industrial_zone, heavy_industry, fish_farm, farm, livestock) تُجلب ضمن osm.places (طابور heavy؛ لا تُعد البناء أثناء التشغيل).
 - مصادر جديدة (أكتوبر 2026): ecb.euro_area, boe.uk_markets, eurostat.economy, oecd.leading_indicators, ember.electricity, sipri.military_expenditure, wmd.mineral_production, eia.weekly, fao.food_price_index, crypto.coingecko, climate.global, climate.open_meteo_extra, owid.demography/longrun.
 - تخطّينا عمدًا: CFTC COT (robots: ai-train=no)، USGS (Cloudflare)، UNCTAD (ملفات 7z). بانتظار المالك: USGS يدويًا، CBO/MoF/MSX، مفتاح FRED.
+- بورصة مسقط (MSX): شروط الموقع (Disclaimer على msx.om) تمنع نسخ المحتوى أو تخزينه أو نشره أو الاشتقاق منه دون إذن كتابي مسبق (info@msx.om)، وللبورصة قائمة «مزوّدو البيانات المعتمدون» (AuthorizedDataProviders). لذا لم يُجلب شيء. المسار: طلب إذن/ترخيص رسمي، أو الاشتراك عبر مزوّد معتمد.
+- مصادر جديدة: ons.uk_economy، jp.jgb_yields، ca.bank_of_canada، worldbank.doing_business.

@@ -1,6 +1,8 @@
+import { ReadingGrid } from '@/core/components/ReadingGrid';
 import { KeyStat } from '@/core/components/KeyStat';
 import { PageHead, Section } from '@/core/components/PageHead';
 import { SeriesChart, type RangeOption } from '@/core/components/SeriesChart';
+import { SwitchChart } from '@/core/components/SwitchChart';
 import { WorldRankCard } from '@/core/components/WorldRankCard';
 import { gccLines } from '@/core/groups';
 
@@ -28,7 +30,7 @@ export default function MaritimePage() {
         lead="حركة السفن عبر أهم الممرات البحرية في العالم وموانئ عُمان، من منصة PortWatch التابعة لصندوق النقد الدولي (تقديرات مبنية على إشارات تتبع السفن AIS، تُحدَّث يوميًا وتُراجَع). مضيق هرمز تمر منه نحو خُمس تجارة النفط العالمية، وموقع عُمان على بحر العرب وخارج المضيق يمنح موانئها قيمة استراتيجية."
       />
 
-      <div className="grid cols-4">
+      <ReadingGrid>
         <KeyStat entity="PW_CHOKEPOINT6" indicator="portwatch.chokepoint_transits" label="عبور مضيق هرمز (سفينة/يوم)" />
         <KeyStat entity="PW_CHOKEPOINT6" indicator="portwatch.chokepoint_tankers" label="ناقلات هرمز (سفينة/يوم)" />
         <KeyStat entity="PW_CHOKEPOINT4" indicator="portwatch.chokepoint_transits" label="عبور باب المندب (سفينة/يوم)" />
@@ -37,7 +39,7 @@ export default function MaritimePage() {
         <KeyStat entity="PW_PORT988" indicator="portwatch.port_calls" label="زيارات ميناء صحار (شهريًا)" />
         <KeyStat entity="PW_PORT984" indicator="portwatch.port_calls" label="زيارات ميناء الدقم (شهريًا)" />
         <KeyStat entity="OMN" indicator="portwatch.country_port_calls" label="زيارات الموانئ العُمانية (شهريًا)" />
-      </div>
+      </ReadingGrid>
 
       <Section title="مضيق هرمز" lead="بوابة النفط الخليجي: عدد السفن عبر المضيق يوميًا وناقلات النفط منها وحمولتها. اضطراب الحركة هنا يرفع أسعار النفط والتأمين البحري فورًا.">
         <SeriesChart wide height={H} ranges={DAILY} defaultRange="1y" title="عبور السفن في مضيق هرمز" note="الانخفاض الحاد منذ مارس 2026 كما تنشره المنصة؛ قد يعكس اضطرابًا فعليًا في الملاحة أو نقصًا في تغطية إشارات AIS، فلا يُقرأ وحده دليلًا على أحدهما." subtitle="سفينة/يوم — كل الأنواع وناقلات النفط" lines={[choke(6, 'كل السفن'), choke(6, 'الناقلات', 'portwatch.chokepoint_tankers')]} />
@@ -62,6 +64,20 @@ export default function MaritimePage() {
         <SeriesChart height={H} ranges={MONTHLY} defaultRange="all" title="الصادرات البحرية لدول الخليج" subtitle="طن/شهر" lines={gccLines('portwatch.country_exports')} />
         <WorldRankCard title="أكبر الدول في زيارات السفن" indicator="portwatch.country_port_calls" period="2026-09" limit={15} />
         <WorldRankCard title="أكبر الدول في الصادرات البحرية" indicator="portwatch.country_exports" period="2026-09" limit={15} />
+      </Section>
+
+      <Section title="الأداء اللوجستي" lead="مؤشر الأداء اللوجستي للبنك الدولي (1 = الأدنى، 5 = الأعلى) بمكوّناته، ومدة التصدير والاستيراد بالأيام، مقارنة بدول الخليج. مسح يصدر كل سنتين تقريبًا.">
+        <SwitchChart wide height={H} title="الأداء اللوجستي: عُمان والخليج" variants={[
+          { value: 'overall', label: 'الدرجة الكلية', subtitle: 'من 1 إلى 5', lines: gccLines('wb.LP.LPI.OVRL.XQ') },
+          { value: 'customs', label: 'الجمارك', subtitle: 'كفاءة التخليص الجمركي (1–5)', lines: gccLines('wb.LP.LPI.CUST.XQ') },
+          { value: 'infra', label: 'البنية التحتية', subtitle: 'جودة البنية التحتية للتجارة والنقل (1–5)', lines: gccLines('wb.LP.LPI.INFR.XQ') },
+          { value: 'ship', label: 'الشحن الدولي', subtitle: 'سهولة ترتيب الشحن (1–5)', lines: gccLines('wb.LP.LPI.ITRN.XQ') },
+          { value: 'logs', label: 'كفاءة الخدمات', subtitle: '1–5', lines: gccLines('wb.LP.LPI.LOGS.XQ') },
+          { value: 'track', label: 'التتبع', subtitle: '1–5', lines: gccLines('wb.LP.LPI.TRAC.XQ') },
+          { value: 'time', label: 'الالتزام بالمواعيد', subtitle: '1–5', lines: gccLines('wb.LP.LPI.TIME.XQ') },
+          { value: 'export', label: 'مدة التصدير', subtitle: 'أيام (الوسيط)', lines: gccLines('wb.LP.EXP.DURS.MD') },
+          { value: 'import', label: 'مدة الاستيراد', subtitle: 'أيام (الوسيط)', lines: gccLines('wb.LP.IMP.DURS.MD') },
+        ]} />
       </Section>
 
       <Section title="البحر قبالة السواحل العُمانية" lead="حرارة سطح البحر وارتفاع الموج في ست نقاط ساحلية (Open-Meteo Marine، منذ 1990). الخريف الموسمي يرفع الموج في بحر العرب ويوقف الصيد التقليدي، ويؤثر في عمل الموانئ؛ وارتفاع حرارة السطح يضغط على الأسماك والشعاب.">

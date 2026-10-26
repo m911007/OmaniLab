@@ -20,5 +20,9 @@ final readonly class KnoemaSeries
         public int $indicatorMember,
         public array $rules,
         public array $filters = [],
+        /** تردد الصفوف في المصدر إن اختلف عن المخزَّن (يومي يُختزل إلى آخر قيمة في الشهر) */
+        public ?string $sourceFrequency = null,
+        /** المصدر غيّر وحدة النشر (آحاد ← آلاف) في بعض السنوات: تُعاد إلى وحدة السلسلة ×1000 وتُسجَّل في سجل التصحيحات */
+        public bool $fixUnitShift = false,
     ) {}
 }

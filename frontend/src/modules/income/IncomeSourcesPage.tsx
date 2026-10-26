@@ -1,3 +1,4 @@
+import { ReadingGrid } from '@/core/components/ReadingGrid';
 import { KeyStat } from '@/core/components/KeyStat';
 import { PageHead, Section } from '@/core/components/PageHead';
 import { SeriesChart } from '@/core/components/SeriesChart';
@@ -13,18 +14,18 @@ export default function IncomeSourcesPage() {
         lead="من أين تأتي موارد عُمان؟ إيرادات الحكومة حسب المصدر (نفط وغاز وضرائب ورسوم وخدمات واستثمارات)، وهيكل الناتج والصادرات والموارد الأخرى للاقتصاد: من المركز الوطني للإحصاء (المالية العامة حتى 2024) والبنك الدولي وصندوق النقد."
       />
 
-      <div className="grid cols-4">
-        <KeyStat entity="OMN" indicator="ncsi.PF_REV_TOTAL" label="إجمالي إيرادات الحكومة (مليون ر.ع)" compactValue goodWhen="up" />
-        <KeyStat entity="OMN" indicator="ncsi.PF_REV_OIL" label="الإيرادات النفطية (مليون ر.ع)" compactValue />
-        <KeyStat entity="OMN" indicator="ncsi.PF_REV_NON_OIL" label="الإيرادات غير النفطية (مليون ر.ع)" compactValue goodWhen="up" />
+      <ReadingGrid>
+        <KeyStat entity="OMN" indicator="ncsi.REV_TOTAL" label="إجمالي إيرادات الحكومة (مليون ر.ع)" compactValue goodWhen="up" />
+        <KeyStat entity="OMN" indicator="ncsi.REV_OIL" label="الإيرادات النفطية (مليون ر.ع)" compactValue />
+        <KeyStat entity="OMN" indicator="ncsi.REV_NON_OIL" label="الإيرادات غير النفطية (مليون ر.ع)" compactValue goodWhen="up" />
         <KeyStat entity="OMN" indicator="ncsi.PF_CORPORATE_TAX" label="ضريبة دخل الشركات (مليون ر.ع)" compactValue goodWhen="up" />
-      </div>
+      </ReadingGrid>
 
       <Section title="إيرادات الحكومة حسب المصدر الرئيسي" lead="الاعتماد على النفط والغاز مقابل الإيرادات غير النفطية: كلما ارتفعت الحصة غير النفطية قلّ تأثر الميزانية بتقلب الأسعار.">
-        <SeriesChart oil title="إيرادات الحكومة: نفط وغاز وغير نفطية" subtitle="مليون ريال عُماني" kind="stacked" last={22} lines={[om('PF_REV_OIL', 'نفط', 'var(--series-2)'), om('PF_REV_GAS', 'غاز', 'var(--series-4)'), om('PF_REV_NON_OIL', 'غير نفطية', 'var(--series-3)')]} from="2003" />
-        <SeriesChart oil title="إيرادات الحكومة مقابل مصروفاتها" subtitle="مليون ريال عُماني" lines={[om('PF_REV_TOTAL', 'الإيرادات'), om('PF_EXP_TOTAL', 'المصروفات')]} from="2003" />
-        <SeriesChart title="الإيرادات غير النفطية" subtitle="مليون ريال عُماني" kind="columns" last={22} lines={[om('PF_REV_NON_OIL', 'غير نفطية')]} from="2003" />
-        <SeriesChart oil title="الإيرادات النفطية: الإجمالية والصافية" subtitle="مليون ريال عُماني" lines={[om('PF_REV_OIL', 'إجمالي'), om('PF_REV_OIL_NET', 'صافي')]} from="2003" />
+        <SeriesChart oil title="إيرادات الحكومة: نفط وغاز وغير نفطية" subtitle="مليون ريال عُماني" kind="stacked" last={22} lines={[om('REV_OIL', 'نفط', 'var(--series-2)'), om('REV_GAS', 'غاز', 'var(--series-4)'), om('REV_NON_OIL', 'غير نفطية', 'var(--series-3)')]} from="2003" />
+        <SeriesChart oil title="إيرادات الحكومة مقابل مصروفاتها" subtitle="مليون ريال عُماني" lines={[om('REV_TOTAL', 'الإيرادات'), om('EXP_TOTAL', 'المصروفات')]} from="2003" />
+        <SeriesChart title="الإيرادات غير النفطية" subtitle="مليون ريال عُماني" kind="columns" last={22} lines={[om('REV_NON_OIL', 'غير نفطية')]} from="2003" />
+        <SeriesChart oil title="الإيرادات النفطية: الإجمالية والصافية" subtitle="مليون ريال عُماني" lines={[om('REV_OIL', 'إجمالي'), om('REV_OIL_NET', 'صافي')]} from="2003" />
       </Section>
 
       <Section title="الإيرادات غير النفطية بالتفصيل" lead="الضرائب والرسوم والخدمات وعوائد الاستثمار: بنودها كما تنشرها بيانات المالية العامة (مليون ريال عُماني).">
@@ -36,9 +37,9 @@ export default function IncomeSourcesPage() {
       </Section>
 
       <Section title="وجه الإنفاق والدعم" lead="كم تنفق الحكومة، وعلى ماذا (حتى 2019 للتفصيل، و2024 للإجمالي).">
-        <SeriesChart title="إجمالي المصروفات والجارية" subtitle="مليون ريال عُماني" lines={[om('PF_EXP_TOTAL', 'الإجمالي'), om('PF_EXP_CURRENT', 'الجارية')]} from="2003" />
-        <SeriesChart title="الدفاع والأمن" subtitle="مليون ريال عُماني" kind="columns" last={20} lines={[om('PF_EXP_DEFENCE', 'الدفاع والأمن')]} from="2002" />
-        <SeriesChart title="الدعم والمساهمات" subtitle="مليون ريال عُماني" kind="stacked" last={20} lines={[om('PF_SUPPORT_FUEL', 'دعم الوقود', 'var(--series-2)'), om('PF_SUPPORT_ELECTRICITY', 'دعم الكهرباء', 'var(--series-4)'), om('PF_SUPPORT_FOOD', 'دعم الغذاء', 'var(--series-3)')]} from="2002" />
+        <SeriesChart title="إجمالي المصروفات والجارية" subtitle="مليون ريال عُماني" lines={[om('EXP_TOTAL', 'الإجمالي'), om('EXP_CURRENT', 'الجارية')]} from="2003" />
+        <SeriesChart title="الدفاع والأمن" subtitle="مليون ريال عُماني" kind="columns" last={20} lines={[om('EXP_DEFENCE', 'الدفاع والأمن')]} from="2002" />
+        <SeriesChart title="الدعم والمساهمات" subtitle="مليون ريال عُماني" kind="stacked" last={20} lines={[om('SUPPORT_FUEL', 'دعم الوقود', 'var(--series-2)'), om('SUPPORT_ELECTRICITY', 'دعم الكهرباء', 'var(--series-4)'), om('SUPPORT_FOOD', 'دعم الغذاء', 'var(--series-3)')]} from="2002" />
       </Section>
 
       <Section title="مصادر دخل الاقتصاد" lead="كيف يتكوّن الناتج، وما مصادر النقد الأجنبي: القطاعات والصادرات والموارد والسياحة والاستثمار الأجنبي، مقارنةً بدول الخليج.">

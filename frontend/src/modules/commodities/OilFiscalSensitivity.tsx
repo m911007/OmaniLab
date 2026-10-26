@@ -10,7 +10,7 @@ import type { Explanation } from '@/core/explain';
 
 const SENSITIVITY: Explanation = {
   meaning: 'هذا الرسم يسأل: عندما يرتفع سعر النفط، كم يتحسّن الرصيد المالي أو الخارجي لعُمان، وعندما ينخفض كم يتدهور؟ كل نقطة سنة واحدة، ومعها خط اتجاه إحصائي بسيط.',
-  shows: 'المحور الأفقي متوسط سعر خام دبي في السنة، والمحور الرأسي رصيد الميزانية (أو الحساب الجاري) كنسبة من الناتج. النقاط تحمل أرقام السنوات، والخط المتقطع أفضل خط يمرّ بين النقاط.',
+  shows: 'المحور الأفقي متوسط سعر نفط عُمان في السنة، والمحور الرأسي رصيد الميزانية (أو الحساب الجاري) كنسبة من الناتج. النقاط تحمل أرقام السنوات، والخط المتقطع أفضل خط يمرّ بين النقاط.',
   read: ['ميل الخط الصاعد يعني أن أسعار النفط الأعلى ترتبط بأرصدة أفضل.', 'الرقم في الجملة فوق الرسم هو التغيّر المتوقع في الرصيد (بنقطة مئوية من الناتج) مقابل كل 10 دولارات.', 'ابتعاد النقطة عن الخط يعني أن عوامل أخرى (إنتاج، إنفاق، إصلاحات) غيّرت النتيجة في تلك السنة.', 'معامل التحديد (R²) قريب من 1 يعني علاقة قوية، وقريب من 0 علاقة ضعيفة لا يُعوَّل عليها.'], 
   why: 'يبيّن مدى اعتماد المالية العامة والحساب الجاري على سعر النفط، وما مقدار الصدمة التي يحتملها الاقتصاد قبل أن تتحول الميزانية إلى عجز.',
   terms: [{ term: 'الانحدار', definition: 'طريقة إحصائية ترسم أفضل خط مستقيم بين نقاط لوصف العلاقة بين متغيرين.' }, { term: 'معامل التحديد R²', definition: 'نسبة تغيّر الرصيد التي يفسّرها سعر النفط وحده؛ بين 0 و1.' }, { term: 'سعر التعادل', definition: 'السعر التقريبي الذي يصبح عنده الرصيد صفرًا (لا عجز ولا فائض).' }],
@@ -27,13 +27,13 @@ interface Props {
 const LAST = Number(lastActualYear());
 
 /**
- * حساسية مؤشر عُماني لسعر النفط: كل سنة نقطة (متوسط سعر دبي السنوي، قيمة المؤشر)، وخط انحدار بالمربعات الصغرى.
+ * حساسية مؤشر عُماني لسعر النفط: كل سنة نقطة (متوسط سعر نفط عُمان السنوي، قيمة المؤشر)، وخط انحدار بالمربعات الصغرى.
  * تقدير إحصائي وصفي للعلاقة التاريخية، لا توقع ولا علاقة سببية؛ ويُعرض معامل التحديد وعدد السنوات ليحكم القارئ.
  */
 export function OilFiscalSensitivity({ title, indicator, yLabel }: Props) {
   const lines = useMemo<LineSpec[]>(
     () => [
-      { indicator: 'imf.pcps.poildub', entity: 'WLD', label: 'خام دبي' },
+      { indicator: 'ncsi.OIL_PRICE', entity: 'OMN', label: 'نفط عُمان' },
       { indicator, entity: 'OMN', label: yLabel },
     ],
     [indicator, yLabel],
@@ -41,7 +41,7 @@ export function OilFiscalSensitivity({ title, indicator, yLabel }: Props) {
   const { isLoading, error, series, datasets } = useLines(lines, { from: '2005' });
 
   const fit = useMemo(() => {
-    const oil = series.find((s) => s.id.startsWith('imf.pcps.poildub'));
+    const oil = series.find((s) => s.id.startsWith('ncsi.OIL_PRICE'));
     const y = series.find((s) => s.id.startsWith(indicator));
     if (!oil || !y) return null;
     const pairs = pairByYear(annualMean(oil.points), y.points).filter(([year]) => Number(year) <= LAST);
@@ -50,7 +50,7 @@ export function OilFiscalSensitivity({ title, indicator, yLabel }: Props) {
   }, [series, indicator]);
 
   const table = fit && {
-    columns: ['السنة', 'متوسط سعر دبي (دولار/برميل)', yLabel],
+    columns: ['السنة', 'متوسط سعر نفط عُمان (دولار/برميل)', yLabel],
     rows: fit.pairs.map(([year, x, y]) => [year, formatNumber(x, 1), formatNumber(y, 1)]),
   };
 
@@ -63,7 +63,7 @@ export function OilFiscalSensitivity({ title, indicator, yLabel }: Props) {
   return (
     <ChartCard
       title={title}
-      subtitle="كل نقطة سنة؛ المحور الأفقي متوسط سعر خام دبي السنوي"
+      subtitle="كل نقطة سنة؛ المحور الأفقي متوسط سعر نفط عُمان السنوي"
       datasets={datasets}
       table={table ?? undefined}
       note="تقدير وصفي للعلاقة التاريخية، لا توقعًا ولا علاقة سببية."
@@ -114,7 +114,7 @@ function ScatterTip({ active, payload, yLabel }: { active?: boolean; payload?: {
   return (
     <div className="tooltip">
       <div className="t-head">{p.year}</div>
-      <div className="t-row"><span className="t-name">سعر دبي</span><strong className="num">{formatNumber(p.x, 1)}</strong></div>
+      <div className="t-row"><span className="t-name">نفط عُمان</span><strong className="num">{formatNumber(p.x, 1)}</strong></div>
       <div className="t-row"><span className="t-name">{yLabel}</span><strong className="num">{formatNumber(p.y, 1)}</strong></div>
     </div>
   );

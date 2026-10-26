@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Models\User;
 use Illuminate\Console\Attributes\AsCommand;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 #[AsCommand(name: 'users:create', description: 'إنشاء مستخدم (أو إعادة ضبط كلمة مروره) — يُنشئ المشرف الحسابات ولا يوجد تسجيل ذاتي')]
@@ -34,6 +35,8 @@ final class CreateUserCommand extends Command
             $user->is_admin = true;
         }
         $user->save();
+        // هوية الدخول بكلمة المرور؛ مزوّدو SSO/الدخول الحكومي يضيفون صفوفًا بمزوّد آخر لنفس الحساب.
+        DB::table('app.user_identities')->updateOrInsert(['provider' => 'password', 'subject' => $email], ['user_id' => $user->id, 'email' => $email, 'created_at' => now()]);
 
         $this->info(($user->wasRecentlyCreated ? 'أُنشئ' : 'حُدّث')." المستخدم {$email}".($user->is_admin ? ' (مشرف)' : ''));
         if (! $this->option('password')) {

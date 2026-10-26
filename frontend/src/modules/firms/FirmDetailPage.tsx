@@ -15,7 +15,7 @@ export default function FirmDetailPage() {
   if (error || !f) return <ErrorState error={error ?? new Error('غير موجودة')} />;
 
   const rows: [string, React.ReactNode][] = [
-    ['الدولة', f.country ? <Link to={`/markets/${f.country}`}>{f.country}</Link> : '—'],
+    ['الدولة', f.country ? <Link to={`/world/markets/${f.country}`}>{f.country}</Link> : '—'],
     ['المقر', f.hq_ar ?? f.hq ?? '—'],
     ['القطاع', (f.industry_ar?.length ? f.industry_ar : f.industry)?.join('، ') ?? '—'],
     ['سنة التأسيس', f.inception ?? '—'],

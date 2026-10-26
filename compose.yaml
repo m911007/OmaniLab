@@ -106,6 +106,20 @@ services:
     networks: [ingest, data]
 
 
+  # عامل ذكاء الأسواق: الوحيد الذي يصل OEC وخدمة الذكاء الاصطناعي لأجل الواجهة المعزولة عن الإنترنت؛ يقرأ القاعدة فقط ويكتب نتائجه في Redis.
+  worker-intel:
+    <<: *app
+    depends_on:
+      db: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      migrate: { condition: service_completed_successfully }
+    command: ["php", "-d", "memory_limit=512M", "artisan", "queue:work", "redis", "--queue=intel", "--tries=1", "--timeout=240", "--max-time=3600", "--memory=450"]
+    environment:
+      <<: *env
+      DB_USERNAME: ingest_writer
+      DB_PASSWORD: ${DB_INGEST_WRITER_PASSWORD:-ingest_dev}
+    networks: [ingest, data]
+
   # عامل ثانٍ للمصادر الثقيلة (WITS، أعداد LEI، شركاء منافذ): دقائق طويلة، فلا تحجب الخفيفة.
   worker-ingest-heavy:
     <<: *app

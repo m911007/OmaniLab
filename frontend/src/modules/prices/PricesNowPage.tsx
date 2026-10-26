@@ -6,7 +6,7 @@ import { Segmented } from '@/core/components/Segmented';
 import { api, type LatestItem, type LatestResponse } from '@/core/api';
 import { formatNumber, formatPeriod, relativeTime } from '@/core/format';
 
-type Row = { indicator: string; entity: 'WLD' | 'USA'; label?: string };
+type Row = { indicator: string; entity: 'WLD' | 'USA' | 'OMN'; label?: string };
 interface Group {
   id: string;
   title: string;
@@ -17,7 +17,7 @@ const W = (indicator: string, label?: string): Row => ({ indicator, entity: 'WLD
 const U = (indicator: string, label?: string): Row => ({ indicator, entity: 'USA', label });
 
 const GROUPS: Group[] = [
-  { id: 'energy', title: 'النفط والغاز والوقود', rows: [W('eia.brent_d'), W('eia.wti_d'), W('imf.pcps.poildub', 'خام دبي (شهري)'), W('eia.henryhub_d'), W('imf.pcps.pngaseu'), W('imf.pcps.pngasjp'), W('eia.diesel_ny_d'), W('eia.gasoline_ny_d'), W('eia.jet_fuel_d'), W('eia.propane_d'), W('imf.pcps.pcoalau')] },
+  { id: 'energy', title: 'النفط والغاز والوقود', rows: [W('eia.brent_d'), W('eia.wti_d'), { indicator: 'ncsi.OIL_PRICE', entity: 'OMN' as const, label: 'نفط عُمان (شهري)' }, W('eia.henryhub_d'), W('imf.pcps.pngaseu'), W('imf.pcps.pngasjp'), W('eia.diesel_ny_d'), W('eia.gasoline_ny_d'), W('eia.jet_fuel_d'), W('eia.propane_d'), W('imf.pcps.pcoalau')] },
   { id: 'grains', title: 'الحبوب والزيوت النباتية', rows: [W('imf.pcps.pwheamt'), W('imf.pcps.pmaizmt'), W('imf.pcps.pricenpq'), W('imf.pcps.pbarl'), W('imf.pcps.psoyb'), W('imf.pcps.psoil'), W('imf.pcps.ppoil'), W('imf.pcps.psuno'), W('imf.pcps.proil'), W('imf.pcps.polvoil')] },
   { id: 'food', title: 'الغذاء: السكر والبن واللحوم والفاكهة', rows: [W('fao.ffpi', 'مؤشر أسعار الغذاء العالمي (FAO)'), W('fao.ffpi_meat'), W('fao.ffpi_dairy'), W('fao.ffpi_cereals'), W('fao.ffpi_oils'), W('fao.ffpi_sugar'), W('imf.pcps.psugaisa'), W('imf.pcps.pcoffotm'), W('imf.pcps.pcoffrob'), W('imf.pcps.pcoco'), W('imf.pcps.ptea'), W('imf.pcps.pbeef'), W('imf.pcps.plamb'), W('imf.pcps.ppoult'), W('imf.pcps.ppork'), W('imf.pcps.pbansop'), W('imf.pcps.porang'), W('imf.pcps.pgnuts')] },
   { id: 'metals', title: 'المعادن', rows: [W('imf.pcps.pgold'), W('imf.pcps.psilver'), W('imf.pcps.pcopp'), W('imf.pcps.palum'), W('imf.pcps.pzinc'), W('imf.pcps.pnick'), W('imf.pcps.ptin'), W('imf.pcps.plead'), W('imf.pcps.piorecr'), W('imf.pcps.puran')] },
@@ -30,7 +30,7 @@ const GROUPS: Group[] = [
 const FREQ: Record<string, string> = { D: 'يومي', M: 'شهري', Q: 'فصلي', A: 'سنوي' };
 
 /** الواجهة تقبل حتى 40 مؤشرًا للطلب الواحد: تُقسَّم القائمة دفعات من 30. */
-function useLatestBatch(entity: 'WLD' | 'USA', keys: string[]) {
+function useLatestBatch(entity: Row['entity'], keys: string[]) {
   const chunks = useMemo(() => Array.from({ length: Math.ceil(keys.length / 30) }, (_, i) => keys.slice(i * 30, i * 30 + 30)), [keys]);
   const results = useQueries({
     queries: chunks.map((chunk) => ({
@@ -50,6 +50,7 @@ function useLatestBatch(entity: 'WLD' | 'USA', keys: string[]) {
 export default function PricesNowPage() {
   const wld = useLatestBatch('WLD', useMemo(() => [...new Set(GROUPS.flatMap((g) => g.rows.filter((r) => r.entity === 'WLD').map((r) => r.indicator)))], []));
   const usa = useLatestBatch('USA', useMemo(() => [...new Set(GROUPS.flatMap((g) => g.rows.filter((r) => r.entity === 'USA').map((r) => r.indicator)))], []));
+  const omn = useLatestBatch('OMN', useMemo(() => [...new Set(GROUPS.flatMap((g) => g.rows.filter((r) => r.entity === 'OMN').map((r) => r.indicator)))], []));
   const [group, setGroup] = useState<string>('all');
   const [now, setNow] = useState(Date.now());
   useEffect(() => {
@@ -59,10 +60,10 @@ export default function PricesNowPage() {
 
   const items = useMemo(() => {
     const map = new Map<string, LatestItem>();
-    for (const i of [...wld.items, ...usa.items]) map.set(i.indicator.key, i);
+    for (const i of [...wld.items, ...usa.items, ...omn.items]) map.set(i.indicator.key, i);
     return map;
-  }, [wld.items, usa.items]);
-  const updated = Math.max(wld.updatedAt, usa.updatedAt);
+  }, [wld.items, usa.items, omn.items]);
+  const updated = Math.max(wld.updatedAt, usa.updatedAt, omn.updatedAt);
   const shown = GROUPS.filter((g) => group === 'all' || g.id === group);
 
   return (

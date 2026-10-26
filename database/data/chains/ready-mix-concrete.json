@@ -1,0 +1,623 @@
+{
+ "slug": "ready-mix-concrete",
+ "name_ar": "الخرسانة الجاهزة",
+ "name_en": "Ready-mix concrete",
+ "description": "سلسلة الخرسانة الجاهزة مع سلسلة الإسمنت: حجر جيري + وقود الفرن ← كلنكر؛ كلنكر + جبس + كهرباء ← إسمنت؛ إسمنت + ركام + إضافات + نقل ← خرسانة جاهزة (م³).",
+ "route_note": "أوزان الإسمنت مأخوذة من الإفصاح الفعلي لتكلفة المبيعات في التقرير السنوي لشركة أسمنت ريسوت 2023 (مع المقارنة 2022)، ومكمَّلة بمصادر صناعية لتقسيم الطاقة بين الوقود والكهرباء. لا يوجد سعر منشور للخرسانة الجاهزة في عُمان؛ المؤشر الأمريكي مرجع اتجاه.",
+ "nodes": [
+  {
+   "slug": "limestone",
+   "name_ar": "الحجر الجيري",
+   "name_en": "Limestone",
+   "kind": "raw",
+   "stage": 0,
+   "unit": "طن",
+   "hs_codes": [
+    "252100"
+   ],
+   "series": [
+    {
+     "indicator": "bls.ppi.wpu13210122",
+     "entity": "USA",
+     "label_ar": "مؤشر أسعار المنتجين الأمريكي: حجر جيري مكسر",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "الولايات المتحدة",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "M",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    }
+   ],
+   "notes": null
+  },
+  {
+   "slug": "kiln-fuel",
+   "name_ar": "وقود الفرن (غاز/فحم)",
+   "name_en": "Kiln fuel (gas/coal)",
+   "kind": "energy",
+   "stage": 0,
+   "unit": "جيجاجول",
+   "hs_codes": [
+    "271121",
+    "270112"
+   ],
+   "series": [
+    {
+     "indicator": "bls.ppi.wpu0553",
+     "entity": "USA",
+     "label_ar": "مؤشر أسعار المنتجين الأمريكي: الغاز الطبيعي الصناعي",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "الولايات المتحدة",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "M",
+     "role": "primary",
+     "incoterm": null,
+     "license_note": null
+    },
+    {
+     "indicator": "imf.pcps.pcoalau",
+     "entity": "WLD",
+     "label_ar": "سعر عالمي (صندوق النقد): الفحم (أستراليا)",
+     "price_type": "reference",
+     "confidence": "high",
+     "market": "عالمي",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "alternative",
+     "incoterm": null,
+     "license_note": null
+    },
+    {
+     "indicator": "bls.ppi.wpu051",
+     "entity": "USA",
+     "label_ar": "مؤشر أسعار المنتجين الأمريكي: الفحم",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "الولايات المتحدة",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "M",
+     "role": "alternative",
+     "incoterm": null,
+     "license_note": null
+    }
+   ],
+   "notes": "أسمنت عُمان يستخدم الغاز، وريسوت يعتمد على الفحم جزئيًا."
+  },
+  {
+   "slug": "clinker",
+   "name_ar": "الكلنكر",
+   "name_en": "Clinker",
+   "kind": "intermediate",
+   "stage": 1,
+   "unit": "طن",
+   "hs_codes": [
+    "252310"
+   ],
+   "series": [
+    {
+     "indicator": "ctm.uv_m.252310",
+     "entity": "OMN",
+     "label_ar": "قيمة وحدة الاستيراد الجمركية: الكلنكر",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "عُمان",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "primary",
+     "incoterm": "CIF",
+     "license_note": null
+    },
+    {
+     "indicator": "ctm.uv_x.252310",
+     "entity": "TUR",
+     "label_ar": "قيمة وحدة التصدير الجمركية: الكلنكر",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "تركيا",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "alternative",
+     "incoterm": "FOB",
+     "license_note": null
+    }
+   ],
+   "notes": null
+  },
+  {
+   "slug": "gypsum",
+   "name_ar": "الجبس",
+   "name_en": "Gypsum",
+   "kind": "raw",
+   "stage": 1,
+   "unit": "طن",
+   "hs_codes": [
+    "252010"
+   ],
+   "series": [
+    {
+     "indicator": "ctm.uv_m.252010",
+     "entity": "OMN",
+     "label_ar": "قيمة وحدة الاستيراد الجمركية: الجبس",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "عُمان",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "primary",
+     "incoterm": "CIF",
+     "license_note": null
+    }
+   ],
+   "notes": null
+  },
+  {
+   "slug": "electricity",
+   "name_ar": "الكهرباء الصناعية",
+   "name_en": "Industrial electricity",
+   "kind": "energy",
+   "stage": 1,
+   "unit": "ك.و.س",
+   "hs_codes": [],
+   "series": [
+    {
+     "indicator": "bls.ppi.wpu0543",
+     "entity": "USA",
+     "label_ar": "مؤشر أسعار المنتجين الأمريكي: الكهرباء الصناعية",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "الولايات المتحدة",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "M",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    }
+   ],
+   "notes": null
+  },
+  {
+   "slug": "cement-conversion",
+   "name_ar": "تكاليف تحويل الإسمنت (مواد خام أخرى، عمالة، صيانة، إهلاك)",
+   "name_en": "Cement conversion and other costs",
+   "kind": "conversion",
+   "stage": 1,
+   "unit": null,
+   "hs_codes": [],
+   "series": [],
+   "notes": null
+  },
+  {
+   "slug": "cement",
+   "name_ar": "الإسمنت البورتلاندي",
+   "name_en": "Portland cement",
+   "kind": "intermediate",
+   "stage": 2,
+   "unit": "طن",
+   "hs_codes": [
+    "252329"
+   ],
+   "series": [
+    {
+     "indicator": "ctm.uv_m.252329",
+     "entity": "OMN",
+     "label_ar": "قيمة وحدة الاستيراد الجمركية: الإسمنت",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "عُمان",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "primary",
+     "incoterm": "CIF",
+     "license_note": null
+    },
+    {
+     "indicator": "ctm.uv_x.252329",
+     "entity": "TUR",
+     "label_ar": "قيمة وحدة التصدير الجمركية: الإسمنت",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "تركيا",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "alternative",
+     "incoterm": "FOB",
+     "license_note": null
+    },
+    {
+     "indicator": "ncsi.PPI_GLASS_CEMENT",
+     "entity": "OMN",
+     "label_ar": "الرقم القياسي لأسعار المنتج في عُمان: الزجاج والإسمنت والرخام",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "عُمان",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "Q",
+     "role": "primary",
+     "incoterm": null,
+     "license_note": null
+    },
+    {
+     "indicator": "bls.ppi.wpu1322",
+     "entity": "USA",
+     "label_ar": "مؤشر أسعار المنتجين الأمريكي: الإسمنت الهيدروليكي",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "الولايات المتحدة",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "M",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    }
+   ],
+   "notes": null
+  },
+  {
+   "slug": "aggregates",
+   "name_ar": "الركام (حصى وحجر مكسر ورمل)",
+   "name_en": "Aggregates",
+   "kind": "raw",
+   "stage": 2,
+   "unit": "طن",
+   "hs_codes": [
+    "251710"
+   ],
+   "series": [
+    {
+     "indicator": "ncsi.PPI_STONE_SAND",
+     "entity": "OMN",
+     "label_ar": "الرقم القياسي لأسعار المنتج في عُمان: الحجر والرمل والطين",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "عُمان",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "Q",
+     "role": "primary",
+     "incoterm": null,
+     "license_note": null
+    },
+    {
+     "indicator": "bls.ppi.wpu1321",
+     "entity": "USA",
+     "label_ar": "مؤشر أسعار المنتجين الأمريكي: رمل وحصى وحجر مكسر",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "الولايات المتحدة",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "M",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    },
+    {
+     "indicator": "ctm.uv_m.251710",
+     "entity": "OMN",
+     "label_ar": "قيمة وحدة الاستيراد الجمركية: الحصى والحجر المكسر",
+     "price_type": "customs_unit_value",
+     "confidence": "low",
+     "market": "عُمان",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "alternative",
+     "incoterm": "CIF",
+     "license_note": null
+    }
+   ],
+   "notes": null
+  },
+  {
+   "slug": "admixtures",
+   "name_ar": "إضافات الخرسانة",
+   "name_en": "Concrete admixtures",
+   "kind": "consumable",
+   "stage": 2,
+   "unit": "طن",
+   "hs_codes": [
+    "382440"
+   ],
+   "series": [
+    {
+     "indicator": "ctm.uv_m.382440",
+     "entity": "OMN",
+     "label_ar": "قيمة وحدة الاستيراد الجمركية: إضافات الخرسانة",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "عُمان",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "primary",
+     "incoterm": "CIF",
+     "license_note": null
+    }
+   ],
+   "notes": null
+  },
+  {
+   "slug": "rmc-conversion",
+   "name_ar": "تكاليف المحطة والتوصيل (عمالة، خلاطات، نقل، وقود)",
+   "name_en": "Batching, delivery and overheads",
+   "kind": "conversion",
+   "stage": 2,
+   "unit": null,
+   "hs_codes": [],
+   "series": [
+    {
+     "indicator": "bls.ppi.wpu057303",
+     "entity": "USA",
+     "label_ar": "مؤشر أسعار المنتجين الأمريكي: الديزل",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "الولايات المتحدة",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "M",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    }
+   ],
+   "notes": null
+  },
+  {
+   "slug": "ready-mix",
+   "name_ar": "الخرسانة الجاهزة",
+   "name_en": "Ready-mix concrete",
+   "kind": "final",
+   "stage": 3,
+   "unit": "م³",
+   "hs_codes": [],
+   "series": [
+    {
+     "indicator": "bls.ppi.wpu1333",
+     "entity": "USA",
+     "label_ar": "مؤشر أسعار المنتجين الأمريكي: الخرسانة الجاهزة",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "الولايات المتحدة",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "M",
+     "role": "primary",
+     "incoterm": null,
+     "license_note": null
+    }
+   ],
+   "notes": null
+  }
+ ],
+ "edges": [
+  {
+   "from": "limestone",
+   "to": "cement",
+   "weight": 0.12,
+   "weight_min": 0.1,
+   "weight_max": 0.16,
+   "weight_basis": "annual_report",
+   "conversion_factor": null,
+   "conversion_min": null,
+   "conversion_max": null,
+   "conversion_unit": null,
+   "sources": [
+    {
+     "key": "RAYSUT_2023",
+     "applies_to": "weight"
+    }
+   ],
+   "notes": "المواد الخام المستهلكة (حجر جيري وجبس وإضافات) 10.6–15.5% من تكلفة إنتاج الإسمنت في ريسوت 2022–2023.",
+   "logistics_note": null
+  },
+  {
+   "from": "kiln-fuel",
+   "to": "cement",
+   "weight": 0.28,
+   "weight_min": 0.2,
+   "weight_max": 0.35,
+   "weight_basis": "annual_report",
+   "conversion_factor": 3.6,
+   "conversion_min": 3.4,
+   "conversion_max": 3.6,
+   "conversion_unit": "جيجاجول/طن كلنكر",
+   "sources": [
+    {
+     "key": "RAYSUT_2023",
+     "applies_to": "weight"
+    },
+    {
+     "key": "ICR_ENERGY",
+     "applies_to": "weight"
+    },
+    {
+     "key": "IEA_CEMENT",
+     "applies_to": "conversion"
+    }
+   ],
+   "notes": "ريسوت تفصح عن الوقود والغاز والكهرباء معًا (38.6–47.1%)؛ التقسيم بين الوقود الحراري والكهرباء تقديري (الحراري 20–25% وفق المصادر الصناعية).",
+   "logistics_note": null
+  },
+  {
+   "from": "electricity",
+   "to": "cement",
+   "weight": 0.12,
+   "weight_min": 0.05,
+   "weight_max": 0.15,
+   "weight_basis": "derived",
+   "conversion_factor": 91,
+   "conversion_min": 87,
+   "conversion_max": 91,
+   "conversion_unit": "ك.و.س/طن إسمنت",
+   "sources": [
+    {
+     "key": "RAYSUT_2023",
+     "applies_to": "weight"
+    },
+    {
+     "key": "LBNL_CEMENT",
+     "applies_to": "weight"
+    },
+    {
+     "key": "CSI_ROADMAP",
+     "applies_to": "conversion"
+    }
+   ],
+   "notes": "جزء الكهرباء من إجمالي الطاقة المفصح عنه في ريسوت (38.6–47.1%)؛ التقسيم تقديري.",
+   "logistics_note": null
+  },
+  {
+   "from": "clinker",
+   "to": "cement",
+   "weight": null,
+   "weight_min": null,
+   "weight_max": null,
+   "weight_basis": "missing",
+   "conversion_factor": 0.71,
+   "conversion_min": 0.65,
+   "conversion_max": 0.95,
+   "conversion_unit": "طن كلنكر/طن إسمنت",
+   "sources": [
+    {
+     "key": "IEA_CEMENT",
+     "applies_to": "conversion"
+    },
+    {
+     "key": "EN197",
+     "applies_to": "conversion"
+    }
+   ],
+   "notes": "عامل التحويل موثّق (0.71 عالميًا، و0.95–1.0 للبورتلاندي CEM I)؛ الوزن يهم مطاحن الإسمنت التي تشتري الكلنكر ويضبطه المحلل.",
+   "logistics_note": null
+  },
+  {
+   "from": "gypsum",
+   "to": "cement",
+   "weight": null,
+   "weight_min": null,
+   "weight_max": null,
+   "weight_basis": "missing",
+   "conversion_factor": null,
+   "conversion_min": null,
+   "conversion_max": null,
+   "conversion_unit": null,
+   "sources": [],
+   "notes": "مضمّن ضمن «المواد الخام المستهلكة» في تقرير ريسوت (لا يُفصَح عنه منفصلًا).",
+   "logistics_note": null
+  },
+  {
+   "from": "cement-conversion",
+   "to": "cement",
+   "weight": 0.45,
+   "weight_min": 0.35,
+   "weight_max": 0.5,
+   "weight_basis": "annual_report",
+   "conversion_factor": null,
+   "conversion_min": null,
+   "conversion_max": null,
+   "conversion_unit": null,
+   "sources": [
+    {
+     "key": "RAYSUT_2023",
+     "applies_to": "weight"
+    }
+   ],
+   "notes": "الموظفون والإهلاك وقطع الغيار والتعبئة والنفقات الأخرى: 35–43% في ريسوت 2023 (الأم والموحّد)، ونحو 45% مع المخصصات والإسمنت المشترى.",
+   "logistics_note": null
+  },
+  {
+   "from": "cement",
+   "to": "ready-mix",
+   "weight": 0.25,
+   "weight_min": 0.14,
+   "weight_max": 0.4,
+   "weight_basis": "derived",
+   "conversion_factor": 350,
+   "conversion_min": 260,
+   "conversion_max": 420,
+   "conversion_unit": "كغم إسمنت/م³",
+   "sources": [
+    {
+     "key": "CC_UK",
+     "applies_to": "both"
+    },
+    {
+     "key": "IN_ESTIMATOR",
+     "applies_to": "weight"
+    }
+   ],
+   "notes": "مشتق: الإسمنت 35–45% من تكلفة المواد × المواد 40–75% من التكلفة؛ والعامل لخلطة C30/37 (260–420 حسب الرتبة).",
+   "logistics_note": null
+  },
+  {
+   "from": "aggregates",
+   "to": "ready-mix",
+   "weight": 0.3,
+   "weight_min": 0.22,
+   "weight_max": 0.45,
+   "weight_basis": "derived",
+   "conversion_factor": 1.9,
+   "conversion_min": 1.8,
+   "conversion_max": 2.05,
+   "conversion_unit": "طن ركام/م³",
+   "sources": [
+    {
+     "key": "CC_UK",
+     "applies_to": "both"
+    }
+   ],
+   "notes": "مشتق: الركام 55–65% من تكلفة المواد؛ رمل 680 + ركام 1220 كغم لخلطة C30/37.",
+   "logistics_note": null
+  },
+  {
+   "from": "admixtures",
+   "to": "ready-mix",
+   "weight": null,
+   "weight_min": null,
+   "weight_max": null,
+   "weight_basis": "missing",
+   "conversion_factor": null,
+   "conversion_min": null,
+   "conversion_max": null,
+   "conversion_unit": null,
+   "sources": [],
+   "notes": "لا مصدر بعد.",
+   "logistics_note": null
+  },
+  {
+   "from": "rmc-conversion",
+   "to": "ready-mix",
+   "weight": 0.45,
+   "weight_min": 0.25,
+   "weight_max": 0.6,
+   "weight_basis": "derived",
+   "conversion_factor": null,
+   "conversion_min": null,
+   "conversion_max": null,
+   "conversion_unit": null,
+   "sources": [
+    {
+     "key": "CC_UK",
+     "applies_to": "weight"
+    }
+   ],
+   "notes": "الباقي بعد المواد (المواد 40–75% من التكلفة)، ويشمل التوصيل الذي يتغير بالمسافة.",
+   "logistics_note": "تكلفة النقل من المحطة إلى الموقع جزء كبير من السعر وتختلف بالمسافة."
+  }
+ ]
+}

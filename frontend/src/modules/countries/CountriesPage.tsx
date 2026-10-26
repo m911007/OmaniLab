@@ -33,7 +33,7 @@ function TopList({ title, rows, metric, fmt }: { title: string; rows: DirectoryR
       <ol className="plain-list">
         {top.map((r) => (
           <li key={r.code}>
-            <Link to={`/markets/${r.code}`}>{flagOf(r.iso2)} {entityName(r)}</Link> <span className="muted num">— {fmt(val(r, metric)!)}</span>
+            <Link to={`/world/markets/${r.code}`}>{flagOf(r.iso2)} {entityName(r)}</Link> <span className="muted num">— {fmt(val(r, metric)!)}</span>
           </li>
         ))}
       </ol>
@@ -150,7 +150,7 @@ export default function CountriesPage() {
                     {shown.map((r) => (
                       <tr key={r.code} className={r.code === 'OMN' ? 'row-oman' : ''}>
                         <td>
-                          <Link to={`/markets/${r.code}`}>
+                          <Link to={`/world/markets/${r.code}`}>
                             <span aria-hidden="true">{flagOf(r.iso2)}</span> {entityName(r)}
                           </Link>
                           {r.capital && <div className="muted">{r.capital}</div>}

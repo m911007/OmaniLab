@@ -1,3 +1,4 @@
+import { ReadingGrid } from '@/core/components/ReadingGrid';
 import { Empty, Loading } from '@/core/components/States';
 import { KeyStat } from '@/core/components/KeyStat';
 import { PageHead, Section } from '@/core/components/PageHead';
@@ -44,11 +45,11 @@ export default function TradePage() {
           <div className="callout" style={{ margin: '10px 0 14px' }}>
             الأرقام التالية تغطي من بداية {ytdYear} حتى <strong>{MONTHS[v.month - 1]} {v.year}</strong> فقط، وليست سنة كاملة. آخر تغيير في بياناتنا من المصدر: {formatDate(totals.freshness.last_changed_at)}.
           </div>
-          <div className="grid cols-3">
+          <ReadingGrid>
             <KeyStat entity="OMN" indicator="manafeth.EXPORTS_YTD" label={`الصادرات منذ بداية ${ytdYear}`} compactValue />
             <KeyStat entity="OMN" indicator="manafeth.IMPORTS_YTD" label={`الواردات منذ بداية ${ytdYear}`} compactValue />
             <KeyStat entity="OMN" indicator="manafeth.REEXPORTS_YTD" label={`إعادة التصدير منذ بداية ${ytdYear}`} compactValue />
-          </div>
+          </ReadingGrid>
         </section>
       )}
 

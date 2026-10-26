@@ -1,5 +1,6 @@
 import { PageHead, Section } from '@/core/components/PageHead';
 import { SeriesChart } from '@/core/components/SeriesChart';
+import { SwitchChart } from '@/core/components/SwitchChart';
 import { WorldRankCard } from '@/core/components/WorldRankCard';
 import { peerLines } from '@/core/groups';
 
@@ -24,6 +25,15 @@ export default function GovernancePage() {
         <WorldRankCard title="البنية التحتية الرقمية" indicator="imf.DI" />
         <WorldRankCard title="التنظيم والأخلاقيات" indicator="imf.RE" />
         <WorldRankCard title="رأس المال البشري وسياسات العمل" indicator="imf.HCLMP" />
+      </Section>
+      <Section title="مخاطر الكوارث والأزمات (INFORM)" lead="مؤشر INFORM للمخاطر (0 = الأقل خطرًا، 10 = الأعلى): احتمال أزمة تتجاوز قدرة الدولة على المواجهة، مركّب من التعرض للمخاطر وهشاشة السكان ونقص القدرة على المواجهة. عُمان مقابل دول المقارنة.">
+        <SwitchChart wide height={340} title="مؤشر INFORM للمخاطر" variants={[
+          { value: 'risk', label: 'المؤشر الكلي', subtitle: 'درجة 0–10', lines: peerLines('imf.inform_risk') },
+          { value: 'hazard', label: 'التعرض للمخاطر', subtitle: 'درجة 0–10', lines: peerLines('imf.inform_hazard') },
+          { value: 'vuln', label: 'الهشاشة', subtitle: 'درجة 0–10', lines: peerLines('imf.inform_vulnerability') },
+          { value: 'coping', label: 'نقص القدرة على المواجهة', subtitle: 'درجة 0–10', lines: peerLines('imf.inform_coping') },
+        ]} />
+        <WorldRankCard title="ترتيب الدول بمؤشر المخاطر" indicator="imf.inform_risk" />
       </Section>
       <Section title="عُمان في العالم (الحوكمة)">
         <WorldRankCard title="فاعلية الحكومة" indicator="wb.GOV_WGI_GE.SC" />

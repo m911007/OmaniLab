@@ -1,3 +1,4 @@
+import { ReadingGrid } from '@/core/components/ReadingGrid';
 import { Link } from 'react-router-dom';
 import { KeyStat } from '@/core/components/KeyStat';
 import { PageHead, Section } from '@/core/components/PageHead';
@@ -14,12 +15,12 @@ export default function DigitalPage() {
     <>
       <PageHead title="الاقتصاد الرقمي" lead="هل عُمان جاهزة رقميًا؟ الاتصال والإنترنت، والخدمات الحكومية الإلكترونية، والأمن السيبراني، والابتكار والذكاء الاصطناعي، وتجارة خدمات التقنية: مؤشرات رسمية ودولية في مكان واحد." />
 
-      <div className="grid cols-4">
+      <ReadingGrid>
         <KeyStat entity="OMN" indicator="wb.IT.NET.USER.ZS" label="مستخدمو الإنترنت" goodWhen="up" />
         <KeyStat entity="OMN" indicator="wb.IT.CEL.SETS.P2" label="اشتراكات الجوال (لكل 100)" />
         <KeyStat entity="OMN" indicator="wb.IT.NET.BBND.P2" label="النطاق العريض الثابت (لكل 100)" goodWhen="up" />
         <KeyStat entity="OMN" indicator="wb.BX.GSR.CCIS.ZS" label="صادرات خدمات التقنية (% من الخدمات)" goodWhen="up" />
-      </div>
+      </ReadingGrid>
 
       <Section title="الاتصال والإنترنت" lead="القاعدة التي يقوم عليها كل شيء رقمي: من يتصل، وبأي سرعة وجودة، مقارنةً بالخليج.">
         <SeriesChart title="مستخدمو الإنترنت (% من السكان)" lines={peerLines('wb.IT.NET.USER.ZS')} from="2000" />

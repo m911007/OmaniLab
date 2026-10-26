@@ -10,6 +10,7 @@ use App\Core\Ingestion\Data\ParsedRecord;
 use App\Core\Ingestion\Data\ProbeResult;
 use App\Core\Ingestion\Data\RawPayload;
 use App\Core\Ingestion\Data\SourceDefinition;
+use App\Core\Quality\UnitShift;
 use RuntimeException;
 
 /**
@@ -93,6 +94,11 @@ abstract class GccStatConnector extends ApiConnector
         return new RawPayload(json_encode($body, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR));
     }
 
+    public function revision(): int
+    {
+        return 2; // تصحيح تحوّل الوحدة ×1000
+    }
+
     public function parse(RawPayload $payload): iterable
     {
         $data = json_decode($payload->body, true, flags: JSON_THROW_ON_ERROR);
@@ -128,13 +134,18 @@ abstract class GccStatConnector extends ApiConnector
             if ($country === null) {
                 continue;
             }
+            $points = [];
             foreach ($series['observations'] ?? [] as $periodIndex => $obs) {
                 $raw = $obs[0] ?? null;
                 $period = $periods[(int) $periodIndex] ?? null;
                 if ($period === null || $raw === null || ! is_numeric($raw)) {
                     continue;
                 }
-                yield new ParsedRecord($this->indicatorKey($flow), (string) $country, $this->normalisePeriod((string) $period), (float) $raw);
+                $points[$this->normalisePeriod((string) $period)] = (float) $raw;
+            }
+            // المركز الخليجي غيّر وحدة نشر بعض التدفقات من المليون إلى المليار (الناتج الفصلي لعُمان من 2024-Q2)
+            foreach (UnitShift::fix($points, $this->indicatorKey($flow), (string) $country) as $period => $value) {
+                yield new ParsedRecord($this->indicatorKey($flow), (string) $country, $period, $value);
             }
         }
     }

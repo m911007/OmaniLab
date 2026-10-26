@@ -1,0 +1,424 @@
+{
+ "slug": "copper-power-cable",
+ "name_ar": "كابلات القدرة النحاسية (منخفضة الجهد)",
+ "name_en": "Copper LV power cable",
+ "description": "كابل قدرة منخفض الجهد بموصل نحاسي وعزل PVC/XLPE وتدريع فولاذي (مثل 4×95 مم²): النحاس + مركبات العزل + أسلاك التدريع + التصنيع والتغليف ← الكابل.",
+ "route_note": "الأوزان من تفصيل مورد لكابل VV22 4×95 مم² ومن مصادر صناعية أخرى (كلها تجارية منخفضة/متوسطة الموثوقية). حصة النحاس تنخفض في المقاطع الصغيرة والجهد المتوسط وترتفع في المقاطع الكبيرة.",
+ "nodes": [
+  {
+   "slug": "copper",
+   "name_ar": "النحاس (كاثود/قضبان أسلاك)",
+   "name_en": "Copper cathode / wire rod",
+   "kind": "raw",
+   "stage": 0,
+   "unit": "طن",
+   "hs_codes": [
+    "740311",
+    "740811"
+   ],
+   "series": [
+    {
+     "indicator": "imf.pcps.pcopp",
+     "entity": "WLD",
+     "label_ar": "سعر عالمي (صندوق النقد): النحاس (درجة A)",
+     "price_type": "reference",
+     "confidence": "high",
+     "market": "عالمي",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "primary",
+     "incoterm": null,
+     "license_note": null
+    },
+    {
+     "indicator": "ctm.uv_m.740811",
+     "entity": "OMN",
+     "label_ar": "قيمة وحدة الاستيراد الجمركية: قضبان أسلاك النحاس",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "عُمان",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "primary",
+     "incoterm": "CIF",
+     "license_note": null
+    },
+    {
+     "indicator": "ctm.uv_x.740311",
+     "entity": "IND",
+     "label_ar": "قيمة وحدة التصدير الجمركية: كاثودات النحاس",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "الهند",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "alternative",
+     "incoterm": "FOB",
+     "license_note": null
+    },
+    {
+     "indicator": "bls.ppi.wpu102502",
+     "entity": "USA",
+     "label_ar": "مؤشر أسعار المنتجين الأمريكي: مشغولات النحاس",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "الولايات المتحدة",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "M",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    },
+    {
+     "indicator": "shfe.cu_main",
+     "entity": "CHN",
+     "label_ar": "عقود النحاس الآجلة في شنغهاي",
+     "price_type": "futures",
+     "confidence": "high",
+     "market": "الصين",
+     "unit": "يوان/طن",
+     "currency": "CNY",
+     "frequency": "D",
+     "role": "alternative",
+     "incoterm": null,
+     "license_note": "بيانات بورصة شنغهاي — مفعّلة بقرار المالك"
+    }
+   ],
+   "notes": null
+  },
+  {
+   "slug": "compounds",
+   "name_ar": "مركبات العزل والغلاف (PVC/XLPE)",
+   "name_en": "Insulation and sheath compounds",
+   "kind": "raw",
+   "stage": 0,
+   "unit": "طن",
+   "hs_codes": [
+    "390410",
+    "390110"
+   ],
+   "series": [
+    {
+     "indicator": "ctm.uv_m.390410",
+     "entity": "OMN",
+     "label_ar": "قيمة وحدة الاستيراد الجمركية: PVC",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "عُمان",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "primary",
+     "incoterm": "CIF",
+     "license_note": null
+    },
+    {
+     "indicator": "ctm.uv_x.390410",
+     "entity": "CHN",
+     "label_ar": "قيمة وحدة التصدير الجمركية: PVC",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "الصين",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "alternative",
+     "incoterm": "FOB",
+     "license_note": null
+    },
+    {
+     "indicator": "bls.ppi.wpu066212",
+     "entity": "USA",
+     "label_ar": "مؤشر أسعار المنتجين الأمريكي: الراتنجات البلاستيكية",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "الولايات المتحدة",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "M",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    }
+   ],
+   "notes": null
+  },
+  {
+   "slug": "armour",
+   "name_ar": "أسلاك/أشرطة التدريع الفولاذية",
+   "name_en": "Steel armour",
+   "kind": "raw",
+   "stage": 0,
+   "unit": "طن",
+   "hs_codes": [
+    "721720"
+   ],
+   "series": [
+    {
+     "indicator": "ctm.uv_m.721720",
+     "entity": "OMN",
+     "label_ar": "قيمة وحدة الاستيراد الجمركية: أسلاك صلب مجلفنة",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "عُمان",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "primary",
+     "incoterm": "CIF",
+     "license_note": null
+    },
+    {
+     "indicator": "bls.ppi.wpu1017",
+     "entity": "USA",
+     "label_ar": "مؤشر أسعار المنتجين الأمريكي: منتجات مصانع الصلب",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "الولايات المتحدة",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "M",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    }
+   ],
+   "notes": null
+  },
+  {
+   "slug": "manufacturing",
+   "name_ar": "التصنيع والنفقات العامة",
+   "name_en": "Manufacturing and overhead",
+   "kind": "conversion",
+   "stage": 1,
+   "unit": null,
+   "hs_codes": [],
+   "series": [
+    {
+     "indicator": "bls.ppi.wpu0543",
+     "entity": "USA",
+     "label_ar": "مؤشر أسعار المنتجين الأمريكي: الكهرباء الصناعية",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "الولايات المتحدة",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "M",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    }
+   ],
+   "notes": null
+  },
+  {
+   "slug": "packaging-logistics",
+   "name_ar": "التغليف والنقل",
+   "name_en": "Packaging and logistics",
+   "kind": "conversion",
+   "stage": 1,
+   "unit": null,
+   "hs_codes": [],
+   "series": [],
+   "notes": null
+  },
+  {
+   "slug": "cable",
+   "name_ar": "كابل القدرة النحاسي",
+   "name_en": "Copper power cable",
+   "kind": "final",
+   "stage": 2,
+   "unit": "طن",
+   "hs_codes": [
+    "854449"
+   ],
+   "series": [
+    {
+     "indicator": "ctm.uv_m.854449",
+     "entity": "OMN",
+     "label_ar": "قيمة وحدة الاستيراد الجمركية: كابلات معزولة ≤1000 فولت",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "عُمان",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "primary",
+     "incoterm": "CIF",
+     "license_note": null
+    },
+    {
+     "indicator": "ctm.uv_x.854449",
+     "entity": "CHN",
+     "label_ar": "قيمة وحدة التصدير الجمركية: كابلات معزولة",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "الصين",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "alternative",
+     "incoterm": "FOB",
+     "license_note": null
+    },
+    {
+     "indicator": "ctm.uv_x.854449",
+     "entity": "TUR",
+     "label_ar": "قيمة وحدة التصدير الجمركية: كابلات معزولة",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "تركيا",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "alternative",
+     "incoterm": "FOB",
+     "license_note": null
+    },
+    {
+     "indicator": "bls.ppi.wpu10260314",
+     "entity": "USA",
+     "label_ar": "مؤشر أسعار المنتجين الأمريكي: أسلاك وكابلات النحاس",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "الولايات المتحدة",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "M",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    },
+    {
+     "indicator": "ncsi.PPI_POWER_EQUIP",
+     "entity": "OMN",
+     "label_ar": "الرقم القياسي لأسعار المنتج في عُمان: محولات القدرة ومعدات التوزيع",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "عُمان",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "Q",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    }
+   ],
+   "notes": null
+  }
+ ],
+ "edges": [
+  {
+   "from": "copper",
+   "to": "cable",
+   "weight": 0.63,
+   "weight_min": 0.58,
+   "weight_max": 0.75,
+   "weight_basis": "documented_estimate",
+   "conversion_factor": null,
+   "conversion_min": null,
+   "conversion_max": null,
+   "conversion_unit": null,
+   "sources": [
+    {
+     "key": "HUANGHE",
+     "applies_to": "weight"
+    },
+    {
+     "key": "ZABLE",
+     "applies_to": "weight"
+    },
+    {
+     "key": "HK_MACHINE",
+     "applies_to": "weight"
+    }
+   ],
+   "notes": "كتلة النحاس لكل كم تتحدد بالمقطع (مثلًا 4×95 مم²)، فعامل التحويل يُدخل لكل منتج.",
+   "logistics_note": null
+  },
+  {
+   "from": "compounds",
+   "to": "cable",
+   "weight": 0.12,
+   "weight_min": 0.1,
+   "weight_max": 0.14,
+   "weight_basis": "documented_estimate",
+   "conversion_factor": null,
+   "conversion_min": null,
+   "conversion_max": null,
+   "conversion_unit": null,
+   "sources": [
+    {
+     "key": "HUANGHE",
+     "applies_to": "weight"
+    }
+   ],
+   "notes": null,
+   "logistics_note": null
+  },
+  {
+   "from": "armour",
+   "to": "cable",
+   "weight": 0.065,
+   "weight_min": 0.05,
+   "weight_max": 0.08,
+   "weight_basis": "documented_estimate",
+   "conversion_factor": null,
+   "conversion_min": null,
+   "conversion_max": null,
+   "conversion_unit": null,
+   "sources": [
+    {
+     "key": "HUANGHE",
+     "applies_to": "weight"
+    }
+   ],
+   "notes": null,
+   "logistics_note": null
+  },
+  {
+   "from": "manufacturing",
+   "to": "cable",
+   "weight": 0.1,
+   "weight_min": 0.08,
+   "weight_max": 0.12,
+   "weight_basis": "documented_estimate",
+   "conversion_factor": null,
+   "conversion_min": null,
+   "conversion_max": null,
+   "conversion_unit": null,
+   "sources": [
+    {
+     "key": "HUANGHE",
+     "applies_to": "weight"
+    }
+   ],
+   "notes": null,
+   "logistics_note": null
+  },
+  {
+   "from": "packaging-logistics",
+   "to": "cable",
+   "weight": 0.04,
+   "weight_min": 0.03,
+   "weight_max": 0.05,
+   "weight_basis": "documented_estimate",
+   "conversion_factor": null,
+   "conversion_min": null,
+   "conversion_max": null,
+   "conversion_unit": null,
+   "sources": [
+    {
+     "key": "HUANGHE",
+     "applies_to": "weight"
+    }
+   ],
+   "notes": null,
+   "logistics_note": null
+  }
+ ]
+}

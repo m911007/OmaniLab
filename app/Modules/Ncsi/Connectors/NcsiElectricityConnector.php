@@ -36,6 +36,11 @@ final class NcsiElectricityConnector extends KnoemaConnector
         return 'energy';
     }
 
+    public function revision(): int
+    {
+        return 2; // تصحيح وحدة اشتراكات الكهرباء 2025
+    }
+
     protected function intervalMinutes(): int
     {
         return 3 * 24 * 60;
@@ -47,7 +52,8 @@ final class NcsiElectricityConnector extends KnoemaConnector
 
         return [
             new KnoemaSeries('ELEC_PRODUCTION', 'إنتاج الكهرباء (شهري)', 'Electricity production (monthly)', 'جيجاواط ساعة', 'M', 1000010, $rules()),
-            new KnoemaSeries('ELEC_CONNECTIONS', 'اشتراكات الكهرباء', 'Electricity connections', 'اشتراك', 'A', 1000040, $rules()),
+            // 2025 نُشرت بالآلاف (1544.03) بعد سنوات بالآحاد (1497669 في 2024)
+            new KnoemaSeries('ELEC_CONNECTIONS', 'اشتراكات الكهرباء', 'Electricity connections', 'اشتراك', 'A', 1000040, $rules(), fixUnitShift: true),
             new KnoemaSeries('ELEC_CAPACITY', 'القدرة المركّبة', 'Installed capacity', 'ميجاواط', 'A', 1000060, $rules()),
             new KnoemaSeries('ELEC_CONSUMPTION', 'استهلاك الكهرباء', 'Electricity consumption', 'جيجاواط ساعة', 'A', 1000080, $rules()),
             new KnoemaSeries('ELEC_CONSUMPTION_RESIDENTIAL', 'الاستهلاك السكني', 'Residential consumption', 'جيجاواط ساعة', 'A', 1000090, $rules()),

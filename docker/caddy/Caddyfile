@@ -1,7 +1,17 @@
 # نقطة الدخول الوحيدة من الإنترنت. في الإنتاج استبدل :80 باسم النطاق ليُصدر Caddy شهادة TLS تلقائيًا.
 :80 {
 	encode zstd gzip
-	reverse_proxy app:8000
+	# أثناء إعادة بناء الحاوية يتأخر DNS الداخلي ثوانٍ: نعيد حلّ العنوان ونكرر المحاولة بدل ردّ 502 مباشر.
+	reverse_proxy {
+		dynamic a {
+			name app
+			port 8000
+			refresh 2s
+			dial_timeout 3s
+		}
+		lb_try_duration 15s
+		lb_try_interval 500ms
+	}
 
 	# أصول الواجهة مُبصَّمة بأسمائها: تُخزَّن سنة كاملة. أما صفحة التطبيق فلا تُخزَّن لتلتقط الإصدار الجديد فورًا.
 	@assets path /assets/*

@@ -7,6 +7,7 @@ use App\Core\Validation\Rules\MaxRevision;
 use App\Core\Validation\Rules\Range;
 use App\Core\Validation\Rules\RelativeRevision;
 use App\Core\Validation\Rules\SeriesScale;
+use App\Core\Validation\Rules\SeriesSpike;
 
 /** النفط والغاز في عُمان: سعر الخام وإنتاجه وصادراته وإنتاج الغاز — شهري. */
 final class NcsiOilGasConnector extends KnoemaConnector
@@ -36,9 +37,16 @@ final class NcsiOilGasConnector extends KnoemaConnector
         return 'energy';
     }
 
+    /** 2: استبعاد قفزات الكميات (خطأ خانة عشرية في المصدر). */
+    public function revision(): int
+    {
+        return 2;
+    }
+
     protected function series(): array
     {
-        $volume = fn () => [new Range(0, 1e12), new SeriesScale(100), new RelativeRevision(0.5, 0.25), new Completeness(0.1)];
+        // SeriesSpike(5): كمية شهرية تساوي 5 أضعاف جيرانها خطأ إدخال في المصدر (مثل إنتاج 7/2023 = 10385 بدل 1038.5) فتُستبعد وحدها.
+        $volume = fn () => [new Range(0, 1e12), new SeriesScale(100), new SeriesSpike(5.0), new RelativeRevision(0.5, 0.25), new Completeness(0.1)];
 
         return [
             new KnoemaSeries('OIL_PRICE', 'متوسط سعر النفط العُماني', 'Average Omani crude price', 'دولار/برميل', 'M', 1000080,

@@ -1,15 +1,37 @@
+import { ReadingGrid } from '@/core/components/ReadingGrid';
 import { Link } from 'react-router-dom';
-import { KeyStat } from '@/core/components/KeyStat';
+import { ReadingCard } from '@/core/components/ReadingCard';
+import { Loading } from '@/core/components/States';
 import { PageHead, Section } from '@/core/components/PageHead';
-import { SeriesChart } from '@/core/components/SeriesChart';
+import { OilFiscalSensitivity } from '@/modules/commodities/OilFiscalSensitivity';
+import { ForecastStrip } from './ForecastStrip';
+import { ScorecardHighlights } from './ScorecardHighlights';
 import { formatNumber, relativeTime } from '@/core/format';
-import { useDatasets, useOverview } from '@/core/hooks';
-import { gcc, lastActualYear } from '@/core/lines';
+import { useDatasets, useOverview, useReadings } from '@/core/hooks';
 import { HeadlineBrief } from '@/modules/insights/HeadlineBrief';
 import { OilPulse } from './OilPulse';
 import { SignalsPanel } from './SignalsPanel';
 
-const IMF_ACTUAL = lastActualYear();
+/** صفحات المواضيع: من الخلاصة إلى التفاصيل (كانت بوابة «الاقتصاد العُماني في لمحة»). */
+const TOPICS: { to: string; title: string; lead: string }[] = [
+  { to: '/growth', title: 'النمو والناتج', lead: 'حجم الاقتصاد ونموه وهيكله، وتحليل أثر النفط والسكان.' },
+  { to: '/prices-living', title: 'الأسعار والمعيشة', lead: 'التضخم وبنوده والقوة الشرائية.' },
+  { to: '/fiscal', title: 'المالية العامة', lead: 'الإيرادات والإنفاق والعجز والدين.' },
+  { to: '/money', title: 'النقد والمصارف', lead: 'السيولة والائتمان والفائدة والاحتياطيات والبنوك.' },
+  { to: '/external', title: 'القطاع الخارجي', lead: 'ميزان المدفوعات والتجارة والشركاء.' },
+  { to: '/energy', title: 'الطاقة والنفط', lead: 'سعر النفط العُماني وإنتاجه والغاز.' },
+  { to: '/population', title: 'السكان', lead: 'المواطنون والوافدون والمواليد والوفيات.' },
+  { to: '/labour', title: 'سوق العمل والتعمين', lead: 'التوظيف والبطالة والتعمين.' },
+  { to: '/investment', title: 'الاستثمار', lead: 'الاستثمار الأجنبي والمحلي.' },
+];
+
+/** قراءات مؤشرات النبض (config/indicator_meta.php → pulse). */
+function PulseGrid() {
+  const { data, isLoading, isError } = useReadings({ set: 'pulse' });
+  if (isLoading) return <Loading height={260} />;
+  if (isError || !data) return <p className="muted">تعذّر تحميل القراءات.</p>;
+  return <ReadingGrid>{data.map((r) => <ReadingCard key={r.key} reading={r} />)}</ReadingGrid>;
+}
 
 export default function HomePage() {
   const { data: overview } = useOverview();
@@ -18,53 +40,46 @@ export default function HomePage() {
 
   return (
     <>
-      <PageHead title="لوحة القيادة" lead="أهم مؤشرات الاقتصاد العُماني الآن، وما يستحق انتباه صانع القرار. كل رقم يحمل مصدره وتاريخ آخر فحص وآخر تغيير، وتتحدث البيانات آليًا من المصادر الرسمية." />
+      <PageHead title="الموجز التنفيذي" lead="ما يحتاجه صانع القرار في دقائق: ما الذي تغيّر، وكيف حال أهم المؤشرات مقارنةً بتاريخها وبالخليج، وأين نتقدم وأين نتأخر، وماذا بعد. كل رقم بمصدره، ويتحدث آليًا." />
 
-      <div className="grid cols-4">
-        <KeyStat trend entity="OMN" indicator="imf.NGDPD" label="الناتج المحلي الإجمالي" maxPeriod={IMF_ACTUAL} goodWhen="up" />
-        <KeyStat trend entity="OMN" indicator="imf.NGDP_RPCH" label="نمو الناتج الحقيقي" maxPeriod={IMF_ACTUAL} goodWhen="up" />
-        <KeyStat trend entity="OMN" indicator="ncsi.CPI_INFLATION" label="التضخم السنوي (شهري)" />
-        <KeyStat trend entity="WLD" indicator="imf.pcps.poildub" label="سعر خام دبي (شهري)" goodWhen="up" />
-        <KeyStat trend entity="OMN" indicator="imf.GGXCNL_NGDP" label="رصيد الميزانية (% من الناتج)" maxPeriod={IMF_ACTUAL} goodWhen="up" />
-        <KeyStat trend entity="OMN" indicator="imf.GGXWDG_NGDP" label="الدين الحكومي الإجمالي" maxPeriod={IMF_ACTUAL} goodWhen="down" />
-        <KeyStat trend entity="OMN" indicator="ilo.unemployment" label="معدل البطالة" goodWhen="down" />
-        <KeyStat trend entity="OMN" indicator="manafeth.EXPORTS" label="الصادرات السلعية السنوية" compactValue goodWhen="up" />
-      </div>
+      <nav className="brief-toc" aria-label="أقسام الموجز">
+        {[['pulse', 'نبض الاقتصاد'], ['changed', 'ما الذي تغيّر؟'], ['standing', 'أين نتقدم وأين نتأخر'], ['oil', 'حساسية النفط'], ['next', 'ماذا بعد؟'], ['brief', 'الموجز المكتوب'], ['topics', 'المواضيع']].map(([id, label]) => (
+          <a key={id} href={`#${id}`} className="chip neutral">{label}</a>
+        ))}
+      </nav>
 
-      <div style={{ marginTop: 20, display: 'grid', gap: 16 }}>
-        <SignalsPanel />
-        <HeadlineBrief />
-      </div>
+      <section className="section" id="pulse">
+        <h2>نبض الاقتصاد</h2>
+        <p className="lead">كل مؤشر بحكم مبني على مرجع صريح: موقعه بين قراءات آخر عشر سنوات وترتيبه بين دول الخليج. افتح «ما الذي يحرّكه» في أي بطاقة لرؤية الصورة الأوسع.</p>
+        <PulseGrid />
+      </section>
 
-      <Section title="النفط والمالية العامة" lead="النفط ما زال المحرك الأول لإيرادات الدولة؛ هكذا تتحرك الأسعار، وهكذا تتحرك الميزانية والدين معها.">
+      <section className="section" id="changed">
+        <h2>ما الذي تغيّر؟ إشارات السوق</h2>
+        <p className="lead">تغيّرات في أحدث البيانات المعتمدة تجاوزت عتبات معلنة. اضغط «؟» على أي إشارة لترى ماذا حدث ولماذا يهم وماذا نراقب بعدها.</p>
+        <SignalsPanel showEmpty />
+      </section>
+
+      <section className="section" id="standing">
+        <h2>أين نتقدم وأين نتأخر</h2>
+        <ScorecardHighlights />
+      </section>
+
+      <Section id="oil" title="حساسية الميزانية لسعر النفط" lead="النفط ما زال المحرك الأول لإيرادات الدولة: كم يتحسن رصيد الميزانية مع كل ارتفاع في سعر البرميل؟ وللأثر عبر الإيرادات والدين والاحتياطيات افتح «سلاسل الأثر».">
+        <OilFiscalSensitivity title="رصيد الميزانية وسعر النفط" indicator="imf.GGXCNL_NGDP" yLabel="رصيد الميزانية (% من الناتج)" />
         <OilPulse />
-        <SeriesChart oil
-          title="الميزانية والدين الحكومي"
-          subtitle="% من الناتج المحلي"
-          lines={[
-            { indicator: 'imf.GGXCNL_NGDP', entity: 'OMN', label: 'رصيد الميزانية', color: 'var(--series-1)' },
-            { indicator: 'imf.GGXWDG_NGDP', entity: 'OMN', label: 'إجمالي الدين', color: 'var(--series-2)' },
-          ]}
-          from="2008"
-          imfForecast
-        />
       </Section>
 
-      <Section title="اتجاهات رئيسية">
-        <SeriesChart oil title="نمو الناتج الحقيقي: عُمان مقابل دول الخليج" lines={gcc('imf.NGDP_RPCH')} from="2012" imfForecast />
-        <SeriesChart title="التضخم السنوي في عُمان" subtitle="شهريًا" lines={[{ indicator: 'ncsi.CPI_INFLATION', entity: 'OMN', label: 'التضخم السنوي' }]} from="2021" />
-        <SeriesChart title="سعر النفط: دبي وبرنت" subtitle="دولار/برميل، متوسط شهري — صندوق النقد (ويقابله البنك الدولي وEIA)" lines={[{ indicator: 'imf.pcps.poildub', entity: 'WLD', label: 'خام دبي (مرجع الخام العُماني)' }, { indicator: 'imf.pcps.poilbre', entity: 'WLD', label: 'خام برنت' }]} from="2018" />
-        <SeriesChart
-          title="التجارة الخارجية السلعية"
-          kind="columns"
-          lines={[
-            { indicator: 'manafeth.EXPORTS', entity: 'OMN', label: 'الصادرات', color: 'var(--series-1)' },
-            { indicator: 'manafeth.IMPORTS', entity: 'OMN', label: 'الواردات', color: 'var(--series-2)' },
-            { indicator: 'manafeth.REEXPORTS', entity: 'OMN', label: 'إعادة التصدير', color: 'var(--series-3)' },
-          ]}
-          last={12}
-        />
-      </Section>
+      <section className="section" id="next">
+        <h2>ماذا بعد؟</h2>
+        <ForecastStrip />
+        <p style={{ marginTop: 8 }}><Link to="/impact">سيناريوهات: ماذا لو تغيّر النفط أو الفائدة الأمريكية أو أسعار الغذاء؟ ←</Link></p>
+      </section>
+
+      <section className="section" id="brief">
+        <h2>الموجز المكتوب</h2>
+        <HeadlineBrief />
+      </section>
 
       {overview && (
         <section className="section">
@@ -81,6 +96,20 @@ export default function HomePage() {
           </div>
         </section>
       )}
+      <section className="section" id="topics">
+        <h2>المواضيع</h2>
+        <p className="lead">لكل موضوع صفحة تنزل فيها من الخلاصة إلى الرسوم والتحليل والعلاقات.</p>
+        <ReadingGrid className="topic-grid">
+          {TOPICS.map((t) => (
+            <Link key={t.to} to={t.to} className="card topic-card">
+              <strong>{t.title}</strong>
+              <span className="muted">{t.lead}</span>
+              <span className="topic-go" aria-hidden="true">←</span>
+            </Link>
+          ))}
+        </ReadingGrid>
+      </section>
+
     </>
   );
 }

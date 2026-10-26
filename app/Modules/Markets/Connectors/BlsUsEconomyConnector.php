@@ -10,6 +10,7 @@ use App\Core\Ingestion\Data\ParsedRecord;
 use App\Core\Ingestion\Data\ProbeResult;
 use App\Core\Ingestion\Data\RawPayload;
 use App\Core\Ingestion\Data\SourceDefinition;
+use App\Core\Support\ApiKeys;
 use App\Core\Validation\Rules\Range;
 use RuntimeException;
 
@@ -105,9 +106,9 @@ final class BlsUsEconomyConnector extends ApiConnector
             if ($start > self::FIRST_YEAR) {
                 sleep(1);
             }
-            $res = $this->http()->timeout(60)->retry(3, 5000)->asJson()->post(self::URL, [
+            $res = $this->http()->timeout(60)->retry(3, 5000)->asJson()->post(ApiKeys::blsUrl(), ApiKeys::blsBody([
                 'seriesid' => array_keys(self::SERIES), 'startyear' => (string) $start, 'endyear' => (string) min($start + 9, $thisYear),
-            ])->throw()->json();
+            ]))->throw()->json();
             if (($res['status'] ?? '') !== 'REQUEST_SUCCEEDED') {
                 throw new RuntimeException('BLS: '.json_encode($res['message'] ?? $res, JSON_UNESCAPED_UNICODE));
             }

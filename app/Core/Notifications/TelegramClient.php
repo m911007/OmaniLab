@@ -2,6 +2,7 @@
 
 namespace App\Core\Notifications;
 
+use App\Core\Support\Secrets;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Throwable;
@@ -10,7 +11,7 @@ final class TelegramClient
 {
     public function isConfigured(): bool
     {
-        return filled(config('omanilab.telegram.token')) && filled(config('omanilab.telegram.chat_id'));
+        return filled(Secrets::get('telegram_bot_token')) && filled(Secrets::get('telegram_chat_id'));
     }
 
     /** يرسل رسالة HTML. يعيد false (دون رمي استثناء) إن لم يُهيّأ البوت أو فشل الإرسال. */
@@ -24,9 +25,9 @@ final class TelegramClient
 
         try {
             $response = Http::timeout(15)->post(
-                'https://api.telegram.org/bot'.config('omanilab.telegram.token').'/sendMessage',
+                'https://api.telegram.org/bot'.Secrets::get('telegram_bot_token').'/sendMessage',
                 [
-                    'chat_id' => config('omanilab.telegram.chat_id'),
+                    'chat_id' => Secrets::get('telegram_chat_id'),
                     'text' => mb_substr($html, 0, 4000),
                     'parse_mode' => 'HTML',
                     'disable_web_page_preview' => true,

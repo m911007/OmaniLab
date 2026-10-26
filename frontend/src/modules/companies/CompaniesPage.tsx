@@ -7,6 +7,7 @@ import { Empty, ErrorState, Loading } from '@/core/components/States';
 import { SourceNote } from '@/core/components/SourceNote';
 import { formatDate, formatNumber } from '@/core/format';
 import { useCompanies, useCompany, useCompanyStats, type CompanyQuery } from '@/core/hooks';
+import { StartupsSection } from './StartupsSection';
 import { ATTRIBUTE_LABELS, CATEGORY_AR, REGISTRATION_AR, STATUS_AR, label } from './labels';
 
 export default function CompaniesPage() {
@@ -50,6 +51,8 @@ export default function CompaniesPage() {
           </ChartCard>
         </div>
       </section>
+
+      <StartupsSection />
 
       <section className="section">
         <h2>دليل الشركات</h2>

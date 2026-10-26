@@ -9,13 +9,13 @@ export interface OilOverlay {
   annual: Point[];
 }
 
-/** سعر خام دبي الشهري من صندوق النقد (مقياس قريب من الخام العُماني، ومصدر مستقل عن المركز الوطني للإحصاء). */
-export const OIL_INDICATOR = 'imf.pcps.poildub';
+/** سعر النفط العُماني الشهري (المركز الوطني للإحصاء) منذ 2002: مرجع إيرادات الميزانية الفعلي، ويُعرض بالدولار للبرميل. */
+export const OIL_INDICATOR = 'ncsi.OIL_PRICE';
 
 export function useOilOverlay(enabled: boolean): OilOverlay | null {
-  const q = useSeries(OIL_INDICATOR, enabled ? ['WLD'] : [], { from: '1990' });
+  const q = useSeries(OIL_INDICATOR, enabled ? ['OMN'] : [], { from: '2000' });
   const monthly = q.data?.series[0]?.points;
-  return useMemo(() => (enabled && monthly && monthly.length > 0 ? { label: 'سعر النفط: خام دبي ($/برميل، المحور الأيمن)', monthly, annual: annualMean(monthly) } : null), [enabled, monthly]);
+  return useMemo(() => (enabled && monthly && monthly.length > 0 ? { label: 'سعر النفط العُماني ($/برميل، المحور الأيمن)', monthly, annual: annualMean(monthly) } : null), [enabled, monthly]);
 }
 
 /** يطابق سعر النفط بفترة المخطط: سنوي (متوسط السنة)، فصلي (متوسط الفصل)، أو شهري. */

@@ -127,3 +127,11 @@ export function changeBetween(current: number, previous: number, unit?: string |
 export function entityName(e: { name_ar: string | null; name_en: string }): string {
   return e.name_ar ?? e.name_en;
 }
+
+/** الريال العُماني مربوط بالدولار رسميًا منذ 1986: 1 دولار = 0.3845 ريال. */
+export const OMR_PER_USD = 0.3845;
+
+/** يستبدل «دولار» بـ«ريال عُماني» في وحدة مؤشر معبَّر عنه بالدولار (مثل «مليار دولار» → «مليار ريال عُماني»). */
+export function toOmrUnit(unit: string | null): string | null {
+  return unit ? unit.replace(/دولار( دولي)?/g, 'ريال عُماني').replace(/US\$|\$/g, 'ر.ع') : unit;
+}

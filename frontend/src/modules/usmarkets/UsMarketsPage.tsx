@@ -1,3 +1,4 @@
+import { ReadingGrid } from '@/core/components/ReadingGrid';
 import { KeyStat } from '@/core/components/KeyStat';
 import { PageHead, Section } from '@/core/components/PageHead';
 import { SeriesChart, type RangeOption } from '@/core/components/SeriesChart';
@@ -30,7 +31,7 @@ export default function UsMarketsPage() {
         lead="نبض أكبر اقتصاد وسوق مالية في العالم بتاريخ طويل (الأسهم منذ 1975 والتقلب منذ 1990 والعوائد منذ 1990 والدين منذ 1993 والتضخم والتوظيف منذ 1970): مؤشرات الأسهم وعائلة التقلب، وأسعار الفائدة والسندات والتضخم المتوقع، والتضخم وبنوده، وسوق العمل، والدين العام والإنفاق والإيرادات. كل رسم يتيح اختيار المدى الزمني. مصادرها رسمية وتُحدَّث تلقائيًا (كل ساعة للأسهم والفائدة)، وهي إغلاقات يومية رسمية لا أسعار لحظية."
       />
 
-      <div className="grid cols-4">
+      <ReadingGrid>
         <KeyStat trend entity="USA" indicator="us.sp500" label="مؤشر S&P 500" goodWhen="up" />
         <KeyStat trend entity="USA" indicator="us.djia" label="مؤشر داو جونز" goodWhen="up" />
         <KeyStat trend entity="USA" indicator="us.russell2000" label="راسل 2000 (الشركات الصغيرة)" goodWhen="up" />
@@ -43,7 +44,7 @@ export default function UsMarketsPage() {
         <KeyStat trend entity="USA" indicator="us.cpi_yoy" label="التضخم السنوي (CPI)" goodWhen="down" />
         <KeyStat trend entity="USA" indicator="us.unemployment_rate" label="معدل البطالة (%)" goodWhen="down" />
         <KeyStat trend entity="USA" indicator="us.public_debt" label="الدين العام (دولار)" compactValue />
-      </div>
+      </ReadingGrid>
 
       <Section title="سوق الأسهم" lead="مؤشرات الأسهم الأمريكية بمداها الكامل في رسم واحد: بدّل بين المؤشرات من الأزرار، واختر المدى الزمني. لاحظ مراحل الصعود والانهيار (2000 و2008 و2020).">
         <SwitchChart wide height={H} ranges={DAILY} defaultRange="10y" title="مؤشرات الأسهم الأمريكية" variants={[

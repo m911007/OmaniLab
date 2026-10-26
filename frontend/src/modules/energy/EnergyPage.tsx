@@ -1,4 +1,5 @@
 import { PageHead, Section } from '@/core/components/PageHead';
+import { SwitchChart } from '@/core/components/SwitchChart';
 import { SeriesChart } from '@/core/components/SeriesChart';
 import { WorldRankCard } from '@/core/components/WorldRankCard';
 import { gccLines, peerLines } from '@/core/groups';
@@ -14,7 +15,7 @@ export default function EnergyPage() {
         <SeriesChart title="استهلاك الكهرباء للفرد" lines={peerLines('wb.EG.USE.ELEC.KH.PC')} from="1995" />
       </Section>
       <Section title="النفط والغاز في عُمان">
-        <SeriesChart title="سعر النفط: دبي وبرنت" subtitle="دولار/برميل، متوسط شهري — صندوق النقد (ويقابله البنك الدولي وEIA)" lines={[{ indicator: 'imf.pcps.poildub', entity: 'WLD', label: 'خام دبي (مرجع الخام العُماني)' }, { indicator: 'imf.pcps.poilbre', entity: 'WLD', label: 'خام برنت' }]} from="2010" />
+        <SeriesChart title="سعر النفط: عُمان وبرنت" subtitle="دولار/برميل، متوسط شهري — المركز الوطني للإحصاء وصندوق النقد" lines={[{ indicator: 'ncsi.OIL_PRICE', entity: 'OMN', label: 'نفط عُمان' }, { indicator: 'imf.pcps.poilbre', entity: 'WLD', label: 'خام برنت' }]} from="2010" />
         <SeriesChart title="ريع النفط" lines={peerLines('wb.NY.GDP.PETR.RT.ZS')} from="1995" />
       </Section>
       <Section title="النفط والغاز: المراجعة الإحصائية للطاقة (Energy Institute)" lead="مصدر دولي مستقل عن الإحصاءات الوطنية: إنتاج واستهلاك النفط والغاز والاحتياطيات المؤكدة لكل الدول، مع سعر النفط (الخط الرمادي المتقطع) للسياق.">
@@ -113,6 +114,15 @@ export default function EnergyPage() {
         <SeriesChart title="الزلازل حول عُمان (قوة 3 فأكثر)" subtitle="عدد الهزات شهريًا — بحر عُمان وما حوله (USGS)" kind="columns" lines={[{ indicator: 'hazard.quakes_m3_count', entity: 'OMN', label: 'هزات' }]} last={60} />
         <SeriesChart title="أشد هزة أرضية في الشهر" subtitle="بالمقياس — بحر عُمان وما حوله (USGS)" kind="columns" lines={[{ indicator: 'hazard.quakes_max_magnitude', entity: 'OMN', label: 'أشد هزة' }]} last={60} />
         <SeriesChart title="أمطار مسقط" subtitle="ملم في الشهر" kind="columns" lines={[{ indicator: 'climate.precip_muscat', entity: 'OMN', label: 'أمطار مسقط' }]} last={60} />
+      </Section>
+
+      <Section title="مناخ عُمان حتى 2100" lead="الرصد التاريخي منذ 1901 وإسقاطات نماذج CMIP6 (وسيط النماذج) تحت ثلاثة مسارات انبعاثات، من بوابة معرفة تغير المناخ للبنك الدولي. الإسقاطات تقديرات نماذج لا أرصاد، وتتفاوت الأمطار بينها كثيرًا.">
+        <SwitchChart wide height={340} title="المناخ: الرصد والإسقاطات" variants={[
+          { value: 'tas', label: 'الحرارة (عُمان)', subtitle: 'متوسط الحرارة السنوي °م', from: '1950', lines: [{ indicator: 'climate.hist_tas', entity: 'OMN', label: 'الرصد التاريخي', color: 'var(--text-primary)' }, { indicator: 'climate.proj_tas_ssp126', entity: 'OMN', label: 'SSP1-2.6 خفض شديد' }, { indicator: 'climate.proj_tas_ssp245', entity: 'OMN', label: 'SSP2-4.5 وسط' }, { indicator: 'climate.proj_tas_ssp585', entity: 'OMN', label: 'SSP5-8.5 مرتفع' }] },
+          { value: 'pr', label: 'الأمطار (عُمان)', subtitle: 'ملم في السنة', from: '1950', lines: [{ indicator: 'climate.hist_pr', entity: 'OMN', label: 'الرصد التاريخي', color: 'var(--text-primary)' }, { indicator: 'climate.proj_pr_ssp245', entity: 'OMN', label: 'SSP2-4.5 وسط' }, { indicator: 'climate.proj_pr_ssp585', entity: 'OMN', label: 'SSP5-8.5 مرتفع' }] },
+          { value: 'gcc-hist', label: 'الحرارة: الخليج تاريخيًا', subtitle: 'متوسط الحرارة السنوي °م', from: '1950', lines: gccLines('climate.hist_tas') },
+          { value: 'gcc-proj', label: 'الحرارة: الخليج 2100 (SSP2-4.5)', subtitle: 'متوسط الحرارة السنوي °م — إسقاط', from: '2015', lines: gccLines('climate.proj_tas_ssp245') },
+        ]} />
       </Section>
 
       <Section title="الكهرباء عالميًا ومقارنةً بالخليج (Ember)" lead="مصادر توليد الكهرباء وحصصها والقدرة المركّبة وكثافة الكربون، من أرشيف Ember المفتوح لكل دول العالم سنويًا منذ 2000.">

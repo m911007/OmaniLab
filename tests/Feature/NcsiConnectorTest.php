@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Core\Ingestion\Data\ParsedRecord;
 use App\Core\Ingestion\Data\RawPayload;
+use App\Modules\Mof\Connectors\MofSnapshotConnector;
 use App\Modules\Ncsi\Connectors\NcsiLabourConnector;
 use App\Modules\Ncsi\Connectors\NcsiNationalAccountsConnector;
 use App\Modules\Ncsi\Connectors\NcsiPricesConnector;
@@ -142,5 +143,20 @@ class NcsiConnectorTest extends TestCase
 
         $this->assertSame([61.522, 600.0, 14472.538, 12542.4], array_map(fn ($p) => $p[1], array_slice($out, 0, 4)));
         $this->assertSame(0.0, $out[5][1]);
+    }
+
+    public function test_mof_snapshot_yields_spending_categories_and_sovereign_coupons(): void
+    {
+        $c = new MofSnapshotConnector;
+        $records = [];
+        foreach ($c->parse($c->fetch()) as $r) {
+            if ($r instanceof ParsedRecord) {
+                $records[$r->indicatorKey.'|'.$r->period] = $r->value;
+            }
+        }
+
+        $this->assertSame(13.5551, $records['mof.exp_total|2012']);
+        $this->assertArrayNotHasKey('mof.exp_total|2021', $records);
+        $this->assertSame(7.375, $records['oman.eurobond_coupon|2020']);
     }
 }

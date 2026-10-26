@@ -209,6 +209,66 @@ export interface Scorecard {
   items: ScorecardItem[];
 }
 
+/** قراءة مؤشر لصانع القرار (GET /readings): الرقم والحكم والمراجع والجملة المولَّدة. */
+export type VerdictLevel = 'good' | 'normal' | 'attention' | 'critical';
+export interface Reading {
+  key: string;
+  label: string;
+  unit: string;
+  digits: number;
+  polarity: string | null;
+  frequency: 'A' | 'Q' | 'M';
+  period: string;
+  period_label: string;
+  value: number;
+  previous: { period: string; period_label: string; value: number } | null;
+  history: { years: number; mean: number; min: number; max: number; percentile: number | null } | null;
+  gcc: { rank: number; of: number; percentile: number; mean: number; items: { code: string; value: number }[] } | null;
+  reference: { value: number; label: string; source: string } | null;
+  verdict: { level: VerdictLevel; label: string; basis: ('history' | 'gcc')[] } | null;
+  sentence: string;
+  spark: Point[];
+  dataset: Dataset;
+}
+
+/** مدخل في قاموس المؤشرات (GET /indicators) */
+export interface CatalogIndicator {
+  key: string;
+  name_ar: string;
+  name_en: string;
+  unit: string | null;
+  frequency: string;
+  dataset: { key: string; name_ar: string; section: string; source: string };
+  last_period: string;
+  entities: number;
+  omn: boolean;
+}
+
+export interface CatalogResponse {
+  data: CatalogIndicator[];
+  meta: { total: number; page: number; last_page: number; sections: string[] };
+}
+
+/** مؤشر واحد (GET /indicators/{key}) */
+export interface IndicatorDetail {
+  key: string;
+  name_ar: string;
+  name_en: string;
+  unit: string | null;
+  frequency: string;
+  description: string | null;
+  dataset: Dataset;
+  coverage: { last_period: string | null; entities: number; omn: boolean };
+  default_entity: string | null;
+  countries: number;
+  entities: { code: string; name_ar: string | null; name_en: string; type: string; points: number; last_period: string }[];
+}
+
+export interface SearchResults {
+  indicators: { key: string; name_ar: string; unit: string | null; frequency: string; dataset: string; omn: boolean }[];
+  entities: { code: string; name_ar: string | null; name_en: string }[];
+}
+
 export interface Signal {
   id: string;
   title: string;
@@ -220,6 +280,10 @@ export interface Signal {
   value: number;
   previous: number | null;
   change: number | null;
+  /** لماذا تهم صانع القرار، وماذا يراقب بعدها، والصفحة التي تفصّلها */
+  why: string | null;
+  watch: string | null;
+  link: string | null;
 }
 
 export interface CrossCheckGroup {
@@ -240,6 +304,22 @@ export interface CrossCheckDetail {
 function xsrfToken(): string {
   const m = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]+)/);
   return m ? decodeURIComponent(m[1]!) : '';
+}
+
+/** رفع ملف (multipart) بجلسة المستخدم ورمز CSRF. */
+export async function apiUpload<T>(path: string, form: FormData): Promise<T> {
+  const res = await fetch(`/api/v1/${path}`, { method: 'POST', credentials: 'same-origin', headers: { Accept: 'application/json', 'X-XSRF-TOKEN': xsrfToken() }, body: form });
+  if (!res.ok) {
+    let message = `HTTP ${res.status}`;
+    try {
+      const j = (await res.json()) as { message?: string; errors?: Record<string, string[]> };
+      message = (j.errors ? Object.values(j.errors)[0]?.[0] : undefined) ?? j.message ?? message;
+    } catch {
+      /* الرد ليس JSON */
+    }
+    throw new Error(message);
+  }
+  return (await res.json()) as T;
 }
 
 /** طلب يكتب (POST/PUT/PATCH/DELETE) بجلسة المستخدم: يرسل رمز CSRF من ملف الارتباط ويُظهر رسالة الخطأ من الخادم. */
@@ -268,6 +348,8 @@ export interface AuthUser {
   name: string;
   email: string;
   is_admin: boolean;
+  memberships?: { organization_id: number; name_ar: string; kind: string; role: 'purchaser' | 'analyst' | 'org_admin' }[];
+  can_edit_chains?: boolean;
 }
 
 export interface ChartRequestRow {

@@ -1,3 +1,4 @@
+import { CorrectionsLog } from '@/modules/indicator/CorrectionsLog';
 import { FreshnessBadge } from '@/core/components/FreshnessBadge';
 import { PageHead } from '@/core/components/PageHead';
 import { ErrorState, Loading } from '@/core/components/States';
@@ -22,6 +23,9 @@ export default function StatusPage() {
   return (
     <>
       <PageHead title="حالة البيانات" lead="كل مجموعة بيانات: مصدرها وإصدارها، ومتى فُحصت آخر مرة، ومتى تغيّرت بياناتنا فعلًا، وموعد الفحص القادم. يجري كل ذلك آليًا دون تدخل بشري." />
+      <section className="section" aria-label="سجل التصحيحات">
+        <CorrectionsLog />
+      </section>
 
       {oErr && <ErrorState error={oErr as Error} onRetry={() => refetch()} />}
 

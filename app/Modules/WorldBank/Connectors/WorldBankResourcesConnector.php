@@ -42,6 +42,11 @@ final class WorldBankResourcesConnector extends WorldBankConnector
             WbIndicator::share('ER.H2O.FWAG.ZS', 'سحب المياه العذبة للزراعة', 'Freshwater withdrawals: agriculture', '% من إجمالي السحب'),
             WbIndicator::share('ER.H2O.FWDM.ZS', 'سحب المياه العذبة للاستخدام المنزلي', 'Freshwater withdrawals: domestic', '% من إجمالي السحب'),
             WbIndicator::share('ER.H2O.FWIN.ZS', 'سحب المياه العذبة للصناعة', 'Freshwater withdrawals: industry', '% من إجمالي السحب'),
+            // المياه (AQUASTAT عبر البنك الدولي): القيمة الاقتصادية للمتر المكعب، وحجم السحب مقابل الموارد المتجددة
+            WbIndicator::value('ER.GDP.FWTL.M3.KD', 'إنتاجية المياه: الناتج لكل متر مكعب مسحوب', 'Water productivity, total (constant 2015 US$ GDP per m3 of total freshwater withdrawal)', 'دولار (أسعار 2015) لكل م³', 1e6),
+            WbIndicator::value('ER.H2O.FWTL.K3', 'إجمالي سحب المياه العذبة', 'Annual freshwater withdrawals, total', 'مليار م³', 1e5),
+            WbIndicator::value('ER.H2O.INTR.K3', 'الموارد المائية الداخلية المتجددة', 'Renewable internal freshwater resources, total', 'مليار م³', 1e5),
+            WbIndicator::value('ER.H2O.FWTL.ZS', 'سحب المياه العذبة إلى الموارد المتجددة', 'Annual freshwater withdrawals (% of internal resources)', '% من الموارد المتجددة', 1e6),
             WbIndicator::level('ER.FSH.CAPT.MT', 'صيد الأسماك البري', 'Capture fisheries production', 'طن'),
             WbIndicator::level('ER.FSH.PROD.MT', 'إجمالي إنتاج الأسماك', 'Total fisheries production', 'طن'),
             WbIndicator::share('NE.CON.PRVT.ZS', 'الاستهلاك الأسري', 'Household final consumption', '% من الناتج'),

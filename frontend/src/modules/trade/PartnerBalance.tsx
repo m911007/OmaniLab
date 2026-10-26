@@ -27,7 +27,7 @@ export function PartnerBalance({ year }: { year: string }) {
     <div className="drivers">
       {rows.map((r) => (
         <div className="balance-row" key={r.entity.code}>
-          <Link to={`/markets/${r.entity.code}`}>{entityName(r.entity)}</Link>
+          <Link to={`/world/markets/${r.entity.code}`}>{entityName(r.entity)}</Link>
           <span className="gov-track" aria-hidden="true">
             <span style={{ width: `${(Math.abs(r.balance) / max) * 100}%`, background: good ? 'var(--good)' : 'var(--critical)' }} />
           </span>

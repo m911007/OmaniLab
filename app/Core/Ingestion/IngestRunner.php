@@ -8,6 +8,7 @@ use App\Core\Ingestion\Data\ParsedAttribute;
 use App\Core\Ingestion\Data\ParsedEntity;
 use App\Core\Ingestion\Data\ParsedRecord;
 use App\Core\Ingestion\Data\ParsedRelation;
+use App\Core\Quality\Exclusions;
 use App\Models\Dataset;
 use App\Models\IngestRun;
 use Illuminate\Support\Facades\DB;
@@ -25,6 +26,7 @@ final class IngestRunner
         private readonly ConnectorRegistry $registry,
         private readonly FreshnessService $freshness,
         private readonly EntityNormaliser $normaliser,
+        private readonly Exclusions $exclusions,
     ) {}
 
     /**
@@ -168,6 +170,13 @@ final class IngestRunner
             }
 
             $entity = $this->normaliser->code($item->entityCode);
+            // نقطة خاطئة في المصدر بسبب موثّق: لا تُنشر، ويبقى سببها في سجل التصحيحات
+            $excluded = $this->exclusions->reason($item->indicatorKey, $entity, $item->period);
+            if ($excluded !== null) {
+                $this->exclusions->record($item->indicatorKey, $entity, $item->period, $item->value, $excluded);
+
+                continue;
+            }
             $key = $item->indicatorKey."\x1f".$entity."\x1f".$item->period;
             if (array_key_exists($key, $seen)) {
                 if ($seen[$key] === $item->value) {

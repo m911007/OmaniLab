@@ -10,6 +10,7 @@ use App\Core\Ingestion\Data\ParsedRelation;
 use App\Core\Ingestion\Data\ProbeResult;
 use App\Core\Ingestion\Data\RawPayload;
 use App\Core\Ingestion\Data\SourceDefinition;
+use App\Core\Support\ApiKeys;
 use App\Core\Validation\Rules\Range;
 use App\Modules\Comtrade\HsChapters;
 use RuntimeException;
@@ -68,7 +69,7 @@ final class ComtradeProductsConnector extends ApiConnector
     /** @return list<array{value: float, chapter: string}> */
     private function chapters(int $reporter, int $year, string $flow): array
     {
-        $res = $this->http()->timeout(60)->get(self::URL, [
+        $res = $this->http()->withHeaders(ApiKeys::comtradeHeaders())->timeout(60)->get(ApiKeys::comtradeUrl(self::URL), [
             'reporterCode' => $reporter, 'period' => $year, 'cmdCode' => 'AG2', 'flowCode' => $flow,
             'partnerCode' => 0, 'partner2Code' => 0, 'customsCode' => 'C00', 'motCode' => 0,
         ])->throw()->json();

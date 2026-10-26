@@ -1,0 +1,200 @@
+{
+ "SOTN_FAQ": {
+  "title": "Steel Production Costs FAQ (EAF cost structure table)",
+  "url": "https://www.steelonthenet.com/essentials/production-costs.html",
+  "publisher": "Steelonthenet (MEPS)",
+  "year": 2025,
+  "kind": "industry",
+  "reliability": "medium",
+  "excerpt": "الخردة 60–70% من تكلفة الفرن الكهربائي (وفي قسم التكلفة النقدية 70–75%)، الكهرباء 12–18% عند 400–500 ك.و.س/طن، مدخلات أخرى (أقطاب، سبائك، حراريات، جير) 8–14%، العمالة والتشغيل 13–20%."
+ },
+ "SOTN_REBAR": {
+  "title": "Rebar production cost model (2025 world-average inputs)",
+  "url": "https://steelonthenet.com/cost-rebar.html",
+  "publisher": "Steelonthenet (MEPS)",
+  "year": 2025,
+  "kind": "industry",
+  "reliability": "medium",
+  "excerpt": "مصنع درفلة يشتري البليت بنحو 475 دولارًا/طن، وسعر حديد التسليح نحو 575 دولارًا/طن تسليم المصنع، وربح اسمي نحو 25 دولارًا/طن (فالبليت ≈ 86% من التكلفة)."
+ },
+ "AIST_CAPPEL": {
+  "title": "EAF Efficiency (AIST MENA presentation, J. Cappel)",
+  "url": "https://www.aist.org/AIST/aist/AIST/Conferences_Exhibitions/MENA/Presentations/AIST_MENA_EAF-Efficiency_Cappel.pdf",
+  "publisher": "AIST",
+  "year": 2021,
+  "kind": "industry",
+  "reliability": "medium",
+  "excerpt": "هيكل تكلفة نموذجي: الخردة 72.6%، الكهرباء والأقطاب نحو 9%، السبائك الحديدية 5.8%."
+ },
+ "TZ_STEEL": {
+  "title": "Global Steel Production Costs: a country and plant-level cost analysis",
+  "url": "https://blog.transitionzero.org/hubfs/Analysis/TZ%20-%20Global%20Steel%20Production%20Costs%20-%20Jan2022_final.pdf",
+  "publisher": "TransitionZero",
+  "year": 2022,
+  "kind": "academic",
+  "reliability": "medium",
+  "excerpt": "المواد الخام (كالخردة) 61–72% من تكلفة إنتاج الصلب بالفرن الكهربائي."
+ },
+ "RG_EAF": {
+  "title": "Electric Furnace Steelmaking (review)",
+  "url": "https://www.researchgate.net/publication/285175113_Electric_Furnace_Steelmaking",
+  "publisher": "ResearchGate",
+  "year": null,
+  "kind": "academic",
+  "reliability": "medium",
+  "excerpt": "الخردة نحو 75% من الشحنة المعدنية للأفران الكهربائية عالميًا، والحديد المختزل/HBI نحو 15%."
+ },
+ "FM_DRI": {
+  "title": "NAIS 2019: Egypt's DRI output to grow again in 2019",
+  "url": "https://www.fastmarkets.com/insights/nais-2019-egypts-dri-output-to-grow-again-in-2019/",
+  "publisher": "Fastmarkets",
+  "year": 2019,
+  "kind": "trade_press",
+  "reliability": "low",
+  "excerpt": "الغاز الطبيعي نحو 77 دولارًا لكل طن DRI أي نحو 30% من تكلفة الإنتاج (تقدير منتج واحد 2019)، و1.45–1.50 طن كريات لكل طن DRI."
+ },
+ "PATENT_DRI": {
+  "title": "US Patent 11479829 — Production of iron",
+  "url": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/11479829",
+  "publisher": "USPTO",
+  "year": null,
+  "kind": "academic",
+  "reliability": "medium",
+  "excerpt": "استهلاك الطاقة النموذجي للاختزال المباشر بالغاز 10–11 جيجاجول لكل طن DRI."
+ },
+ "AGH_ELECTRODE": {
+  "title": "Aspects of graphite applications (AGH, Polish-German symposium)",
+  "url": "https://www.dkg.de/Vortraege%20-%20AKK%20Veranstaltungen/2013-_-2rd_polnisch_deutsches_symposium/abstract_migas_aspects-of-graphite-applications.pdf",
+  "publisher": "AGH University",
+  "year": 2013,
+  "kind": "academic",
+  "reliability": "medium",
+  "excerpt": "استهلاك أقطاب الجرافيت يتراوح بين أقل من 1 و5 كغم/طن، والتقدير العالمي 1–2 كغم/طن."
+ },
+ "ARGUS_CONV": {
+  "title": "Scrap more attractive than billet for Turkish importers",
+  "url": "https://www.argusmedia.com/es/news/2293604-scrap-more-attractive-than-billet-for-turkish-importers",
+  "publisher": "Argus Media",
+  "year": null,
+  "kind": "trade_press",
+  "reliability": "medium",
+  "excerpt": "تكلفة تحويل البليت إلى حديد تسليح نحو 50 دولارًا/طن (بعد 25–30 قبل عام)."
+ },
+ "LBNL_CEMENT": {
+  "title": "Energy Efficiency Improvement and Cost Saving Opportunities for Cement Making (Worrell & Galitsky)",
+  "url": "https://escholarship.org/content/qt96f9m6qf/qt96f9m6qf.pdf",
+  "publisher": "Lawrence Berkeley National Laboratory",
+  "year": null,
+  "kind": "agency",
+  "reliability": "high",
+  "excerpt": "الطاقة 30–40% من تكاليف إنتاج الإسمنت."
+ },
+ "ESTAR_CEMENT": {
+  "title": "ENERGY STAR Guide for the Cement Industry",
+  "url": "https://www.energystar.gov/sites/default/files/buildings/tools/ENERGY%20STAR%20Guide%20for%20the%20Cement%20Industry%2028_08_2013%20Final.pdf",
+  "publisher": "US EPA ENERGY STAR",
+  "year": 2013,
+  "kind": "agency",
+  "reliability": "high",
+  "excerpt": "الطاقة عادةً 20–40% من تكاليف التشغيل."
+ },
+ "ICR_ENERGY": {
+  "title": "Powering progress (Indian Cement Review)",
+  "url": "https://indiancementreview.com/2024/09/powering-progress/",
+  "publisher": "Indian Cement Review",
+  "year": 2024,
+  "kind": "trade_press",
+  "reliability": "low",
+  "excerpt": "الطاقة الحرارية 20–25% من تكلفة التصنيع، والطاقة الكلية 50–60% (نقلًا عن دراسات ثانوية)."
+ },
+ "IEA_CEMENT": {
+  "title": "Cement — Net Zero Roadmap tracking",
+  "url": "https://www.iea.org/reports/cement-3",
+  "publisher": "International Energy Agency",
+  "year": 2023,
+  "kind": "agency",
+  "reliability": "high",
+  "excerpt": "نسبة الكلنكر إلى الإسمنت 0.71 (2022)، وكثافة الطاقة الحرارية للفرن 3.6 جيجاجول/طن كلنكر (2022)."
+ },
+ "CSI_ROADMAP": {
+  "title": "Technology Roadmap: Low-Carbon Transition in the Cement Industry",
+  "url": "https://archive.wbcsd.org/contentwbc/download/4586/61682/1",
+  "publisher": "IEA & WBCSD-CSI",
+  "year": 2018,
+  "kind": "agency",
+  "reliability": "high",
+  "excerpt": "كثافة الكهرباء 91 ك.و.س/طن إسمنت (أساس 2014)، ونسبة الكلنكر 0.65 (2014)."
+ },
+ "EN197": {
+  "title": "EN 197-1 Cement — composition of CEM I (Portland cement)",
+  "url": null,
+  "publisher": "CEN",
+  "year": 2011,
+  "kind": "agency",
+  "reliability": "high",
+  "excerpt": "الإسمنت البورتلاندي CEM I يحتوي 95–100% كلنكر (دون منظم الشك)."
+ },
+ "CC_UK": {
+  "title": "Materials Cost Breakdown — ready-mix concrete",
+  "url": "https://concretecalculate.co.uk/cost-information/materials-cost-breakdown/",
+  "publisher": "Concretecalculate.co.uk",
+  "year": 2025,
+  "kind": "vendor",
+  "reliability": "low",
+  "excerpt": "الإسمنت 35–45% والركام 55–65% من تكلفة المواد الخام (C30/37: 40% و60%)، والمواد 40–60% من تكلفة الخرسانة الجاهزة (وفي قسم آخر 55–75%). خلطة C30/37: إسمنت 350، رمل 680، ركام 1220 كغم/م³."
+ },
+ "IN_ESTIMATOR": {
+  "title": "Concrete Cost Per Cubic Meter in India",
+  "url": "https://constructionestimatorindia.com/concrete-cost-per-cubic-meter-in-india/",
+  "publisher": "Construction Estimator India",
+  "year": 2026,
+  "kind": "vendor",
+  "reliability": "low",
+  "excerpt": "سعر الإسمنت (نحو 40% من التكلفة) ومسافة النقل أهم محركات تكلفة الخرسانة."
+ },
+ "HUANGHE": {
+  "title": "PVC Power Cable Procurement Guide — typical cost breakdown VV22 4×95mm²",
+  "url": "https://www.huanghecables.com/pvc-power-cable-procurement-guide.html",
+  "publisher": "Huanghe Cable Group",
+  "year": 2026,
+  "kind": "vendor",
+  "reliability": "low",
+  "excerpt": "كابل VV22 4×95 مم²: موصل النحاس 58–68%، مركبات PVC 10–14%، التدريع الفولاذي 5–8%، التصنيع والنفقات 8–12%، التغليف والنقل 3–5%."
+ },
+ "ZABLE": {
+  "title": "XLPE cable price guide — factors that affect cost",
+  "url": "https://zablecable.com/xlpe-cable-price-guide-factors-that-affect-cost-copper-voltage-armour/",
+  "publisher": "Zable Cable",
+  "year": 2026,
+  "kind": "vendor",
+  "reliability": "low",
+  "excerpt": "النحاس 60–75% من التكلفة الكلية لكابلات XLPE."
+ },
+ "HK_MACHINE": {
+  "title": "Power cable factory setup cost in 2026",
+  "url": "https://hkcablemachine.com/power-cable-factory-setup-cost-in-2026/",
+  "publisher": "Hongkai Cable Machinery",
+  "year": 2026,
+  "kind": "vendor",
+  "reliability": "low",
+  "excerpt": "النحاس 70–80% من تكلفة كابل القدرة."
+ },
+ "OCC_2017": {
+  "title": "Oman Cement Company Annual Report 2017",
+  "url": "https://occ.om/uploads/cms/4954565-OCC-2017.pdf",
+  "publisher": "Oman Cement Company SAOG",
+  "year": 2017,
+  "kind": "company_report",
+  "reliability": "medium",
+  "excerpt": "يذكر ارتفاع تعرفتي الغاز والكهرباء سببًا رئيسيًا لتراجع الربح؛ القوائم المالية في الملف صور لا نص، فتفصيل تكلفة المبيعات يحتاج قراءة يدوية/OCR."
+ },
+ "RAYSUT_2023": {
+  "title": "Raysut Cement Company SAOG — Annual Report 2023, note 31 (Cost of sales)",
+  "url": "https://www.raysutcement.om/upload/files/annual-report-2023-en.pdf",
+  "publisher": "Raysut Cement Company SAOG",
+  "year": 2023,
+  "kind": "company_report",
+  "reliability": "high",
+  "excerpt": "تكلفة المبيعات (الشركة الأم 2023، دون حركة المخزون): الوقود والغاز والكهرباء 15.50 مليون ر.ع = 46.4%، المواد الخام 3.55 = 10.6%، مواد التعبئة 4.4%، قطع الغيار والمستهلكات 6.3%، الموظفون 13.4%، الإهلاك 12.5%، نفقات المصنع الأخرى 6.0%. في 2022: الطاقة 38.6% والمواد الخام 11.1%. الموحَّد 2023: الطاقة 47.1% والمواد الخام 15.5%."
+ }
+}

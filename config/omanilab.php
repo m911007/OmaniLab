@@ -3,20 +3,22 @@
 use App\Modules\Adp\Connectors\AdpEnvironmentConnector;
 use App\Modules\Adp\Connectors\AdpLabourConnector;
 use App\Modules\Adp\Connectors\AdpPopulationConnector;
-use App\Modules\Boe\Connectors\BoeUkConnector;
-use App\Modules\Ecb\Connectors\EcbEuroAreaConnector;
 use App\Modules\Bis\Connectors\BisStatisticsConnector;
+use App\Modules\Boe\Connectors\BoeUkConnector;
 use App\Modules\Climate\Connectors\GlobalClimateConnector;
 use App\Modules\Climate\Connectors\OpenMeteoClimateConnector;
 use App\Modules\Climate\Connectors\OpenMeteoExtraConnector;
 use App\Modules\Climate\Connectors\OpenMeteoMarineConnector;
 use App\Modules\Climate\Connectors\UsgsEarthquakesConnector;
+use App\Modules\Climate\Connectors\WorldBankClimateConnector;
 use App\Modules\Companies\Connectors\GleifLeiCountsConnector;
 use App\Modules\Companies\Connectors\GleifOmanConnector;
 use App\Modules\Comtrade\Connectors\ComtradeProductsConnector;
 use App\Modules\Crypto\Connectors\CoinGeckoCryptoConnector;
+use App\Modules\Ecb\Connectors\EcbEuroAreaConnector;
 use App\Modules\Ember\Connectors\EmberElectricityConnector;
 use App\Modules\Eurostat\Connectors\EurostatConnector;
+use App\Modules\Fao\Connectors\FaoFoodBalanceConnector;
 use App\Modules\Fao\Connectors\FaoFoodPriceIndexConnector;
 use App\Modules\Fao\Connectors\FaoFoodSecurityConnector;
 use App\Modules\Fao\Connectors\FaoProductionConnector;
@@ -25,9 +27,12 @@ use App\Modules\Gcc\Connectors\GccStatEconomyConnector;
 use App\Modules\Gcc\Connectors\GccStatEnergyTourismConnector;
 use App\Modules\Gcc\Connectors\GccStatMoreConnector;
 use App\Modules\Gcc\Connectors\GccStatSocietyConnector;
+use App\Modules\GlobalRates\Connectors\BankOfCanadaConnector;
+use App\Modules\GlobalRates\Connectors\MofJapanJgbConnector;
 use App\Modules\Ilo\Connectors\IloLabourConnector;
 use App\Modules\Irena\Connectors\IrenaElectricityConnector;
 use App\Modules\Macro\Connectors\ImfAiReadinessConnector;
+use App\Modules\Macro\Connectors\ImfCoferConnector;
 use App\Modules\Macro\Connectors\ImfCpiConnector;
 use App\Modules\Macro\Connectors\ImfCtotConnector;
 use App\Modules\Macro\Connectors\ImfDebtDatabaseConnector;
@@ -35,10 +40,14 @@ use App\Modules\Macro\Connectors\ImfFiscalMonitorConnector;
 use App\Modules\Macro\Connectors\ImfFiscalPolicyConnector;
 use App\Modules\Macro\Connectors\ImfFossilSubsidiesConnector;
 use App\Modules\Macro\Connectors\ImfIipConnector;
+use App\Modules\Macro\Connectors\ImfInformRiskConnector;
 use App\Modules\Macro\Connectors\ImfMonthlyTradeConnector;
 use App\Modules\Macro\Connectors\ImfNdGainConnector;
 use App\Modules\Macro\Connectors\ImfReservesConnector;
 use App\Modules\Macro\Connectors\ImfWeoConnector;
+use App\Modules\Mafwr\Connectors\MafwrFishPricesConnector;
+use App\Modules\Mafwr\Connectors\MafwrFoodPricesConnector;
+use App\Modules\Mafwr\Connectors\MafwrOpenDataConnector;
 use App\Modules\Manafeth\Connectors\ManafethPartnersConnector;
 use App\Modules\Manafeth\Connectors\ManafethTotalsConnector;
 use App\Modules\Markets\Connectors\BlsUsEconomyConnector;
@@ -51,11 +60,9 @@ use App\Modules\Markets\Connectors\NyFedRatesConnector;
 use App\Modules\Markets\Connectors\UsTreasuryFiscalConnector;
 use App\Modules\Markets\Connectors\UsTreasuryYieldsConnector;
 use App\Modules\Markets\Connectors\WorldBankPinkSheetConnector;
+use App\Modules\Mof\Connectors\MofSnapshotConnector;
 use App\Modules\Ncsi\Connectors\NcsiAgricultureConnector;
 use App\Modules\Ncsi\Connectors\NcsiBalanceOfPaymentsConnector;
-use App\Modules\Oecd\Connectors\OecdLeadingIndicatorsConnector;
-use App\Modules\PortWatch\Connectors\PortWatchConnector;
-use App\Modules\Sipri\Connectors\SipriMilitaryConnector;
 use App\Modules\Ncsi\Connectors\NcsiCommunicationConnector;
 use App\Modules\Ncsi\Connectors\NcsiCpiGroupsConnector;
 use App\Modules\Ncsi\Connectors\NcsiElectricityConnector;
@@ -68,6 +75,7 @@ use App\Modules\Ncsi\Connectors\NcsiLabourConnector;
 use App\Modules\Ncsi\Connectors\NcsiMonetaryConnector;
 use App\Modules\Ncsi\Connectors\NcsiNationalAccountsConnector;
 use App\Modules\Ncsi\Connectors\NcsiOilGasConnector;
+use App\Modules\Ncsi\Connectors\NcsiOmanisationConnector;
 use App\Modules\Ncsi\Connectors\NcsiPopulationConnector;
 use App\Modules\Ncsi\Connectors\NcsiPricesConnector;
 use App\Modules\Ncsi\Connectors\NcsiProducerPricesConnector;
@@ -77,15 +85,24 @@ use App\Modules\Ncsi\Connectors\NcsiTourismConnector;
 use App\Modules\Ncsi\Connectors\NcsiWaterConnector;
 use App\Modules\Oec\Connectors\OecComplexityConnector;
 use App\Modules\Oec\Connectors\OecProductsConnector;
+use App\Modules\Oecd\Connectors\OecdLeadingIndicatorsConnector;
+use App\Modules\Ons\Connectors\OnsUkConnector;
 use App\Modules\Owid\Connectors\OwidDemographyConnector;
 use App\Modules\Owid\Connectors\OwidEnergyConnector;
 use App\Modules\Owid\Connectors\OwidFossilFuelsConnector;
 use App\Modules\Owid\Connectors\OwidIndicesConnector;
 use App\Modules\Owid\Connectors\OwidLongRunConnector;
 use App\Modules\Places\Connectors\OsmPlacesConnector;
+use App\Modules\PortWatch\Connectors\PortWatchConnector;
+use App\Modules\Sdg\Connectors\SdgWaterEfficiencyConnector;
+use App\Modules\Sipri\Connectors\SipriMilitaryConnector;
+use App\Modules\Startups\Connectors\OmanStartupHubConnector;
 use App\Modules\Undp\Connectors\UndpHdrConnector;
 use App\Modules\Unesco\Connectors\UnescoUisConnector;
 use App\Modules\Unicef\Connectors\UnicefMortalityConnector;
+use App\Modules\ValueChain\Connectors\BlsPpiChainConnector;
+use App\Modules\ValueChain\Connectors\ComtradeChainUnitValuesConnector;
+use App\Modules\ValueChain\Connectors\ShfeFuturesConnector;
 use App\Modules\Who\Connectors\WhoHealthConnector;
 use App\Modules\Wits\Connectors\WitsTradeConnector;
 use App\Modules\Wmd\Connectors\WorldMiningDataConnector;
@@ -102,6 +119,7 @@ use App\Modules\WorldBank\Connectors\WorldBankIctConnector;
 use App\Modules\WorldBank\Connectors\WorldBankInnovationConnector;
 use App\Modules\WorldBank\Connectors\WorldBankInvestmentConnector;
 use App\Modules\WorldBank\Connectors\WorldBankLabourConnector;
+use App\Modules\WorldBank\Connectors\WorldBankLogisticsConnector;
 use App\Modules\WorldBank\Connectors\WorldBankMacroConnector;
 use App\Modules\WorldBank\Connectors\WorldBankProjectionsConnector;
 use App\Modules\WorldBank\Connectors\WorldBankPurchasingPowerConnector;
@@ -146,6 +164,13 @@ return [
         WorldBankHealthConnector::class,
         WorldBankEnvironmentConnector::class,
         WorldBankTourismConnector::class,
+        WorldBankLogisticsConnector::class,
+        ImfCoferConnector::class,
+        BlsPpiChainConnector::class,
+        ComtradeChainUnitValuesConnector::class,
+        ShfeFuturesConnector::class, // فُعِّل بقرار المالك (2026-10-21) بعد مراجعة ترخيص بيانات البورصة.
+        ImfInformRiskConnector::class,
+        WorldBankClimateConnector::class,
         WorldBankFinanceConnector::class,
         WorldBankLabourConnector::class,
         WorldBankGovernanceConnector::class,
@@ -160,9 +185,11 @@ return [
         NcsiNationalAccountsConnector::class,
         NcsiOilGasConnector::class,
         NcsiPublicFinanceConnector::class,
+        MofSnapshotConnector::class,
         NcsiCommunicationConnector::class,
         NcsiBalanceOfPaymentsConnector::class,
         NcsiLabourConnector::class,
+        NcsiOmanisationConnector::class,
         NcsiMonetaryConnector::class,
         NcsiTourismConnector::class,
         NcsiElectricityConnector::class,
@@ -226,10 +253,14 @@ return [
         BisStatisticsConnector::class,
         EcbEuroAreaConnector::class,
         BoeUkConnector::class,
+        OnsUkConnector::class,
+        MofJapanJgbConnector::class,
+        BankOfCanadaConnector::class,
         EmberElectricityConnector::class,
         EurostatConnector::class,
         OecdLeadingIndicatorsConnector::class,
         SipriMilitaryConnector::class,
+        OmanStartupHubConnector::class,
         PortWatchConnector::class,
         WorldMiningDataConnector::class,
         CoinGeckoCryptoConnector::class,
@@ -238,6 +269,11 @@ return [
         OecProductsConnector::class,
         FaoFoodSecurityConnector::class,
         FaoProductionConnector::class,
+        FaoFoodBalanceConnector::class,
+        MafwrOpenDataConnector::class,
+        MafwrFishPricesConnector::class,
+        MafwrFoodPricesConnector::class,
+        SdgWaterEfficiencyConnector::class,
         UnescoUisConnector::class,
         ComtradeProductsConnector::class,
     ],
@@ -279,6 +315,23 @@ return [
         // لا يتكرر نفس التنبيه لنفس المجموعة قبل مرور هذه المدة.
         'dedupe_hours' => 6,
         'digest_time' => '07:00', // بتوقيت مسقط
+    ],
+
+    'ai' => [
+        // مفتاح Anthropic اختياري: بدونه يعمل ذكاء الأسواق بتحليل حتمي بلا توليد نصي.
+        'key' => env('ANTHROPIC_API_KEY'),
+        'model' => env('AI_MODEL', 'claude-sonnet-5-5'),
+    ],
+
+    'prices' => [
+        // SerpAPI (Google Shopping) لمقارنة أسعار المتاجر الحية؛ بدون المفتاح تُعطَّل تبويبة الأسعار وتبقى بقية الصفحة.
+        'serpapi_key' => env('SERPAPI_KEY'),
+    ],
+
+    // مفاتيح مصادر البيانات (احتياطي .env؛ المخزَّن من صفحة الإعدادات يتقدم عليها)
+    'keys' => [
+        'bls' => env('BLS_API_KEY'),
+        'comtrade' => env('COMTRADE_API_KEY'),
     ],
 
     'telegram' => [

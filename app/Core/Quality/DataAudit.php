@@ -3,6 +3,7 @@
 namespace App\Core\Quality;
 
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 /**
  * تدقيق دوري لسلامة البيانات المعتمدة نفسها (لا وقت الدخول فقط): تكرار، يتامى، قيم غير صالحة،
@@ -16,7 +17,7 @@ final class DataAudit
         $findings = [];
         foreach ([
             'duplicate_entity_names', 'leftover_aliases', 'empty_indicators', 'bad_periods',
-            'non_finite_values', 'stale_series', 'high_rejection_rate', 'unnamed_arabic_countries',
+            'non_finite_values', 'stale_series', 'high_rejection_rate', 'unnamed_arabic_countries', 'unit_breaks',
         ] as $check) {
             $f = $this->{$check}();
             if ($f !== null) {
@@ -129,5 +130,49 @@ final class DataAudit
 
         return $rows === [] ? null : new Finding('info', 'unnamed_arabic_countries', 'دول بيانات بلا اسم عربي.', count($rows),
             array_map(fn ($r) => $r->code, array_slice($rows, 0, 15)));
+    }
+
+    /**
+     * انقطاع وحدة مشتبه به في أي سلسلة: قيمة تبتعد عن متوسط القيم الأربع قبلها بنحو ألف ضعف (صعودًا أو هبوطًا)
+     * وتستمر القيمة التالية على المستوى الجديد. لا تُعدَّل البيانات هنا؛ تُسجَّل «مشتبهًا بها» في ops.corrections للمراجعة.
+     */
+    private function unit_breaks(): ?Finding
+    {
+        $rows = DB::select(<<<'SQL'
+            WITH s AS (
+                SELECT o.indicator_id, o.entity_id, o.period, o.value,
+                       (lag(o.value, 1) OVER w + lag(o.value, 2) OVER w + lag(o.value, 3) OVER w + lag(o.value, 4) OVER w) / 4 AS base,
+                       least(lag(o.value, 1) OVER w, lag(o.value, 2) OVER w, lag(o.value, 3) OVER w, lag(o.value, 4) OVER w) AS low,
+                       lead(o.value) OVER w AS next
+                FROM core.observations o
+                WINDOW w AS (PARTITION BY o.indicator_id, o.entity_id ORDER BY o.period)
+            )
+            SELECT i.key, e.code, s.period, s.value, s.base
+            FROM s JOIN core.indicators i ON i.id = s.indicator_id JOIN core.entities e ON e.id = s.entity_id
+            WHERE s.low > 0 AND s.value > 0
+              AND (s.base / s.value BETWEEN 500 AND 2000 AND (s.next IS NULL OR (s.next > 0 AND s.base / s.next BETWEEN 500 AND 2000))
+                OR s.value / s.base BETWEEN 500 AND 2000 AND (s.next IS NULL OR s.next / s.base BETWEEN 500 AND 2000))
+            ORDER BY i.key, e.code, s.period
+            LIMIT 500
+            SQL);
+        if ($rows === []) {
+            return null;
+        }
+
+        try {
+            DB::table('ops.corrections')->insertOrIgnore(array_map(fn ($r) => [
+                'indicator_key' => $r->key, 'entity_code' => $r->code, 'period' => $r->period, 'kind' => UnitShift::KIND, 'status' => 'suspected',
+                'original' => (float) $r->value, 'corrected' => null,
+                'note' => sprintf('القيمة تبعد نحو ألف ضعف عن متوسط القراءات الأربع السابقة (%s)؛ قد يكون المصدر غيّر وحدة النشر.', round((float) $r->base, 2)),
+                'detected_at' => now(),
+            ], $rows));
+            // ما رُوجع وثبتت صحته (config/data_exclusions.php → reviewed) لا يبقى مشتبهًا به
+            app(Exclusions::class)->markReviewed();
+        } catch (Throwable) {
+            // دور القراءة فقط لا يكتب السجل؛ النتيجة تبقى في تقرير التدقيق
+        }
+
+        return new Finding('warning', 'unit_breaks', 'قيم يُشتبه بانقطاع وحدتها (نحو ألف ضعف عن سابقاتها).', count($rows),
+            array_map(fn ($r) => "{$r->key}/{$r->code} {$r->period}", array_slice($rows, 0, 10)));
     }
 }

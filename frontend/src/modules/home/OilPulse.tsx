@@ -7,7 +7,7 @@ import { formatNumber, formatPeriod } from '@/core/format';
 import { useLines, type LineSpec } from '@/core/hooks';
 
 const LINES: LineSpec[] = [
-  { indicator: 'imf.pcps.poildub', entity: 'WLD', label: 'خام دبي (مرجع النفط العُماني)', color: 'var(--series-1)' },
+  { indicator: 'ncsi.OIL_PRICE', entity: 'OMN', label: 'نفط عُمان', color: 'var(--series-1)' },
   { indicator: 'imf.pcps.poilbre', entity: 'WLD', label: 'خام برنت', color: 'var(--series-2)' },
 ];
 
@@ -18,7 +18,7 @@ export function OilPulse() {
   const { isLoading, error, series, datasets } = useLines(LINES, { from: FROM });
 
   const facts = useMemo(() => {
-    const pts = series.find((s) => s.id.startsWith('imf.pcps.poildub'))?.points ?? [];
+    const pts = series.find((s) => s.id.startsWith('ncsi.OIL_PRICE'))?.points ?? [];
     if (pts.length < 13) return null;
     const [period, value] = pts[pts.length - 1];
     const prev = pts[pts.length - 2][1];
@@ -41,7 +41,7 @@ export function OilPulse() {
         <>
           <div className="pulse">
             <div>
-              <div className="stat-label">خام دبي — {formatPeriod(facts.period)}</div>
+              <div className="stat-label">نفط عُمان — {formatPeriod(facts.period)}</div>
               <div className="stat-value num">{formatNumber(facts.value, 1)}</div>
             </div>
             <div>

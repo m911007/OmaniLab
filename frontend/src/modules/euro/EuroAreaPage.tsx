@@ -1,10 +1,14 @@
+import { ReadingGrid } from '@/core/components/ReadingGrid';
 import { KeyStat } from '@/core/components/KeyStat';
 import { PageHead, Section } from '@/core/components/PageHead';
 import { SeriesChart, type RangeOption } from '@/core/components/SeriesChart';
+import { SwitchChart } from '@/core/components/SwitchChart';
 
 const eu = (indicator: string, label: string) => ({ indicator, entity: 'EMU', label });
 const us = (indicator: string, label: string) => ({ indicator, entity: 'USA', label });
 const uk = (indicator: string, label: string) => ({ indicator, entity: 'GBR', label });
+const jp = (indicator: string, label: string) => ({ indicator, entity: 'JPN', label });
+const ca = (indicator: string, label: string) => ({ indicator, entity: 'CAN', label });
 
 const DAILY: readonly RangeOption[] = [
   { value: '1y', label: '1y', months: 12 },
@@ -29,7 +33,7 @@ export default function EuroAreaPage() {
         lead="ثاني أكبر منطقة اقتصادية بعد أمريكا وأهم شريك تجاري لعُمان في الاستيراد: فائدة البنك المركزي الأوروبي، وعوائد السندات، والتضخم وبنوده، والبطالة والنمو، وأسعار صرف اليورو. من بوابة البنك المركزي الأوروبي الرسمية بتاريخها الكامل، ثم المملكة المتحدة من بنك إنجلترا، مع مقارنة مباشرة بأمريكا."
       />
 
-      <div className="grid cols-4">
+      <ReadingGrid>
         <KeyStat trend entity="EMU" indicator="ecb.deposit_rate" label="فائدة الودائع (%)" />
         <KeyStat trend entity="EMU" indicator="ecb.estr" label="€STR (%)" />
         <KeyStat trend entity="EMU" indicator="ecb.yield_10y" label="عائد 10 سنوات (%)" />
@@ -38,7 +42,7 @@ export default function EuroAreaPage() {
         <KeyStat trend entity="EMU" indicator="ecb.hicp_core" label="التضخم الأساسي (%)" goodWhen="down" />
         <KeyStat trend entity="EMU" indicator="ecb.unemployment" label="البطالة (%)" goodWhen="down" />
         <KeyStat trend entity="EMU" indicator="ecb.gdp_growth" label="نمو الناتج (% سنويًا)" goodWhen="up" />
-      </div>
+      </ReadingGrid>
 
       <Section title="الفائدة والسياسة النقدية" lead="الفائدة الأوروبية تحدد كلفة التمويل لأكبر شركاء عُمان التجاريين في أوروبا، وقوة اليورو مقابل الدولار (والريال المربوط به).">
         <SeriesChart wide height={H} ranges={DAILY} defaultRange="all" title="أسعار فائدة البنك المركزي الأوروبي" subtitle="% — يومي" lines={[eu('ecb.mro_rate', 'إعادة التمويل الرئيسية'), eu('ecb.deposit_rate', 'الودائع'), eu('ecb.lending_rate', 'الإقراض الهامشي')]} />
@@ -73,6 +77,17 @@ export default function EuroAreaPage() {
       </Section>
 
       <Section title="المملكة المتحدة" lead="بنك إنجلترا: سعر الفائدة الرسمي وعوائد السندات الحكومية (الجيلتس) وسعر الجنيه الإسترليني، منذ سبعينيات القرن الماضي.">
+        <SwitchChart wide height={H} ranges={MONTHLY} defaultRange="10y" title="الاقتصاد البريطاني (ONS)" variants={[
+          { value: 'cpi', label: 'التضخم', subtitle: '% سنويًا — CPI وCPIH', lines: [uk('ons.cpi_yoy', 'CPI'), uk('ons.cpih_yoy', 'CPIH (مع السكن)')] },
+          { value: 'cmp', label: 'التضخم: مقارنة', subtitle: '% سنويًا', lines: [uk('ons.cpi_yoy', 'بريطانيا'), eu('ecb.hicp', 'منطقة اليورو'), us('us.cpi_yoy', 'أمريكا')] },
+          { value: 'unemp', label: 'البطالة', subtitle: '% — 16 سنة فأكثر', lines: [uk('ons.unemployment', 'البطالة'), uk('ons.employment_rate', 'التوظيف (16–64)')] },
+          { value: 'pay', label: 'الأجور', subtitle: 'جنيه أسبوعيًا', lines: [uk('ons.weekly_earnings', 'متوسط الأجر الأسبوعي')] },
+          { value: 'gdp', label: 'النمو', subtitle: '% — فصلي وسنوي', lines: [uk('ons.gdp_qoq', 'عن الفصل السابق'), uk('ons.gdp_yoy', 'عن الفصل نفسه قبل سنة')] },
+          { value: 'level', label: 'حجم الناتج', subtitle: 'مليون جنيه — أسعار متسلسلة', lines: [uk('ons.gdp_level', 'الناتج')] },
+          { value: 'debt', label: 'الدين العام', subtitle: 'صافي الدين، % من الناتج', lines: [uk('ons.net_debt_gdp', 'صافي الدين')] },
+          { value: 'borrow', label: 'الاقتراض', subtitle: 'مليون جنيه شهريًا', kind: 'columns', last: 120, lines: [uk('ons.net_borrowing', 'صافي الاقتراض')] },
+          { value: 'retail', label: 'التجزئة والإنتاج', subtitle: 'مؤشرات حجم', lines: [uk('ons.retail_volume', 'مبيعات التجزئة'), uk('ons.industrial_production', 'الإنتاج الصناعي')] },
+        ]} />
         <SeriesChart wide height={H} ranges={DAILY} defaultRange="all" title="سعر الفائدة الرسمي لبنك إنجلترا وSONIA" subtitle="% — يومي" lines={[uk('boe.bank_rate', 'Bank Rate'), uk('boe.sonia', 'SONIA')]} />
         <SeriesChart height={H} ranges={DAILY} defaultRange="10y" title="عوائد السندات البريطانية" subtitle="%" lines={[uk('boe.gilt_5y', '5 سنوات'), uk('boe.gilt_10y', '10 سنوات'), uk('boe.gilt_20y', '20 سنة')]} />
         <SeriesChart height={H} ranges={DAILY} defaultRange="10y" title="عائد 10 سنوات: بريطانيا وأوروبا وأمريكا" subtitle="%" lines={[uk('boe.gilt_10y', 'بريطانيا'), eu('ecb.yield_10y', 'منطقة اليورو'), us('us.yield_10y', 'أمريكا')]} />
@@ -92,6 +107,19 @@ export default function EuroAreaPage() {
         <SeriesChart height={H} title="الناتج المحلي للفرد (يورو بأسعار 2010)" lines={ec('eurostat.gdp_per_capita', BIG)} from="2000" />
         <SeriesChart height={H} ranges={MONTHLY} defaultRange="10y" title="الإنتاج الصناعي" subtitle="2021 = 100" lines={ec('eurostat.industrial_production', BIG)} />
         <SeriesChart height={H} ranges={MONTHLY} defaultRange="all" title="عوائد السندات الحكومية طويلة الأجل" subtitle="% — معيار ماستريخت" lines={ec('eurostat.bond_yield_10y', BIG)} />
+      </Section>
+
+      <Section title="الاقتصادات الكبرى: مقارنة عوائد السندات" lead="عائد السندات الحكومية لعشر سنوات في أمريكا وأوروبا وبريطانيا واليابان وكندا: ما تطلبه الأسواق مقابل إقراض أكبر الحكومات. اليابان وكندا من وزارة المالية اليابانية وبنك كندا.">
+        <SwitchChart wide height={H} ranges={DAILY} defaultRange="10y" title="عوائد السندات الحكومية" variants={[
+          { value: 'g5', label: '10 سنوات: الكبار', subtitle: '% — أمريكا وأوروبا وبريطانيا واليابان وكندا', lines: [us('us.yield_10y', 'أمريكا'), eu('ecb.yield_10y', 'منطقة اليورو'), uk('boe.gilt_10y', 'بريطانيا'), jp('jp.jgb_10y', 'اليابان'), ca('ca.yield_10y', 'كندا')] },
+          { value: 'jgb', label: 'منحنى اليابان', subtitle: '% — يومي منذ 1974', lines: [jp('jp.jgb_1y', 'سنة'), jp('jp.jgb_5y', '5 سنوات'), jp('jp.jgb_10y', '10 سنوات'), jp('jp.jgb_20y', '20 سنة'), jp('jp.jgb_30y', '30 سنة')] },
+          { value: 'cad', label: 'منحنى كندا', subtitle: '%', lines: [ca('ca.yield_2y', 'سنتان'), ca('ca.yield_5y', '5 سنوات'), ca('ca.yield_10y', '10 سنوات')] },
+          { value: 'policy', label: 'الفائدة: كندا وأمريكا', subtitle: '% — الفائدة المستهدفة', lines: [ca('ca.policy_rate', 'كندا'), us('us.effr', 'أمريكا')] },
+        ]} />
+        <SwitchChart wide height={H} ranges={MONTHLY} defaultRange="10y" title="كندا: الأسعار والعملة" variants={[
+          { value: 'cpi', label: 'التضخم', subtitle: '% سنويًا — الكلي والأساسي', lines: [ca('ca.cpi_yoy', 'الكلي'), ca('ca.cpi_trim', 'الأساسي CPI-trim')] },
+          { value: 'fx', label: 'الدولار الكندي', subtitle: 'دولار كندي لكل دولار أمريكي', lines: [ca('ca.usdcad', 'USD/CAD')] },
+        ]} />
       </Section>
     </>
   );

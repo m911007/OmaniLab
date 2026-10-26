@@ -1,8 +1,20 @@
-import type { ReactNode } from 'react';
+import { createContext, useContext, type ReactNode } from 'react';
 import { usePageTitle } from '../hooks';
 
+/** داخل صفحة مجمِّعة (HubPage) تُعرض الصفحة كتبويب: يبقى عنوان الصفحة الأم، ويظهر وصف التبويب فقط. */
+export const EmbeddedContext = createContext(false);
+
 export function PageHead({ title, lead, children }: { title: string; lead?: string; children?: ReactNode }) {
-  usePageTitle(title);
+  const embedded = useContext(EmbeddedContext);
+  usePageTitle(title, !embedded);
+  if (embedded) {
+    return lead || children ? (
+      <div className="hub-tab-lead">
+        {lead && <p>{lead}</p>}
+        {children}
+      </div>
+    ) : null;
+  }
   return (
     <header className="page-head">
       <h1>{title}</h1>

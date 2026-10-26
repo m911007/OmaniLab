@@ -25,7 +25,7 @@ export function HeadlineBrief() {
           <h3 className="card-title">ما الذي يستحق انتباه صانع القرار؟</h3>
           <div className="card-sub">مقارنة عُمان بدول العالم في {card.items.length} مؤشرًا، وبمستواها قبل {card.thresholds.baseline_years} سنوات</div>
         </div>
-        <Link to="/insights">بطاقة الأداء كاملة ←</Link>
+        <Link to="/scorecard">بطاقة الأداء كاملة ←</Link>
       </div>
       <div className="brief-grid">
         {GROUPS.map((g) => (

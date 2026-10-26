@@ -1,0 +1,695 @@
+{
+ "slug": "rebar",
+ "name_ar": "حديد التسليح",
+ "name_en": "Reinforcing steel bar (rebar)",
+ "description": "سلسلة حديد التسليح بمسار الاختزال المباشر والفرن الكهربائي السائد في الخليج وعُمان: كريات خام الحديد + غاز ← حديد مختزل؛ حديد مختزل + خردة ← شحنة معدنية؛ فرن قوس كهربائي ← بليت؛ درفلة ← حديد تسليح.",
+ "route_note": "الأوزان تقديرات موثّقة من نماذج تكلفة منشورة لمسار الفرن الكهربائي عالميًا؛ مزيج الخردة والحديد المختزل في مصانع الخليج أعلى حديدًا مختزلًا من المتوسط العالمي، فنطاقه واسع عمدًا حتى يضبطه المحلل لكل مصنع.",
+ "nodes": [
+  {
+   "slug": "pellets",
+   "name_ar": "كريات خام الحديد",
+   "name_en": "Iron ore pellets",
+   "kind": "raw",
+   "stage": 0,
+   "unit": "طن",
+   "hs_codes": [
+    "260112"
+   ],
+   "series": [
+    {
+     "indicator": "ctm.uv_m.260112",
+     "entity": "OMN",
+     "label_ar": "قيمة وحدة الاستيراد الجمركية: كريات خام الحديد",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "عُمان",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "primary",
+     "incoterm": "CIF",
+     "license_note": null
+    },
+    {
+     "indicator": "imf.pcps.piorecr",
+     "entity": "WLD",
+     "label_ar": "سعر عالمي (صندوق النقد): خام الحديد (ناعم 62% CFR الصين)",
+     "price_type": "reference",
+     "confidence": "medium",
+     "market": "عالمي",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    },
+    {
+     "indicator": "bls.ppi.wpu1011",
+     "entity": "USA",
+     "label_ar": "مؤشر أسعار المنتجين الأمريكي: خامات الحديد",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "الولايات المتحدة",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "M",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    }
+   ],
+   "notes": "سعر صندوق النقد لخام ناعم لا كريات؛ علاوة الكريات تُضاف (غير متاحة مجانًا)."
+  },
+  {
+   "slug": "natural-gas",
+   "name_ar": "الغاز الطبيعي",
+   "name_en": "Natural gas",
+   "kind": "energy",
+   "stage": 0,
+   "unit": "مليون وحدة حرارية",
+   "hs_codes": [
+    "271121"
+   ],
+   "series": [
+    {
+     "indicator": "imf.pcps.pngaseu",
+     "entity": "WLD",
+     "label_ar": "سعر عالمي (صندوق النقد): الغاز الطبيعي (أوروبا)",
+     "price_type": "reference",
+     "confidence": "low",
+     "market": "أوروبا",
+     "unit": "دولار/مليون وحدة حرارية",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    },
+    {
+     "indicator": "bls.ppi.wpu0553",
+     "entity": "USA",
+     "label_ar": "مؤشر أسعار المنتجين الأمريكي: الغاز الطبيعي الصناعي",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "الولايات المتحدة",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "M",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    }
+   ],
+   "notes": "سعر الغاز للصناعة في عُمان مُنظَّم حكوميًا؛ الأسعار العالمية مرجع اتجاه فقط."
+  },
+  {
+   "slug": "dri",
+   "name_ar": "الحديد المختزل مباشرة (DRI/HBI)",
+   "name_en": "Direct reduced iron",
+   "kind": "intermediate",
+   "stage": 1,
+   "unit": "طن",
+   "hs_codes": [
+    "720310"
+   ],
+   "series": [
+    {
+     "indicator": "ctm.uv_m.720310",
+     "entity": "OMN",
+     "label_ar": "قيمة وحدة الاستيراد الجمركية: الحديد المختزل",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "عُمان",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "primary",
+     "incoterm": "CIF",
+     "license_note": null
+    },
+    {
+     "indicator": "ctm.uv_x.720310",
+     "entity": "IND",
+     "label_ar": "قيمة وحدة التصدير الجمركية: الحديد المختزل",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "الهند",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "alternative",
+     "incoterm": "FOB",
+     "license_note": null
+    }
+   ],
+   "notes": null
+  },
+  {
+   "slug": "scrap",
+   "name_ar": "خردة الحديد والصلب",
+   "name_en": "Ferrous scrap",
+   "kind": "raw",
+   "stage": 1,
+   "unit": "طن",
+   "hs_codes": [
+    "720449"
+   ],
+   "series": [
+    {
+     "indicator": "ctm.uv_m.720449",
+     "entity": "OMN",
+     "label_ar": "قيمة وحدة الاستيراد الجمركية: خردة الحديد",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "عُمان",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "primary",
+     "incoterm": "CIF",
+     "license_note": null
+    },
+    {
+     "indicator": "bls.ppi.wpu101211",
+     "entity": "USA",
+     "label_ar": "مؤشر أسعار المنتجين الأمريكي: خردة الصلب الكربوني",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "الولايات المتحدة",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "M",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    }
+   ],
+   "notes": null
+  },
+  {
+   "slug": "metallic-charge",
+   "name_ar": "الشحنة المعدنية (حديد مختزل + خردة)",
+   "name_en": "Metallic charge",
+   "kind": "intermediate",
+   "stage": 2,
+   "unit": "طن",
+   "hs_codes": [],
+   "series": [],
+   "notes": "عقدة تجميع: سعرها متوسط مرجّح للحديد المختزل والخردة بحسب مزيج المصنع."
+  },
+  {
+   "slug": "electricity",
+   "name_ar": "الكهرباء الصناعية",
+   "name_en": "Industrial electricity",
+   "kind": "energy",
+   "stage": 2,
+   "unit": "ك.و.س",
+   "hs_codes": [],
+   "series": [
+    {
+     "indicator": "bls.ppi.wpu0543",
+     "entity": "USA",
+     "label_ar": "مؤشر أسعار المنتجين الأمريكي: الكهرباء الصناعية",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "الولايات المتحدة",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "M",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    }
+   ],
+   "notes": "تعرفة الكهرباء في عُمان تنظمها هيئة تنظيم الخدمات العامة؛ المؤشر الأمريكي مرجع اتجاه."
+  },
+  {
+   "slug": "consumables",
+   "name_ar": "الأقطاب والسبائك والحراريات",
+   "name_en": "Electrodes, ferroalloys, refractories",
+   "kind": "consumable",
+   "stage": 2,
+   "unit": null,
+   "hs_codes": [
+    "854511",
+    "720230"
+   ],
+   "series": [
+    {
+     "indicator": "ctm.uv_m.854511",
+     "entity": "OMN",
+     "label_ar": "قيمة وحدة الاستيراد الجمركية: أقطاب الجرافيت",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "عُمان",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "primary",
+     "incoterm": "CIF",
+     "license_note": null
+    },
+    {
+     "indicator": "bls.ppi.wpu101712",
+     "entity": "USA",
+     "label_ar": "مؤشر أسعار المنتجين الأمريكي: السبائك الحديدية",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "الولايات المتحدة",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "M",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    }
+   ],
+   "notes": null
+  },
+  {
+   "slug": "melt-conversion",
+   "name_ar": "تكاليف تحويل الصهر (عمالة، صيانة، إهلاك، إدارية)",
+   "name_en": "Melt-shop conversion costs",
+   "kind": "conversion",
+   "stage": 2,
+   "unit": null,
+   "hs_codes": [],
+   "series": [],
+   "notes": null
+  },
+  {
+   "slug": "billet",
+   "name_ar": "البليت",
+   "name_en": "Steel billet",
+   "kind": "intermediate",
+   "stage": 3,
+   "unit": "طن",
+   "hs_codes": [
+    "720711"
+   ],
+   "series": [
+    {
+     "indicator": "ctm.uv_m.720711",
+     "entity": "OMN",
+     "label_ar": "قيمة وحدة الاستيراد الجمركية: البليت",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "عُمان",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "primary",
+     "incoterm": "CIF",
+     "license_note": null
+    },
+    {
+     "indicator": "ctm.uv_x.720711",
+     "entity": "TUR",
+     "label_ar": "قيمة وحدة التصدير الجمركية: البليت",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "تركيا",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "alternative",
+     "incoterm": "FOB",
+     "license_note": null
+    },
+    {
+     "indicator": "ctm.uv_x.720711",
+     "entity": "IND",
+     "label_ar": "قيمة وحدة التصدير الجمركية: البليت",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "الهند",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "alternative",
+     "incoterm": "FOB",
+     "license_note": null
+    },
+    {
+     "indicator": "bls.ppi.wpu101702",
+     "entity": "USA",
+     "label_ar": "مؤشر أسعار المنتجين الأمريكي: منتجات صلب نصف مصنعة",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "الولايات المتحدة",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "M",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    }
+   ],
+   "notes": null
+  },
+  {
+   "slug": "rolling-conversion",
+   "name_ar": "تكاليف الدرفلة (طاقة إعادة التسخين، عمالة، أسطوانات، إهلاك)",
+   "name_en": "Rolling conversion costs",
+   "kind": "conversion",
+   "stage": 3,
+   "unit": null,
+   "hs_codes": [],
+   "series": [],
+   "notes": null
+  },
+  {
+   "slug": "rebar",
+   "name_ar": "حديد التسليح",
+   "name_en": "Rebar",
+   "kind": "final",
+   "stage": 4,
+   "unit": "طن",
+   "hs_codes": [
+    "721420"
+   ],
+   "series": [
+    {
+     "indicator": "ctm.uv_m.721420",
+     "entity": "OMN",
+     "label_ar": "قيمة وحدة الاستيراد الجمركية: حديد التسليح",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "عُمان",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "primary",
+     "incoterm": "CIF",
+     "license_note": null
+    },
+    {
+     "indicator": "ctm.uv_x.721420",
+     "entity": "TUR",
+     "label_ar": "قيمة وحدة التصدير الجمركية: حديد التسليح",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "تركيا",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "alternative",
+     "incoterm": "FOB",
+     "license_note": null
+    },
+    {
+     "indicator": "ctm.uv_x.721420",
+     "entity": "CHN",
+     "label_ar": "قيمة وحدة التصدير الجمركية: حديد التسليح",
+     "price_type": "customs_unit_value",
+     "confidence": "medium",
+     "market": "الصين",
+     "unit": "دولار/طن",
+     "currency": "USD",
+     "frequency": "M",
+     "role": "alternative",
+     "incoterm": "FOB",
+     "license_note": null
+    },
+    {
+     "indicator": "ncsi.PPI_IRON_STEEL_ALU",
+     "entity": "OMN",
+     "label_ar": "الرقم القياسي لأسعار المنتج في عُمان: الحديد والصلب والألمنيوم",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "عُمان",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "Q",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    },
+    {
+     "indicator": "bls.ppi.wpu1074051",
+     "entity": "USA",
+     "label_ar": "مؤشر أسعار المنتجين الأمريكي: حديد التسليح المصنع",
+     "price_type": "index",
+     "confidence": "high",
+     "market": "الولايات المتحدة",
+     "unit": "مؤشر",
+     "currency": null,
+     "frequency": "M",
+     "role": "proxy",
+     "incoterm": null,
+     "license_note": null
+    },
+    {
+     "indicator": "shfe.rb_main",
+     "entity": "CHN",
+     "label_ar": "عقود حديد التسليح الآجلة في شنغهاي (العقد الرئيسي)",
+     "price_type": "futures",
+     "confidence": "high",
+     "market": "الصين",
+     "unit": "يوان/طن",
+     "currency": "CNY",
+     "frequency": "D",
+     "role": "alternative",
+     "incoterm": null,
+     "license_note": "بيانات بورصة شنغهاي — مفعّلة بقرار المالك"
+    }
+   ],
+   "notes": null
+  }
+ ],
+ "edges": [
+  {
+   "from": "pellets",
+   "to": "dri",
+   "weight": 0.55,
+   "weight_min": 0.45,
+   "weight_max": 0.65,
+   "weight_basis": "derived",
+   "conversion_factor": 1.475,
+   "conversion_min": 1.45,
+   "conversion_max": 1.5,
+   "conversion_unit": "طن كريات/طن DRI",
+   "sources": [
+    {
+     "key": "FM_DRI",
+     "applies_to": "both"
+    }
+   ],
+   "notes": "الوزن مشتق: الباقي من تكلفة الحديد المختزل بعد الغاز (~30%) وتكاليف التحويل؛ يحتاج تأكيدًا من نموذج تكلفة حديث أو تقرير شركة.",
+   "logistics_note": null
+  },
+  {
+   "from": "natural-gas",
+   "to": "dri",
+   "weight": 0.3,
+   "weight_min": 0.2,
+   "weight_max": 0.35,
+   "weight_basis": "documented_estimate",
+   "conversion_factor": 10.5,
+   "conversion_min": 10.0,
+   "conversion_max": 11.0,
+   "conversion_unit": "جيجاجول/طن DRI",
+   "sources": [
+    {
+     "key": "FM_DRI",
+     "applies_to": "weight"
+    },
+    {
+     "key": "PATENT_DRI",
+     "applies_to": "conversion"
+    }
+   ],
+   "notes": "تقدير منتج واحد (مصر 2019) بأسعار غاز مختلفة؛ في عُمان سعر الغاز الصناعي مُنظَّم.",
+   "logistics_note": null
+  },
+  {
+   "from": "dri",
+   "to": "metallic-charge",
+   "weight": 0.17,
+   "weight_min": 0.15,
+   "weight_max": 0.85,
+   "weight_basis": "documented_estimate",
+   "conversion_factor": null,
+   "conversion_min": null,
+   "conversion_max": null,
+   "conversion_unit": null,
+   "sources": [
+    {
+     "key": "RG_EAF",
+     "applies_to": "weight"
+    }
+   ],
+   "notes": "المتوسط العالمي (DRI نحو 15% من الشحنة مقابل 75% خردة)؛ مصانع الخليج تستخدم حديدًا مختزلًا أكثر بكثير، فالنطاق واسع ويُضبط لكل مصنع.",
+   "logistics_note": null
+  },
+  {
+   "from": "scrap",
+   "to": "metallic-charge",
+   "weight": 0.83,
+   "weight_min": 0.15,
+   "weight_max": 0.85,
+   "weight_basis": "documented_estimate",
+   "conversion_factor": null,
+   "conversion_min": null,
+   "conversion_max": null,
+   "conversion_unit": null,
+   "sources": [
+    {
+     "key": "RG_EAF",
+     "applies_to": "weight"
+    }
+   ],
+   "notes": "مكمّل الحديد المختزل في الشحنة.",
+   "logistics_note": null
+  },
+  {
+   "from": "metallic-charge",
+   "to": "billet",
+   "weight": 0.65,
+   "weight_min": 0.6,
+   "weight_max": 0.75,
+   "weight_basis": "documented_estimate",
+   "conversion_factor": null,
+   "conversion_min": null,
+   "conversion_max": null,
+   "conversion_unit": null,
+   "sources": [
+    {
+     "key": "SOTN_FAQ",
+     "applies_to": "weight"
+    },
+    {
+     "key": "AIST_CAPPEL",
+     "applies_to": "weight"
+    },
+    {
+     "key": "TZ_STEEL",
+     "applies_to": "weight"
+    }
+   ],
+   "notes": null,
+   "logistics_note": null
+  },
+  {
+   "from": "electricity",
+   "to": "billet",
+   "weight": 0.12,
+   "weight_min": 0.08,
+   "weight_max": 0.18,
+   "weight_basis": "documented_estimate",
+   "conversion_factor": 450,
+   "conversion_min": 400,
+   "conversion_max": 500,
+   "conversion_unit": "ك.و.س/طن بليت",
+   "sources": [
+    {
+     "key": "SOTN_FAQ",
+     "applies_to": "both"
+    },
+    {
+     "key": "AIST_CAPPEL",
+     "applies_to": "weight"
+    }
+   ],
+   "notes": "AIST يضع الكهرباء والأقطاب معًا عند نحو 9%، وSteelonthenet الكهرباء وحدها 12–18%.",
+   "logistics_note": null
+  },
+  {
+   "from": "consumables",
+   "to": "billet",
+   "weight": 0.1,
+   "weight_min": 0.08,
+   "weight_max": 0.14,
+   "weight_basis": "documented_estimate",
+   "conversion_factor": 1.5,
+   "conversion_min": 1.0,
+   "conversion_max": 2.0,
+   "conversion_unit": "كغم أقطاب/طن",
+   "sources": [
+    {
+     "key": "SOTN_FAQ",
+     "applies_to": "weight"
+    },
+    {
+     "key": "AIST_CAPPEL",
+     "applies_to": "weight"
+    },
+    {
+     "key": "AGH_ELECTRODE",
+     "applies_to": "conversion"
+    }
+   ],
+   "notes": null,
+   "logistics_note": null
+  },
+  {
+   "from": "melt-conversion",
+   "to": "billet",
+   "weight": 0.13,
+   "weight_min": 0.13,
+   "weight_max": 0.2,
+   "weight_basis": "documented_estimate",
+   "conversion_factor": null,
+   "conversion_min": null,
+   "conversion_max": null,
+   "conversion_unit": null,
+   "sources": [
+    {
+     "key": "SOTN_FAQ",
+     "applies_to": "weight"
+    }
+   ],
+   "notes": "العمالة والتشغيل 13–20%؛ ثابتة نسبيًا في محاكاة الصدمة.",
+   "logistics_note": null
+  },
+  {
+   "from": "billet",
+   "to": "rebar",
+   "weight": 0.86,
+   "weight_min": 0.8,
+   "weight_max": 0.9,
+   "weight_basis": "derived",
+   "conversion_factor": null,
+   "conversion_min": null,
+   "conversion_max": null,
+   "conversion_unit": null,
+   "sources": [
+    {
+     "key": "SOTN_REBAR",
+     "applies_to": "weight"
+    },
+    {
+     "key": "ARGUS_CONV",
+     "applies_to": "weight"
+    }
+   ],
+   "notes": "مشتق من نموذج 2025: بليت ~475 من تكلفة ~550 دولارًا/طن. نسبة فقد الدرفلة (طن بليت لكل طن حديد) لم نجد لها مصدرًا منشورًا بعد.",
+   "logistics_note": null
+  },
+  {
+   "from": "rolling-conversion",
+   "to": "rebar",
+   "weight": 0.14,
+   "weight_min": 0.09,
+   "weight_max": 0.2,
+   "weight_basis": "derived",
+   "conversion_factor": null,
+   "conversion_min": null,
+   "conversion_max": null,
+   "conversion_unit": null,
+   "sources": [
+    {
+     "key": "SOTN_REBAR",
+     "applies_to": "weight"
+    },
+    {
+     "key": "ARGUS_CONV",
+     "applies_to": "weight"
+    }
+   ],
+   "notes": "تكلفة التحويل نحو 50 دولارًا/طن (Argus) من سعر نحو 575 ≈ 9%، وحتى 20% في النموذج.",
+   "logistics_note": null
+  }
+ ]
+}

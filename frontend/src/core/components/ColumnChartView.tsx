@@ -66,7 +66,7 @@ export function ColumnChartView({ series, unit, height = 280, stacked = false, l
           </ComposedChart>
         </ResponsiveContainer>
       </div>
-      {oil && <p className="muted" style={{ fontSize: 12 }}>الخط المتقطع الرمادي (المحور الأيمن): سعر النفط (خام دبي، صندوق النقد) للمقارنة.</p>}
+      {oil && <p className="muted" style={{ fontSize: 12 }}>الخط المتقطع الرمادي (المحور الأيمن): سعر النفط العُماني (المركز الوطني للإحصاء) للمقارنة.</p>}
     </div>
   );
 }

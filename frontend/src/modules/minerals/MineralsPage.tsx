@@ -1,3 +1,4 @@
+import { ReadingGrid } from '@/core/components/ReadingGrid';
 import { useState } from 'react';
 import { KeyStat } from '@/core/components/KeyStat';
 import { PageHead, Section } from '@/core/components/PageHead';
@@ -59,7 +60,7 @@ export default function MineralsPage() {
         lead="إنتاج عُمان من المعادن والخامات ومصادر الطاقة ومقارنته بإنتاج العالم: الكروم والنحاس والذهب والجبس والملح والكبريت والألمنيوم والغاز والنفط وغيرها، من World Mining Data (وزارة المالية النمساوية) لنحو 170 دولة. يغطي كل إصدار آخر خمس سنوات وتتراكم السنوات مع الإصدارات."
       />
 
-      <div className="grid cols-4">
+      <ReadingGrid>
         <KeyStat entity="OMN" indicator="wmd.gypsum" label="الجبس والأنهيدريت (طن)" compactValue />
         <KeyStat entity="OMN" indicator="wmd.chromium" label="الكروم (طن)" compactValue />
         <KeyStat entity="OMN" indicator="wmd.aluminium" label="الألمنيوم (طن)" compactValue />
@@ -68,7 +69,7 @@ export default function MineralsPage() {
         <KeyStat entity="OMN" indicator="wmd.sulfur" label="الكبريت (طن)" compactValue />
         <KeyStat entity="OMN" indicator="wmd.natural_gas" label="الغاز الطبيعي (مليون م³)" compactValue />
         <KeyStat entity="OMN" indicator="wmd.petroleum" label="النفط (طن)" compactValue />
-      </div>
+      </ReadingGrid>
 
       <Section title="إنتاج عُمان من المعادن" lead="الأعمدة تُظهر الإنتاج السنوي بالطن (الذهب بالكيلوغرام).">
         <SeriesChart title="الجبس والأنهيدريت" subtitle="طن" kind="columns" lines={[om('gypsum', 'الجبس')]} />

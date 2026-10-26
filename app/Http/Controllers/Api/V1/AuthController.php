@@ -15,7 +15,7 @@ class AuthController extends Controller
     /** @return array{id: int, name: string, email: string, is_admin: bool}|null */
     private function payload(?User $user): ?array
     {
-        return $user ? ['id' => $user->id, 'name' => $user->name, 'email' => $user->email, 'is_admin' => $user->is_admin] : null;
+        return $user ? ['id' => $user->id, 'name' => $user->name, 'email' => $user->email, 'is_admin' => $user->is_admin, 'memberships' => $user->memberships(), 'can_edit_chains' => $user->canEditChains()] : null;
     }
 
     public function me(Request $request): JsonResponse

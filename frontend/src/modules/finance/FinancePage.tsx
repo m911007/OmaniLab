@@ -1,5 +1,6 @@
 import { PageHead, Section } from '@/core/components/PageHead';
 import { SeriesChart } from '@/core/components/SeriesChart';
+import { SwitchChart } from '@/core/components/SwitchChart';
 import type { Explanation } from '@/core/explain';
 import { gccLines, peerLines } from '@/core/groups';
 
@@ -83,6 +84,13 @@ export default function FinancePage() {
         <SeriesChart title="الأصول الأجنبية" subtitle="مليار دولار" lines={gccLines('imf.iip_assets')} from="2005" />
         <SeriesChart title="الالتزامات تجاه الخارج" subtitle="مليار دولار" lines={gccLines('imf.iip_liabilities')} from="2005" />
       </Section>
+      <Section title="عملات احتياطيات العالم (COFER)" lead="كيف تتوزع احتياطيات النقد الأجنبي الرسمية في العالم بين العملات (ربع سنوي، صندوق النقد). تراجع حصة الدولار تدريجيًا مؤشر على تنويع الاحتياطيات، وعُمان ريالها مربوط بالدولار فتتأثر بقوته.">
+        <SwitchChart wide height={340} title="تركيبة عملات الاحتياطيات العالمية" variants={[
+          { value: 'share', label: 'الحصة %', subtitle: '% من احتياطيات النقد الأجنبي المخصَّصة', from: '2000', lines: [{ indicator: 'imf.cofer_share_usd', entity: 'WLD', label: 'الدولار' }, { indicator: 'imf.cofer_share_eur', entity: 'WLD', label: 'اليورو' }, { indicator: 'imf.cofer_share_cny', entity: 'WLD', label: 'اليوان' }, { indicator: 'imf.cofer_share_jpy', entity: 'WLD', label: 'الين' }, { indicator: 'imf.cofer_share_gbp', entity: 'WLD', label: 'الإسترليني' }, { indicator: 'imf.cofer_share_other', entity: 'WLD', label: 'أخرى' }] },
+          { value: 'value', label: 'القيمة', subtitle: 'مليار دولار', from: '2000', lines: [{ indicator: 'imf.cofer_value_usd', entity: 'WLD', label: 'الدولار' }, { indicator: 'imf.cofer_value_eur', entity: 'WLD', label: 'اليورو' }, { indicator: 'imf.cofer_value_cny', entity: 'WLD', label: 'اليوان' }, { indicator: 'imf.cofer_value_jpy', entity: 'WLD', label: 'الين' }, { indicator: 'imf.cofer_value_gbp', entity: 'WLD', label: 'الإسترليني' }, { indicator: 'imf.cofer_value_other', entity: 'WLD', label: 'أخرى' }] },
+        ]} />
+      </Section>
+
       <Section title="الأسواق والشمول المالي">
         <SeriesChart title="القيمة السوقية للشركات المدرجة" lines={peerLines('wb.CM.MKT.LCAP.GD.ZS')} from="2000" />
         <SeriesChart title="امتلاك حساب مصرفي أو محفظة رقمية" lines={peerLines('wb.FX.OWN.TOTL.ZS')} from="2011" />

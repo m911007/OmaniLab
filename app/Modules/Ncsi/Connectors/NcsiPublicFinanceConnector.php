@@ -2,6 +2,8 @@
 
 namespace App\Modules\Ncsi\Connectors;
 
+use App\Core\Ingestion\Data\DatasetDefinition;
+use App\Core\Ingestion\Data\IndicatorDefinition;
 use App\Core\Ingestion\Data\ParsedEntity;
 use App\Core\Ingestion\Data\ParsedRecord;
 use App\Core\Ingestion\Data\RawPayload;
@@ -121,15 +123,33 @@ final class NcsiPublicFinanceConnector extends KnoemaConnector
         return $out;
     }
 
+    public function definition(): DatasetDefinition
+    {
+        $d = parent::definition();
+
+        return new DatasetDefinition(
+            key: $d->key, source: $d->source, nameAr: $d->nameAr, nameEn: $d->nameEn, section: $d->section, intervalMinutes: $d->intervalMinutes, reliability: $d->reliability,
+            indicators: [...$d->indicators, new IndicatorDefinition('ncsi.BUDGET_BALANCE', 'الفائض/العجز الفعلي للميزانية (الإيرادات − المصروفات)', 'Actual budget balance (revenue − expenditure)', 'مليون ريال عُماني', 'A', [new Range(-1e8, 1e8, 'reject')])],
+        );
+    }
+
     public function parse(RawPayload $payload): iterable
     {
         $data = json_decode($payload->body, true, flags: JSON_THROW_ON_ERROR);
 
         yield new ParsedEntity('OMN', 'Oman', 'country', 'سلطنة عُمان');
 
+        $byCode = [];
         foreach ($data['series'] as $code => $points) {
             foreach (self::normalise($points) as [$period, $value]) {
+                $byCode[$code][$period] = $value;
                 yield new ParsedRecord("ncsi.{$code}", 'OMN', $period, $value);
+            }
+        }
+        // الفائض/العجز الفعلي = إجمالي الإيرادات − إجمالي المصروفات للسنوات التي يتوفر فيها الاثنان.
+        foreach ($byCode['REV_TOTAL'] ?? [] as $period => $revenue) {
+            if (isset($byCode['EXP_TOTAL'][$period])) {
+                yield new ParsedRecord('ncsi.BUDGET_BALANCE', 'OMN', $period, round($revenue - $byCode['EXP_TOTAL'][$period], 3));
             }
         }
     }

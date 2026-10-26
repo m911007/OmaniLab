@@ -81,6 +81,7 @@ final class SignalMonitor
 
         return [
             'id' => $rule['id'], 'title' => $rule['title'], 'message' => $message, 'tone' => $rule['tone'],
+            'why' => $rule['why'] ?? null, 'watch' => $rule['watch'] ?? null, 'link' => $rule['link'] ?? null,
             'indicator' => $rule['indicator'], 'entity' => $rule['entity'], 'period' => $latest['period'], 'value' => $latest['value'],
             'previous' => $previous, 'change' => $change,
         ];

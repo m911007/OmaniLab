@@ -55,7 +55,17 @@ final class NcsiPopulationConnector extends KnoemaConnector
         $count = fn () => [new Range(0, 1e8, 'reject'), new RelativeRevision(0.5, 0.25), new Completeness(0.1)];
         $rate = fn (float $max) => [new Range(0, $max, 'reject'), new Completeness(0.1)];
 
+        $bySex = [];
+        foreach ([['', 'POP', null], ['_OMANI', 'POP', self::OMANI], ['_EXPAT', 'POP', self::EXPAT]] as [$suffix, , $nat]) {
+            foreach (['MALE' => [1000010, 'ذكور', 'Male'], 'FEMALE' => [1000020, 'إناث', 'Female']] as $code => [$sex, $ar, $en]) {
+                $label = ['' => 'الإجمالي', '_OMANI' => 'العُمانيون', '_EXPAT' => 'الوافدون'][$suffix];
+                $labelEn = ['' => 'total', '_OMANI' => 'Omani', '_EXPAT' => 'expatriate'][$suffix];
+                $bySex[] = new KnoemaSeries("POP{$suffix}_{$code}", "السكان {$label}: {$ar} (شهري)", "Population {$labelEn}: {$en} (monthly)", 'نسمة', 'M', 1000140, $count(), $region + ($nat ? ['nationality' => $nat] : []) + ['sex' => $sex], 'D');
+            }
+        }
+
         return [
+            ...$bySex,
             new KnoemaSeries('POP_TOTAL', 'إجمالي السكان (شهري)', 'Total population (monthly)', 'نسمة', 'M', 1000140, $count(), $region),
             new KnoemaSeries('POP_OMANI', 'السكان العُمانيون (شهري)', 'Omani population (monthly)', 'نسمة', 'M', 1000140, $count(), $region + ['nationality' => self::OMANI]),
             new KnoemaSeries('POP_EXPAT', 'السكان الوافدون (شهري)', 'Expatriate population (monthly)', 'نسمة', 'M', 1000140, $count(), $region + ['nationality' => self::EXPAT]),

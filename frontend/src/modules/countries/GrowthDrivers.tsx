@@ -59,7 +59,7 @@ export function GrowthDrivers() {
             {view.top.map((r, i) => (
               <div className="driver-row" role="listitem" key={r.entity.code}>
                 <span className="rk num">{i + 1}</span>
-                <Link to={`/markets/${r.entity.code}`}>{entityName(r.entity)}</Link>
+                <Link to={`/world/markets/${r.entity.code}`}>{entityName(r.entity)}</Link>
                 <span className="gov-track" aria-hidden="true">
                   <span style={{ width: `${(Math.abs(r.contribution) / max) * 100}%`, background: r.contribution >= 0 ? 'var(--good)' : 'var(--critical)' }} />
                 </span>
