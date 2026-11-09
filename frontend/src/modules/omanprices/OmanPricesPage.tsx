@@ -1,20 +1,29 @@
-import { ReadingGrid } from '@/core/components/ReadingGrid';
-import { KeyStat } from '@/core/components/KeyStat';
 import { PageHead, Section } from '@/core/components/PageHead';
 import { SwitchChart } from '@/core/components/SwitchChart';
 import { gccLines } from '@/core/groups';
 import { oman } from '@/core/lines';
+import { SeriesChart } from '@/core/components/SeriesChart';
+import { GovernorateInflation } from './GovernorateInflation';
+import { PriceItemsHeat } from './PriceItemsHeat';
+import { ScoreTable, type ScoreRow } from '@/modules/fiscal/GulfScorecard';
+import { PurchasingPowerSections } from '@/modules/purchasing/PurchasingPowerPage';
 
 const H = 340;
 const on = (indicator: string, label: string) => ({ indicator, entity: 'OMN', label });
 const g = (code: string, label: string, kind: 'INDEX' | 'INFL' = 'INDEX') => ({ indicator: `ncsi.CPIG_${code}_${kind}`, entity: 'OMN', label });
-const r = (code: string, label: string, kind: 'INDEX' | 'INFL' = 'INFL') => ({ indicator: `ncsi.CPIR_${code}_${kind}`, entity: 'OMN', label });
+const GULF_ROWS: ScoreRow[] = [
+  { key: 'imf.PCPIPCH', label: 'التضخم (%)', better: 'low' },
+  { key: 'wb.PRICE_LEVEL_PRIVATE', label: 'مستوى الأسعار (أمريكا = 100)', better: 'low', digits: 0 },
+  { key: 'wb.NY.GDP.PCAP.PP.CD', label: 'نصيب الفرد بتعادل القوة الشرائية ($)', better: 'high', digits: 0 },
+  { key: 'wb.NE.CON.PRVT.PC.KD.ZG', label: 'نمو استهلاك الفرد الحقيقي (%)', better: 'high' },
+];
+const INFLATION_RANGES = [
+  { value: '12m', label: '12 شهرًا', months: 12 },
+  { value: '3y', label: '3 سنوات', months: 36 },
+  { value: 'all', label: 'الكل', months: 0 },
+];
 const imfCpi = (entity: string, label: string) => ({ indicator: 'imf.cpi_yoy', entity, label });
 
-const REGIONS: [string, string][] = [
-  ['MUSCAT', 'مسقط'], ['DHOFAR', 'ظفار'], ['N_BATINAH', 'شمال الباطنة'], ['S_BATINAH', 'جنوب الباطنة'], ['DAKHILIYAH', 'الداخلية'],
-  ['N_SHARQIYAH', 'شمال الشرقية'], ['S_SHARQIYAH', 'جنوب الشرقية'], ['DHAHIRAH', 'الظاهرة'], ['BURAIMI', 'البريمي'], ['MUSANDAM', 'مسندم'], ['WUSTA', 'الوسطى'],
-];
 
 /**
  * التضخم والأسعار في السوق العُماني: رسوم قليلة بمبدّل (كما في «النمو والناتج») بدل رسوم كثيرة متفرقة —
@@ -25,23 +34,17 @@ export default function OmanPricesPage() {
     <>
       <PageHead
         title="أسعار المنتجات والسلع في السوق العُماني"
-        lead="الأرقام القياسية لأسعار المستهلك (سنة الأساس 2018) حسب مجموعات السلع والخدمات والمحافظة، شهريًا من المركز الوطني للإحصاء والمعلومات، مع مقارنات صندوق النقد. مرصد أسعار هيئة حماية المستهلك لا يوفّر واجهة بيانات مفتوحة، فلا تُعرض أسعار السلع المفردة بالريال."
+        lead="التضخم والأرقام القياسية لأسعار المستهلك (سنة الأساس 2018) حسب مجموعات السلع والخدمات والمحافظة، والقوة الشرائية في نهاية الصفحة، شهريًا من المركز الوطني للإحصاء والمعلومات، مع مقارنات صندوق النقد. مرصد أسعار هيئة حماية المستهلك لا يوفّر واجهة بيانات مفتوحة، فلا تُعرض أسعار السلع المفردة بالريال."
       />
 
-      <ReadingGrid>
-        <KeyStat entity="OMN" indicator="ncsi.CPIG_FOOD_BEV_INFL" label="تضخم الغذاء والمشروبات" goodWhen="down" />
-        <KeyStat entity="OMN" indicator="ncsi.CPIG_VEG_INFL" label="تضخم الخضروات" goodWhen="down" />
-        <KeyStat entity="OMN" indicator="ncsi.CPIG_MEAT_INFL" label="تضخم اللحوم" goodWhen="down" />
-        <KeyStat entity="OMN" indicator="ncsi.CPIG_HOUSING_INFL" label="تضخم السكن والمرافق" goodWhen="down" />
-      </ReadingGrid>
-
-      <Section id="inflation" title="التضخم" lead="كم ترتفع الأسعار؟ وكيف نقارن بالخليج؟ وأي بنود الإنفاق تقود الغلاء؟">
-        <SwitchChart wide height={H} title="التضخم السنوي" variants={[
+      <Section id="inflation" title="التضخم" lead="كم ترتفع الأسعار؟ وكيف نقارن بالخليج؟ وأي بنود الإنفاق تقود الغلاء؟ اختر المدة من الأزرار أعلى الرسم، ومرّر المؤشر فوقه لقراءة أي شهر.">
+        <SwitchChart wide height={H} title="التضخم السنوي" ranges={INFLATION_RANGES} defaultRange="3y" variants={[
           { value: 'monthly', label: 'شهري', subtitle: '% سنويًا — المركز الوطني', lines: [on('ncsi.CPI_INFLATION', 'التضخم السنوي')] },
-          { value: 'gcc', label: 'مع الخليج', subtitle: '% سنويًا — صندوق النقد', from: '2021', lines: [imfCpi('OMN', 'عُمان'), imfCpi('SAU', 'السعودية'), imfCpi('ARE', 'الإمارات'), imfCpi('QAT', 'قطر'), imfCpi('KWT', 'الكويت'), imfCpi('BHR', 'البحرين')] },
-          { value: 'items', label: 'حسب البند', subtitle: 'أي بنود الإنفاق تقود الغلاء؟ % — صندوق النقد', from: '2021', lines: [{ indicator: 'imf.cpi_yoy', entity: 'OMN', label: 'العام' }, { indicator: 'imf.cpi_yoy_food', entity: 'OMN', label: 'الغذاء' }, { indicator: 'imf.cpi_yoy_housing', entity: 'OMN', label: 'السكن والمرافق' }, { indicator: 'imf.cpi_yoy_transport', entity: 'OMN', label: 'النقل' }] },
-          { value: 'avg', label: 'المتوسط السنوي', subtitle: '% — صندوق النقد (الخط المتقطع توقعات)', from: '2005', imfForecast: true, lines: oman('imf.PCPIPCH', 'عُمان') },
+          { value: 'gcc', label: 'مع الخليج', subtitle: '% سنويًا — صندوق النقد', lines: [imfCpi('OMN', 'عُمان'), imfCpi('SAU', 'السعودية'), imfCpi('ARE', 'الإمارات'), imfCpi('QAT', 'قطر'), imfCpi('KWT', 'الكويت'), imfCpi('BHR', 'البحرين')] },
+          { value: 'items', label: 'حسب البند', subtitle: 'أي بنود الإنفاق تقود الغلاء؟ % — صندوق النقد', lines: [{ indicator: 'imf.cpi_yoy', entity: 'OMN', label: 'العام' }, { indicator: 'imf.cpi_yoy_food', entity: 'OMN', label: 'الغذاء' }, { indicator: 'imf.cpi_yoy_housing', entity: 'OMN', label: 'السكن والمرافق' }, { indicator: 'imf.cpi_yoy_transport', entity: 'OMN', label: 'النقل' }] },
         ]} />
+        <PriceItemsHeat />
+        <SeriesChart wide height={H} title="المتوسط السنوي والتوقعات" subtitle="% — صندوق النقد (الخط المتقطع توقعات)" from="2005" imfForecast lines={oman('imf.PCPIPCH', 'عُمان')} />
       </Section>
 
       <Section id="food" title="أسعار الغذاء" lead="أي الأطعمة ترتفع أسرع؟ التضخم السنوي لكل فئة، والرقم القياسي منذ 2018.">
@@ -63,12 +66,8 @@ export default function OmanPricesPage() {
         ]} />
       </Section>
 
-      <Section id="regions" title="الأسعار حسب المحافظة" lead="أين ترتفع الأسعار أكثر؟">
-        <SwitchChart wide height={H} title="المحافظات" variants={[
-          { value: 'big', label: 'التضخم: محافظات الكثافة السكانية', subtitle: '% سنويًا', from: '2019', lines: REGIONS.slice(0, 5).map(([c, l]) => r(c, l)) },
-          { value: 'rest', label: 'التضخم: بقية المحافظات', subtitle: '% سنويًا', from: '2019', lines: REGIONS.slice(5, 11).map(([c, l]) => r(c, l)) },
-          { value: 'index', label: 'الرقم القياسي', subtitle: '2018 = 100', from: '2018', lines: [r('MUSCAT', 'مسقط', 'INDEX'), r('DHOFAR', 'ظفار', 'INDEX'), r('N_BATINAH', 'شمال الباطنة', 'INDEX'), r('S_BATINAH', 'جنوب الباطنة', 'INDEX')] },
-        ]} />
+      <Section id="regions" title="الأسعار حسب المحافظة" lead="أي المحافظات ترتفع فيها الأسعار أكثر؟ قارن بين المحافظات وبين المتوسط الوطني.">
+        <GovernorateInflation />
       </Section>
 
       <Section id="indices" title="الأرقام القياسية للأسعار" lead="مستوى الأسعار نفسه لا نسبة تغيّره: للمستهلك وللمنتج، ومقارنةً بالخليج.">
@@ -78,6 +77,12 @@ export default function OmanPricesPage() {
           { value: 'ppi-inf', label: 'تضخم المنتج', subtitle: '% سنويًا، فصلي', lines: [on('ncsi.PPI_INFLATION', 'تضخم أسعار المنتج')] },
           { value: 'gcc', label: 'المستهلك مع الخليج', subtitle: '2010 = 100، سنوي — البنك الدولي', from: '2000', lines: gccLines('wb.FP.CPI.TOTL') },
         ]} />
+      </Section>
+
+      <PurchasingPowerSections />
+
+      <Section id="gulf" title="عُمان والخليج: الأسعار والمعيشة" lead="أين تقف عُمان بين الدول الست في التضخم ومستوى الأسعار والدخل الحقيقي؟">
+        <ScoreTable rows={GULF_ROWS} title="بطاقة الأسعار والمعيشة الخليجية" subtitle="آخر قيمة فعلية — صندوق النقد والبنك الدولي" note="الأخضر الأفضل بين الدول الست (التضخم ومستوى الأسعار الأدنى أفضل، والدخل بتعادل القوة الشرائية ونمو الاستهلاك الأعلى أفضل). الترتيب نسبي لا مطلق." />
       </Section>
     </>
   );

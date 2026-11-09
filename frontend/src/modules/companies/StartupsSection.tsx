@@ -5,6 +5,7 @@ import { Empty, ErrorState, Loading } from '@/core/components/States';
 import { SourceNote } from '@/core/components/SourceNote';
 import { formatNumber } from '@/core/format';
 import { useStartups, useStartupStats, type CountItem } from '@/core/hooks';
+import { StatLabel } from '@/core/components/IndicatorIcon';
 
 const bars = (items: CountItem[], limit = 12) => items.slice(0, limit).map((i, n) => ({ key: i.label, rank: n + 1, label: i.label, value: i.count, color: 'var(--series-1)' }));
 
@@ -36,9 +37,9 @@ export function StartupsSection() {
       </p>
       {s && (
         <div className="grid cols-4">
-          <div className="card stat"><span className="stat-label">تعلن المنصة عن</span><span className="stat-value num">{s.platform_count != null ? formatNumber(s.platform_count, 0) : '—'}</span><span className="muted">شركة ناشئة · {s.platform_links != null ? `${formatNumber(s.platform_links, 0)} رابطًا في المنظومة` : ''}</span></div>
-          <div className="card stat"><span className="stat-label">المتاح هنا</span><span className="stat-value num">{formatNumber(s.total, 0)}</span><span className="muted">من لقطة القائمة الكاملة</span></div>
-          <div className="card stat"><span className="stat-label">أكثر ما تبحث عنه</span><span className="stat-value" style={{ fontSize: 20 }}>{s.seeking[0]?.label ?? '—'}</span><span className="muted">{s.seeking[0] ? `${formatNumber(s.seeking[0].count, 0)} شركة` : ''}</span></div>
+          <div className="card stat"><StatLabel>تعلن المنصة عن</StatLabel><span className="stat-value num">{s.platform_count != null ? formatNumber(s.platform_count, 0) : '—'}</span><span className="muted">شركة ناشئة · {s.platform_links != null ? `${formatNumber(s.platform_links, 0)} رابطًا في المنظومة` : ''}</span></div>
+          <div className="card stat"><StatLabel>المتاح هنا</StatLabel><span className="stat-value num">{formatNumber(s.total, 0)}</span><span className="muted">من لقطة القائمة الكاملة</span></div>
+          <div className="card stat"><StatLabel>أكثر ما تبحث عنه</StatLabel><span className="stat-value" style={{ fontSize: 20 }}>{s.seeking[0]?.label ?? '—'}</span><span className="muted">{s.seeking[0] ? `${formatNumber(s.seeking[0].count, 0)} شركة` : ''}</span></div>
         </div>
       )}
 

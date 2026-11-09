@@ -12,6 +12,7 @@ import { ThemeProfile } from './ThemeProfile';
 import { GlobalIndicesSummary } from './GlobalIndicesSummary';
 import { inCell, PositionMatrix, type MatrixCell } from './PositionMatrix';
 import { Priorities } from './Priorities';
+import { StatLabel } from '@/core/components/IndicatorIcon';
 
 type Filter = InsightGroup | 'all';
 
@@ -54,7 +55,7 @@ export default function InsightsPage() {
           <div className="grid cols-4 insight-tiles">
             {(['strength', 'opportunity', 'challenge', 'watch'] as const).map((g) => (
               <button key={g} className={`card tile tile-${g}`} aria-pressed={filter === g} onClick={() => setFilter(filter === g ? 'all' : g)}>
-                <span className="stat-label">{GROUP_LABEL[g]}</span>
+                <StatLabel>{GROUP_LABEL[g]}</StatLabel>
                 <span className="stat-value num">{formatNumber(count(g), 0)}</span>
                 <span className="stat-meta">من {formatNumber(total, 0)} مؤشرًا · اضغط للتصفية</span>
               </button>

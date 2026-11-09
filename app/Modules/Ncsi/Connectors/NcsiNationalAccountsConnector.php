@@ -23,6 +23,22 @@ final class NcsiNationalAccountsConnector extends KnoemaConnector
 
     private const FISH = 1000070;
 
+    /** أنشطة هيكل الناتج (الحصة % فقط): النفطي وغير النفطي وفروعهما */
+    private const STRUCTURE = [
+        'PETRO' => [1000010, 'الأنشطة النفطية', 'Petroleum activities'],
+        'CRUDE' => [1000020, 'النفط الخام', 'Crude petroleum'],
+        'GAS' => [1000030, 'الغاز الطبيعي', 'Natural gas'],
+        'NON_PETRO' => [1000040, 'الأنشطة غير النفطية', 'Non-petroleum activities'],
+        'INDUSTRY' => [1000080, 'الأنشطة الصناعية', 'Industry activities'],
+        'SERVICES' => [1000210, 'الأنشطة الخدمية', 'Services activities'],
+        'MINING' => [1000090, 'التعدين واستغلال المحاجر', 'Mining and quarrying'],
+        'MANUF' => [1000140, 'الصناعات التحويلية', 'Manufacturing'],
+        'REFINED' => [1000150, 'المنتجات النفطية المكررة', 'Refined petroleum products'],
+        'UTILITIES' => [1000190, 'الكهرباء والمياه', 'Electricity and water'],
+        'CONSTRUCTION' => [1000200, 'التشييد والبناء', 'Construction'],
+        'TAXES' => [1000460, 'صافي الضرائب على المنتجات', 'Taxes less subsidies on products'],
+    ];
+
     /** مؤشرا «القيمة المضافة الإجمالية» و«الحصة النسبية %» (من الناتج) في بُعد المؤشرات */
     private const VALUE_ADDED = 1000250;
 
@@ -88,6 +104,12 @@ final class NcsiNationalAccountsConnector extends KnoemaConnector
             'FISH' => [self::FISH, 'الصيد', 'Fishing'],
         ];
         $series = [];
+        foreach (self::STRUCTURE as $code => [$member, $ar, $en]) {
+            foreach ([['', self::CURRENT, 'بالأسعار الجارية', 'current'], ['_CONST', self::CONSTANT, 'بالأسعار الثابتة', 'constant']] as [$suffix, $price, $arPrice, $enPrice]) {
+                $filters = ['economic-activity-of-non-petrol' => $member, 'institutional-sector' => self::TOTAL, 'price-type' => $price];
+                $series[] = new KnoemaSeries("GDP_SHARE_{$code}{$suffix}", "مساهمة {$ar} في الناتج المحلي {$arPrice}", "{$en}: share of GDP, {$enPrice}", '% من الناتج', 'A', self::SHARE, [new Range(-100, 100), new Completeness(0.1)], $filters);
+            }
+        }
         foreach ($activities as $code => [$member, $ar, $en]) {
             foreach ([['', self::CURRENT, 'بالأسعار الجارية', 'current'], ['_CONST', self::CONSTANT, 'بالأسعار الثابتة', 'constant']] as [$suffix, $price, $arPrice, $enPrice]) {
                 $filters = ['economic-activity-of-non-petrol' => $member, 'institutional-sector' => self::TOTAL, 'price-type' => $price];

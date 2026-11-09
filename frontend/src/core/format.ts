@@ -4,18 +4,25 @@ const TZ = 'Asia/Muscat';
 const LOCALE = 'ar-OM-u-nu-latn';
 
 const SCALES: [number, string][] = [
-  [1e12, 'تريليون'],
-  [1e9, 'مليار'],
-  [1e6, 'مليون'],
-  [1e3, 'ألف'],
+  [1e12, 'T'],
+  [1e9, 'B'],
+  [1e6, 'M'],
+  [1e3, 'K'],
 ];
+
+const WORD_SCALE: Record<string, string> = { تريليون: 'T', مليار: 'B', مليون: 'M', ألف: 'K', آلاف: 'K', ملايين: 'M', مليارات: 'B' };
+
+/** يستبدل كلمة المقياس في وحدة بحرفها اللاتيني: «مليار ريال» ← «B ريال»، «مليون ر.ع» ← «M ر.ع»، «ألف طن» ← «K طن». */
+export function shortUnit(unit: string): string {
+  return unit.replace(/(^|[\s(])(تريليون|مليار|مليون|ألف)(?=$|[\s)])/gu, (_, pre: string, w: string) => `${pre}${WORD_SCALE[w]}`);
+}
 
 export function formatNumber(v: number, maxDigits = 2): string {
   if (!Number.isFinite(v)) return '—';
   return new Intl.NumberFormat('en-US', { maximumFractionDigits: maxDigits }).format(v);
 }
 
-/** عدد كبير مختصرًا بالعربية: 21,208,630,443 → «21.2 مليار». */
+/** عدد كبير مختصرًا بالعربية: 21,208,630,443 → «21.2 B». */
 export function compact(v: number, digits = 1): string {
   if (!Number.isFinite(v)) return '—';
   const abs = Math.abs(v);
@@ -25,7 +32,7 @@ export function compact(v: number, digits = 1): string {
   return formatNumber(v, abs >= 100 ? 0 : digits);
 }
 
-/** رقم وكلمة المقياس منفصلان، كي يُرتَّبا صحيحًا في سياق عربي: «21.2» ثم «مليار» (الرقم أولًا من اليمين). */
+/** رقم وكلمة المقياس منفصلان، كي يُرتَّبا صحيحًا في سياق عربي: «21.2» ثم «B». */
 export function compactParts(v: number, digits = 1): { num: string; word: string | null } {
   if (!Number.isFinite(v)) return { num: '—', word: null };
   const abs = Math.abs(v);

@@ -22,6 +22,8 @@ interface Props {
   /** المؤشر الذي يتأثر بسعر النفط (رصيد الميزانية، الحساب الجاري…) */
   indicator: string;
   yLabel: string;
+  /** بعرض الشبكة كلها */
+  wide?: boolean;
 }
 
 const LAST = Number(lastActualYear());
@@ -30,7 +32,7 @@ const LAST = Number(lastActualYear());
  * حساسية مؤشر عُماني لسعر النفط: كل سنة نقطة (متوسط سعر نفط عُمان السنوي، قيمة المؤشر)، وخط انحدار بالمربعات الصغرى.
  * تقدير إحصائي وصفي للعلاقة التاريخية، لا توقع ولا علاقة سببية؛ ويُعرض معامل التحديد وعدد السنوات ليحكم القارئ.
  */
-export function OilFiscalSensitivity({ title, indicator, yLabel }: Props) {
+export function OilFiscalSensitivity({ title, indicator, yLabel, wide }: Props) {
   const lines = useMemo<LineSpec[]>(
     () => [
       { indicator: 'ncsi.OIL_PRICE', entity: 'OMN', label: 'نفط عُمان' },
@@ -62,6 +64,7 @@ export function OilFiscalSensitivity({ title, indicator, yLabel }: Props) {
 
   return (
     <ChartCard
+      wide={wide}
       title={title}
       subtitle="كل نقطة سنة؛ المحور الأفقي متوسط سعر نفط عُمان السنوي"
       datasets={datasets}

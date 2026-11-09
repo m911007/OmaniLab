@@ -24,7 +24,7 @@ export function ReadingStrip({ keys }: { keys: readonly string[] }) {
  * صفحة مجمِّعة: موضوع واحد بتبويبات، يُحمَّل كل تبويب عند فتحه، وتظهر صفحاته الداخلية دون عنوان مكرر (EmbeddedContext).
  * التبويب جزء من الرابط (/fiscal/revenue) فيمكن مشاركته، والخلاصة (بطاقات القراءة) أعلى الصفحة قبل التفاصيل.
  */
-export function HubPage({ section, title, lead, base, tabs, readings, related, tab: forced }: { section: string; title: string; lead: string; base: string; tabs: readonly HubTab[]; readings?: readonly string[]; related?: readonly [string, string][]; tab?: string }) {
+export function HubPage({ section, title, lead, base, tabs, readings, headline, related, tab: forced }: { section: string; title: string; lead: string; base: string; tabs: readonly HubTab[]; readings?: readonly string[]; headline?: ReactNode; related?: readonly [string, string][]; tab?: string }) {
   const params = useParams();
   const slug = forced ?? params.tab;
   const current = tabs.find((t) => t.slug === slug) ?? tabs[0];
@@ -37,6 +37,7 @@ export function HubPage({ section, title, lead, base, tabs, readings, related, t
         {tabs.length > 1 && <> <span aria-hidden="true">›</span> <span aria-current="page">{current.label}</span></>}
       </nav>
       <PageHead title={tabs.length > 1 ? `${title}: ${current.label}` : title} lead={lead} />
+      {headline}
       {readings && readings.length > 0 && <ReadingStrip keys={readings} />}
       {tabs.length > 1 && (
         <nav className="hub-tabs" aria-label={`أقسام ${title}`}>

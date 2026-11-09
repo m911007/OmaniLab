@@ -4,6 +4,7 @@ import { PageHead } from '@/core/components/PageHead';
 import { Empty } from '@/core/components/States';
 import { INDEX_GROUPS, INDICES } from './data';
 import { gccPosition, omanRankOf, standingPct, TIER_META, tierOf, totalOf, type IndexInfo, type Tier } from './types';
+import { StatLabel } from '@/core/components/IndicatorIcon';
 
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -124,22 +125,22 @@ export default function IndicesPage() {
 
       <div className="grid cols-4 insight-tiles">
         <button className="card tile tile-strength" aria-pressed={tier === 'top'} onClick={() => setTier(tier === 'top' ? 'all' : 'top')}>
-          <span className="stat-label">ضمن الأفضل (أعلى 30%)</span>
+          <StatLabel>ضمن الأفضل (أعلى 30%)</StatLabel>
           <span className="stat-value num">{counts.top}</span>
           <span className="stat-meta">من {ranked.length} مؤشرًا مرتّبًا · اضغط للتصفية</span>
         </button>
         <button className="card tile tile-watch" aria-pressed={tier === 'mid'} onClick={() => setTier(tier === 'mid' ? 'all' : 'mid')}>
-          <span className="stat-label">وسط الترتيب</span>
+          <StatLabel>وسط الترتيب</StatLabel>
           <span className="stat-value num">{counts.mid}</span>
           <span className="stat-meta">مجال واضح للتقدم</span>
         </button>
         <button className="card tile tile-challenge" aria-pressed={tier === 'low'} onClick={() => setTier(tier === 'low' ? 'all' : 'low')}>
-          <span className="stat-label">متأخرة (أدنى 35%)</span>
+          <StatLabel>متأخرة (أدنى 35%)</StatLabel>
           <span className="stat-value num">{counts.low}</span>
           <span className="stat-meta">أولويات للتحسين</span>
         </button>
         <div className="card tile">
-          <span className="stat-label">متوسط موقع عُمان</span>
+          <StatLabel>متوسط موقع عُمان</StatLabel>
           <span className="stat-value num">{avg}%</span>
           <span className="stat-meta">
             تتفوق على {avg}% من الدول في المتوسط · أول أو ثاني خليجيًا في <span className="num">{gccLead}</span> مؤشرًا

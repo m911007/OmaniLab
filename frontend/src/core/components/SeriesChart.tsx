@@ -5,6 +5,11 @@ import type { Explanation } from '../explain';
 import { resolveExplanation } from '../resolveExplanation';
 import { ChartCard, type ViewOption } from './ChartCard';
 import { ColumnChartView } from './ColumnChartView';
+import { CompositionPie, categoriesOf } from './CompositionPie';
+import { RankView } from './RankView';
+import { modesFor, type Mode } from '../chartModes';
+import { OilToggle } from './OilToggle';
+import { BARS_ICON, LINES_ICON, PIE_ICON, RANK_ICON, STACK_ICON } from './Segmented';
 import { useOilOverlay } from '../oilOverlay';
 import { LineChartView } from './LineChartView';
 import { Empty, ErrorState, Loading } from './States';
@@ -52,7 +57,9 @@ export interface RangeOption {
 
 /** مخطط معرَّف بالتكوين: يجلب خطوطه ويرسمها مع مصدرها وحداثتها وجدولها البديل. هكذا تُضاف الرسوم دون كود رسم جديد. */
 export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, imfForecast, forecastFromYear, note, callout, height, last, explain, primary: primaryCode = 'OMN', oil: showOil = false, ranges, defaultRange, wide, extraActions }: Props) {
-  const oilOverlay = useOilOverlay(showOil);
+  const [oilOn, setOilOn] = useState(true);
+  const oilOverlay = useOilOverlay(showOil && oilOn);
+  const [pieAt, setPieAt] = useState<string | null>(null);
   const [rangeKey, setRangeKey] = useState<string>(defaultRange ?? ranges?.[0]?.value ?? '');
   const rangeFrom = useMemo(() => {
     const r = ranges?.find((x) => x.value === rangeKey);
@@ -82,7 +89,7 @@ export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, i
   const compareLines = useMemo<LineSpec[]>(() => [...lines, ...extra.filter((c) => !lines.some((l) => l.entity === c)).map((entity) => ({ indicator: lines[0].indicator, entity }))], [lines, extra]);
   const activeLines = !comparable ? lines : view === 'oman' ? omanLines : compareLines;
   const primary = useLines(activeLines, range);
-  const altSource = alt && alt !== baseIndicator && view !== 'compare' && view !== 'table' ? detailQuery.data?.sources.find((x) => x.indicator === alt) : undefined;
+  const altSource = alt && alt !== baseIndicator && view !== 'compare' && view !== 'rank' && view !== 'table' ? detailQuery.data?.sources.find((x) => x.indicator === alt) : undefined;
   const { indicators } = primary;
   const series = useMemo<SeriesItem[]>(() => {
     if (!altSource) return primary.series;
@@ -98,7 +105,7 @@ export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, i
   const forecastFrom = useMemo(() => {
     if (forecastFromYear) return forecastFromYear;
     if (!imfForecast) return undefined;
-    const imf = datasets.find((d) => d.key === 'imf.weo');
+    const imf = datasets.find((d) => d.key === 'imf.weo' || d.key === 'imf.fiscal_monitor');
     const m = imf?.freshness.source_version?.match(/(\d{4})\)?\s*$/);
     return m ? Number(m[1]) : undefined;
   }, [imfForecast, forecastFromYear, datasets]);
@@ -112,6 +119,21 @@ export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, i
     };
   }, [tableSeries, unit]);
 
+  // أوضاع العرض: الأساسي بحسب نوع الرسم، وما يناسب بياناته من بدائل (أعمدة للكميات السنوية، خطوط/دائري للمكدّس…)؛ ما لا يناسب لا يُعرض.
+  const modes = useMemo<Mode[]>(() => (comparable ? [] : modesFor(kind, series, unit)), [comparable, kind, series, unit]);
+  const hasAlt = modes.length > 2;
+  const primaryMode: Mode = kind === 'stacked' ? 'stack' : kind === 'columns' ? 'bars' : 'lines';
+  const mode: Mode = view === 'chart' || !modes.includes(view as Mode) ? primaryMode : (view as Mode);
+  const MODE_OPTION: Record<string, ViewOption> = {
+    lines: { value: 'lines', label: 'خطوط', icon: LINES_ICON },
+    bars: { value: 'bars', label: 'أعمدة', icon: BARS_ICON },
+    stack: { value: 'stack', label: 'مكدّس مع الإجمالي', icon: STACK_ICON },
+    pie: { value: 'pie', label: 'دائري حسب الفترة', icon: PIE_ICON },
+  };
+  const modeViews: ViewOption[] | undefined = hasAlt
+    ? modes.map((m) => (m === 'table' ? { value: 'table', label: 'جدول' } : m === primaryMode ? { ...MODE_OPTION[m], value: 'chart' } : MODE_OPTION[m]))
+    : undefined;
+
   const fullSubtitle = [subtitle, unit].filter(Boolean).join(' — ');
   // شرح مكتوب للرسم نفسه إن وُجد، وإلا يُولَّد من شرح مؤشراته (وعائلتها)، وإلا شرح عام من بيانات المؤشر.
   const explanation = useMemo<Explanation | null>(
@@ -123,9 +145,10 @@ export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, i
     ? [
         { value: 'oman', label: primaryLabel },
         { value: 'compare', label: 'مقارنة مع دول أخرى' },
+        { value: 'rank', label: 'ترتيب بآخر قيمة', icon: RANK_ICON },
         { value: 'table', label: 'جدول' },
       ]
-    : undefined;
+    : modeViews;
 
   return (
     <ChartCard
@@ -137,11 +160,11 @@ export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, i
       callout={callout}
       explain={explanation ?? undefined}
       wide={wide}
-      actions={ranges || extraActions ? (<>{extraActions}{ranges ? <Segmented label="النطاق الزمني" value={rangeKey} onChange={setRangeKey} options={ranges.map((r) => ({ value: r.value, label: r.label }))} /> : null}</>) : undefined}
+      actions={ranges || extraActions || showOil ? (<>{showOil ? <OilToggle on={oilOn} onChange={setOilOn} /> : null}{extraActions}{ranges ? <Segmented label="النطاق الزمني" value={rangeKey} onChange={setRangeKey} options={ranges.map((r) => ({ value: r.value, label: r.label }))} /> : null}</>) : undefined}
       views={views}
       defaultView={comparable ? 'oman' : 'chart'}
       onViewChange={setView}
-      extra={(v) => (comparable && v === 'compare' ? <AddCountries lines={lines} extra={extra} onChange={setExtra} /> : null)}
+      extra={(v) => (comparable && (v === 'compare' || v === 'rank') ? <AddCountries lines={lines} extra={extra} onChange={setExtra} /> : null)}
     >
       {() => (
         <>
@@ -151,10 +174,14 @@ export function SeriesChart({ title, subtitle, lines, kind = 'line', from, to, i
             <ErrorState error={primary.error} />
           ) : series.length === 0 ? (
             <Empty />
-          ) : kind === 'line' ? (
+          ) : comparable && view === 'rank' ? (
+            <RankView series={series} unit={unit} highlight={primaryCode} />
+          ) : !comparable && mode === 'pie' ? (
+            <CompositionPie series={series} categories={categoriesOf(series)} unit={unit} period={pieAt} onPeriod={setPieAt} />
+          ) : (comparable ? kind === 'line' : mode === 'lines') ? (
             <LineChartView series={series} unit={unit} forecastFrom={forecastFrom} height={height} oil={oilOverlay} />
           ) : (
-            <ColumnChartView series={series} unit={unit} stacked={kind === 'stacked'} height={height} last={last} oil={oilOverlay} />
+            <ColumnChartView series={series} unit={unit} forecastFrom={forecastFrom} stacked={kind === 'stacked' && (comparable || mode === 'stack')} height={height} last={last} oil={oilOverlay} totalLabel={!comparable && mode === 'stack' ? 'الإجمالي' : undefined} signColors={kind === 'columns' && series.length === 1 && series[0].points.some((p) => p[1] < 0) && series[0].points.some((p) => p[1] > 0)} />
           )}
           {group && (
             <SourcesPanel

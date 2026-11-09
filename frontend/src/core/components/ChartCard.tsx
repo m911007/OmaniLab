@@ -6,12 +6,17 @@ import { chartKeyOf, useExplanationOverride } from '../explanationOverrides';
 import { ChartTools } from './ChartTools';
 import { DataTable, toCsv, type TableData } from './DataTable';
 import { ExplainPanel } from './ExplainPanel';
-import { CHART_ICON, Segmented, TABLE_ICON } from './Segmented';
+import { BALANCE_ICON, BARS_ICON, CHART_ICON, LINES_ICON, PIE_ICON, Segmented, SHARE_ICON, STACK_ICON, TABLE_ICON } from './Segmented';
+
+/** أيقونات أوضاع العرض المعروفة؛ ما سواها يظهر نصًا. */
+const VIEW_ICONS: Record<string, ReactNode> = { table: TABLE_ICON, chart: CHART_ICON, lines: LINES_ICON, stack: STACK_ICON, pie: PIE_ICON, bars: BARS_ICON, balance: BALANCE_ICON, share: SHARE_ICON };
 import { SourceNote } from './SourceNote';
 
 export interface ViewOption {
   value: string;
   label: string;
+  /** أيقونة خاصة بهذا الوضع (تغلب الأيقونة المعروفة بحسب القيمة) */
+  icon?: ReactNode;
 }
 
 interface Props {
@@ -96,7 +101,7 @@ export function ChartCard({ title, subtitle, datasets, children, table, note, ca
                 setView(v);
                 onViewChange?.(v);
               }}
-              options={options.map((o) => (o.value === 'table' ? { ...o, icon: TABLE_ICON } : o.value === 'chart' ? { ...o, icon: CHART_ICON } : o))}
+              options={options.map((o) => (o.icon || VIEW_ICONS[o.value] ? { ...o, icon: o.icon ?? VIEW_ICONS[o.value] } : o))}
             />
           )}
         </div>

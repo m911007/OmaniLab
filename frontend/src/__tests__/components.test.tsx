@@ -65,7 +65,7 @@ describe('الأرقام المختصرة', () => {
   it('الرقم داخل عنصر معزول والكلمة خارجه', () => {
     const { container } = render(<Compact v={21_208_630_443} />);
     expect(container.querySelector('.num')?.textContent).toBe('21.2');
-    expect(container.textContent).toBe('21.2 مليار');
+    expect(container.textContent).toBe('21.2 B');
   });
 });
 

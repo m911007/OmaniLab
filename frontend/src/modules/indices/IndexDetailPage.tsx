@@ -4,6 +4,7 @@ import { PageHead } from '@/core/components/PageHead';
 import { Loading } from '@/core/components/States';
 import { INDICES, loadRanking } from './data';
 import { GCC_NAMES, gccPosition, omanRankOf, standingPct, TIER_META, tierOf, totalOf, type RankingRow } from './types';
+import { StatLabel } from '@/core/components/IndicatorIcon';
 
 const PAGE = 20;
 const GCC_EN = /saudi|emirates|qatar|kuwait|bahrain|^oman$/i;
@@ -60,10 +61,10 @@ export default function IndexDetailPage() {
       <p className="no-print"><Link to="/indices">← كل المؤشرات العالمية</Link></p>
 
       <div className="grid cols-4 insight-tiles">
-        <div className="card tile"><span className="stat-label">ترتيب عُمان</span><span className="stat-value num">{rank ?? '—'}</span><span className="stat-meta">{total ? <>من <span className="num">{total}</span> دولة</> : 'غير مرتّبة'}</span></div>
-        <div className="card tile"><span className="stat-label">الدرجة</span><span className="stat-value num">{info.score ?? (info.omanScore ?? '—')}</span><span className="stat-meta">{info.scaleMax ? <>من <span className="num">{info.scaleMax}</span></> : ' '}</span></div>
-        <div className="card tile"><span className="stat-label">الموقع الخليجي</span><span className="stat-value num">{gcc ? gcc.rank : '—'}</span><span className="stat-meta">{gcc ? <>من <span className="num">{gcc.of}</span> دول خليجية</> : 'غير متاح'}</span></div>
-        <div className="card tile"><span className="stat-label">التصنيف</span><span className="stat-value"><span className={`chip ${meta.chip}`}>{meta.icon} {meta.label}</span></span><span className="stat-meta">{pct != null ? <>تتفوق على <span className="num">{pct}%</span> من الدول</> : ' '}</span></div>
+        <div className="card tile"><StatLabel>ترتيب عُمان</StatLabel><span className="stat-value num">{rank ?? '—'}</span><span className="stat-meta">{total ? <>من <span className="num">{total}</span> دولة</> : 'غير مرتّبة'}</span></div>
+        <div className="card tile"><StatLabel>الدرجة</StatLabel><span className="stat-value num">{info.score ?? (info.omanScore ?? '—')}</span><span className="stat-meta">{info.scaleMax ? <>من <span className="num">{info.scaleMax}</span></> : ' '}</span></div>
+        <div className="card tile"><StatLabel>الموقع الخليجي</StatLabel><span className="stat-value num">{gcc ? gcc.rank : '—'}</span><span className="stat-meta">{gcc ? <>من <span className="num">{gcc.of}</span> دول خليجية</> : 'غير متاح'}</span></div>
+        <div className="card tile"><StatLabel>التصنيف</StatLabel><span className="stat-value"><span className={`chip ${meta.chip}`}>{meta.icon} {meta.label}</span></span><span className="stat-meta">{pct != null ? <>تتفوق على <span className="num">{pct}%</span> من الدول</> : ' '}</span></div>
       </div>
 
       {info.trend && <p className="lead" style={{ marginTop: 14 }}>{info.trendDir === 'up' ? '↗' : info.trendDir === 'down' ? '↘' : '→'} {info.trend}</p>}

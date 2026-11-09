@@ -6,6 +6,7 @@ import { Empty, ErrorState, Loading } from '@/core/components/States';
 import { compact, formatNumber } from '@/core/format';
 import { useFirmStats, useFirms } from '@/core/hooks';
 import type { FirmRow, Money } from '@/core/api';
+import { StatLabel } from '@/core/components/IndicatorIcon';
 
 export const moneyText = (m?: Money): string => (m ? `${compact(m.amount)} ${m.currency ?? ''}${m.year ? ` (${m.year})` : ''}` : '—');
 
@@ -62,10 +63,10 @@ export default function WorldFirmsPage() {
 
       {stats.data && (
         <div className="grid cols-4 insight-tiles">
-          <div className="card tile"><span className="stat-label">الشركات الموثّقة</span><span className="stat-value num">{formatNumber(stats.data.total, 0)}</span><span className="stat-meta">تتزايد مع كل دفعة جلب</span></div>
-          <div className="card tile"><span className="stat-label">الدول المغطّاة</span><span className="stat-value num">{formatNumber(stats.data.countries.length, 0)}</span><span className="stat-meta">من نحو 200</span></div>
-          <div className="card tile"><span className="stat-label">أكبر الدول عددًا</span><span className="stat-value" style={{ fontSize: 18 }}>{stats.data.countries.slice(0, 3).map((c) => c.name_ar ?? c.name_en).join('، ') || '—'}</span></div>
-          <div className="card tile"><span className="stat-label">أكثر القطاعات</span><span className="stat-value" style={{ fontSize: 18 }}>{stats.data.industries.slice(0, 2).map((i) => i.name).join('، ') || '—'}</span></div>
+          <div className="card tile"><StatLabel>الشركات الموثّقة</StatLabel><span className="stat-value num">{formatNumber(stats.data.total, 0)}</span><span className="stat-meta">تتزايد مع كل دفعة جلب</span></div>
+          <div className="card tile"><StatLabel>الدول المغطّاة</StatLabel><span className="stat-value num">{formatNumber(stats.data.countries.length, 0)}</span><span className="stat-meta">من نحو 200</span></div>
+          <div className="card tile"><StatLabel>أكبر الدول عددًا</StatLabel><span className="stat-value" style={{ fontSize: 18 }}>{stats.data.countries.slice(0, 3).map((c) => c.name_ar ?? c.name_en).join('، ') || '—'}</span></div>
+          <div className="card tile"><StatLabel>أكثر القطاعات</StatLabel><span className="stat-value" style={{ fontSize: 18 }}>{stats.data.industries.slice(0, 2).map((i) => i.name).join('، ') || '—'}</span></div>
         </div>
       )}
 

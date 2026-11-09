@@ -4,6 +4,7 @@ import { PageHead } from '@/core/components/PageHead';
 import { ErrorState, Loading } from '@/core/components/States';
 import { formatDateTime, formatNumber, relativeTime } from '@/core/format';
 import { useDatasets, useOverview } from '@/core/hooks';
+import { StatLabel } from '@/core/components/IndicatorIcon';
 
 const RUN_LABEL: Record<string, string> = { running: 'جارٍ', unchanged: 'دون تغيير', staged: 'بانتظار الاعتماد', quarantined: 'محجوز', promoted: 'معتمد', failed: 'فشل' };
 const RUN_TONE: Record<string, string> = { promoted: 'good', unchanged: 'neutral', running: 'neutral', staged: 'neutral', quarantined: 'warning', failed: 'critical' };
@@ -38,7 +39,7 @@ export default function StatusPage() {
             ['الكيانات (دول ومجموعات)', overview.counts.entities],
           ].map(([label, n]) => (
             <div className="card stat" key={label}>
-              <span className="stat-label">{label}</span>
+              <StatLabel>{label}</StatLabel>
               <span className="stat-value num">{formatNumber(Number(n), 0)}</span>
             </div>
           ))}

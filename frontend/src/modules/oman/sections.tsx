@@ -4,7 +4,6 @@ import { TABLE_ICON } from '@/core/components/Segmented';
 import { SwitchChart } from '@/core/components/SwitchChart';
 import { gccLines } from '@/core/groups';
 import { oman } from '@/core/lines';
-import { CreditRatings } from './CreditRatings';
 import { GrowthAnalysis } from './GrowthAnalysis';
 import { PopulationExplorer } from './PopulationExplorer';
 
@@ -49,28 +48,6 @@ export function StructureSection() {
             { value: 'cons', label: 'الاستهلاك الحكومي', subtitle: '% من الناتج', from: '2000', lines: gccLines('wb.NE.CON.GOVT.ZS') },
           ]} />
         </Section>
-  );
-}
-
-export function FiscalSection() {
-  return (
-    <>
-      <CreditRatings />
-          <Section id="fiscal" title="المالية العامة">
-            <SwitchChart wide height={H} title="المالية العامة" variants={[
-              { value: 'debt', label: 'الدين الحكومي', subtitle: '% من الناتج — الخط المتقطع توقعات', lines: oman('imf.GGXWDG_NGDP', 'عُمان'), from: '2005', oil: true, imfForecast: true },
-              { value: 'balance', label: 'رصيد الميزانية', subtitle: '% من الناتج', lines: oman('imf.GGXCNL_NGDP', 'عُمان'), from: '2005', oil: true, imfForecast: true },
-              { value: 'rev-exp', label: 'الإيرادات والمصروفات', subtitle: '% من الناتج — مرصد المالية العامة (الخط المتقطع توقعات)', from: '2000', imfForecast: true, oil: true, lines: [on('imf.GGR_G01_GDP_PT', 'الإيرادات', 'var(--series-3)'), on('imf.G_X_G01_GDP_PT', 'المصروفات', 'var(--series-2)')] },
-              { value: 'primary', label: 'الرصيد الأولي', subtitle: '% من الناتج — قبل الفوائد', from: '2000', imfForecast: true, oil: true, lines: [on('imf.GGXONLB_G01_GDP_PT', 'الرصيد الأولي'), on('imf.GGXCNL_G01_GDP_PT', 'الرصيد الكلي')] },
-              { value: 'net-debt', label: 'صافي الدين', subtitle: '% من الناتج — الدين مطروحًا منه الأصول السائلة', from: '2000', imfForecast: true, oil: true, lines: [on('imf.G_XWDG_G01_GDP_PT', 'إجمالي الدين', 'var(--series-2)'), on('imf.GGXWDN_G01_GDP_PT', 'صافي الدين', 'var(--series-1)')] },
-              { value: 'interest', label: 'الفوائد والمصروف الأولي', subtitle: '% من الناتج — سلسلة صندوق النقد الطويلة', from: '1990', lines: [on('imf.ie', 'الفوائد المدفوعة', 'var(--series-4)'), on('imf.prim_exp', 'المصروفات الأولية', 'var(--series-1)')] },
-              { value: 'peers-debt', label: 'الدين: الخليج', subtitle: '% من الناتج', from: '2005', imfForecast: true, lines: gccLines('imf.GGXWDG_NGDP') },
-              { value: 'peers-bal', label: 'الميزانية: الخليج', subtitle: '% من الناتج', from: '2005', imfForecast: true, lines: gccLines('imf.GGXCNL_NGDP') },
-              { value: 'private-debt', label: 'دين القطاع الخاص', subtitle: '% من الناتج — قروض وسندات', from: '2000', lines: [on('imf.PVD_LS', 'القطاع الخاص'), on('imf.CG_DEBT_GDP', 'الحكومة المركزية')] },
-              { value: 'tax', label: 'إيرادات الضرائب', subtitle: '% من الناتج', lines: oman('wb.GC.TAX.TOTL.GD.ZS', 'عُمان'), from: '2000' },
-            ]} />
-          </Section>
-    </>
   );
 }
 

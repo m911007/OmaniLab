@@ -5,6 +5,7 @@ import { axisNumber, formatPeriod, formatValue, shortPeriod, yearOf } from '../f
 import { dashFor } from '../colors';
 import { oilAt, type OilOverlay } from '../oilOverlay';
 import { ChartTooltip } from './ChartTooltip';
+import { ForecastBand } from './ForecastBand';
 import { Segmented } from './Segmented';
 
 export const OIL_COLOR = 'var(--text-secondary)';
@@ -57,8 +58,8 @@ export const MAX_LINES = 4;
  */
 export function LineChartView({ series, unit, height = 280, forecastFrom, zeroLine = true, oil = null }: Props) {
   const many = series.length > MAX_LINES;
-  const [hidden, setHidden] = useState<Set<string>>(() => new Set(many ? series.slice(MAX_LINES).map((s) => s.id) : []));
-  const [mode, setMode] = useState<'band' | 'lines'>(many ? 'band' : 'lines');
+  const [hidden, setHidden] = useState<Set<string>>(() => new Set());
+  const [mode, setMode] = useState<'band' | 'lines'>('lines');
   const [scale, setScale] = useState<'dual' | 'indexed'>('dual');
   const [smooth, setSmooth] = useState<'0' | '3' | '12'>('0');
 
@@ -82,6 +83,8 @@ export function LineChartView({ series, unit, height = 280, forecastFrom, zeroLi
   // خطوط متعددة تبدأ من أول فترة مشتركة، فتنطلق كلها من الموضع نفسه ويسهل مقارنتها (لا تُقصّ إلا إن بقيت 5 نقاط فأكثر).
   const { aligned, startedAt } = useMemo(() => alignStart(drawn), [drawn]);
   const { rows: baseRows, hasForecast } = useMemo(() => buildRows(aligned, forecastFrom), [aligned, forecastFrom]);
+  const forecastBefore = forecastFrom ? [...baseRows].reverse().find((r) => yearOf(r.period) < forecastFrom)?.period : undefined;
+  const forecastStart = forecastFrom ? baseRows.find((r) => yearOf(r.period) >= forecastFrom)?.period : undefined;
   const rows = useMemo<Row[]>(() => {
     const oilBase = indexed && oil && baseRows[0] ? oilAt(oil, baseRows[0].period) : null;
     const raw = smoothN > 1 ? new Map(series.flatMap((s) => (indexed ? rebase(s.points) : s.points).map((p): [string, number] => [`${s.id}|${p[0]}`, p[1]]))) : null;
@@ -180,35 +183,36 @@ export function LineChartView({ series, unit, height = 280, forecastFrom, zeroLi
       <div className="chart-wrap" style={{ height }} role="img" aria-label={summary}>
         <ResponsiveContainer>
           <ComposedChart data={rows} margin={{ top: 8, right: sideLabels ? GUTTER : dualAxis ? 4 : labelEnds ? 48 : 12, bottom: 0, left: 0 }}>
-            <CartesianGrid vertical={false} stroke="var(--grid)" />
+            <CartesianGrid vertical={false} stroke="var(--grid)" strokeDasharray="2 6" strokeOpacity={0.7} />
             <XAxis dataKey="period" tickFormatter={shortPeriod} stroke="var(--text-muted)" tick={{ fontSize: 13 }} tickLine={false} axisLine={{ stroke: 'var(--border)' }} minTickGap={28} />
             <YAxis tickFormatter={axisNumber} stroke="var(--text-muted)" tick={{ fontSize: 13 }} tickLine={false} axisLine={false} width={54} domain={['auto', 'auto']} />
             {dualAxis && oil && <YAxis yAxisId="oil" orientation="right" tickFormatter={axisNumber} stroke={OIL_COLOR} tick={{ fontSize: 12, fill: OIL_COLOR }} tickLine={false} axisLine={false} width={40} domain={[0, 'auto']} label={{ value: 'النفط $', angle: 0, position: 'insideTopRight', offset: 0, fontSize: 11, fill: OIL_COLOR }} />}
-            <Tooltip content={<ChartTooltip unit={shownUnit} />} cursor={{ stroke: 'var(--text-muted)', strokeDasharray: '3 3' }} />
+            <Tooltip content={<ChartTooltip unit={shownUnit} forecastFrom={forecastFrom} />} cursor={{ stroke: 'var(--text-muted)', strokeDasharray: '3 3' }} />
             {zeroLine && crossesZero && <ReferenceLine y={0} stroke="var(--text-muted)" strokeWidth={1} />}
             {indexed && <ReferenceLine y={100} stroke="var(--text-muted)" strokeDasharray="2 3" />}
+            {hasForecast && forecastBefore && forecastStart && <Customized component={<ForecastBand before={forecastBefore} after={forecastStart} />} />}
             {band && <Area dataKey="__band" name="نطاق بقية الدول" stroke="none" fill="var(--text-muted)" fillOpacity={0.16} connectNulls isAnimationActive={false} activeDot={false} legendType="none" tooltipType="none" />}
             {band && <Line dataKey="__mid" name="وسيط بقية الدول" stroke="var(--text-muted)" strokeWidth={1.5} strokeDasharray="4 3" dot={false} connectNulls isAnimationActive={false} />}
             {visible.length === 1 && !band && (
               <>
                 <defs>
                   <linearGradient id={`fill-${visible[0].id.replace(/\W/g, '_')}`} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor={visible[0].color} stopOpacity={0.28} />
-                    <stop offset="100%" stopColor={visible[0].color} stopOpacity={0.02} />
+                    <stop offset="0%" stopColor={visible[0].color} stopOpacity={0.34} />
+                    <stop offset="100%" stopColor={visible[0].color} stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <Area dataKey={visible[0].id} stroke="none" fill={`url(#fill-${visible[0].id.replace(/\W/g, '_')})`} connectNulls isAnimationActive={false} legendType="none" tooltipType="none" activeDot={false} />
+                <Area type="monotone" dataKey={visible[0].id} stroke="none" fill={`url(#fill-${visible[0].id.replace(/\W/g, '_')})`} connectNulls isAnimationActive={false} legendType="none" tooltipType="none" activeDot={false} />
               </>
             )}
             {smoothN > 1 && visible.map((s) => <Line key={`${s.id}__raw`} dataKey={`${s.id}__raw`} name={`${s.label} (الأصل)`} stroke={s.color} strokeOpacity={0.3} strokeWidth={1.2} dot={false} connectNulls isAnimationActive={false} />)}
             {visible.map((s) => (
-              <Line key={s.id} dataKey={s.id} name={s.label} stroke={s.color} strokeWidth={visible.length > 1 ? (s.id === visible[0].id ? 3.2 : 1.8) : 2.5} strokeOpacity={visible.length > 1 && s.id !== visible[0].id ? 0.92 : 1} strokeDasharray={visible.length > 1 ? dashFor(s.color) : undefined} strokeLinecap="round" strokeLinejoin="round" dot={false} activeDot={{ r: 5, stroke: 'var(--surface-1)', strokeWidth: 2 }} connectNulls isAnimationActive={false} label={labelEnds && !hasForecast ? endLabel(s.id) : undefined} />
+              <Line key={s.id} type="monotone" dataKey={s.id} name={s.label} stroke={s.color} strokeWidth={visible.length > 1 ? (s.id === visible[0].id ? 3.6 : 2.2) : 3} strokeOpacity={visible.length > 1 && s.id !== visible[0].id ? 0.92 : 1} strokeDasharray={visible.length > 1 ? dashFor(s.color) : undefined} strokeLinecap="round" strokeLinejoin="round" dot={false} activeDot={{ r: 6, stroke: 'var(--surface-1)', strokeWidth: 2.5 }} connectNulls isAnimationActive={false} label={labelEnds && !hasForecast ? endLabel(s.id) : undefined} />
             ))}
             {sideLabels && <Customized component={<SideLabels series={visible} unit={shownUnit} />} />}
             {oil && <Line yAxisId={dualAxis ? 'oil' : undefined} dataKey="__oil" name={oil.label} stroke={OIL_COLOR} strokeWidth={2} strokeDasharray="2 4" strokeLinecap="round" dot={false} activeDot={{ r: 4 }} connectNulls isAnimationActive={false} />}
             {hasForecast &&
               visible.map((s) => (
-                <Line key={`${s.id}__f`} dataKey={`${s.id}__f`} name={s.label} stroke={s.color} strokeWidth={2} strokeDasharray="5 4" dot={false} activeDot={{ r: 4, stroke: 'var(--surface-1)', strokeWidth: 2 }} connectNulls isAnimationActive={false} />
+                <Line key={`${s.id}__f`} type="monotone" dataKey={`${s.id}__f`} name={s.label} stroke={s.color} strokeOpacity={0.7} strokeWidth={2.2} strokeDasharray="2 5" strokeLinecap="round" dot={{ r: 3.5, fill: 'var(--surface-1)', stroke: s.color, strokeWidth: 1.8 }} activeDot={{ r: 5, stroke: 'var(--surface-1)', strokeWidth: 2 }} connectNulls isAnimationActive={false} />
               ))}
           </ComposedChart>
         </ResponsiveContainer>
@@ -217,7 +221,7 @@ export function LineChartView({ series, unit, height = 280, forecastFrom, zeroLi
       {oil && dualAxis && <p className="muted" style={{ fontSize: 12 }}>الخط المتقطع الرمادي (المحور الأيمن «النفط $»): {oil.label} للمقارنة مع حركة المؤشر. لمقارنة الاتجاه على محور واحد اختر «مؤشَّر = 100».</p>}
       {oil && indexed && <p className="muted" style={{ fontSize: 12 }}>المؤشر وسعر النفط معًا على محور واحد: كلاهما = 100 في أول فترة، فيظهر أيهما تحرك أكثر.</p>}
       {smoothN > 1 && <p className="muted" style={{ fontSize: 12 }}>الخط الواضح متوسط متحرك لآخر {smoothN} أشهر، والباهت القيم الشهرية الأصلية.</p>}
-      {hasForecast && forecastFrom && <p className="muted" style={{ fontSize: 12 }}>الخط المتقطع: توقعات من عام {forecastFrom}.</p>}
+      {hasForecast && forecastFrom && <p className="muted" style={{ fontSize: 12 }}>الخط المنقّط بنقاط مجوّفة والخلفية الخافتة: توقعات من عام {forecastFrom}، وما قبلها قيم فعلية.</p>}
     </div>
   );
 }

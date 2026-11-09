@@ -1,5 +1,6 @@
 import type { LatestItem } from '../api';
-import { changeBetween, formatNumber, formatPeriod, formatValue } from '../format';
+import { changeBetween, formatNumber, formatPeriod, formatValue, shortUnit } from '../format';
+import { StatLabel, TrendArrow } from './IndicatorIcon';
 import { Compact } from './Compact';
 import { SourceBadge } from './SourceBadge';
 import { Sparkline } from './Sparkline';
@@ -17,7 +18,6 @@ interface Props {
   spark?: readonly number[];
 }
 
-const ARROW = { up: '▲', down: '▼', flat: '■' } as const;
 
 /** رقم رئيسي بتغيّره عن الفترة السابقة، وترتيبه بين الدول، وفترته ومصدره. */
 export function StatCard({ label, item, loading, compactValue, goodWhen, spark }: Props) {
@@ -25,7 +25,7 @@ export function StatCard({ label, item, loading, compactValue, goodWhen, spark }
   if (!item) {
     return (
       <div className="card stat">
-        <span className="stat-label">{label}</span>
+        <StatLabel>{label}</StatLabel>
         <span className="muted">لا توجد بيانات</span>
       </div>
     );
@@ -33,24 +33,28 @@ export function StatCard({ label, item, loading, compactValue, goodWhen, spark }
   const change = item.previous ? changeBetween(item.value, item.previous.value, item.indicator.unit) : null;
   const tone = !change || change.direction === 'flat' || !goodWhen ? 'var(--text-secondary)' : change.direction === goodWhen ? 'var(--good)' : 'var(--critical)';
 
+  const toneClass = tone === 'var(--good)' ? 'good' : tone === 'var(--critical)' ? 'bad' : 'flat';
+
   return (
     <div className="card stat" aria-label={label}>
-      <span className="stat-label">{label}</span>
+      <StatLabel>{label}</StatLabel>
       <span className="stat-line">
         <span>
           <span className="stat-value">{compactValue ? <Compact v={item.value} /> : <span className="num">{formatValue(item.value, item.indicator.unit)}</span>}</span>
-          <span className="stat-unit">{item.indicator.unit}</span>
+          <span className="stat-unit"><bdi>{shortUnit(item.indicator.unit ?? '')}</bdi></span>
         </span>
         {spark && spark.length > 1 && <Sparkline values={spark} color={tone === 'var(--text-secondary)' ? 'var(--accent)' : tone} />}
       </span>
       {change && item.previous && (
-        <span className="stat-delta" style={{ color: tone }}>
-          <span aria-hidden="true">{ARROW[change.direction]}</span>
-          <span>
-            <span className="num">{change.amount}</span>
-            {change.suffix !== '%' ? ` ${change.suffix}` : <span className="num">%</span>}
+        <span className="stat-deltarow">
+          <span className={`stat-delta reading-delta ${toneClass}`} style={{ color: tone }}>
+            <TrendArrow direction={change.direction} />
+            <span>
+              <span className="num">{change.direction === 'flat' ? '' : change.direction === 'up' ? '+' : '−'}{change.amount}</span>
+              {change.suffix !== '%' ? ` ${change.suffix}` : <span className="num">%</span>}
+            </span>
           </span>
-          <span className="muted">عن {formatPeriod(item.previous.period)}</span>
+          <span className="reading-since">{/^\d{4}$/.test(item.previous.period) ? `عن عام ${item.previous.period}` : `عن ${formatPeriod(item.previous.period)}`}</span>
         </span>
       )}
       <span className="stat-meta">

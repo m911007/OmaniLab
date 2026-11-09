@@ -1,6 +1,6 @@
 import { ReadingGrid } from '@/core/components/ReadingGrid';
 import { KeyStat } from '@/core/components/KeyStat';
-import { PageHead, Section } from '@/core/components/PageHead';
+import { Section } from '@/core/components/PageHead';
 import { SwitchChart } from '@/core/components/SwitchChart';
 import { formatNumber, formatPeriod } from '@/core/format';
 import { useLatest } from '@/core/hooks';
@@ -27,13 +27,17 @@ function RialValue() {
   );
 }
 
-export default function PurchasingPowerPage() {
+/**
+ * القوة الشرائية: قسم تحت «الأرقام القياسية للأسعار» في صفحة الأسعار والمعيشة (لا صفحة مستقلة):
+ * كم يشتري الدخل فعلًا؟ نقيسه بتعادل القوة الشرائية، ونقارن مستوى الأسعار بأمريكا، ونتتبع أثر الغلاء على قيمة الريال.
+ */
+export function PurchasingPowerSections() {
   return (
     <>
-      <PageHead
-        title="القوة الشرائية"
-        lead="كم يشتري الدخل فعلًا؟ الدولار الاسمي يخدع عند مقارنة الدول لأن الأسعار تختلف؛ لذا نقيس الدخل بتعادل القوة الشرائية، ونقارن مستوى الأسعار بأمريكا، ونتتبع غلاء المعيشة وأثره على قيمة الريال."
-      />
+      <section className="section" id="purchasing" aria-labelledby="purchasing-h">
+        <h2 id="purchasing-h">القوة الشرائية: ماذا يشتري الدخل بعد الأسعار؟</h2>
+        <p className="lead">الدولار الاسمي يخدع عند مقارنة الدول لأن الأسعار تختلف؛ لذا نقيس الدخل بتعادل القوة الشرائية، ونقارن مستوى الأسعار بأمريكا، ونتتبع أثر الغلاء على قيمة الريال.</p>
+      </section>
 
       <ReadingGrid>
         <KeyStat entity="OMN" indicator="wb.NY.GDP.PCAP.PP.CD" label="نصيب الفرد بتعادل القوة الشرائية" compactValue />
@@ -60,7 +64,7 @@ export default function PurchasingPowerPage() {
         ]} />
       </Section>
 
-      <Section id="real" title="هل ينمو الدخل أسرع من الأسعار؟" lead="نمو الدخل والاستهلاك بعد استبعاد التضخم: فوق الصفر تحسّن حقيقي في المعيشة، وتحته تراجع. التضخم وبنوده في تبويب «التضخم والأسعار».">
+      <Section id="real" title="هل ينمو الدخل أسرع من الأسعار؟" lead="نمو الدخل والاستهلاك بعد استبعاد التضخم: فوق الصفر تحسّن حقيقي في المعيشة، وتحته تراجع. التضخم وبنوده في الأقسام أعلاه.">
         <SwitchChart wide height={H} title="النمو الحقيقي للفرد" variants={[
           { value: 'gdp', label: 'نصيب الفرد من الناتج', subtitle: '% سنويًا بالأسعار الثابتة', kind: 'columns', last: 15, from: '2005', lines: gccLines('wb.NY.GDP.PCAP.KD.ZG') },
           { value: 'cons', label: 'استهلاك الفرد', subtitle: '% سنويًا بالأسعار الثابتة', kind: 'columns', last: 15, from: '2005', lines: gccLines('wb.NE.CON.PRVT.PC.KD.ZG') },

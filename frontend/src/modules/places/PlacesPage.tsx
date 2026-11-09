@@ -8,6 +8,7 @@ import { formatNumber } from '@/core/format';
 import { gccLines, peerLines } from '@/core/groups';
 import { oman } from '@/core/lines';
 import { usePlaceStats, usePlaces } from '@/core/hooks';
+import { StatLabel } from '@/core/components/IndicatorIcon';
 
 const GROUPS = [
   { id: 'government', label: 'المؤسسات الحكومية', lead: 'الدوائر والمقار والمحاكم والشرطة والدفاع المدني والبريد والسفارات، كما هي مسجّلة في الخريطة المفتوحة، مع مؤشرات جودة الحوكمة والإنفاق الحكومي.' },
@@ -69,7 +70,7 @@ export default function PlacesPage() {
           <div className="grid cols-4 insight-tiles">
             {categories.map((c) => (
               <button key={c.key} className="card tile tile-strength" aria-pressed={category === c.key} onClick={() => { setCategory(category === c.key ? '' : c.key); setPage(1); setGovernorate(''); }}>
-                <span className="stat-label">{c.ar}</span>
+                <StatLabel>{c.ar}</StatLabel>
                 <span className="stat-value num">{formatNumber(c.count, 0)}</span>
                 <span className="stat-meta">مسجَّل في الخريطة · اضغط للتصفية</span>
               </button>

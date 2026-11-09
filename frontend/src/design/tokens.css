@@ -38,6 +38,10 @@
   --warning-bg: #3d3010;
   --critical-bg: #442324;
 
+  --forecast-bg: #e5a82309;
+  --forecast-line: #e5a823;
+  --forecast-ink: #e5c46a;
+
   --radius: 18px;
   --shadow: 0 12px 35px rgb(0 0 0 / 0.11);
   --font: 'Tajawal', 'IBM Plex Sans Arabic', 'Noto Sans Arabic', 'Segoe UI', Tahoma, system-ui, sans-serif;
@@ -62,6 +66,9 @@
   --hero-border: #b4dcdc;
   --card-bg: #ffffff;
   --kpi-bg: linear-gradient(145deg, #ffffff, #f1f7f9);
+  --forecast-bg: #c98a000d;
+  --forecast-line: #b07a00;
+  --forecast-ink: #8a6000;
   --series-1: #2a6fe0;
   --series-2: #c9620f;
   --series-3: #0f8f5f;

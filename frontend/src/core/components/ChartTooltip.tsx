@@ -1,4 +1,4 @@
-import { axisNumber, formatPeriod, formatValue } from '../format';
+import { axisNumber, formatPeriod, formatValue, yearOf } from '../format';
 
 interface Entry {
   dataKey?: string | number;
@@ -10,7 +10,7 @@ interface Entry {
 }
 
 /** تلميح موحّد: الفترة، ثم صف لكل سلسلة (دون تكرار خط التوقعات). */
-export function ChartTooltip({ active, payload, label, unit }: { active?: boolean; payload?: Entry[]; label?: string | number; unit?: string | null }) {
+export function ChartTooltip({ active, payload, label, unit, forecastFrom }: { active?: boolean; payload?: Entry[]; label?: string | number; unit?: string | null; forecastFrom?: number }) {
   if (!active || !payload?.length) return null;
   const seen = new Set<string>();
   const rows = payload.filter((p) => {
@@ -22,7 +22,10 @@ export function ChartTooltip({ active, payload, label, unit }: { active?: boolea
 
   return (
     <div className="tooltip">
-      <div className="t-head">{formatPeriod(String(label))}</div>
+      <div className="t-head">
+        {formatPeriod(String(label))}
+        {forecastFrom !== undefined && yearOf(String(label)) >= forecastFrom && <span className="t-forecast">توقعات</span>}
+      </div>
       {rows.map((p) => (
         <div className="t-row" key={String(p.dataKey)}>
           <span className="t-name">

@@ -5,6 +5,7 @@ import { api, apiSend, apiUpload } from '@/core/api';
 import { Loading, ErrorState } from '@/core/components/States';
 import { useAuth } from '@/core/auth';
 import { formatDateTime, formatNumber } from '@/core/format';
+import { StatLabel } from '@/core/components/IndicatorIcon';
 
 interface OrgPrice {
   id: number;
@@ -55,10 +56,10 @@ function BenchmarkPanel({ price, orgId }: { price: OrgPrice; orgId: number }) {
   return (
     <div className="mi-bench">
       <div className="grid cols-4 insight-tiles">
-        <div className="card tile"><span className="stat-label">ما تدفعه الجهة</span><span className="stat-value num">{r.paid_omr_per_node_unit != null ? formatNumber(r.paid_omr_per_node_unit, 2) : '—'}<small className="stat-unit">ر.ع/{u}</small></span><span className="stat-meta">{r.unit_compatible ? '' : `وحدة السعر (${price.unit}) لا تتحول إلى ${u}`}</span></div>
-        <div className="card tile"><span className="stat-label">نطاق السوق (واصل تقديري)</span><span className="stat-value num">{r.range ? formatNumber(r.range.median, 2) : '—'}<small className="stat-unit">ر.ع</small></span><span className="stat-meta">{r.range ? `${formatNumber(r.range.min, 2)}–${formatNumber(r.range.max, 2)} · ${r.range.n} مرجع` : 'لا مراجع سعرية بالمستوى لهذه العقدة'}</span></div>
-        <div className={`card tile ${r.position && r.position.gap_vs_median > 0.05 ? 'mi-insight high' : r.position && r.position.gap_vs_median < -0.05 ? 'mi-insight low' : ''}`}><span className="stat-label">موقع السعر</span><span className="stat-value" style={{ fontSize: 18 }}>{r.position?.label ?? '—'}</span><span className="stat-meta">{r.position ? `${pct(r.position.gap_vs_median)} عن الوسيط` : ''}</span></div>
-        <div className="card tile"><span className="stat-label">فرصة التوفير التقديرية</span><span className="stat-value num">{r.savings_vs_median_omr ? formatNumber(r.savings_vs_median_omr, 0) : '—'}<small className="stat-unit">ر.ع</small></span><span className="stat-meta">{price.quantity ? 'لو اشتُريت الكمية بوسيط السوق' : 'أدخل الكمية لحسابها'}</span></div>
+        <div className="card tile"><StatLabel>ما تدفعه الجهة</StatLabel><span className="stat-value num">{r.paid_omr_per_node_unit != null ? formatNumber(r.paid_omr_per_node_unit, 2) : '—'}<small className="stat-unit">ر.ع/{u}</small></span><span className="stat-meta">{r.unit_compatible ? '' : `وحدة السعر (${price.unit}) لا تتحول إلى ${u}`}</span></div>
+        <div className="card tile"><StatLabel>نطاق السوق (واصل تقديري)</StatLabel><span className="stat-value num">{r.range ? formatNumber(r.range.median, 2) : '—'}<small className="stat-unit">ر.ع</small></span><span className="stat-meta">{r.range ? `${formatNumber(r.range.min, 2)}–${formatNumber(r.range.max, 2)} · ${r.range.n} مرجع` : 'لا مراجع سعرية بالمستوى لهذه العقدة'}</span></div>
+        <div className={`card tile ${r.position && r.position.gap_vs_median > 0.05 ? 'mi-insight high' : r.position && r.position.gap_vs_median < -0.05 ? 'mi-insight low' : ''}`}><StatLabel>موقع السعر</StatLabel><span className="stat-value" style={{ fontSize: 18 }}>{r.position?.label ?? '—'}</span><span className="stat-meta">{r.position ? `${pct(r.position.gap_vs_median)} عن الوسيط` : ''}</span></div>
+        <div className="card tile"><StatLabel>فرصة التوفير التقديرية</StatLabel><span className="stat-value num">{r.savings_vs_median_omr ? formatNumber(r.savings_vs_median_omr, 0) : '—'}<small className="stat-unit">ر.ع</small></span><span className="stat-meta">{price.quantity ? 'لو اشتُريت الكمية بوسيط السوق' : 'أدخل الكمية لحسابها'}</span></div>
       </div>
 
       {r.should_cost && (

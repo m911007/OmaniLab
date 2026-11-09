@@ -38,13 +38,13 @@ export const NAV: NavGroup[] = [
       { to: '/fiscal', label: 'المالية العامة', icon: svg('M4 6h16M4 12h16M4 18h10') },
       { to: '/money', label: 'النقد والمصارف', icon: svg('M12 3v18M17 7H9.5a2.5 2.5 0 000 5h5a2.5 2.5 0 010 5H7') },
       { to: '/external', label: 'القطاع الخارجي', icon: svg('M3 7h13l-3-3m3 3l-3 3M21 17H8l3-3m-3 3l3 3') },
+      { to: '/trade', label: 'التجارة والشركاء', icon: svg('M3 7h18M3 12h18M3 17h18M7 4v16M17 4v16') },
     ],
   },
   {
     title: 'السكان والمجتمع',
     items: [
-      { to: '/population', label: 'السكان', icon: svg('M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM22 21v-2a4 4 0 00-3-3.9M16 3.1a4 4 0 010 7.8') },
-      { to: '/labour', label: 'سوق العمل والتعمين', icon: svg('M3 7h18v13H3zM8 7V4h8v3M3 13h18') },
+      { to: '/population', label: 'السكان والعمل', icon: svg('M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM22 21v-2a4 4 0 00-3-3.9M16 3.1a4 4 0 010 7.8') },
       { to: '/human', label: 'التعليم والصحة والتنمية', icon: svg('M12 2a4 4 0 100 8 4 4 0 000-8zM4 22v-2a8 8 0 0116 0v2') },
       { to: '/governance', label: 'الحوكمة والرقمنة', icon: svg('M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z') },
     ],

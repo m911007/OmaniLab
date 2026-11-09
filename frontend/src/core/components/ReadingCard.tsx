@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import type { Reading, VerdictLevel } from '../api';
 import { relatedTo } from '../relations';
 import { RelatedPanel } from './RelatedPanel';
-import { formatNumber } from '../format';
+import { formatNumber, shortUnit } from '../format';
 import { FreshnessBadge } from './FreshnessBadge';
+import { IndicatorIcon, TrendArrow } from './IndicatorIcon';
 import { Sparkline } from './Sparkline';
 
 const VERDICT: Record<VerdictLevel, { cls: string; icon: string }> = {
@@ -25,7 +26,7 @@ export function changeTone(previous: number, current: number, polarity: string |
   return current > previous ? 'good' : 'bad';
 }
 
-const withUnit = (v: number, r: Reading) => `${formatNumber(v, r.digits)}${r.unit.startsWith('%') ? r.unit : ` ${r.unit}`}`;
+const withUnit = (v: number, r: Reading) => `${formatNumber(v, r.digits)}${r.unit.startsWith('%') ? r.unit : ` ${shortUnit(r.unit)}`}`;
 
 /** يمنع التركيز والقراءة الآلية في الوجه المخفي من البطاقة المقلوبة. */
 function useInert(hidden: boolean) {
@@ -55,6 +56,8 @@ export function ReadingCard({ reading: r, variant = 'flip' }: { reading: Reading
   const diff = rawDiff !== null && Math.abs(rawDiff) < 0.5 * 10 ** -r.digits ? 0 : rawDiff;
   const tone = r.previous && diff !== 0 ? changeTone(r.previous.value, r.value, r.polarity) : 'flat';
   const rate = r.unit.startsWith('%');
+  // التغيّر النسبي عن الفترة السابقة؛ للمعدلات (%) يُعرض الفرق بالنقاط بدل النسبة
+  const pct = !rate && r.previous && r.previous.value !== 0 && diff !== null ? (diff / Math.abs(r.previous.value)) * 100 : null;
   const verdictTitle = r.verdict ? `الحكم مبني على: ${r.verdict.basis.map((b) => (b === 'history' ? 'تاريخ المؤشر' : 'دول الخليج')).join(' و')}` : 'لا يُحكم على هذا المؤشر بجيد أو سيئ؛ يُعرض للمعرفة';
 
   const chip = verdict && r.verdict ? (
@@ -71,18 +74,25 @@ export function ReadingCard({ reading: r, variant = 'flip' }: { reading: Reading
       <div className="reading-value">
         <div>
           <b className="num">{formatNumber(r.value, r.digits)}</b>
-          <span className="reading-unit">{r.unit}</span>
+          <span className="reading-unit"><bdi>{shortUnit(r.unit)}</bdi></span>
         </div>
         {r.spark.length > 2 && <Sparkline values={r.spark.map((p) => p[1])} width={variant === 'flip' ? 72 : 96} height={variant === 'flip' ? 26 : 30} color={verdict ? `var(--${verdict.cls === 'neutral' ? 'accent' : verdict.cls})` : 'var(--accent)'} />}
       </div>
       <div className="reading-meta">
-        <span>{r.period_label}</span>
+        <span className="reading-period">{r.period_label}</span>
         {r.previous && diff !== null && (
-          <span className={`reading-delta ${tone}`}>
-            <span aria-hidden="true">{diff > 0 ? '▲' : diff < 0 ? '▼' : '■'}</span>{' '}
-            {diff === 0 ? 'دون تغيّر' : <><bdi className="num">{formatNumber(Math.abs(diff), r.digits)}</bdi>{rate ? ' نقطة' : ''}</>} عن {r.previous.period_label}
+          <span className={`reading-delta ${tone}`} title={`عن ${r.previous.period_label}`}>
+            <TrendArrow direction={diff > 0 ? 'up' : diff < 0 ? 'down' : 'flat'} />
+            {diff === 0 ? (
+              'ثابت'
+            ) : pct !== null ? (
+              <bdi className="num">{`${diff > 0 ? '+' : '−'}${formatNumber(Math.abs(pct), Math.abs(pct) < 10 ? 1 : 0)}%`}</bdi>
+            ) : (
+              <><bdi className="num">{`${diff > 0 ? '+' : '−'}${formatNumber(Math.abs(diff), r.digits)}`}</bdi>{rate ? ' نقطة' : ''}</>
+            )}
           </span>
         )}
+        {r.previous && <span className="reading-since">{/^\d{4}$/.test(r.previous.period_label) ? `عن عام ${r.previous.period_label}` : `عن ${r.previous.period_label}`}</span>}
       </div>
     </>
   );
@@ -127,6 +137,7 @@ export function ReadingCard({ reading: r, variant = 'flip' }: { reading: Reading
     return (
       <article className={`card reading-card${r.verdict ? ` verdict-${r.verdict.level}` : ''}`} aria-label={r.label}>
         <header className="reading-head">
+          <IndicatorIcon label={r.label} />
           <h3>{r.label}</h3>
           {chip}
         </header>
@@ -148,6 +159,7 @@ export function ReadingCard({ reading: r, variant = 'flip' }: { reading: Reading
       <div className="reading-inner">
         <div ref={frontRef} className={`card reading-card reading-face front${r.verdict ? ` verdict-${r.verdict.level}` : ''}`} aria-hidden={flipped}>
           <header className="reading-head">
+            <IndicatorIcon label={r.label} />
             <h3><Link to={`/indicator/${r.key}`} className="reading-title" title="صفحة المؤشر: الرسم الكامل والترتيب والعلاقات والمصدر">{r.label}</Link></h3>
             <button type="button" className="reading-flip-btn" onClick={() => setFlipped(true)} aria-label={`تفاصيل قراءة ${r.label}`} title="التفاصيل: لماذا هذا الحكم؟">؟</button>
           </header>

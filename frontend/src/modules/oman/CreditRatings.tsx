@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useSeries } from '@/core/hooks';
 import { formatNumber } from '@/core/format';
 import { BORROWING_NOTE, BORROWING_RATE, gradeColor, isInvestmentGrade, OMAN_RATINGS, RATING_YEARS } from './ratingData';
+import { StatLabel } from '@/core/components/IndicatorIcon';
 
 const AGENCIES: { key: 'sp' | 'moodys' | 'fitch'; label: string }[] = [
   { key: 'sp', label: 'S&P Global' },
@@ -25,13 +26,13 @@ export function CreditRatings() {
       <div className="grid cols-4 insight-tiles">
         {latest.map((a) => (
           <div key={a.key} className="card tile" style={{ borderInlineStartColor: gradeColor(a.rating[0]) }}>
-            <span className="stat-label">{a.label}</span>
+            <StatLabel>{a.label}</StatLabel>
             <span className="stat-value" dir="ltr">{a.rating[0] ?? '—'}</span>
             <span className="stat-meta">{a.rating[1] ? `نظرة ${a.rating[1]} · ` : ''}{isInvestmentGrade(a.rating[0]) ? 'درجة استثمارية' : 'درجة مضاربة'}</span>
           </div>
         ))}
         <div className="card tile">
-          <span className="stat-label">فائدة آخر سند دولي</span>
+          <StatLabel>فائدة آخر سند دولي</StatLabel>
           <span className="stat-value num">{lastRate != null ? `${formatNumber(lastRate, 3)}%` : '—'}</span>
           <span className="stat-meta">{lastRateNote ?? ''}</span>
         </div>

@@ -9,6 +9,7 @@ import { formatDateTime, formatNumber } from '@/core/format';
 import { CountryPicker } from './CountryPicker';
 import { bookmarkletCode, parseProductInput } from './productUrl';
 import { isPending, useCapabilities, usePrices, type Offer, type PriceResult } from './useMarketIntel';
+import { StatLabel } from '@/core/components/IndicatorIcon';
 
 const QUICK: { group: string; items: string[] }[] = [
   { group: 'تطبيقات وبرامج', items: ['Netflix', 'WhatsApp', 'Procreate', 'Microsoft Office'] },
@@ -145,11 +146,11 @@ export function PriceCompare() {
         ) : (
           <>
             <div className="grid cols-4 insight-tiles">
-              <div className="card tile"><span className="stat-label">الأرخص واصلًا إلى عُمان (افتراض)</span><span className="stat-value num">{formatNumber(bestLanded?.landed ?? 0, 3)}<small className="stat-unit">ر.ع</small></span><span className="stat-meta">{bestLanded?.store} · {bestLanded?.country_ar}</span></div>
-              <div className="card tile"><span className="stat-label">أرخص عرض داخل عُمان</span><span className="stat-value num">{omanBest ? formatNumber(omanBest.omr, 3) : '—'}<small className="stat-unit">ر.ع</small></span><span className="stat-meta">{omanBest ? `${omanBest.store}${bestLanded && omanBest.omr > bestLanded.landed ? ` · الاستيراد أوفر بـ${formatNumber((1 - bestLanded.landed / omanBest.omr) * 100, 0)}%` : ' · الأوفر محليًا'}` : 'لا عروض من عُمان'}</span></div>
-              <div className="card tile"><span className="stat-label">الوسيط (كل الدول)</span><span className="stat-value num">{formatNumber(result.summary.median ?? 0, 3)}<small className="stat-unit">ر.ع</small></span><span className="stat-meta">{result.summary.count} عرضًا</span></div>
+              <div className="card tile"><StatLabel>الأرخص واصلًا إلى عُمان (افتراض)</StatLabel><span className="stat-value num">{formatNumber(bestLanded?.landed ?? 0, 3)}<small className="stat-unit">ر.ع</small></span><span className="stat-meta">{bestLanded?.store} · {bestLanded?.country_ar}</span></div>
+              <div className="card tile"><StatLabel>أرخص عرض داخل عُمان</StatLabel><span className="stat-value num">{omanBest ? formatNumber(omanBest.omr, 3) : '—'}<small className="stat-unit">ر.ع</small></span><span className="stat-meta">{omanBest ? `${omanBest.store}${bestLanded && omanBest.omr > bestLanded.landed ? ` · الاستيراد أوفر بـ${formatNumber((1 - bestLanded.landed / omanBest.omr) * 100, 0)}%` : ' · الأوفر محليًا'}` : 'لا عروض من عُمان'}</span></div>
+              <div className="card tile"><StatLabel>الوسيط (كل الدول)</StatLabel><span className="stat-value num">{formatNumber(result.summary.median ?? 0, 3)}<small className="stat-unit">ر.ع</small></span><span className="stat-meta">{result.summary.count} عرضًا</span></div>
               <div className={`card tile mi-insight ${history.data?.insight?.verdict ?? ''}`}>
-                <span className="stat-label">حكم السعر (مقابل تاريخه)</span>
+                <StatLabel>حكم السعر (مقابل تاريخه)</StatLabel>
                 <span className="stat-value" style={{ fontSize: 18 }}>{history.data?.insight ? history.data.insight.label : 'يُبنى التاريخ مع كل مقارنة'}</span>
                 <span className="stat-meta">{history.data?.insight ? `المدى ${formatNumber(history.data.insight.low, 3)}–${formatNumber(history.data.insight.high, 3)} ر.ع · ${history.data.insight.n} جولة` : `${history.data?.rounds.length ?? 0} جولة حتى الآن (يلزم 4)`}</span>
               </div>

@@ -7,6 +7,7 @@ import { useCountryDirectory } from '@/core/hooks';
 import type { DirectoryRow } from '@/core/api';
 import { GrowthDrivers } from './GrowthDrivers';
 import { flagOf, INCOME_AR, incomeLabel, REGION_AR, regionLabel } from './labels';
+import { StatLabel } from '@/core/components/IndicatorIcon';
 
 type Col = 'name' | 'gdp' | 'gdp_pc' | 'population' | 'growth' | 'inflation' | 'debt' | 'trade';
 
@@ -94,11 +95,11 @@ export default function CountriesPage() {
       {data && (
         <>
           <div className="grid cols-4 insight-tiles">
-            <div className="card tile"><span className="stat-label">الدول والمناطق</span><span className="stat-value num">{formatNumber(rows.length, 0)}</span><span className="stat-meta">لها بيانات اقتصادية</span></div>
-            <div className="card tile"><span className="stat-label">الناتج العالمي</span><span className="stat-value num">${compact(world.gdp)}</span><span className="stat-meta">مجموع الدول بالدولار الجاري</span></div>
-            <div className="card tile"><span className="stat-label">سكان العالم</span><span className="stat-value num">{compact(world.pop)}</span><span className="stat-meta">مجموع الدول</span></div>
+            <div className="card tile"><StatLabel>الدول والمناطق</StatLabel><span className="stat-value num">{formatNumber(rows.length, 0)}</span><span className="stat-meta">لها بيانات اقتصادية</span></div>
+            <div className="card tile"><StatLabel>الناتج العالمي</StatLabel><span className="stat-value num">${compact(world.gdp)}</span><span className="stat-meta">مجموع الدول بالدولار الجاري</span></div>
+            <div className="card tile"><StatLabel>سكان العالم</StatLabel><span className="stat-value num">{compact(world.pop)}</span><span className="stat-meta">مجموع الدول</span></div>
             <div className="card tile">
-              <span className="stat-label">موقع عُمان</span>
+              <StatLabel>موقع عُمان</StatLabel>
               <span className="stat-value num">{omanRank('gdp') ?? '—'}</span>
               <span className="stat-meta">في حجم الاقتصاد · {omanRank('gdp_pc') ?? '—'} في نصيب الفرد · {omanRank('population') ?? '—'} في السكان</span>
             </div>

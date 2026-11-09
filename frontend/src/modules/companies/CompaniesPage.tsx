@@ -9,6 +9,7 @@ import { formatDate, formatNumber } from '@/core/format';
 import { useCompanies, useCompany, useCompanyStats, type CompanyQuery } from '@/core/hooks';
 import { StartupsSection } from './StartupsSection';
 import { ATTRIBUTE_LABELS, CATEGORY_AR, REGISTRATION_AR, STATUS_AR, label } from './labels';
+import { StatLabel } from '@/core/components/IndicatorIcon';
 
 export default function CompaniesPage() {
   const stats = useCompanyStats();
@@ -34,10 +35,10 @@ export default function CompaniesPage() {
 
       {stats.data && (
         <div className="grid cols-4">
-          <div className="card stat"><span className="stat-label">الكيانات المسجَّلة</span><span className="stat-value num">{formatNumber(stats.data.total, 0)}</span></div>
-          <div className="card stat"><span className="stat-label">النشطة</span><span className="stat-value num">{formatNumber(active, 0)}</span><span className="stat-meta">{formatNumber((active / Math.max(stats.data.total, 1)) * 100, 0)}% من الإجمالي</span></div>
-          <div className="card stat"><span className="stat-label">في محافظة مسقط</span><span className="stat-value num">{formatNumber(muscat, 0)}</span><span className="stat-meta">من الكيانات التي تحدد محافظتها</span></div>
-          <div className="card stat"><span className="stat-label">آخر تحديث للمصدر</span><span className="stat-value" style={{ fontSize: 18 }}>{formatDate(stats.data.dataset?.freshness.source_published_at)}</span></div>
+          <div className="card stat"><StatLabel>الكيانات المسجَّلة</StatLabel><span className="stat-value num">{formatNumber(stats.data.total, 0)}</span></div>
+          <div className="card stat"><StatLabel>النشطة</StatLabel><span className="stat-value num">{formatNumber(active, 0)}</span><span className="stat-meta">{formatNumber((active / Math.max(stats.data.total, 1)) * 100, 0)}% من الإجمالي</span></div>
+          <div className="card stat"><StatLabel>في محافظة مسقط</StatLabel><span className="stat-value num">{formatNumber(muscat, 0)}</span><span className="stat-meta">من الكيانات التي تحدد محافظتها</span></div>
+          <div className="card stat"><StatLabel>آخر تحديث للمصدر</StatLabel><span className="stat-value" style={{ fontSize: 18 }}>{formatDate(stats.data.dataset?.freshness.source_published_at)}</span></div>
         </div>
       )}
 

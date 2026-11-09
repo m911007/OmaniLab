@@ -16,6 +16,8 @@ const PricesLivingHub = hub('PricesLivingHub');
 const FiscalHub = hub('FiscalHub');
 const MoneyHub = hub('MoneyHub');
 const ExternalHub = hub('ExternalHub');
+const TradeHub = hub('TradeHub');
+const InvestmentHub = hub('InvestmentHub');
 const PopulationHub = hub('PopulationHub');
 const HumanHub = hub('HumanHub');
 const EnergyHub = hub('EnergyHub');
@@ -39,10 +41,8 @@ const StatusPage = lazy(() => import('@/modules/status/StatusPage'));
 const TourismPage = lazy(() => import('@/modules/tourism/TourismPage'));
 const InsightsPage = lazy(() => import('@/modules/insights/InsightsPage'));
 const CommoditiesPage = lazy(() => import('@/modules/commodities/CommoditiesPage'));
-const LabourPage = lazy(() => import('@/modules/labour/LabourPage'));
 const IndicesPage = lazy(() => import('@/modules/indices/IndicesPage'));
 const IndexDetailPage = lazy(() => import('@/modules/indices/IndexDetailPage'));
-const InvestmentPage = lazy(() => import('@/modules/investment/InvestmentPage'));
 const LoginPage = lazy(() => import('@/modules/account/LoginPage'));
 const RequestsPage = lazy(() => import('@/modules/account/RequestsPage'));
 const PlacesPage = lazy(() => import('@/modules/places/PlacesPage'));
@@ -67,7 +67,7 @@ export function App() {
             <Route element={<Shell />}>
               <Route index element={<HomePage />} />
               <Route path="commodities" element={<CommoditiesPage />} />
-              <Route path="labour" element={<LabourPage />} />
+              <Route path="labour" element={<Moved to="/population/labour" />} />
               <Route path="scorecard" element={<InsightsPage />} />
               <Route path="impact" element={<ImpactPage />} />
               <Route path="indicators" element={<IndicatorsPage />} />
@@ -76,8 +76,9 @@ export function App() {
               <Route path="insights" element={<Moved to="/scorecard" />} />
               <Route path="indices" element={<IndicesPage />} />
               <Route path="indices/:slug" element={<IndexDetailPage />} />
-              <Route path="purchasing-power" element={<Moved to="/prices-living/purchasing" />} />
-              <Route path="investment" element={<InvestmentPage />} />
+              <Route path="purchasing-power" element={<Navigate replace to={{ pathname: '/prices-living', hash: '#purchasing' }} />} />
+              <Route path="prices-living/purchasing" element={<Navigate replace to={{ pathname: '/prices-living', hash: '#purchasing' }} />} />
+              <Route path="investment/:tab?" element={<InvestmentHub />} />
               <Route path="login" element={<LoginPage />} />
               <Route path="requests" element={<RequestsPage />} />
               <Route path="settings" element={<SettingsPage />} />
@@ -100,25 +101,30 @@ export function App() {
               <Route path="market-intel/chains/:slug" element={<ChainsPage />} />
               <Route path="income-sources" element={<Moved to="/fiscal/revenue" />} />
               <Route path="oman" element={<Navigate replace to={{ pathname: '/', hash: '#topics' }} />} />
-              <Route path="growth" element={<GrowthHub />} />
+              <Route path="growth/:tab?" element={<GrowthHub />} />
               <Route path="prices-living/:tab?" element={<PricesLivingHub />} />
               <Route path="money/:tab?" element={<MoneyHub />} />
+              <Route path="external/trade" element={<Moved to="/trade" />} />
               <Route path="external/:tab?" element={<ExternalHub />} />
-              <Route path="population" element={<PopulationHub />} />
+              <Route path="population/:tab?" element={<PopulationHub />} />
+              <Route path="human/society" element={<Moved to="/human/health" />} />
+              <Route path="human/development" element={<Moved to="/human" />} />
               <Route path="human/:tab?" element={<HumanHub />} />
               <Route path="world/markets/:code?" element={<WorldHub tab="markets" />} />
               <Route path="world/:tab?" element={<WorldHub />} />
               <Route path="global/:tab?" element={<GlobalHub />} />
               <Route path="gcc" element={<GccPage />} />
               <Route path="peers" element={<PeersPage />} />
+              <Route path="fiscal/budget" element={<Moved to="/fiscal" />} />
               <Route path="fiscal/:tab?" element={<FiscalHub />} />
               <Route path="society" element={<Moved to="/human" />} />
               <Route path="tourism" element={<TourismPage />} />
+              <Route path="energy/energy" element={<Moved to="/energy/climate" />} />
               <Route path="energy/:tab?" element={<EnergyHub />} />
               <Route path="finance" element={<Moved to="/money/banks" />} />
               <Route path="governance" element={<GovernancePage />} />
-              <Route path="development" element={<Moved to="/human/development" />} />
-              <Route path="trade" element={<Moved to="/external/trade" />} />
+              <Route path="development" element={<Moved to="/human" />} />
+              <Route path="trade/:tab?" element={<TradeHub />} />
               <Route path="companies" element={<CompaniesPage />} />
               <Route path="markets/:code?" element={<Moved to="/world/markets/:code" />} />
               <Route path="status" element={<StatusPage />} />

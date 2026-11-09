@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class ObservationController extends Controller
 {
-    private const MAX_ENTITIES = 60;
+    private const MAX_ENTITIES = 200;
 
     /**
      * سلاسل مؤشر واحد لعدة كيانات: GET /api/v1/observations?indicator=imf.NGDP_RPCH&entities=OMN,SAU&from=2005
@@ -23,7 +23,7 @@ class ObservationController extends Controller
     {
         $data = $request->validate([
             'indicator' => ['required', 'string', 'max:128'],
-            'entities' => ['required', 'string', 'max:600'],
+            'entities' => ['required', 'string', 'max:2000'],
             'from' => ['nullable', 'string', 'regex:/^\d{4}(-\d{2})?$/'],
             'to' => ['nullable', 'string', 'regex:/^\d{4}(-\d{2})?$/'],
         ]);

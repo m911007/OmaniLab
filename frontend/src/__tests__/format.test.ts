@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { axisNumber, changeBetween, compactParts, entityName, formatPeriod, formatValue, relativeTime, shortPeriod, yearOf } from '@/core/format';
+import { shortUnit, axisNumber, changeBetween, compactParts, entityName, formatPeriod, formatValue, relativeTime, shortPeriod, yearOf } from '@/core/format';
 
 describe('تنسيق الأرقام', () => {
   it('يفصل الرقم عن كلمة المقياس لترتيب عربي صحيح', () => {
-    expect(compactParts(21_208_630_443)).toEqual({ num: '21.2', word: 'مليار' });
-    expect(compactParts(4_090_000)).toEqual({ num: '4.1', word: 'مليون' });
-    expect(compactParts(1_500)).toEqual({ num: '1.5', word: 'ألف' });
+    expect(compactParts(21_208_630_443)).toEqual({ num: '21.2', word: 'B' });
+    expect(compactParts(4_090_000)).toEqual({ num: '4.1', word: 'M' });
+    expect(compactParts(1_500)).toEqual({ num: '1.5', word: 'K' });
     expect(compactParts(42.5)).toEqual({ num: '42.5', word: null });
   });
 
@@ -55,5 +55,14 @@ describe('الفترات والتواريخ', () => {
   it('اسم الكيان عربي إن وُجد', () => {
     expect(entityName({ name_ar: 'عُمان', name_en: 'Oman' })).toBe('عُمان');
     expect(entityName({ name_ar: null, name_en: 'Taiwan' })).toBe('Taiwan');
+  });
+});
+
+describe('shortUnit', () => {
+  it('كلمة المقياس تصير حرفًا', () => {
+    expect(shortUnit('مليار ريال عُماني')).toBe('B ريال عُماني');
+    expect(shortUnit('مليون ر.ع')).toBe('M ر.ع');
+    expect(shortUnit('ألف طن')).toBe('K طن');
+    expect(shortUnit('% من الناتج')).toBe('% من الناتج');
   });
 });
